@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- Ant own build file                                                      -->
+<!-- ======================================================================= -->
+
+<project name="Ant" default="main" basedir=".">
+
+  <target name="init">
+    <property name="Name" value="Ant"/>
+    <property name="name" value="ant"/>
+    <property name="version" value="1.0-rc1"/>
+
+    <property name="ant.home" value="."/>
+    <property name="bin.dir" value="bin"/>
+    <property name="src.bin.dir" value="src/bin"/>
+    <property name="src.dir" value="${basedir}/src/main"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="docs.dir" value="docs"/>
+    <property name="build.dir" value="build"/>
+    <property name="build.classes" value="build/classes"/>
+    <property name="build.javadocs" value="build/javadocs"/>
+    <property name="ant.dist.dir" value="dist"/>
+
+    <property name="classpath" value="lib/xml.jar"/>
+    <property name="packages" value="org.apache.tools.*"/>
+    <property name="manifest" value="src/etc/manifest"/>
+
+    <property name="build.compiler" value="classic"/>
+
+    <!-- Give user a chance to override without editing this file 
+         (and without typing -D each time it compiles it -->
+    <property file="${user.home}/.ant.properties" />
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Prepares the build directory                                        -->
+  <!-- =================================================================== -->
+  <target name="prepare" depends="init">
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Compiles the source code                                            -->
+  <!-- =================================================================== -->
+  <target name="compile" depends="prepare">
+    <mkdir dir="${build.classes}"/>
+    <javac srcdir="${src.dir}"
+           destdir="${build.classes}"
+           classpath="${classpath}"
+           debug="on"
+           deprecation="on"
+           optimize="on"
+    />
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the jar archive                                             -->
+  <!-- =================================================================== -->
+  <target name="jar" depends="compile">
+    <jar jarfile="${lib.dir}/${name}.jar"
+         basedir="${build.classes}"
+         includes="org/**"
+         manifest="${manifest}"
+    />
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the binary structure                                        -->
+  <!-- =================================================================== -->
+  <target name="main" depends="jar">
+     <mkdir dir="${bin.dir}"/>
+     <copydir src="${src.bin.dir}" dest="${bin.dir}"/>
+     <chmod perm="+x" src="${bin.dir}/ant"/>
+     <chmod perm="+x" src="${bin.dir}/antRun"/>
+     <fixcrlf srcdir="${bin.dir}" includes="ant,antRun" cr="remove"/>
+     <fixcrlf srcdir="${bin.dir}" includes="*.bat" cr="add"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the API documentation                                       -->
+  <!-- =================================================================== -->
+  <target name="javadocs" depends="prepare">
+    <mkdir dir="${build.javadocs}"/>
+    <javadoc packagenames="${packages}"
+             sourcepath="${src.dir}"
+             destdir="${build.javadocs}"
+             author="true"
+             version="true"
+             windowtitle="${Name} API"
+             doctitle="${Name}"
+             bottom="Copyright &#169; 2000 Apache Software Foundation. All Rights Reserved."
+    />
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Creates the distribution                                            -->
+  <!-- =================================================================== -->
+  <target name="dist" depends="main,jar,javadocs">
+     <mkdir dir="${ant.dist.dir}"/>
+     <mkdir dir="${ant.dist.dir}/bin"/>
+     <mkdir dir="${ant.dist.dir}/lib"/>
+     <mkdir dir="${ant.dist.dir}/docs"/>
+     <mkdir dir="${ant.dist.dir}/docs/api"/>
+     <mkdir dir="${ant.dist.dir}/src"/>
+
+     <copydir src="${src.dir}" dest="${ant.dist.dir}/src"/>
+     <copydir src="${lib.dir}" dest="${ant.dist.dir}/lib"/>
+
+     <copyfile src="build.xml" dest="${ant.dist.dir}/lib/build.xml"/>
+     <copydir src="src/bin" dest="${ant.dist.dir}/bin"/>
+     <copydir src="${docs.dir}" dest="${ant.dist.dir}/docs"/>
+     <copydir src="${build.javadocs}" dest="${ant.dist.dir}/docs/api"/>
+
+     <chmod perm="+x" src="${ant.dist.dir}/bin/ant"/>
+     <chmod perm="+x" src="${ant.dist.dir}/bin/antRun"/>
+
+     <copyfile src="README" dest="${ant.dist.dir}/README"/>
+     <copyfile src="TODO" dest="${ant.dist.dir}/TODO"/>
+     <copyfile src="LICENSE" dest="${ant.dist.dir}/LICENSE"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Packages the distribution with ZIP                                  -->
+  <!-- =================================================================== -->
+  <target name="dist-zip" depends="dist">
+    <zip zipfile="${Name}-${version}.zip" basedir="${ant.dist.dir}" includes="**"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Packages the distribution with TAR-GZIP                             -->
+  <!-- =================================================================== -->
+  <target name="dist-tgz" depends="dist">
+    <tar tarfile="${Name}-${version}.tar" basedir="${ant.dist.dir}" includes="**"/>
+    <gzip zipfile="${Name}-${version}.tar.gz" src="${Name}-${version}.tar"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Cleans up generated stuff                                           -->
+  <!-- =================================================================== -->
+  <target name="clean" depends="init">
+    <deltree dir="${build.dir}"/>
+    <deltree dir="${ant.dist.dir}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Total cleanup                                                       -->
+  <!-- =================================================================== -->
+  <target name="total-clean" depends="clean">
+    <deltree dir="${bin.dir}"/>
+    <delete file="${lib.dir}/${name}.jar"/>
+    <delete file="${Name}-${version}.zip"/>
+    <delete file="${Name}-${version}.tar"/>
+    <delete file="${Name}-${version}.tar.gz"/>
+  </target>
+
+  <!-- in progress ! (may not work) -->
+
+  <target name="get.snapshot" depends="init">
+    <get src="http://jakarta.apache.org/build/tmp/ant/ant.src.zip" dest="ant-src.zip" />
+    <expand src="ant-src.zip" dest="." />
+  </target>
+
+  <target name="make.snapshot">
+    <cvs cvsRoot=":pserver:anoncvs@jakarta.apache.org:/home/cvspublic"
+         package="jakarta-ant"
+         dest="."  />
+    <zip zipfile="/www/jakarta.apache.org/builds/tmp/ant/ant.src.zip" basedir="." includes="jakarta-ant/**"/>
+  </target>
+
+</project>
+
