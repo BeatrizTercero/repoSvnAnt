@@ -1,0 +1,66 @@
+<!-- Ant own build file -->
+
+<project name="Ant" default="main" basedir=".">
+
+  <target name="init">
+    <property name="src.dir" value="src/main"/>
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="${user.home}/opt"/>
+
+    <property name="classpath" value="lib/xml.jar"/>
+    <property name="manifest" value="src/etc/manifest"/>
+  
+    <property name="build.compiler" value="classic"/>
+  </target>
+
+  <target name="main" depends="init">
+    <mkdir dir="${build.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${build.dir}" classpath="${classpath}"
+           debug="on" deprecation="on"/>
+  </target>
+
+  <target name="jar" depends="main">
+     <jar jarfile="lib/ant.jar" basedir="${build.dir}" items="org" manifest="${manifest}"/>
+  </target>
+
+  <target name="home" depends="jar">
+     <mkdir dir="bin"/>
+     <copydir src="src/bin" dest="bin"/>
+     <chmod perm="+x" src="${dist.dir}/ant/bin/ant"/>
+     <chmod perm="+x" src="${dist.dir}/ant/bin/antRun"/>
+  </target>
+
+  <target name="dist" depends="main">
+     <mkdir dir="${dist.dir}/ant"/>
+     <mkdir dir="${dist.dir}/ant/lib"/>
+     <mkdir dir="${dist.dir}/ant/bin"/>
+     <mkdir dir="${dist.dir}/ant/docs"/>
+     <jar jarfile="${dist.dir}/ant/lib/ant.jar" basedir="${build.dir}" items="org" manifest="${manifest}"/>
+     <copyfile src="lib/xml.jar" dest="${dist.dir}/ant/lib/xml.jar"/>
+     <copyfile src="build.xml" dest="${dist.dir}/ant/lib/build.xml"/>
+     <copydir src="src/bin" dest="${dist.dir}/ant/bin"/>
+     <copydir src="docs" dest="${dist.dir}/ant/docs"/>
+     <chmod perm="+x" src="${dist.dir}/ant/bin/ant"/>
+     <chmod perm="+x" src="${dist.dir}/ant/bin/antRun"/>
+  </target>
+
+  <target name="clean" depends="init">
+    <deltree dir="${build.dir}"/>
+    <deltree dir="bin"/>
+  </target>
+
+  <!-- in progress !  -->
+
+  <target name="get.snapshot" depends="init">
+    <get src="http://jakarta.apache.org/build/tmp/ant/ant.src.zip" dest="ant-src.zip" />
+    <expand src="ant-src.zip" dest="." />
+  </target>
+  <target name="make.snapshot">
+    <cvs cvsRoot=":pserver:anoncvs@jakarta.apache.org:/home/cvspublic"
+         package="jakarta-tools"
+         dest="."  />
+    <zip zipfile="/www/jakarta.apache.org/builds/tmp/ant/ant.src.zip" basedir="." items="jakarta-tools"/>
+  </target>
+  
+</project>
+
