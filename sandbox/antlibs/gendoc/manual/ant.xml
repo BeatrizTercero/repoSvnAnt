@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/xsl" href="../manual.xsl"?>
+
+<m:manual xmlns:m="uri:org.apache.ant:manual"
+          xmlns:a="antlib:org.apache.tools.ant"
+          xmlns:elem="uri:org.apache.ant:manual:element"
+          xmlns:attr="uri:org.apache.ant:manual:attribute">
+
+  <m:task name="ant">
+    <m:description>
+      <m:synopsis>Runs Ant on a supplied buildfile.</m:synopsis>
+
+      <p>This can be used to build subprojects.  <strong>This task must not be
+      used outside of a <code>target</code> if it invokes the same build file
+      it is part of.</strong></p>
+
+      <p>When the <attr:antfile/> attribute is omitted, the file "build.xml";
+      in the supplied directory (<attr:dir/> attribute) is used.</p>
+      <p>If no <attr:target/> attribute is supplied, the default target of
+      the new project is used.</p>
+
+      <p>By default, all of the properties of the current project will be
+      available in the new project.  Alternatively, you can set the
+      <attr:inheritAll/> attribute to <m:false/> and only
+      "user" properties (i.e., those passed on the command-line)
+      will be passed to the new project.  In either case, the set of
+      properties passed to the new project will override the properties that
+      are set in the new project (See also the <a
+      href="property.html">property task</a>).</p>
+
+      <p>You can also set properties in the new project from the old project
+      by using nested property tags. These properties are always passed
+      to the new project and any project created in that project
+      regardless of the setting of <attr:inheritAll/>.  This allows you to
+      parameterize your subprojects.  Properties defined on the command line
+      cannot be overridden by nested <elem:property/> elements.</p>
+
+      <p>References to data types can also be passed to the new project, but
+      by default they are not.  If you set the inheritrefs attribute to
+      true, all references will be copied, but they will not override
+      references defined in the new project.</p>
+
+      <p>Nested <elem:reference/> elements can also be used to copy references
+      from the calling project to the
+      new project, optionally under a different id.  References taken from
+      nested elements will override existing references that have been
+      defined outside of targets in the new project - but not those defined
+      inside of targets.</p>
+    </m:description>
+
+    <!-- The task's attributes -->
+    <m:attributes>
+      <m:attribute name="antfile">
+        <m:type>java.io.File</m:type>
+        <m:description>
+          <m:synopsis>the buildfile to use.</m:synopsis>
+          Defaults to "build.xml".  This file is expected to be a filename
+          relative to the dir attribute given.
+        </m:description>
+      </m:attribute>
+
+      <m:attribute name="dir">
+        <m:type>java.io.File</m:type>
+        <m:description>
+          <m:synopsis>
+            the directory to use as a basedir for the new Ant project.
+          </m:synopsis>
+          Defaults to the current project's basedir, unless
+          inheritall has been set to false, in which case it doesn't
+          have a default value.  This will override the basedir
+          setting of the called project.
+        </m:description>
+      </m:attribute>
+
+      <m:attribute name="target">
+        <m:type>java.lang.String</m:type>
+        <m:description>
+          <m:synopsis>
+            the target of the new Ant project that should be executed.
+          </m:synopsis>
+          Defaults to the new project's default target.
+        </m:description>
+      </m:attribute>
+
+      <m:attribute name="output">
+        <m:type>java.io.File</m:type>
+        <m:description>
+          <m:synopsis>
+            Filename to write the ant output to.  
+          </m:synopsis>
+          This is relative to the value of the dir attribute if it has been
+          set or to the base directory of the current project otherwise.
+        </m:description>
+      </m:attribute>
+
+      <m:attribute name="inheritAll">
+        <m:type>boolean</m:type>
+        <m:description>
+          <m:synopsis>Whether to inherit properties.</m:synopsis>
+          If <m:true/>, pass all properties to the
+          new Ant project.  Defaults to <m:false/>.
+        </m:description>
+      </m:attribute>
+
+      <m:attribute name="inheritRefs">
+        <m:type>boolean</m:type>
+        <m:description>
+          <m:synopsis>Whether to inherit references.</m:synopsis>
+          If <m:true/>, pass all references to the
+          new Ant project.  Defaults to <m:false/>.
+        </m:description>
+      </m:attribute>
+    </m:attributes>
+
+    <!-- The tasks nested-elements -->
+    <m:nested-elements>
+      <m:nested-element name="property">
+        <m:description>
+          <m:synopsis>
+            Pass an explicit property value to the new Ant project.
+          </m:synopsis>
+
+          <p>See the description of the <a:property/> task.</p>
+
+          <p>These properties become equivalent to properties you define on
+          the command line. These are special properties and they will always
+          get passed down, even through additional <a:ant/>, <a:antcall/>,
+          <a:subant/> tasks with inheritAll set to <m:false/> (see above).</p>
+
+          <p>Note that the <code>refid</code> attribute points to a
+          reference in the calling project, not in the new one.</p>
+        </m:description>
+      </m:nested-element>
+
+      <m:nested-element name="reference">
+        <m:description>
+          <m:synopsis>
+            Pass an explicit reference value to the new Ant project.
+          </m:synopsis>
+          Used to choose references that shall be copied into the
+          new project, optionally changing their id.
+        </m:description>
+
+        <!-- The <reference> nested-element's attributes -->
+        <m:attributes>
+          <m:attribute name="refid">
+            <m:type>java.lang.String</m:type>
+            <m:required/>
+            <m:description>
+              <m:synopsis>
+                The id of the reference in the <em>calling</em> project.
+              </m:synopsis>
+            </m:description>
+          </m:attribute>
+
+          <m:attribute name="torefid">
+            <m:type>java.lang.String</m:type>
+            <m:description>
+              <m:synopsis>
+                The id of the reference in the <em>new</em> project.
+              </m:synopsis>
+              Defaults to the value of <attr:refid/>.
+            </m:description>
+          </m:attribute>
+        </m:attributes>
+      </m:nested-element>
+
+      <m:nested-element name="propertyset" since="1.6">
+        <m:description>
+          You can specify a set of properties to be copied into the new
+          project with <a:propertyset/>s.
+        </m:description>
+      </m:nested-element>
+
+      <m:nested-element name="target" since="1.6.3">
+        <m:description>
+          <m:synopsis>Call an explicit target.</m:synopsis>
+          You can specify multiple targets using nested <elem:target/>
+          elements instead of using the target attribute.  These will be
+          executed as if Ant had been invoked with a single target whose
+          dependencies are the targets so specified, in the order specified.
+        </m:description>
+
+        <!-- The <target> nested-element's attributes -->
+        <m:attributes>
+          <m:attribute name="name">
+            <m:type>java.lang.String</m:type>
+            <m:required/>
+            <m:description>
+              <m:synopsis>The name of the called target.</m:synopsis>
+            </m:description>
+          </m:attribute>
+        </m:attributes>
+      </m:nested-element>
+      
+    </m:nested-elements>
+
+    <m:section name="Basedir of the new project">
+      <p>The <attr:basedir/> value of the new project is affected
+      by the two attributes <attr:dir/> and <attr:inheritAll/>,
+      see the following table for details:</p>
+
+      <table border="1" cellpadding="2" cellspacing="0">
+        <tr>
+          <th valign="top">dir attribute</th>
+          <th valign="top">inheritAll attribute</th>
+          <th valign="top">new project's basedir</th>
+        </tr>
+        <tr>
+          <td valign="top">value provided</td>
+          <td valign="top">true</td>
+          <td valign="top">value of dir attribute</td>
+        </tr>
+        <tr>
+          <td valign="top">value provided</td>
+          <td valign="top">false</td>
+          <td valign="top">value of dir attribute</td>
+        </tr>
+        <tr>
+          <td valign="top">omitted</td>
+          <td valign="top">true</td>
+          <td valign="top">basedir of calling project (the one whose build
+              file contains the <code>&lt;ant&gt;</code> task).</td>
+        </tr>
+        <tr>
+          <td valign="top">omitted</td>
+          <td valign="top">false</td>
+          <td valign="top">basedir attribute of the <code>&lt;project&gt;</code> element
+              of the new project</td>
+        </tr>
+      </table>
+    </m:section>
+
+    <m:examples>
+      <m:example>
+        <m:snippet>
+          <a:ant dir="subproject"/>
+        </m:snippet>
+      </m:example>
+
+      <m:example>
+        <m:snippet>
+          <a:ant antfile="subproject/subbuild.xml"
+               dir="subproject" target="compile"/>
+        </m:snippet>
+      </m:example>
+
+      <m:example>
+        <m:snippet>
+<a:ant antfile="subproject/property_based_subbuild.xml">
+  <a:property name="param1" value="version 1.x"/>
+  <a:property file="config/subproject/default.properties"/>
+</a:ant>
+        </m:snippet>
+      </m:example>
+
+      <m:example>
+        <m:snippet>
+<a:ant inheritAll="false" antfile="subproject/subbuild.xml">
+  <a:property name="output.type" value="html"/>
+</a:ant>
+        </m:snippet>
+      </m:example>
+
+      <m:example>
+        <m:snippet>
+<a:ant antfile="subproject/subbuild.xml"
+     dir="subproject" target="compile"/>
+
+<a:ant dir="subproject"/>
+
+<a:ant antfile="subproject/property_based_subbuild.xml">
+  <a:property name="param1" value="version 1.x"/>
+  <a:property file="config/subproject/default.properties"/>
+</a:ant>
+
+<a:ant inheritAll="false" antfile="subproject/subbuild.xml">
+  <a:property name="output.type" value="html"/>
+</a:ant>
+        </m:snippet>
+        <m:description>
+          The build file of the calling project defines some <a:path/>
+          elements like this:
+        </m:description>
+      </m:example>
+    </m:examples>
+    <m:copyright>2000-2005</m:copyright>
+  </m:task>
+
+</m:manual>

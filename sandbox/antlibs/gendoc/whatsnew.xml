@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/xsl" href="whatsnew.xsl"?>
+
+<w:whatsnew project="Ant"
+            title="What's New in Ant"
+            xmlns:w="uri:org.apache.ant:whatsnew"
+            xmlns:ac="antlib:net.sf.antcontrib"
+            xmlns:ant="antlib:org.apache.tools.ant"
+            xmlns:bm="antlib:com.lgc.buildmagic"
+            xmlns:ds="antlib:com.lgc.decisionspace"
+            xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <w:changes from="current Ant 1.6 CVS version" to="current CVS version">
+
+    <!-- =============================================== -->
+    <w:group name="Changes that could break older environments">
+      <w:entry>
+        Use <w:class>org.apache.log4j.Logger</w:class> instead of
+        <w:class>org.apache.log4j.Category</w:class>.  Category has been
+        deprecated for ~2 years and has been removed from the
+        <w:google>log4j</w:google> code.  Logger was introduced in log4j
+        1.2 so users of log4j 1.1 and log4j 1.0 need to upgrade to a newer
+        version of log4j. <w:bugzilla report="31951"/>.
+      </w:entry>
+    </w:group>
+
+    <!-- =============================================== -->
+    <w:group name="Fixed bugs">
+      <w:entry>
+        Translate task does not remove tokens when a key is not found.
+        It logs a verbose message.  <w:bugzilla report="13936"/>.
+      </w:entry>
+
+      <w:entry>
+        Incorrect task name with invalid "javac" task after a "presetdef.
+        <w:bugzilla reports="31389, 29499" />.
+      </w:entry>
+
+      <w:entry>
+        <ant:manifest/> was not printing warnings about invalid manifest
+        elements.  <w:bugzilla report="32190"/>.
+      </w:entry>
+
+      <w:entry>
+        <ant:replace/> got out of memory on large files (part of
+        <w:bugzilla report="32566"/>).  <ant:replace/> can now handle files
+        as long as there is enough disk space available.
+      </w:entry>
+    </w:group>
+
+    <!-- =============================================== -->
+    <w:group name="Other changes">
+      <w:entry>
+        <ant:echoproperties/> now (alphanumerically) sorts the property list
+        before echoing. <w:bugzilla report="18976"/>.
+      </w:entry>
+    </w:group>
+  </w:changes>
+
+</w:whatsnew>

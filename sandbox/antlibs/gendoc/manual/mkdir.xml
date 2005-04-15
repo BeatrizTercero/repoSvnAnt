@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet type="text/xsl" href="../manual.xsl"?>
+
+<m:manual xmlns:m="uri:org.apache.ant:manual"
+          xmlns:a="antlib:org.apache.tools.ant">
+
+  <m:task name="mkdir">
+    <!-- (OPTIONAL) A task could have a deprecated alternate name -->
+    <m:alias deprecated="true">md</m:alias>
+
+    <!-- A short description of the task, that will be used
+         in a page listing all available tasks.
+         (Equivalent to the first sentence of a Javadoc block.) -->
+
+    <!-- (OPTIONAL) A more in-depth description of the task.
+         (Equivalent to the rest sentence of a Javadoc block.) -->
+    <m:description>
+      <m:synopsis>Creates a <code>directory</code>.</m:synopsis>
+      Also non-existent parent directories are created, when necessary.
+    </m:description>
+
+    <!-- The tasks attributes -->
+    <m:attributes>
+      <!-- Possibly allow to group attributes
+      <group id="bar"/>
+        -->
+
+      <m:attribute name="dir"> <!-- groups="bar" -->
+        <m:type>java.io.File</m:type>
+        <m:required>unless foo is specified</m:required>
+        <m:description>the directory to create.</m:description>
+      </m:attribute>
+    </m:attributes>
+
+    <!-- The tasks nested-elements -->
+    <m:nested-elements/>
+
+    <m:examples>
+      <m:example>
+        <m:snippet>
+          <a:mkdir dir="${dist}" />
+        </m:snippet>
+        <m:description>
+          Creates a directory <code>${dist}</code>.
+        </m:description>
+      </m:example>
+
+      <m:example>
+        <m:snippet>
+          <a:mkdir dir="${dist}/lib" />
+        </m:snippet>
+        <m:description>
+          Creates a directory <code>${dist}/lib</code>.
+        </m:description>
+      </m:example>
+    </m:examples>
+    <m:copyright>2000-2001,2004-2005</m:copyright>
+  </m:task>
+
+</m:manual>

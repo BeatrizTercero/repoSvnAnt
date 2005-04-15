@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!--
+============================================================
+  XML+XSL based new documentation for Ant.
+
+  Dominique Devienne, <ddevienne@apache.org>, Mar 2005
+============================================================
+-->
+<project name="xd3ocs" default="all">
+
+  <description>
+    Generates HTML documentation from the custom Ant XML vocabulary,
+    and the custom stylesheets (XSL 1.0 based for now).
+  </description>
+
+  <!-- ===================================================== -->
+  <target name="whatsnew" description="Generates HTML whatsnew">
+
+    <mkdir dir="build" />
+    <style in="whatsnew.xml" out="build/whatsnew.html" style="whatsnew.xsl" />
+
+  </target>
+
+  <!-- ===================================================== -->
+  <target name="manual" description="Generates HTML manual">
+
+    <mkdir dir="build/manual" />
+    <style basedir="manual" includes="*.xml"
+          style="manual.xsl" destdir="build/manual" />
+
+  </target>
+
+  <!-- ===================================================== -->
+  <target name="clean" description="Deletes all generated files">
+
+    <delete quiet="true" includeEmptyDirs="true">
+      <fileset dir="build" />
+    </delete>
+
+  </target>
+
+  <!-- ===================================================== -->
+  <target name="all" depends="whatsnew, manual" />
+
+</project>
