@@ -12,6 +12,7 @@
               doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" />
 
   <!-- ================================================= -->
+  <!-- ================================================= -->
   <xsl:template match="/w:whatsnew">
     <xsl:variable name="title">
       DecisionSpace Artifacts
