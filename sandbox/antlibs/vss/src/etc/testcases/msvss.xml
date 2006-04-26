@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<!--
+ Copyright  2006 The Apache Software Foundation
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<project name="msvss-test" basedir="../../../" 
+         default="test-all" xmlns:vss="antlib:org.apache.ant.vss">
+         
+  <property name="file" value="build.xml"/>
+  <property name="vss-project" value="antlib"/>
+  <property name="testcase-dir" value="${basedir}/src/etc/testcases"/>
+  
+  <target name="setup">
+    <vss:create
+  	  vsspath="$/${vss-project}"
+      login="Guest,"
+  	/>
+  </target>
+
+  <target name="test-all" depends="setup">
+
+    <vss:cp
+      vsspath="$/${vss-project}"
+      login="Guest,"
+    />
+
+    <vss:add
+      vsspath="$/${vss-project}"
+      localpath="${testcase-dir}/msvss.xml"
+      login="Guest,"
+      comment="adding antlib file to vss"
+    />
+
+  </target>
+
+  <target name="test-move" depends="setup">
+  	<!-- create sub projects -->
+  	<vss:create
+  	  vsspath="$/${vss-project}/sub1"
+  	  login="Guest,"
+  	/>
+
+  	<vss:create
+  	  vsspath="$/${vss-project}/sub2"
+  	  login="Guest,"
+  	/>
+  	
+  	<!-- perform move operation -->
+	<vss:move
+  	  vsspath="$/${vss-project}/sub2"
+	  destination="$/${vss-project}/sub1"
+  	  login="Guest,"
+  	/>
+  </target>
+	
+  <target name="test-cloak" depends="setup">
+	<vss:cloak
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/>
+  	<vss:decloak
+	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/>
+  </target>
+	
+  <target name="test-delete" depends="setup">
+	<vss:delete
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+    />
+  	<vss:recover
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+    />
+  	<!-- should be able to change to project as it has been 'recovered' -->
+  	<vss:cp
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/>
+  </target>
+
+  <target name="test-locate" depends="setup">
+    <vss:locate
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/>
+  </target>
+	
+  <target name="cleanup">
+	<vss:destroy
+	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+	  autoresponse="Y"
+  	/>
+  </target>
+</project>
