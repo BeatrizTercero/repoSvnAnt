@@ -114,7 +114,7 @@ To use this antlib in your build file, you must first declare it eg:
 
 <!-- VSSGET -->
 
-<h2><a name="vss:get">VssGet</a></h2>
+<h2><a name="vss:get">vss:get</a></h2>
 <h3>Description</h3>
 Task to perform GET commands to Microsoft Visual SourceSafe.
 <p>If you specify two or more attributes from version, date and
@@ -234,7 +234,7 @@ which are labeled <i>Release1</i> and write them to the local directory
 
 <!-- VSSLABEL -->
 
-<h2><a name="vss:label">VssLabel</a></h2>
+<h2><a name="vss:label">vss:label</a></h2>
 <h3>Description</h3>
 Task to perform LABEL commands to Microsoft Visual SourceSafe.
 <p>Assigns a label to the specified version or current version of a file or
@@ -326,7 +326,7 @@ the build) will fail.
 
 <!-- VSSHISTORY -->
 
-<h2><a name="vss:history">VssHistory</a></h2>
+<h2><a name="vss:history">vss:history</a></h2>
 <h3>Description</h3>
 Task to perform HISTORY commands to Microsoft Visual SourceSafe.
 <h3>Parameters</h3>
@@ -467,7 +467,7 @@ Task to perform HISTORY commands to Microsoft Visual SourceSafe.
 
 <!-- VSSCHECKIN -->
 
-<h2><a name="vss:checkin">VssCheckin</a></h2>
+<h2><a name="vss:checkin">vss:checkin</a></h2>
 <h3>Description</h3>
 Task to perform CHECKIN commands to Microsoft Visual SourceSafe.
 <h3>Parameters</h3>
@@ -548,7 +548,7 @@ the local directory <i>D:\build</i>.</p>
 
 <!-- VSSCHECKOUT -->
 
-<h2><a name="vss:checkout">VssCheckout</a></h2>
+<h2><a name="vss:checkout">vss:checkout</a></h2>
 <h3>Description</h3>
 Task to perform CHECKOUT commands to Microsoft Visual SourceSafe.
 <p>If you specify two or more attributes from version, date and
@@ -653,7 +653,7 @@ label only one will be used in the order version, date, label.</p>
 
 <!-- VSSADD -->
 
-<h2><a name="vss:add">VssAdd</a></h2>
+<h2><a name="vss:add">vss:add</a></h2>
 <h3>Description</h3>
 Task to perform ADD commands to Microsoft Visual SourceSafe.
 <h3>Parameters</h3>
@@ -727,7 +727,7 @@ directory (see vsscp).</p>
 
 <!-- VSSCP -->
 
-<h2><a name="vss:cp">VssCp</a></h2>
+<h2><a name="vss:cp">vss:cp</a></h2>
 <h3>Description</h3>
 <p>Task to perform CP (Change Project) commands to Microsoft Visual SourceSafe.</p>
 <p>This task is typically used before a VssAdd in order to set the target project</p>
@@ -781,7 +781,7 @@ directory (see vsscp).</p>
 
 <!-- VSSCREATE -->
 
- <h2><a name="vss:create">VssCreate</a></h2>
+ <h2><a name="vss:create">vss:create</a></h2>
  <h3>Description</h3>
  Task to perform CREATE commands to Microsoft Visual Source Safe.
  <p>Creates a new project in VSS.</p>
@@ -835,6 +835,368 @@ directory (see vsscp).</p>
 </pre>
 </blockquote>
 <p>Creates the VSS-Project <i>$/existingProject/newProject</i>.</p>
+<!-- vss:destroy -->
+ <h2><a name="vss:destroy">vss:destroy</a></h2>
+ <h3>Description</h3>
+ Task to perform DESTROY commands to Microsoft Visual Source Safe.
+ <p>Permanently removes a project or file in VSS.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project to be removed</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+   </tr>
+  <tr>
+    <td>failOnError</td>
+    <td>fail if there is an error creating the project (true by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>autoresponse</td>
+    <td>What to respond with (sets the -I option). By default, -I- is used; values of Y or N will be appended to this.</td>
+    <td>No</td>
+  </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+&lt;vss:destroy vsspath=&quot;$/existingProject/oldProject&quot;/&gt;
+</pre>
+</blockquote>
+<p>Permanently removes the VSS-Project <i>$/existingProject/oldProject</i>.</p>
+
+<!-- vss:move -->
+ <h2><a name="vss:move">vss:move</a></h2>
+ <h3>Description</h3>
+ Task to perform MOVE commands to Microsoft Visual Source Safe.
+ <p>Moves a project or file in VSS.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project to be moved</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+   </tr>
+  <tr>
+    <td>failOnError</td>
+    <td>fail if there is an error creating the project (true by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>autoresponse</td>
+    <td>What to respond with (sets the -I option). By default, -I- is used; values of Y or N will be appended to this.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>destination</td>
+    <td>location in VSS to move project specified by vsspath to.</td>
+    <td>Yes</td>
+  </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:move
+  	  vsspath="$/${vss-project}/sub2"
+	  destination="$/${vss-project}/sub1"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Moves the VSS-Project <i>$/${vss-project}/sub2</i> to <i>$/${vss-project}/sub1/sub2</i>.</p>
+
+<!-- vss:cloak -->
+ <h2><a name="vss:cloak">vss:cloak</a></h2>
+ <h3>Description</h3>
+ Task to perform CLOAK commands to Microsoft Visual Source Safe.
+ <p>Hides a project from recursive Get, Check Out, Check In, Undo Check Out, and Project Differences commands.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project to be cloaked</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+   </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:cloak
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Cloaks the VSS-Project <i>$/${vss-project}</i>.</p>
+
+<!-- vss:decloak -->
+ <h2><a name="vss:decloak">vss:decloak</a></h2>
+ <h3>Description</h3>
+ Task to perform DECLOAK commands to Microsoft Visual Source Safe.
+ <p>Removes the cloaked attribute from a project.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project to be decloaked</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+   </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:decloak
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Decloaks the VSS-Project <i>$/${vss-project}</i>.</p>
+
+<!-- vss:delete -->
+ <h2><a name="vss:delete">vss:delete</a></h2>
+ <h3>Description</h3>
+ Task to perform DELETE commands to Microsoft Visual Source Safe.
+ <p>Removes files and projects from VSS Explorer, and marks them as deleted; the items still exist, however, and can be recovered using the Recover command.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project or file to be deleted</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>failOnError</td>
+    <td>fail if there is an error creating the project (true by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>autoresponse</td>
+    <td>What to respond with (sets the -I option). By default, -I- is used; values of Y or N will be appended to this.</td>
+    <td>No</td>
+  </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:delete
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Deletes the VSS-Project <i>$/${vss-project}</i>.</p>
+
+<!-- vss:recover -->
+ <h2><a name="vss:recover">vss:recover</a></h2>
+ <h3>Description</h3>
+ Task to perform RECOVER commands to Microsoft Visual Source Safe.
+ <p>Recovers files and projects that have been deleted.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project or file to be recovered</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>failOnError</td>
+    <td>fail if there is an error creating the project (true by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>autoresponse</td>
+    <td>What to respond with (sets the -I option). By default, -I- is used; values of Y or N will be appended to this.</td>
+    <td>No</td>
+  </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:recover
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Recovers the VSS-Project <i>$/${vss-project}</i>.</p>
+
+<!-- vss:locate -->
+ <h2><a name="vss:locate">vss:locate</a></h2>
+ <h3>Description</h3>
+ Task to perform LOCATE commands to Microsoft Visual Source Safe.
+ <p>Locates files and projects in VSS.</p>
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <th>Attribute</th>
+    <th>Values</th>
+    <th>Required</th>
+  </tr>
+  <tr>
+    <td>login</td>
+    <td>username,password</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>vsspath</td>
+    <td>SourceSafe path of project or file to be recovered</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>ssdir</td>
+    <td>directory where <code>ss.exe</code> resides. By default the task expects it to be in the PATH.</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>quiet</td>
+    <td>suppress output (off by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>failOnError</td>
+    <td>fail if there is an error creating the project (true by default)</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td>autoresponse</td>
+    <td>What to respond with (sets the -I option). By default, -I- is used; values of Y or N will be appended to this.</td>
+    <td>No</td>
+  </tr>
+</table>
+<h3>Examples</h3>
+<blockquote>
+<pre>
+ &lt;vss:locate
+  	  vsspath="$/${vss-project}"
+  	  login="Guest,"
+  	/&gt;
+</pre>
+</blockquote>
+<p>Locates the VSS-Project <i>$/${vss-project}</i>.</p>
+
+
 <hr>
 
 <!-- Footer -->
