@@ -79,4 +79,8 @@
     name="locate"
     classname="org.apache.ant.vss.MSVSSLOCATE"
     />
+  <taskdef
+    name="status"
+    classname="org.apache.ant.vss.MSVSSSTATUS"
+    />
 </antlib>

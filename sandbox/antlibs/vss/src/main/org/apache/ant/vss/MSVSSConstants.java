@@ -56,7 +56,9 @@ public interface MSVSSConstants {
     String COMMAND_DECLOAK = "Decloak";
     /**  The 'Locate' command  */
     String COMMAND_LOCATE = "Locate";
-
+    /**  The 'Status' command  */
+    String COMMAND_STATUS = "Status";
+    
     /**  The brief style flag  */
     String STYLE_BRIEF = "brief";
     /**  The codediff style flag  */

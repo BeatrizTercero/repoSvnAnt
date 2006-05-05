@@ -55,4 +55,8 @@ public class MSVSSTest extends BuildFileTest {
     public void testMSVSSLOCATE() throws Exception {
         executeTarget("test-locate");
     }
+    
+    public void testMSVSSSTATUS() throws Exception {
+        executeTarget("test-status");
+    }
 }

@@ -34,7 +34,7 @@ public class MSVSSLOCATE extends MSVSS {
             String msg = "vsspath attribute must be set!";
             throw new BuildException(msg, getLocation());
         }
-        // Cloak always returns 1 - must set failonerror="false" as workaround
+        // Locate always returns 1 - must set failonerror="false" as workaround
         this.setFailOnError(false);
         // build the command line from what we got
         // the format is:

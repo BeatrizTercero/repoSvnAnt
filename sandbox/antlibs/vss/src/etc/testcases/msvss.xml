@@ -100,6 +100,14 @@
   	/>
   </target>
 	
+  <target name="test-status" depends="setup">
+    <vss:status
+	  vsspath="$/${vss-project}"
+	  login="Guest,"
+      user="Guest"
+	/>
+  </target>	
+	
   <target name="cleanup">
 	<vss:destroy
 	  vsspath="$/${vss-project}"
