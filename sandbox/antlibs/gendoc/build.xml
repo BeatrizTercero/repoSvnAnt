@@ -11,7 +11,7 @@
 
   <description>
     Generates HTML documentation from the custom Ant XML vocabulary,
-    and the custom stylesheets (XSL 1.0 based for now).
+    and the custom stylesheets (XSL 1.0 based for now, 2.0 later on).
   </description>
 
   <!-- ===================================================== -->
