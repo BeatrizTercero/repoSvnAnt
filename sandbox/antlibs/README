@@ -1,8 +1,8 @@
 Adding New Antlibs to the Sandbox
 
 To add a new antlib to the Sandbox, you should perform the following steps
-1. Use svn mkdir to create the antlib directory
-2. Use svn mkdir to add the trunk, branches and tags directories.
+   - Use svn mkdir to create the antlib directory
+   - Use svn mkdir to add the trunk, branches and tags directories.
 
 This gives the antlib the correct SVN dir layout. Once you have committed
 the basic antlib layout, you should add the antlib trunk to the externals
@@ -10,6 +10,12 @@ definition in the all-trunks directory. You can use
 
 svn pe svn:externals .
 
-in the all-trunks directory. The dormat of the file should be evident from 
+in the all-trunks directory. The format of the file should be evident from 
 the existing entries.
+
+You can now add the common antlib code using an externals definiton. In the
+trunk directory of your antlib add the following as an svn:externals property
+
+common          http://svn.apache.org/repos/asf/ant/antlibs/common/trunk
+
 
