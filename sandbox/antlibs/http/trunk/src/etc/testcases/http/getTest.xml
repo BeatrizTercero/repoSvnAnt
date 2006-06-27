@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<!--
+ Copyright  2006 The Apache Software Foundation
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<project name="http-get-test"
+         default="fail" xmlns:http="antlib:org.apache.ant.http"
+         xmlns:au="antlib:org.apache.ant.antunit">
+
+
+  <import file="base.xml"/>
+  
+  <target name="testBadURL">
+    <au:expectfailure>
+      <http:get url="more cheese, gromit?" />
+    </au:expectfailure>
+  </target>
+
+  <!-- test relies on example.org always being invalid.
+  Although the IETF require this, verisign, in their wisdom, have
+  been known to change things-->
+  <target name="testBadHost">
+    <au:expectfailure >
+      <http:get url="http://invalid.example.org/ex1"/>
+    </au:expectfailure>
+  </target>
+
+  <target name="test200">
+    <http:get url="${error.jsp}" />
+  </target>
+
+  <target name="test200-status">
+    <http:get url="${error.jsp}" status="status"/>
+    <au:assertPropertyEquals name="status" value="200" />
+  </target>
+
+  <target name="test200-text">
+    <http:get url="${error.jsp}"
+              destProperty="result"/>
+    <au:assertPropertyContains name="result" value="error_code=200"/>
+  </target>
+
+  <target name="testPaymentRequired">
+    <http:get url="${error.jsp}" status="status"
+        failonerror="false">
+      <param name="code" value="402" />
+    </http:get>
+    <au:assertPropertyEquals name="status" value="402"/>
+  </target>
+
+  <target name="testPaymentRequiredFailing">
+    <au:expectfailure message="expected error code 402">
+      <http:get url="${error.jsp}"
+                failonerror="false">
+        <param name="code" value="402"/>
+      </http:get>
+    </au:expectfailure>
+  </target>
+
+  <target name="testHeaders">
+    <http:get url="${headers.jsp}" destProperty="result">
+      <header name="X-custom-header" value="custom-header-value"/>
+    </http:get>
+    <au:assertPropertyContains name="result" value="X-custom-header"/>
+    <au:assertPropertyContains name="result" value="custom-header-value"/>
+  </target>
+
+</project>
