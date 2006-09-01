@@ -23,6 +23,7 @@ under the License.
     <property name="project.name" value="ant"/>
     <property name="core.docs.src"     location="xdocs"/>
     <property name="core.docs.dest"    location="generated"/>
+    <property name="core.docs.static"  location="core-docs"/>
     <property name="project.file" value="stylesheets/project.xml" />
     <property name="templ.path"   location="${core.docs.src}/stylesheets" />
     <property name="velocity.props"   location="${core.docs.src}/velocity.properties" />
@@ -61,6 +62,19 @@ under the License.
         <fixcrlf srcDir="${core.docs.dest}" eol="dos" includes="*.html"/>
     </target>
 
-    <target name="docs" depends="anakia,fixcrlf" description="Create XDocs."/>
+  <target name="sync-rest">
+    <sync todir="${core.docs.dest}" includeemptydirs="true">
+      <fileset dir="${core.docs.static}">
+        <exclude name="manual/"/>
+      </fileset>
+      <preserveintarget>
+        <include name="manual/"/>
+        <include name="manual-beta/"/>
+        <include name="**/.svn/"/>
+      </preserveintarget>
+    </sync>
+  </target>
+
+    <target name="docs" depends="anakia,sync-rest,fixcrlf" description="Create XDocs."/>
 
 </project>
