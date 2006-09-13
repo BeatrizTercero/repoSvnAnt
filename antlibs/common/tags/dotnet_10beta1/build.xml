@@ -1,0 +1,434 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<project name="common">
+
+  <target name="setup-properties">
+    <property file="build.properties"/>
+    <!--load in an optional file containing versions of things-->
+    <property file="libraries.properties"/>
+    
+    <!--load in a file containing versions of ant
+      and other libraries-->
+    <property file="${ant.home}/lib/libraries.properties"/>
+
+    <!-- properties for build and test -->
+    <property name="build" value="build"/>
+    <property name="build.classes" value="${build}/classes"/>
+    <property name="build.testclasses" value="${build}/test-classes"/>
+    <property name="build.lib" value="${build}/lib"/>
+    <property name="src.junit" location="src/tests/junit"/>
+    <property name="src.antunit" location="src/tests/antunit"/>
+    
+    <!--you really need a proper version in libraries.properties-->
+    <property name="artifact.version" value="0.1-SNAPSHOT"/>
+    <property name="artifact.name" value="ant-${ant.project.name}"/>
+    <property name="artifact.stub" value="${artifact.name}-${artifact.version}"/>
+    <property name="jarname" value="${build.lib}/${artifact.stub}.jar"/>
+    <property name="target.jar" value="${jarname}"/>
+
+    <!-- properties for distribution target -->
+    <property name="dist.name"
+      value="apache-${artifact.name}-${artifact.version}"/>
+    <property name="dist.base" value="distribution"/>
+    <property name="dist.base.source" value="${dist.base}/source"/>
+    <property name="dist.base.binaries" value="${dist.base}/binaries"/>
+    <property name="bin.dist.dir" value="dist-bin"/>
+    <property name="src.dist.dir" value="dist-src"/>
+  </target>
+
+  <target name="setup" depends="setup-properties">
+    <mkdir dir="${build.classes}"/>
+    <mkdir dir="${build.testclasses}"/>
+    <mkdir dir="${build.lib}"/>
+    <copy file="common/style.css" todir="docs"/>
+  </target>
+
+  <!--Milestones to extend or override-->
+  <target name="ready-to-compile" depends="setup"/>
+  <target name="ready-to-test-with-junit" depends="compile-tests"/>
+  <target name="ready-to-test-with-antunit" depends="setup-for-antunit-tests"/>
+  <target name="ready-to-package" depends="compile"/>
+  <target name="ready-to-distribute" depends="antlib"/>
+  <target name="package" depends="checksum-target-jar"
+       description="Package everything up"/>
+
+  <target name="compile" depends="setup">
+    <javac 
+      srcdir="src/main"
+      destdir="${build.classes}"
+      debug="true"
+      />
+  </target>
+
+  <target name="check-for-NOTICE">
+    <available file="NOTICE" property="notice-present?"/>
+
+    <fail unless="notice-present?">You must create a product specific
+    NOTICE file based on common/NOTICE.template in the top level
+    directory</fail>
+  </target>
+
+  <target name="antlib" depends="compile, check-for-NOTICE">
+    <copy todir="${build.classes}">
+      <fileset dir="src/main" includes="**/*.xml,**/*.properties"/>
+    </copy>
+    <jar destfile="${jarname}">
+      <fileset dir="${build.classes}"/>
+      <metainf file="NOTICE"/>
+      <metainf file="common/LICENSE"/>
+    </jar>
+  </target>
+
+  <target name="checksum-target-jar"
+          description="checksum our jar" depends="antlib">
+    <checksum file="${target.jar}" algorithm="md5"/>
+    <checksum file="${target.jar}" algorithm="sha1"/>
+  </target>
+  
+  <target name="determine-test-types">
+    <condition property="skip-junit">
+      <not>
+        <available file="${src.junit}"/>
+      </not>
+    </condition>
+    <condition property="skip-antunit">
+      <not>
+        <available file="${src.antunit}"/>
+      </not>
+    </condition>
+  </target>
+
+  <target name="setup-for-junit-tests" depends="setup,determine-test-types"
+    unless="skip-junit">
+    <available classname="org.apache.tools.ant.BuildFileTest"
+      property="testutil-present?"
+      classpath="${ant-testutil.jar}"/>
+
+    <fail unless="testutil-present?">Expected to find ant-testutil.jar
+    in ${ant-testutil.jar}, please set the property ant-testutil.jar
+    to the correct location.</fail>
+  </target>
+
+  <target name="setup-for-antunit-tests" depends="setup,determine-test-types"
+    unless="skip-antunit">
+    <available classname="org.apache.ant.antunit.AntUnit"
+      property="antunit-present?"/>
+
+    <fail unless="antunit-present?">The AntUnit Ant library is not present.</fail>
+  </target>
+
+  <target name="compile-tests" depends="setup-for-junit-tests, antlib"
+    unless="skip-junit">
+    <javac 
+      srcdir="${src.junit}"
+      destdir="${build.testclasses}"
+      debug="true"
+      >
+      <classpath>
+        <pathelement location="${jarname}"/>
+        <pathelement location="${ant-testutil.jar}"/>
+      </classpath>
+    </javac>
+    <copy todir="${build.testclasses}">
+      <fileset dir="${src.junit}" includes="**/*.xml,**/*.properties"/>
+    </copy>
+  </target>
+
+  <target name="junit-test" depends="ready-to-test-with-junit"
+    unless="skip-junit">
+    <junit
+      printsummary="false"
+      haltonfailure="false"
+      failureproperty="junit.tests.failed"
+      filtertrace="false"
+      fork="true"
+      forkmode="once"
+      includeantruntime="true"
+      >
+      <classpath>
+        <pathelement location="${jarname}"/>
+        <pathelement location="${ant-testutil.jar}"/>
+        <pathelement location="${build.testclasses}"/>
+      </classpath>
+
+      <batchtest>
+        <fileset dir="${src.junit}"/>
+      </batchtest>
+
+      <formatter type="plain" usefile="false"/>
+    </junit>
+  </target>
+
+  <target name="antunit-test" depends="ready-to-test-with-antunit"
+    unless="skip-antunit">
+    <au:antunit xmlns:au="antlib:org.apache.ant.antunit"
+      failOnError="false"
+      errorProperty="antunit.tests.failed"
+      >
+      <fileset dir="${src.antunit}" includes="*.xml"/>
+
+      <au:plainlistener/>
+    </au:antunit>
+  </target>
+
+  <target name="test" depends="junit-test, antunit-test">
+    <fail if="junit.tests.failed">At least one JUnit test has failed.</fail>
+    <fail if="antunit.tests.failed">At least one AntUnit test has failed.</fail>
+  </target>
+
+  <target name="clean" depends="setup-properties">
+    <delete dir="${build}"/>
+    <delete dir="${dist.base.dir}"/>
+    <delete dir="${dist.name}"/>
+    <delete dir="${bin.dist.dir}"/>
+    <delete dir="${src.dist.dir}"/>
+  </target>
+
+  <!--copy the target to the destination. Only allowed if the tests pass!-->
+
+  <target name="install" depends="test">
+    <copy file="${jarname}" todir="${ant.home}/lib"/>
+  </target>  
+
+  <!-- ========================================================== -->
+  <!-- init all the maven2 support   -->
+  <!-- ========================================================== -->
+  <target name="m2-init"
+          depends="setup">
+    <property name="m2.groupID" value="org.apache.ant"/>
+    <property name="m2.groupID.path" value="org/apache/ant"/>
+    <property name="target.pom"
+              location="${build.lib}/${artifact.stub}.pom"/>
+    <!--look for a template pom -->
+    <property name="project.pom" location="project-template.pom"/>
+    <available property="project.haspom?" file="${project.pom}"/>
+  </target>
+
+  
+  <!-- ========================================================== -->
+  <!-- POM creation/copy, depending on whether it exists or not   -->
+  <!-- ========================================================== -->
+
+  <!--copy an existing templte-->
+  <target name="m2-copy-pom" depends="m2-init" if="project.haspom?">
+    <copy file="${project.pom}" tofile="${target.pom}">
+      <!-- we expand ant properties here.  -->
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+  </target>
+
+
+  <!-- inline creation of a zero dependency pom.
+    We don't even declare a dependency on ant!
+  -->
+  <target name="m2-make-pom" depends="m2-init" unless="project.haspom?">
+    <echo message="Creating Pom ${target.pom}" level="verbose"/>
+    <echoxml file="${target.pom}">
+      <project>
+        <modelVersion>4.0.0</modelVersion>
+        <groupId>${m2.groupID}</groupId>
+        <artifactId>${artifact.name}</artifactId>
+        <packaging>jar</packaging>
+        <version>${artifact.version}</version>
+        <dependencies/>
+      </project>
+    </echoxml>
+    <checksum file="${target.pom}" algorithm="md5"/>
+    <checksum file="${target.pom}" algorithm="sha1"/>
+  </target>
+
+  <target name="m2-pom" depends="m2-copy-pom,m2-make-pom"/>
+
+  <target name="src-dist" depends="m2-pom"
+    description="--> creates a source distribution">
+
+    <mkdir dir="${src.dist.dir}"/>
+    <copy todir="${src.dist.dir}">
+      <fileset dir=".">
+        <include name="src/"/>
+        <include name="common/"/>
+        <include name="docs/"/>
+        <include name="README"/>
+        <include name="INSTALL"/>
+        <include name="NOTICE"/>
+        <include name="TODO"/>
+        <include name="WHATSNEW"/>
+        <include name="contributors.xml"/>
+        <include name="build.xml"/>
+      </fileset>
+      <fileset dir="common">
+        <include name="LICENSE"/>
+      </fileset>
+      <fileset file="${target.pom}"/>
+    </copy>
+
+    <fixcrlf srcdir="${src.dist.dir}" eol="dos" includes="*.bat,*.cmd"/>
+    <fixcrlf srcdir="${src.dist.dir}" eol="unix">
+      <include name="**/*.sh"/>
+      <include name="**/*.pl"/>
+    </fixcrlf>
+    <fixcrlf srcdir="${src.dist.dir}">
+      <include name="**/*.java"/>
+    </fixcrlf>
+
+    <xslt style="common/contributors.xsl" in="contributors.xml"
+      out="${src.dist.dir}/CONTRIBUTORS"/>
+  </target>
+
+  <target name="bin-dist" depends="checksum-target-jar,m2-pom">
+    <mkdir dir="${bin.dist.dir}"/>
+
+    <copy todir="${bin.dist.dir}">
+      <fileset dir=".">
+        <include name="docs/"/>
+        <include name="README"/>
+        <include name="INSTALL"/>
+        <include name="NOTICE"/>
+        <include name="TODO"/>
+        <include name="WHATSNEW"/>
+        <include name="contributors.xml"/>
+      </fileset>
+      <fileset dir="common">
+        <include name="LICENSE"/>
+      </fileset>
+      <fileset file="${jarname}*"/>
+      <fileset file="${target.pom}"/>
+    </copy>
+    <copy todir="${bin.dist.dir}/" includeemptydirs="false">
+      <fileset dir="src">
+        <include name="etc/"/>
+        <exclude name="etc/testcases/"/>
+      </fileset>
+    </copy>
+    <xslt style="common/contributors.xsl" in="contributors.xml"
+      out="${bin.dist.dir}/CONTRIBUTORS"/>
+  </target>
+
+  <target name="distribution" description="creates a complete distribution"
+    depends="ready-to-distribute">
+
+    <mkdir dir="${dist.base.binaries}"/>
+    <mkdir dir="${dist.base.source}"/>
+
+    <!--delete dir="${java-repository.dir}"/-->
+    <!--mkdir dir="${java-repository.dir}"/-->
+
+    <delete dir="${dist.name}"/>
+    <antcall target="bin-dist" inheritall="false">
+      <param name="bin.dist.dir" value="${dist.name}"/>
+    </antcall>
+
+    <zip destfile="${dist.base.binaries}/${dist.name}-bin.zip">
+      <zipfileset dir="${dist.name}/.." filemode="755">
+        <include name="${dist.name}/bin/*.pl"/>
+        <include name="${dist.name}/bin/*.py"/>
+      </zipfileset>
+      <fileset dir="${dist.name}/..">
+        <include name="${dist.name}/**"/>
+        <exclude name="${dist.name}/bin/*.pl"/>
+        <exclude name="${dist.name}/bin/*.py"/>
+      </fileset>
+    </zip>
+    <tar longfile="gnu"
+      destfile="${dist.base.binaries}/${dist.name}-bin.tar">
+      <tarfileset dir="${dist.name}/.." mode="755" username="ant" group="ant">
+        <include name="${dist.name}/bin/*.pl"/>
+        <include name="${dist.name}/bin/*.py"/>
+      </tarfileset>
+      <tarfileset dir="${dist.name}/.." username="ant" group="ant">
+        <include name="${dist.name}/**"/>
+        <exclude name="${dist.name}/bin/*.pl"/>
+        <exclude name="${dist.name}/bin/*.py"/>
+      </tarfileset>
+    </tar>
+    <gzip destfile="${dist.base.binaries}/${dist.name}-bin.tar.gz"
+      src="${dist.base.binaries}/${dist.name}-bin.tar"/>
+    <bzip2 destfile="${dist.base.binaries}/${dist.name}-bin.tar.bz2"
+      src="${dist.base.binaries}/${dist.name}-bin.tar"/>
+    <delete file="${dist.base.binaries}/${dist.name}-bin.tar"/>
+
+    <!--copy todir="${java-repository.dir}">
+      <fileset dir="${dist.name}/lib">
+        <include name="ant*.jar"/>
+      </fileset>
+      <mapper type="glob" from="*.jar" to="*-${version}.jar"/>
+    </copy>
+    <checksum fileext=".md5">
+      <fileset dir="${java-repository.dir}" includes="*${version}.jar"/>
+    </checksum>
+    <checksum fileext=".sha1" algorithm="SHA">
+      <fileset dir="${java-repository.dir}" includes="*${version}.jar"/>
+    </checksum-->
+
+    <checksum fileext=".md5">
+      <fileset dir="${dist.base.binaries}/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+    <checksum fileext=".sha1" algorithm="SHA">
+      <fileset dir="${dist.base.binaries}/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+
+    <delete dir="${dist.name}"/>
+    <antcall target="src-dist" inheritall="false">
+      <param name="src.dist.dir" value="${dist.name}"/>
+    </antcall>
+
+    <zip destfile="${dist.base.source}/${dist.name}-src.zip">
+      <fileset dir="${dist.name}/..">
+        <include name="${dist.name}/**"/>
+      </fileset>
+    </zip>
+    <tar longfile="gnu"
+      destfile="${dist.base.source}/${dist.name}-src.tar">
+      <tarfileset dir="${dist.name}/.." username="ant" group="ant">
+        <include name="${dist.name}/**"/>
+      </tarfileset>
+    </tar>
+    <gzip destfile="${dist.base.source}/${dist.name}-src.tar.gz"
+      src="${dist.base.source}/${dist.name}-src.tar"/>
+    <bzip2 destfile="${dist.base.source}/${dist.name}-src.tar.bz2"
+      src="${dist.base.source}/${dist.name}-src.tar"/>
+    <delete file="${dist.base.source}/${dist.name}-src.tar"/>
+    <delete dir="${dist.name}"/>
+    <checksum fileext=".md5">
+      <fileset dir="${dist.base.source}/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+    <checksum fileext=".sha1" algorithm="SHA">
+      <fileset dir="${dist.base.source}/">
+        <include name="**/*"/>
+        <exclude name="**/*.asc"/>
+        <exclude name="**/*.md5"/>
+      </fileset>
+    </checksum>
+  </target>
+</project>
