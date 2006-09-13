@@ -1,0 +1,345 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Jsharpc Task</title>
+  </head>
+
+<body>
+
+    <h2>Jsharpc Task</h2>
+
+    <h3><a name="description">Description</a></h3>
+
+    <p>Compile J# source down to a managed .NET application. </p>
+
+    <p>J# is not Java. But it is the language closest to Java in the
+    .NET framework. This task compiles jsharp source (.java files),
+    and generates a .NET managed exe or dll. </p>
+
+    <h3><a name="attributes">Parameters</a></h3>
+
+    <table>
+      <tr>
+        <td valign="top" align="left">
+          <b>Attribute</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Description</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Type</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Requirement</b>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          additionalmodules
+        </td>
+        <td valign="top" align="left">
+          Semicolon separated list of modules to refer to - note that
+          your version of vjc may not support this option.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+        <td valign="top" align="left" rowspan="21">
+          Optional
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          baseaddress
+        </td>
+        <td valign="top" align="left">
+          
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          debug
+        </td>
+        <td valign="top" align="left">
+          set the debug flag on or off.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          destdir
+        </td>
+        <td valign="top" align="left">
+          Set the destination directory of files to be compiled.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          destfile
+        </td>
+        <td valign="top" align="left">
+          Set the name of exe/library to create.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          executable
+        </td>
+        <td valign="top" align="left">
+          set the name of the program, overriding the defaults. Can be
+          used to set the full path to a program, or to switch to an
+          alternate implementation of the command, such as the Mono or
+          Rotor versions -provided they use the same command line
+          arguments as the .NET framework edition
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          extraoptions
+        </td>
+        <td valign="top" align="left">
+          Any extra options which are not explicitly supported by this task.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          failonerror
+        </td>
+        <td valign="top" align="left">
+          If true, fail on compilation errors.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          includedefaultreferences
+        </td>
+        <td valign="top" align="left">
+          If true, automatically includes the common assemblies in
+          dotnet, and tells the compiler to link in mscore.dll. set
+          the automatic reference inclusion flag on or off this flag
+          controls the /nostdlib option in CSC
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          mainclass
+        </td>
+        <td valign="top" align="left">
+          Sets the name of main class for executables.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          optimize
+        </td>
+        <td valign="top" align="left">
+          If true, enables optimization flag.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          purejava
+        </td>
+        <td valign="top" align="left">
+          do we want pure java (default, true) or corrupted J#?
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          referencefiles
+        </td>
+        <td valign="top" align="left">
+          Path of references to include. Wildcards should work.
+        </td>
+        <td valign="top" align="left">
+          Path
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          references
+        </td>
+        <td valign="top" align="left">
+          Semicolon separated list of DLLs to refer to.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          securescoping
+        </td>
+        <td valign="top" align="left">
+          Make package scoped code visible to the current assembly
+          only (default: false) .NET does not have package
+          scoping. Instead it has assembly, private and public. By
+          default, package content is public to all.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          srcdir
+        </td>
+        <td valign="top" align="left">
+          Set the source directory of the files to be compiled.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          targettype
+        </td>
+        <td valign="top" align="left">
+          set the target type to one of exe|library|module|winexe
+        </td>
+        <td valign="top" align="left">
+          "exe", "library", "module", "winexe"
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          utf8output
+        </td>
+        <td valign="top" align="left">
+          If true, require all compiler output to be in UTF8 format.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          warnlevel
+        </td>
+        <td valign="top" align="left">
+          Level of warning currently between 1 and 4 with 4 being the
+          strictest.
+        </td>
+        <td valign="top" align="left">
+          int
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          win32icon
+        </td>
+        <td valign="top" align="left">
+          Set the filename of icon to include.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          win32res
+        </td>
+        <td valign="top" align="left">
+          Sets the filename of a win32 resource (.RES) file to
+          include. This is not a .NET resource, but what Windows is
+          used to.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+    </table>
+
+    <h3><a name="elements">Parameters as nested elements</a>
+
+    <h4>define (org.apache.ant.dotnet.compile.DotnetDefine)</h4>
+
+    <p>add a define to the list of definitions</p>
+
+    <h4>reference (org.apache.tools.ant.types.FileSet)</h4>
+
+    <p>add a new reference fileset to the compilation</p>
+
+    <h4>resource (org.apache.ant.dotnet.compile.DotnetResource)</h4>
+
+    <p>link or embed a resource</p>
+
+    <h4>src (org.apache.tools.ant.types.FileSet)</h4>
+
+    <p>add a new source directory to the compile</p>
+
+</body>
+</html>
