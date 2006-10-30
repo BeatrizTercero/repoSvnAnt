@@ -1,0 +1,310 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Ildasm Task</title>
+  </head>
+
+<body>
+
+    <h2>Ildasm Task</h2>
+
+    <h3><a name="description">Description</a></h3>
+
+    <p>Task to take a .NET or Mono -generated managed executable and
+    turn it into ILASM assembly code. Useful when converting imported
+    typelibs into assembler before patching and recompiling, as one
+    has to do when doing advanced typelib work. </p>
+
+    <p>As well as generating the named output file, the ildasm
+    program will also generate resource files
+    <code>Icons.resources</code> <code>Message.resources</code> and a
+    .res file whose filename stub is derived from the source in ways
+    to obscure to determine. There is no way to control whether or not
+    these files are created, or where they are created (they are
+    created in the current directory; their names come from inside the
+    executable and may be those used by the original developer). This
+    task creates the resources in the directory specified by
+    <code>resourceDir</code> if set, else in the same directory as the
+    <code>destFile</code>. </p>
+
+    <p>This task requires the .NET SDK installed and ildasm on the
+    path. To disassemble using alternate CLR systems, set the
+    executable attribute to the name/path of the alternate
+    implementation -one that must support all the classic ildasm
+    commands. <b>Note:</b> the ildasm executable of version 2.0 of
+    Microsoft's .NET SDK seems to be broken as it always failed during
+    tests (couldn't find the assembly's metadata) even for assemblies
+    built completely independent of Ant.</p>
+
+    <p>Dependency logic: the task executes the command if the output
+    file is missing or older than the source file. It does not take
+    into account changes in the options of the task, or timestamp
+    differences in resource files. When the underlying ildasm
+    executable fails for some reason, it leaves the .il file in place
+    with some error message. To prevent this from confusing the
+    dependency logic, the file specified by the <code>dest</code>
+    attribute is <i>always</i> deleted after an unsuccessful build.</p>
+
+    <h3><a name="attributes">Parameters</a></h3>
+
+    <table>
+      <tr>
+        <td valign="top" align="left">
+          <b>Attribute</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Description</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Type</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Requirement</b>
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          assembler
+        </td>
+        <td valign="top" align="left">
+          enable (default) or disable assembly language in the output
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+        <td valign="top" align="left" rowspan="17">
+          Optional
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          bytes
+        </td>
+        <td valign="top" align="left">
+          enable or disable (default) the original bytes as comments
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          destfile
+        </td>
+        <td valign="top" align="left">
+          the output file (required)
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          encoding
+        </td>
+        <td valign="top" align="left">
+          Select the output encoding: ascii, utf8 or unicode
+        </td>
+        <td valign="top" align="left">
+          "ascii", "utf8", "unicode"
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          executable
+        </td>
+        <td valign="top" align="left">
+          override the name of the executable (normally ildasm) or set
+          its full path. Do not set a relative path, as the ugly hacks
+          needed to create resource files in the dest directory force
+          us to change to this directory before running the
+          application. i.e use &lt;property location&gt to create an
+          absolute path from a relative one before setting this value.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          header
+        </td>
+        <td valign="top" align="left">
+          include header information; default false.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          item
+        </td>
+        <td valign="top" align="left">
+          name a single item to decode; a class or a method e.g
+          item="Myclass::method" or
+          item="namespace1::namespace2::Myclass:method(void(int32))
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          linenumbers
+        </td>
+        <td valign="top" align="left">
+          include line number information; default=false
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          metadata
+        </td>
+        <td valign="top" align="left">
+          include metadata information
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          progressbar
+        </td>
+        <td valign="top" align="left">
+          show a graphical progress bar in a window during the
+          process; off by default
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          quoteallnames
+        </td>
+        <td valign="top" align="left">
+          quote all names.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          rawexceptionhandling
+        </td>
+        <td valign="top" align="left">
+          enable raw exception handling (default = false)
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          resourcedir
+        </td>
+        <td valign="top" align="left">
+          Set the name of the directory for resources to be
+          created. We cannot control their names, but we can say where
+          they get created. If not set, the directory of the dest file
+          is used
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          showsource
+        </td>
+        <td valign="top" align="left">
+          include the source as comments (default=false)
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          sourcefile
+        </td>
+        <td valign="top" align="left">
+          the file to disassemble -required
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          srcfile
+        </td>
+        <td valign="top" align="left">
+          alternate name for sourceFile
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          visibility
+        </td>
+        <td valign="top" align="left">
+          visibility options: one or more of the following, with +
+          signs to concatenate them: <pre> pub : Public pri : Private
+          fam : Family asm : Assembly faa : Family and Assembly foa :
+          Family or Assembly psc : Private Scope </pre>
+          e.g. visibility="pub+pri". Family means
+          <code>protected</code> in C#;
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Wsdltodotnet Task</title>
+  </head>
+
+<body>
+
+    <h2>Wsdltodotnet Task</h2>
+
+    <h3><a name="description">Description</a></h3>
+
+    <p>Converts a WSDL file or URL resource into a .NET language. Why
+    add a wrapper to the MS WSDL tool? So that you can verify that
+    your web services, be they written with Axis or anyone else's SOAP
+    toolkit, work with .NET clients. This task is dependency aware
+    when using a file as a source and destination; so if you
+    <code>&lt;get&gt;</code> the file (with
+    <code>usetimestamp="true"</code>) then you only rebuild stuff when
+    the WSDL file is changed. Of course, if the server generates a new
+    timestamp every time you ask for the WSDL, this is not
+    enough...use the <code>&lt;filesmatch&gt;</code>
+    <code>&lt;condition&gt;</code> to to byte for byte comparison
+    against a cached WSDL file then make the target conditional on
+    that test failing. See "Creating an XML Web Service Proxy",
+    "wsdl.exe" docs in the framework SDK documentation.</p>
+
+    <h3><a name="attributes">Parameters</a></h3>
+
+    <table>
+      <tr>
+        <td valign="top" align="left">
+          <b>Attribute</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Description</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Type</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Requirement</b>
+        </td>
+      </tr>
+    
+      <tr>
+        <td valign="top" align="left">
+          destfile
+        </td>
+        <td valign="top" align="left">
+          Name of the file to generate. Required
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+        <td valign="top" align="left" rowspan="8">
+          Optional
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          extraoptions
+        </td>
+        <td valign="top" align="left">
+          Any extra WSDL.EXE options which aren't explicitly supported
+          by the ant wrapper task; optional
+          <br><b>Note:</b> Some versions of Mono's wsdl.exe will
+          silently ignore any options it doesn't know when you start
+          the option with "/", it will fail on unknown options if you
+          use "-" instead.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          failonerror
+        </td>
+        <td valign="top" align="left">
+          Whether or not a failure should halt the build. Optional -
+          default is <code>true</code>.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          language
+        </td>
+        <td valign="top" align="left">
+          set the language; one of "CS", "JS", or "VB" optional,
+          default is CS for C# source
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          namespace
+        </td>
+        <td valign="top" align="left">
+          namespace to place the source in. optional; default ""
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          server
+        </td>
+        <td valign="top" align="left">
+          flag to enable server side code generation; optional, default=false
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          srcfile
+        </td>
+        <td valign="top" align="left">
+          The local WSDL file to parse; either url or srcFile is required.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          url
+        </td>
+        <td valign="top" align="left">
+          Sets the URL to fetch. Fetching is by wsdl.exe; Ant proxy
+          settings are ignored; either url or srcFile is required.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+    </table>
+
+</body>
+</html>
