@@ -87,7 +87,7 @@ process_antlibs() {
     echo
     echo "Using Ant to build $component...."
     svn up
-    ant -Dartifact.version=${timestamp} clean dist > $log_location/$component.log 2>&1 
+    ant -Dartifact.version=${time_stamp} clean dist > $log_location/$component.log 2>&1 
 
     if [ ! -e distribution ] # build failed
     then
@@ -106,7 +106,7 @@ process_antlibs() {
   fi
 
     # Cleanup
-    rm -f *${timestamp}*
+    rm -f *${time_stamp}*
   done 
 } 
 #==============================================================================
@@ -119,7 +119,7 @@ cd $nightly_list_location
 svn up
 cd $ant_root
 rm -rf bootstrap
-./build.sh -Ddist.name=apache-ant-${timestamp} clean distribution 
+./build.sh -Ddist.name=apache-ant-${time_stamp} clean distribution 
 scp distribution/binaries/* $deploy_user@$deploy_host:$deploy_location
 # Set umask
 umask 002
