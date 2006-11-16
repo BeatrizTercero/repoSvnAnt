@@ -28,7 +28,7 @@ fi
 svn co $ant_svn $ant_root
 svn co $antlibs_svn $antlibs_root
 svn co $sandbox_antlibs_svn $sandbox_antlibs_root
-svn co $nighly_list_svn $nightly_list_location 
+svn co $nightly_list_svn $nightly_list_location 
 mkdir $log_location
 mkdir $HOME/bin
 
