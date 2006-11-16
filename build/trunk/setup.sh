@@ -31,4 +31,8 @@ svn co $sandbox_antlibs_svn $sandbox_antlibs_root
 svn co $nightly_list_svn $nightly_list_location 
 mkdir $log_location
 mkdir $HOME/bin
-
+wget ${fetch_url} -O $HOME/${fetch_binary}
+cd $HOME
+gzip -cd $HOME/${fetch_binary} | tar xvf -
+export ANT_HOME=${fetch_product}
+$ANT_HOME/bin/ant -f $ANT_HOME/fetch.xml -Ddest.dir=${ant_root}/lib/optional
