@@ -25,6 +25,6 @@ ant_nightly.sh $HOME/bin/vmbuild.conf > $HOME/log/ant_nightly.log 2>&1
 # TODO: If $? is non zero, mail commons_nightly.log to commons-dev; or maybe just to a hardcoded list
 
 # For now, scp the logs over to ~antoine
-ssh people.apache.org mkdir /x1/home/antoine/public_html/ant-nightlies/$time_stamp
+ssh people.apache.org mkdir -p /x1/home/antoine/public_html/ant-nightlies/$time_stamp
 scp $HOME/log/* antoine@people.apache.org:/x1/home/antoine/public_html/ant-nightlies/$time_stamp
 

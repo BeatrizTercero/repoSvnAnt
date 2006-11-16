@@ -115,8 +115,9 @@ process_antlibs() {
 echo "Ant, Antlibs and Sandbox Antlibs nightly build starting: `date`"
 
 # Update ant-build
-cd $ant_build
+cd $nightly_list_location
 svn up
+cd $ant_root
 rm -rf bootstrap
 ./build.sh -Ddist.name=apache-ant-${timestamp} clean distribution 
 scp distribution/binaries/* $deploy_user@$deploy_host:$deploy_location
