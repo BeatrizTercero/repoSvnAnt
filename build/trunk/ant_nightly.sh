@@ -124,7 +124,12 @@ scp distribution/binaries/* $deploy_user@$deploy_host:$deploy_location
 # Set umask
 umask 002
 # play it like gump
-export ANT_HOME=$ant_root/apache-ant-${time_stamp}
+gzip -cd $ant_root/distribution/binaries/apache-ant-${time_stamp}-bin.tar.gz | (cd $HOME; tar xf -)
+export ANT_HOME=$HOME/apache-ant-nightly
+if [ -d $ANT_HOME ]; then
+  rm -rf $ANT_HOME
+fi
+mv $HOME/apache-ant-${time_stamp} $ANT_HOME
 export PATH=$ANT_HOME/bin:$PATH
 
 # Antlibs
@@ -158,7 +163,8 @@ then
  fi
   rm ${report_location}
 fi
-
+# remove the temporary ANT_HOME
+rm -rf $ANT_HOME
 exit 0
 
 
