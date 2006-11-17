@@ -124,7 +124,7 @@ scp distribution/binaries/* $deploy_user@$deploy_host:$deploy_location
 # Set umask
 umask 002
 # play it like gump
-export ANT_HOME=$ant_root/dist
+export ANT_HOME=$ant_root/apache-ant-${time_stamp}
 export PATH=$ANT_HOME/bin:$PATH
 
 # Antlibs
