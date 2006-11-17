@@ -87,7 +87,7 @@ process_antlibs() {
     echo
     echo "Using Ant to build $component...."
     svn up
-    ant -Dartifact.version=${time_stamp} clean dist > $log_location/$component.log 2>&1 
+    ant -Dartifact.version=${time_stamp} clean distribution > $log_location/$component.log 2>&1 
 
     if [ ! -e distribution ] # build failed
     then
@@ -117,10 +117,12 @@ echo "Ant, Antlibs and Sandbox Antlibs nightly build starting: `date`"
 # Update ant-build
 cd $nightly_list_location
 svn up
+
 cd $ant_root
 rm -rf bootstrap
 ./build.sh -Ddist.name=apache-ant-${time_stamp} clean distribution 
 scp distribution/binaries/* $deploy_user@$deploy_host:$deploy_location
+
 # Set umask
 umask 002
 # play it like gump
@@ -129,6 +131,7 @@ export ANT_HOME=$HOME/apache-ant-nightly
 if [ -d $ANT_HOME ]; then
   rm -rf $ANT_HOME
 fi
+
 mv $HOME/apache-ant-${time_stamp} $ANT_HOME
 export PATH=$ANT_HOME/bin:$PATH
 
