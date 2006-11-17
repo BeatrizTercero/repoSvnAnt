@@ -1,0 +1,2 @@
+# m h  dom mon dow   command
+17 12 * * *	     $HOME/bin/nightly_wrapper.sh
