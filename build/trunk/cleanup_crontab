@@ -1,0 +1,14 @@
+##########################################################################
+# Cleanup for Ant nightly builds                                         #
+#                                                                        #
+# Deletes distributions, snapshots and logs more than a week old         #
+#                                                                        #
+##########################################################################
+#-------------------------------------------------------------------------
+# Delete old tarballs/zips from nightly build location
+#-------------------------------------------------------------------------
+07 07 * * * find /www/people.apache.org/builds/ant/nightly -mtime +7 -exec rm \{\} \; >/dev/null 2>&1
+#-------------------------------------------------------------------------
+# Remove old log files
+#-------------------------------------------------------------------------
+37 07 * * * find /home/antoine/public_html/ant-nightlies -mtime +7 -type d -exec rm -rf \{\} \; >/dev/null 2>&1
