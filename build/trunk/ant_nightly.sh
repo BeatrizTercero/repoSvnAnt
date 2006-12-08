@@ -87,6 +87,9 @@ process_antlibs() {
     echo
     echo "Using Ant to build $component...."
     svn up
+    # this rm is needed to get rid of the output of the preceding nightlies
+    rm -rf distribution
+    #
     ant -Dartifact.version=${time_stamp} clean distribution > $log_location/$component.log 2>&1 
 
     if [ ! -e distribution ] # build failed
