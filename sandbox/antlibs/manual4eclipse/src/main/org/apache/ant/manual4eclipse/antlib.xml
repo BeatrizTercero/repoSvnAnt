@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<antlib xmlns:current="ant:current">
+    <taskdef name="m4e" classname="org.apache.ant.manual4eclipse.Manual4EclipseTask"/>
+    <macrodef name="buildPlugin">
+        <attribute name="manualDir"/>
+        <attribute name="buildDir"/>
+        <attribute name="pluginDir" default="@{buildDir}/manual4eclipse"/>
+        <attribute name="pluginPackage" default="org.apache.ant.manual"/>
+        <attribute name="antVersion"/>
+        <sequential>
+            <tstamp>
+                <format property="timestamp" pattern="yyyyMMdd"/>
+            </tstamp>
+
+            <mkdir dir="@{pluginDir}"/>
+            
+            <!-- Generate Eclipse PlugIn files -->
+            <current:m4e dir="@{pluginDir}" manualDir="@{manualDir}"/>
+
+            <!-- Have to modify the cover.html because it refers to an image outside the manual dir. -->
+            <copy todir="@{pluginDir}" file="@{manualDir}/../images/ant_logo_large.gif"/>
+            <copy todir="@{pluginDir}" file="@{manualDir}/cover.html">
+                <filterchain>
+                    <replaceregex pattern="..\/images\/ant_logo_large.gif" replace="ant_logo_large.gif"/>
+                </filterchain>
+            </copy>
+
+            <!-- Jar the stuff -->
+            <jar destfile="@{buildDir}/@{pluginPackage}_@{antVersion}.v${timestamp}.jar" duplicate="preserve">
+                <fileset dir="@{pluginDir}"/>
+                <fileset dir="@{manualDir}"/>
+                <manifest>
+                    <!-- Who is building this jar? -->
+                    <attribute name="Built-By" value="${user.name}"/>
+                    <!-- Information about the program itself -->
+                    <attribute name="Implementation-Vendor"  value="Apache Software Foundation"/>
+                    <attribute name="Implementation-Title"   value="Ant Manual"/>
+                    <attribute name="Implementation-Version" value="@{antVersion}"/>
+                    <!-- Eclipse-PlugIn Information -->
+                    <attribute name="Bundle-Name"            value="Ant Manual"/>
+                    <attribute name="Bundle-Vendor"          value="ant.apache.org"/>
+                    <attribute name="Bundle-ManifestVersion" value="2"/>
+                    <attribute name="Bundle-Localization"    value="plugin"/>
+                    <attribute name="Bundle-SymbolicName"    value="@{pluginPackage}; singleton:=true"/>
+                    <attribute name="Bundle-Version"         value="@{antVersion}.v${timestamp}"/>
+                    <attribute name="Eclipse-LazyStart"      value="true"/>
+                </manifest>
+            </jar>
+        </sequential>
+    </macrodef>
+</antlib>

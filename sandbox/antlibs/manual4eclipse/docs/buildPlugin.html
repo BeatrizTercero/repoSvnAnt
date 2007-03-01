@@ -1,0 +1,98 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+<title>BuildPlugin Task</title>
+</head>
+
+<body>
+
+
+
+<h2><a name="m4e">BuildPlugin</a></h2>
+<h3>Description</h3>
+<p>
+Building an Eclipse Help plugin is more than creating a <i>toc.xml</i> and a <i>plugin.xml</i>.
+You have to collect all needed files in the needed file structure and create a JAR with OSGi bundle 
+information. Also references between the files should not be go outside the structure in a relative way (you could use links like <i>http://ant.apache.org</i> but no <i>../images</i>). The makro <i>buildPlugin</i> does this work.
+</p>
+<p>
+Mainly the <i>cover.html</i> from the Ant Manual loads an image from the site directory (../images).
+The link will be modified an the graphic will be copied.
+</p>
+
+
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">manualDir</td>
+    <td valign="top">The directory where Ant's manual is.</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">antVersion</td>
+    <td valign="top">The version of Ant's Manual.</td>
+    <td align="center" valign="top">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">buildDir</td>
+    <td valign="top">Where to build the artefacts.</td>
+    <td align="center" valign="top">Yes</i></td>
+  </tr>
+  <tr>
+    <td valign="top">pluginDir</td>
+    <td valign="top">Whether to generate the plugin files.</td>
+    <td align="center" valign="top">No, default &quot;@{buildDir}/manual4eclipse&quot;</i></td>
+  </tr>
+  <tr>
+    <td valign="top">pluginPackage</td>
+    <td valign="top">In which package should the plugin reside.</td>
+    <td align="center" valign="top">No, default &quot;org.apache.ant.manual&quot;</i></td>
+  </tr>
+</table>
+
+
+
+<h3>Examples</h3>
+<pre>
+&lt;target name=&quot;gen&quot; xmlns:m4e=&quot;antlib:org.apache.ant.manual4eclipse&quot;&gt;
+    &lt;property name=&quot;build&quot; value=&quot;build&quot;/&gt;
+    &lt;property name=&quot;ant.trunk&quot; location=&quot;path/to/my/svn/checkout/of/Ant/Core&quot;/&gt;
+    &lt;mkdir dir=&quot;${build}&quot;/&gt;
+    &lt;m4e:buildPlugin manualDir=&quot;${ant.trunk}/docs/manual&quot;
+                     antVersion=&quot;1.7.1alpha&quot;
+                     buildDir=&quot;${build}&quot;
+    /&gt;
+&lt;/target&gt;
+</pre>
+This target generates an Eclipse Help plugin <i>org.apache.ant.manual_1.7.1alpha.v20070301.jar</i>
+(with 20070301 as timestamp) into <i>build</i> with the plugin files and the html manual from 
+<i>path/to/my/svn/checkout/of/Ant/Core/docs/manual</i>.
+
+
+
+</body>
+</html>

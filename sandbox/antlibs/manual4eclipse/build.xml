@@ -18,5 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 <project default="distribution" name="m4e">
+
     <import file="common/build.xml"/>
+
+    <target name="m4e" 
+            description="Builds the Eclipse PlugIn from the Ant Manual" 
+            depends="antlib"
+            xmlns:m4e="antlib:org.apache.ant.manual4eclipse">
+        <fail unless="ant.core">You must point property $${ant.core} to Ant's TRUNK directory</fail>
+        <taskdef uri="antlib:org.apache.ant.manual4eclipse"
+                 resource="org/apache/ant/manual4eclipse/antlib.xml"
+                 classpath="${jarname}"/>
+        <m4e:buildPlugin manualDir="${ant.core}/docs/manual" 
+                         buildDir="${build}"
+                         antVersion="1.7.1alpha"
+        />
+    </target>
 </project>
