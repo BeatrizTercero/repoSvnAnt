@@ -31,7 +31,7 @@ under the License.
                  classpath="${jarname}"/>
         <m4e:buildPlugin manualDir="${ant.core}/docs/manual" 
                          buildDir="${build}"
-                         antVersion="1.7.1alpha"
+                         antVersion="1.7.1"
         />
     </target>
 </project>
