@@ -20,7 +20,9 @@ under the License.
 <project default="distribution" name="m4e">
 
     <import file="common/build.xml"/>
-
+    <property file="${user.name}.properties"/>
+    <property name="plugin.ant.version" value="1.7.1"/>
+    
     <target name="m4e" 
             description="Builds the Eclipse PlugIn from the Ant Manual" 
             depends="antlib"
@@ -31,7 +33,7 @@ under the License.
                  classpath="${jarname}"/>
         <m4e:buildPlugin manualDir="${ant.core}/docs/manual" 
                          buildDir="${build}"
-                         antVersion="1.7.1"
+                         antVersion="${plugin.ant.version}"
         />
     </target>
 </project>
