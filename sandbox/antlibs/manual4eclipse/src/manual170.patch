@@ -1,0 +1,794 @@
+Index: manual/anttaskslist.html
+===================================================================
+--- manual/anttaskslist.html	(revision 513173)
++++ manual/anttaskslist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -29,11 +29,14 @@
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+ <h3>Ant Tasks</h3>
+-<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br>
+-<a href="coretasklist.html" target="navFrame">Core Tasks</a><br>
+-<a href="optionaltasklist.html" target="navFrame">Optional Tasks</a><br>
+-&nbsp;&nbsp;<a href="install.html#librarydependencies" target="mainFrame">
+-Library Dependencies</a><br>
++<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br/>
++<a href="coretasklist.html" target="navFrame">Core Tasks</a><br/>
++<a href="optionaltasklist.html" target="navFrame">Optional Tasks</a><br/>
++<div style="padding-left:1em">
++  <a href="install.html#librarydependencies" target="mainFrame">
++  Library Dependencies</a><br/>
++</div>
+ 
++
+ </body>
+ </html>
+Index: manual/developlist.html
+===================================================================
+--- manual/developlist.html	(revision 513173)
++++ manual/developlist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -29,18 +29,19 @@
+ 
+ <h3>Developing with Ant</h3>
+ 
+-<a href="../ant_in_anger.html">Ant in Anger</a><br>
+-<a href="../ant_task_guidelines.html">Ant Task Guidelines</a><br>
+-<a href="develop.html#writingowntask">Writing Your Own Task</a><br>
+-<a href="base_task_classes.html">Tasks Designed for Extension</a><br>
+-<a href="develop.html#buildevents">Build Events</a><br>
+-<a href="develop.html#integration">Source-code Integration</a><br>
+-<a href="inputhandler.html">InputHandler</a><br>
+-<a href="antexternal.html">Using Ant Tasks Outside of Ant</a><br>
+-<br>Tutorials<br>
+-<a href="tutorial-HelloWorldWithAnt.html">Hello World with Ant</a><br>
+-<a href="tutorial-writing-tasks.html">Writing Tasks</a><br>
+-<a href="tutorial-tasks-filesets-properties.html">Tasks using Properties, Filesets &amp; Paths</a><br>
++<a href="../ant_in_anger.html">Ant in Anger</a><br/>
++<a href="../ant_task_guidelines.html">Ant Task Guidelines</a><br/>
++<a href="develop.html#writingowntask">Writing Your Own Task</a><br/>
++<a href="base_task_classes.html">Tasks Designed for Extension</a><br/>
++<a href="develop.html#buildevents">Build Events</a><br/>
++<a href="develop.html#integration">Source-code Integration</a><br/>
++<a href="inputhandler.html">InputHandler</a><br/>
++<a href="antexternal.html">Using Ant Tasks Outside of Ant</a><br/>
+ 
++<br/>Tutorials<br/>
++<a href="tutorial-HelloWorldWithAnt.html">Hello World with Ant</a><br/>
++<a href="tutorial-writing-tasks.html">Writing Tasks</a><br/>
++<a href="tutorial-tasks-filesets-properties.html">Tasks using Properties, Filesets &amp; Paths</a><br/>
++
+ </body>
+ </html>
+Index: manual/conceptstypeslist.html
+===================================================================
+--- manual/conceptstypeslist.html	(revision 513173)
++++ manual/conceptstypeslist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -28,51 +28,51 @@
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+ <h3>Concepts</h3>
+-<a href="clonevm.html">ant.build.clonevm</a><br>
+-<a href="sysclasspath.html">build.sysclasspath</a><br>
+-<a href="javacprops.html">Ant properties controlling javac</a><br>
+-<a href="CoreTasks/common.html">Common Attributes</a><br>
++<a href="clonevm.html">ant.build.clonevm</a><br/>
++<a href="sysclasspath.html">build.sysclasspath</a><br/>
++<a href="javacprops.html">Ant properties controlling javac</a><br/>
++<a href="CoreTasks/common.html">Common Attributes</a><br/>
+ 
+ <h3>Core Types</h3>
+-<a href="CoreTypes/description.html">Description Type</a><br>
+-<a href="dirtasks.html">Directory-based Tasks</a><br>
+-<a href="CoreTypes/dirset.html">DirSet</a><br>
+-<a href="CoreTypes/filelist.html">FileList</a><br>
+-<a href="CoreTypes/fileset.html">FileSet</a><br>
+-<a href="CoreTypes/mapper.html">File Mappers</a><br>
+-<a href="CoreTypes/filterchain.html">FilterChains and FilterReaders</a><br>
+-<a href="CoreTypes/filterset.html">FilterSet</a><br>
+-<a href="CoreTypes/patternset.html">PatternSet</a><br>
+-<a href="using.html#path">Path-like Structures</a><br>
+-<a href="CoreTypes/permissions.html">Permissions</a><br>
+-<a href="CoreTypes/propertyset.html">PropertySet</a><br>
+-<a href="CoreTypes/redirector.html">I/O Redirectors</a><br>
+-<a href="CoreTypes/regexp.html">Regexp</a><br>
+-<a href="CoreTypes/resources.html">Resources</a><br>
+-<a href="CoreTypes/resources.html#collection">Resource Collections</a><br>
+-<a href="CoreTypes/selectors.html">Selectors</a><br>
+-<a href="CoreTypes/tarfileset.html">TarFileSet</a><br>
+-<a href="CoreTypes/xmlcatalog.html">XMLCatalog</a><br>
+-<a href="CoreTypes/zipfileset.html">ZipFileSet</a><br>
++<a href="CoreTypes/description.html">Description Type</a><br/>
++<a href="dirtasks.html">Directory-based Tasks</a><br/>
++<a href="CoreTypes/dirset.html">DirSet</a><br/>
++<a href="CoreTypes/filelist.html">FileList</a><br/>
++<a href="CoreTypes/fileset.html">FileSet</a><br/>
++<a href="CoreTypes/mapper.html">File Mappers</a><br/>
++<a href="CoreTypes/filterchain.html">FilterChains and FilterReaders</a><br/>
++<a href="CoreTypes/filterset.html">FilterSet</a><br/>
++<a href="CoreTypes/patternset.html">PatternSet</a><br/>
++<a href="using.html#path">Path-like Structures</a><br/>
++<a href="CoreTypes/permissions.html">Permissions</a><br/>
++<a href="CoreTypes/propertyset.html">PropertySet</a><br/>
++<a href="CoreTypes/redirector.html">I/O Redirectors</a><br/>
++<a href="CoreTypes/regexp.html">Regexp</a><br/>
++<a href="CoreTypes/resources.html">Resources</a><br/>
++<a href="CoreTypes/resources.html#collection">Resource Collections</a><br/>
++<a href="CoreTypes/selectors.html">Selectors</a><br/>
++<a href="CoreTypes/tarfileset.html">TarFileSet</a><br/>
++<a href="CoreTypes/xmlcatalog.html">XMLCatalog</a><br/>
++<a href="CoreTypes/zipfileset.html">ZipFileSet</a><br/>
+ 
+ <h3>Optional Types</h3>
+-<a href="OptionalTypes/classfileset.html">Class Fileset</a><br>
+-<a href="OptionalTypes/extension.html">Extension Package</a><br>
+-<a href="OptionalTypes/extensionset.html">Set of Extension Packages</a><br>
++<a href="OptionalTypes/classfileset.html">Class Fileset</a><br/>
++<a href="OptionalTypes/extension.html">Extension Package</a><br/>
++<a href="OptionalTypes/extensionset.html">Set of Extension Packages</a><br/>
+ 
+ <h3>Namespace</h3>
+-<a href="CoreTypes/namespace.html">Namespace Support</a><br>
++<a href="CoreTypes/namespace.html">Namespace Support</a><br/>
++
+ <h3>Antlib</h3>
+-<a href="CoreTypes/antlib.html">Antlib</a><br>
+-<a href="CoreTypes/antlib.html#antlibnamespace">Antlib namespace</a><br>
+-<a href="CoreTypes/antlib.html#currentnamespace">Current namespace</a><br>
+-                                            
++<a href="CoreTypes/antlib.html">Antlib</a><br/>
++<a href="CoreTypes/antlib.html#antlibnamespace">Antlib namespace</a><br/>
++<a href="CoreTypes/antlib.html#currentnamespace">Current namespace</a><br/>
+ 
+ <h3>Custom Components</h3>
+-<a href="CoreTypes/custom-programming.html">Custom Components</a><br>
+-<a href="CoreTypes/custom-programming.html#customconditions">Conditions</a><br>
+-<a href="CoreTypes/custom-programming.html#customselectors">Selectors</a><br>
+-<a href="CoreTypes/custom-programming.html#filterreaders">FilterReaders</a><br>
++<a href="CoreTypes/custom-programming.html">Custom Components</a><br/>
++<a href="CoreTypes/custom-programming.html#customconditions">Conditions</a><br/>
++<a href="CoreTypes/custom-programming.html#customselectors">Selectors</a><br/>
++<a href="CoreTypes/custom-programming.html#filterreaders">FilterReaders</a><br/>
+ 
+ </body>
+ </html>
+Index: manual/optionaltasklist.html
+===================================================================
+--- manual/optionaltasklist.html	(revision 513173)
++++ manual/optionaltasklist.html	(revision 513174)
+@@ -17,75 +17,75 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+ 
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+-<a href="coretasklist.html" target="navFrame">Core Tasks</a><br>
+-<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br>
+-<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br>
++<a href="coretasklist.html" target="navFrame">Core Tasks</a><br/>
++<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br/>
++<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br/>
+ 
+ <h3>Optional Tasks</h3>
+-<a href="OptionalTasks/dotnet.html"><i>.NET Tasks</i></a><br>
+-<a href="OptionalTasks/antlr.html">ANTLR</a><br>
+-<a href="OptionalTasks/attrib.html">Attrib</a><br>
+-<a href="OptionalTasks/cab.html">Cab</a><br>
+-<a href="OptionalTasks/chgrp.html">Chgrp</a><br>
+-<a href="OptionalTasks/chown.html">Chown</a><br>
+-<a href="OptionalTasks/clearcase.html">Clearcase Tasks</a><br>
+-<a href="OptionalTasks/ccm.html">Continuus/Synergy Tasks</a><br>
+-<a href="OptionalTasks/depend.html">Depend</a><br>
+-<a href="OptionalTasks/ejb.html">EJB Tasks</a><br>
+-<a href="OptionalTasks/echoproperties.html">Echoproperties</a><br>
+-<a href="OptionalTasks/ftp.html">FTP</a><br>
+-<a href="OptionalTasks/image.html">Image</a><br>
+-<a href="OptionalTasks/jarlib-available.html">Jarlib-available</a><br>
+-<a href="OptionalTasks/jarlib-display.html">Jarlib-display</a><br>
+-<a href="OptionalTasks/jarlib-manifest.html">Jarlib-manifest</a><br>
+-<a href="OptionalTasks/jarlib-resolve.html">Jarlib-resolve</a><br>
+-<a href="OptionalTasks/javacc.html">JavaCC</a><br>
+-<a href="OptionalTasks/javah.html">Javah</a><br>
+-<a href="OptionalTasks/jspc.html">JspC</a><br>
+-<a href="OptionalTasks/jdepend.html">JDepend</a><br>
+-<a href="OptionalTasks/jjdoc.html">JJDoc</a><br>
+-<a href="OptionalTasks/jjtree.html">JJTree</a><br>
+-<a href="OptionalTasks/jlink.html"><i>Jlink</i></a><br>
+-<a href="OptionalTasks/junit.html">JUnit</a><br>
+-<a href="OptionalTasks/junitreport.html">JUnitReport</a><br>
+-<a href="OptionalTasks/mimemail.html"><i>MimeMail</i></a><br>
+-<a href="OptionalTasks/native2ascii.html">Native2Ascii</a><br>
+-<a href="OptionalTasks/netrexxc.html">NetRexxC</a><br>
+-<a href="OptionalTasks/perforce.html">Perforce Tasks</a><br>
+-<a href="OptionalTasks/propertyfile.html">PropertyFile</a><br>
+-<a href="OptionalTasks/pvcstask.html">Pvcs</a><br>
+-<a href="OptionalTasks/renameextensions.html"><i>RenameExtensions</i></a><br>
+-<a href="OptionalTasks/replaceregexp.html">ReplaceRegExp</a><br>
+-<a href="OptionalTasks/rexec.html">RExec</a><br>
+-<a href="OptionalTasks/rpm.html">Rpm</a><br>
+-<a href="OptionalTasks/schemavalidate.html">SchemaValidate</a><br>
+-<a href="OptionalTasks/scp.html">Scp</a><br>
+-<a href="OptionalTasks/script.html">Script</a><br>
+-<a href="OptionalTasks/scriptdef.html">Scriptdef</a><br>
+-<a href="OptionalTasks/serverdeploy.html">ServerDeploy</a><br>
+-<a href="OptionalTasks/setproxy.html">Setproxy</a><br>
+-<a href="OptionalTasks/sound.html">Sound</a><br>
+-<a href="OptionalTasks/sos.html">SourceOffSite</a><br>
+-<a href="OptionalTasks/splash.html">Splash</a><br>
+-<a href="OptionalTasks/sshexec.html">Sshexec</a><br>
+-<a href="OptionalTasks/starteam.html">Starteam Tasks</a><br>
+-<a href="OptionalTasks/stylebook.html"><i>Stylebook</i></a><br>
+-<a href="OptionalTasks/symlink.html">Symlink</a><br>
+-<a href="OptionalTasks/telnet.html">Telnet</a><br>
+-<a href="OptionalTasks/translate.html">Translate</a><br>
+-<a href="OptionalTasks/vss.html#tasks">Microsoft Visual SourceSafe Tasks</a><br>
+-<a href="OptionalTasks/wljspc.html">Weblogic JSP Compiler</a><br>
+-<a href="OptionalTasks/xmlvalidate.html">XmlValidate</a><br>
++<a href="OptionalTasks/dotnet.html"><i>.NET Tasks</i></a><br/>
++<a href="OptionalTasks/antlr.html">ANTLR</a><br/>
++<a href="OptionalTasks/attrib.html">Attrib</a><br/>
++<a href="OptionalTasks/cab.html">Cab</a><br/>
++<a href="OptionalTasks/chgrp.html">Chgrp</a><br/>
++<a href="OptionalTasks/chown.html">Chown</a><br/>
++<a href="OptionalTasks/clearcase.html">Clearcase Tasks</a><br/>
++<a href="OptionalTasks/ccm.html">Continuus/Synergy Tasks</a><br/>
++<a href="OptionalTasks/depend.html">Depend</a><br/>
++<a href="OptionalTasks/ejb.html">EJB Tasks</a><br/>
++<a href="OptionalTasks/echoproperties.html">Echoproperties</a><br/>
++<a href="OptionalTasks/ftp.html">FTP</a><br/>
++<a href="OptionalTasks/image.html">Image</a><br/>
++<a href="OptionalTasks/jarlib-available.html">Jarlib-available</a><br/>
++<a href="OptionalTasks/jarlib-display.html">Jarlib-display</a><br/>
++<a href="OptionalTasks/jarlib-manifest.html">Jarlib-manifest</a><br/>
++<a href="OptionalTasks/jarlib-resolve.html">Jarlib-resolve</a><br/>
++<a href="OptionalTasks/javacc.html">JavaCC</a><br/>
++<a href="OptionalTasks/javah.html">Javah</a><br/>
++<a href="OptionalTasks/jspc.html">JspC</a><br/>
++<a href="OptionalTasks/jdepend.html">JDepend</a><br/>
++<a href="OptionalTasks/jjdoc.html">JJDoc</a><br/>
++<a href="OptionalTasks/jjtree.html">JJTree</a><br/>
++<a href="OptionalTasks/jlink.html"><i>Jlink</i></a><br/>
++<a href="OptionalTasks/junit.html">JUnit</a><br/>
++<a href="OptionalTasks/junitreport.html">JUnitReport</a><br/>
++<a href="OptionalTasks/mimemail.html"><i>MimeMail</i></a><br/>
++<a href="OptionalTasks/native2ascii.html">Native2Ascii</a><br/>
++<a href="OptionalTasks/netrexxc.html">NetRexxC</a><br/>
++<a href="OptionalTasks/perforce.html">Perforce Tasks</a><br/>
++<a href="OptionalTasks/propertyfile.html">PropertyFile</a><br/>
++<a href="OptionalTasks/pvcstask.html">Pvcs</a><br/>
++<a href="OptionalTasks/renameextensions.html"><i>RenameExtensions</i></a><br/>
++<a href="OptionalTasks/replaceregexp.html">ReplaceRegExp</a><br/>
++<a href="OptionalTasks/rexec.html">RExec</a><br/>
++<a href="OptionalTasks/rpm.html">Rpm</a><br/>
++<a href="OptionalTasks/schemavalidate.html">SchemaValidate</a><br/>
++<a href="OptionalTasks/scp.html">Scp</a><br/>
++<a href="OptionalTasks/script.html">Script</a><br/>
++<a href="OptionalTasks/scriptdef.html">Scriptdef</a><br/>
++<a href="OptionalTasks/serverdeploy.html">ServerDeploy</a><br/>
++<a href="OptionalTasks/setproxy.html">Setproxy</a><br/>
++<a href="OptionalTasks/sound.html">Sound</a><br/>
++<a href="OptionalTasks/sos.html">SourceOffSite</a><br/>
++<a href="OptionalTasks/splash.html">Splash</a><br/>
++<a href="OptionalTasks/sshexec.html">Sshexec</a><br/>
++<a href="OptionalTasks/starteam.html">Starteam Tasks</a><br/>
++<a href="OptionalTasks/stylebook.html"><i>Stylebook</i></a><br/>
++<a href="OptionalTasks/symlink.html">Symlink</a><br/>
++<a href="OptionalTasks/telnet.html">Telnet</a><br/>
++<a href="OptionalTasks/translate.html">Translate</a><br/>
++<a href="OptionalTasks/vss.html#tasks">Microsoft Visual SourceSafe Tasks</a><br/>
++<a href="OptionalTasks/wljspc.html">Weblogic JSP Compiler</a><br/>
++<a href="OptionalTasks/xmlvalidate.html">XmlValidate</a><br/>
+ 
+ </body>
+ </html>
+Index: manual/runninglist.html
+===================================================================
+--- manual/runninglist.html	(revision 513173)
++++ manual/runninglist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -28,15 +28,17 @@
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+ <h3>Running Ant</h3>
+-<a href="running.html#commandline">Command Line</a><br>
+-&nbsp;&nbsp;<a href="running.html#options">Options</a><br>
+-&nbsp;&nbsp;<a href="running.html#libs">Library Directories</a><br>
+-&nbsp;&nbsp;<a href="running.html#files">Files</a><br>
+-&nbsp;&nbsp;<a href="running.html#envvars">Environment Variables</a><br>
+-&nbsp;&nbsp;<a href="running.html#sysprops">Java System Properties</a><br>
+-&nbsp;&nbsp;<a href="running.html#cygwin">Cygwin Users</a><br>
+-&nbsp;&nbsp;<a href="running.html#os2">OS/2 Users</a><br>
+-<a href="running.html#viajava">Running Ant via Java</a><br>
++<a href="running.html#commandline">Command Line</a><br/>
++<div style="padding-left:1em">
++  <a href="running.html#options">Options</a><br/>
++  <a href="running.html#libs">Library Directories</a><br/>
++  <a href="running.html#files">Files</a><br/>
++  <a href="running.html#envvars">Environment Variables</a><br/>
++  <a href="running.html#sysprops">Java System Properties</a><br/>
++  <a href="running.html#cygwin">Cygwin Users</a><br/>
++  <a href="running.html#os2">OS/2 Users</a><br/>
++</div>
++<a href="running.html#viajava">Running Ant via Java</a><br/>
+ 
+ </body>
+ </html>
+Index: manual/usinglist.html
+===================================================================
+--- manual/usinglist.html	(revision 513173)
++++ manual/usinglist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -28,19 +28,20 @@
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+ <h3>Using Ant</h3>
+-<a href="using.html#buildfile">Writing a Simple Buildfile</a><br>
+-&nbsp;&nbsp;<a href="using.html#projects">Projects</a><br>
+-&nbsp;&nbsp;<a href="using.html#targets">Targets</a><br>
+-&nbsp;&nbsp;<a href="using.html#tasks">Tasks</a><br>
+-&nbsp;&nbsp;<a href="using.html#properties">Properties</a><br>
+-&nbsp;&nbsp;<a href="using.html#built-in-props">Built-in Properties</a><br>
+-&nbsp;&nbsp;<a href="using.html#example">Example Buildfile</a><br>
+-&nbsp;&nbsp;<a href="using.html#filters">Token Filters</a><br>
+-&nbsp;&nbsp;<a href="using.html#path">Path-like Structures</a><br>
+-&nbsp;&nbsp;<a href="using.html#arg">Command-line Arguments</a><br>
+-&nbsp;&nbsp;<a href="using.html#references">References</a><br>
+-&nbsp;&nbsp;<a href="using.html#external-tasks">Use of external tasks</a><br>
+-
++<a href="using.html#buildfile">Writing a Simple Buildfile</a><br/>
++<div style="padding-left:1em">
++  <a href="using.html#projects">Projects</a><br/>
++  <a href="using.html#targets">Targets</a><br/>
++  <a href="using.html#tasks">Tasks</a><br/>
++  <a href="using.html#properties">Properties</a><br/>
++  <a href="using.html#built-in-props">Built-in Properties</a><br/>
++  <a href="using.html#example">Example Buildfile</a><br/>
++  <a href="using.html#filters">Token Filters</a><br/>
++  <a href="using.html#path">Path-like Structures</a><br/>
++  <a href="using.html#arg">Command-line Arguments</a><br/>
++  <a href="using.html#references">References</a><br/>
++  <a href="using.html#external-tasks">Use of external tasks</a><br/>
++</div>
+ </body>
+ </html>
+ 
+Index: manual/toc.html
+===================================================================
+--- manual/toc.html	(revision 513173)
++++ manual/toc.html	(revision 513174)
+@@ -17,30 +17,30 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+ 
+ <h2>Table of Contents</h2>
+-<a href="intro.html">Introduction</a><br>
+-<a href="installlist.html" target="navFrame">Installing Ant</a><br>
+-<a href="usinglist.html" target="navFrame">Using Ant</a><br>
+-<a href="runninglist.html" target="navFrame">Running Ant</a><br>
+-<a href="anttaskslist.html" target="navFrame">Ant Tasks</a><br>
+-<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br>
+-<a href="listeners.html" target="mainFrame">Loggers &amp; Listeners</a><br>
+-<a href="ide.html" target="navFrame">Editor/IDE Integration</a><br>
+-<a href="developlist.html" target="navFrame">Developing with Ant</a><br>
+-<a href="tutorials.html" target="navFrame">Tutorials</a><br>
+-<a href="api/index.html" target="_top">Ant API</a><br>
+-<a href="LICENSE">License</a><br>
+-<a href="feedback.html">Feedback and Troubleshooting</a><br>
+-<br>
+-<a href="credits.html">Authors</a><br>
++<a href="intro.html">Introduction</a><br/>
++<a href="installlist.html" target="navFrame">Installing Ant</a><br/>
++<a href="usinglist.html" target="navFrame">Using Ant</a><br/>
++<a href="runninglist.html" target="navFrame">Running Ant</a><br/>
++<a href="anttaskslist.html" target="navFrame">Ant Tasks</a><br/>
++<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br/>
++<a href="listeners.html" target="mainFrame">Loggers &amp; Listeners</a><br/>
++<a href="ide.html" target="navFrame">Editor/IDE Integration</a><br/>
++<a href="developlist.html" target="navFrame">Developing with Ant</a><br/>
++<a href="tutorials.html" target="navFrame">Tutorials</a><br/>
++<a href="api/index.html" target="_top">Ant API</a><br/>
++<a href="LICENSE">License</a><br/>
++<a href="feedback.html">Feedback and Troubleshooting</a><br/>
++<br/>
++<a href="credits.html">Authors</a><br/>
+ 
+ </body>
+ </html>
+Index: manual/tutorials.html
+===================================================================
+--- manual/tutorials.html	(revision 513173)
++++ manual/tutorials.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Tutorials</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -29,13 +29,13 @@
+ 
+ <h3>Tutorials</h3>
+ 
+-<p><a href="tutorial-HelloWorldWithAnt.html">Hello World with Ant</a><br>
++<p><a href="tutorial-HelloWorldWithAnt.html">Hello World with Ant</a><br/>
+ A step by step tutorial for starting java programming with Ant.</p>
+ 
+-<p><a href="tutorial-writing-tasks.html">Writing Tasks</a><br>
++<p><a href="tutorial-writing-tasks.html">Writing Tasks</a><br/>
+ A step by step tutorial for writing tasks.</p>
+ 
+-<p><a href="tutorial-tasks-filesets-properties.html">Tasks using Properties, Filesets & Paths</a><br>
++<p><a href="tutorial-tasks-filesets-properties.html">Tasks using Properties, Filesets &amp; Paths</a><br/>
+ How to get and set properties and how to use nested filesets and paths 
+ while writing tasks. Finally it explains how to contribute tasks to Ant.</p>
+ 
+Index: manual/ide.html
+===================================================================
+--- manual/ide.html	(revision 513173)
++++ manual/ide.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>IDE Integration</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+Index: manual/installlist.html
+===================================================================
+--- manual/installlist.html	(revision 513173)
++++ manual/installlist.html	(revision 513174)
+@@ -17,10 +17,10 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+@@ -28,15 +28,15 @@
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+ <h3>Installing Ant</h3>
+-<p><a href="install.html#getting">Getting Ant</a><br>
+-  <a href="install.html#sysrequirements">System Requirements</a><br>
+-  <a href="install.html#installing">Installing Ant</a><br>
+-  <a href="install.html#buildingant">Building Ant</a><br>
+-  <a href="install.html#librarydependencies">Library Dependencies</a><br>
+-  <a href="platform.html">Platform Specific Issues</a><br>
+-  <a href="proxy.html">Proxy configuration</a><br>
++<p><a href="install.html#getting">Getting Ant</a><br/>
++  <a href="install.html#sysrequirements">System Requirements</a><br/>
++  <a href="install.html#installing">Installing Ant</a><br/>
++  <a href="install.html#buildingant">Building Ant</a><br/>
++  <a href="install.html#librarydependencies">Library Dependencies</a><br/>
++  <a href="platform.html">Platform Specific Issues</a><br/>
++  <a href="proxy.html">Proxy configuration</a><br/>
+ </p>
+-<p><br>
++<p><br/>
+ </p>
+ </body>
+ </html>
+Index: manual/coretasklist.html
+===================================================================
+--- manual/coretasklist.html	(revision 513173)
++++ manual/coretasklist.html	(revision 513174)
+@@ -17,111 +17,113 @@
+ <html>
+ 
+ <head>
+-<meta http-equiv="Content-Language" content="en-us">
+-<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
++<meta http-equiv="Content-Language" content="en-us"/>
++<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+ <title>Apache Ant User Manual</title>
+-<base target="mainFrame">
++<base target="mainFrame"/>
+ </head>
+ 
+ <body>
+ 
+ <h2><a href="toc.html" target="navFrame">Table of Contents</a></h2>
+ 
+-<a href="optionaltasklist.html" target="navFrame">Optional Tasks</a><br>
+-<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br>
+-<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br>
++<a href="optionaltasklist.html" target="navFrame">Optional Tasks</a><br/>
++<a href="tasksoverview.html" target="mainFrame">Overview of Ant Tasks</a><br/>
++<a href="conceptstypeslist.html" target="navFrame">Concepts and Types</a><br/>
+ 
+ <h3>Core Tasks</h3>
+-<a href="CoreTasks/ant.html">Ant</a><br>
+-<a href="CoreTasks/antcall.html">AntCall</a><br>
+-<a href="CoreTasks/antstructure.html">AntStructure</a><br>
+-<a href="CoreTasks/apply.html">Apply/<i>ExecOn</i></a><br>
+-<a href="CoreTasks/apt.html">Apt</a><br>
+-<a href="CoreTasks/available.html">Available</a><br>
+-<a href="CoreTasks/basename.html">Basename</a><br>
+-<a href="CoreTasks/buildnumber.html">BuildNumber</a><br>
+-<a href="CoreTasks/unpack.html">BUnzip2</a><br>
+-<a href="CoreTasks/pack.html">BZip2</a><br>
+-<a href="CoreTasks/checksum.html">Checksum</a><br>
+-<a href="CoreTasks/chmod.html">Chmod</a><br>
+-<a href="CoreTasks/concat.html">Concat</a><br>
+-<a href="CoreTasks/condition.html">Condition</a><br>
+-&nbsp;&nbsp;<a href="CoreTasks/conditions.html">Supported conditions</a><br>
+-<a href="CoreTasks/copy.html">Copy</a><br>
+-<a href="CoreTasks/copydir.html"><i>Copydir</i></a><br>
+-<a href="CoreTasks/copyfile.html"><i>Copyfile</i></a><br>
+-<a href="CoreTasks/cvs.html">Cvs</a><br>
+-<a href="CoreTasks/changelog.html">CvsChangeLog</a><br>
+-<a href="CoreTasks/cvsversion.html">CvsVersion</a><br>
+-<a href="CoreTasks/cvspass.html">CVSPass</a><br>
+-<a href="CoreTasks/cvstagdiff.html">CvsTagDiff</a><br>
+-<a href="CoreTasks/defaultexcludes.html">Defaultexcludes</a><br>
+-<a href="CoreTasks/delete.html">Delete</a><br>
+-<a href="CoreTasks/deltree.html"><i>Deltree</i></a><br>
+-<a href="CoreTasks/dependset.html">Dependset</a><br>
+-<a href="CoreTasks/diagnostics.html">Diagnostics</a><br>
+-<a href="CoreTasks/dirname.html">Dirname</a><br>
+-<a href="CoreTasks/ear.html">Ear</a><br>
+-<a href="CoreTasks/echo.html">Echo</a><br>
+-<a href="CoreTasks/echoxml.html">EchoXML</a><br>
+-<a href="CoreTasks/exec.html">Exec</a><br>
+-<a href="CoreTasks/fail.html">Fail</a><br>
+-<a href="CoreTasks/filter.html">Filter</a><br>
+-<a href="CoreTasks/fixcrlf.html">FixCRLF</a><br>
+-<a href="CoreTasks/genkey.html">GenKey</a><br>
+-<a href="CoreTasks/get.html">Get</a><br>
+-<a href="CoreTasks/unpack.html">GUnzip</a><br>
+-<a href="CoreTasks/pack.html">GZip</a><br>
+-<a href="CoreTasks/import.html">Import</a><br>
+-<a href="CoreTasks/input.html">Input</a><br>
+-<a href="CoreTasks/jar.html">Jar</a><br>
+-<a href="CoreTasks/java.html">Java</a><br>
+-<a href="CoreTasks/javac.html">Javac</a><br>
+-<a href="CoreTasks/javadoc.html">Javadoc/<i>Javadoc2</i></a><br>
+-<a href="CoreTasks/length.html">Length</a><br>
+-<a href="CoreTasks/loadfile.html">LoadFile</a><br>
+-<a href="CoreTasks/loadproperties.html">LoadProperties</a><br>
+-<a href="CoreTasks/loadresource.html">LoadResource</a><br>
+-<a href="CoreTasks/makeurl.html">MakeURL</a><br>
+-<a href="CoreTasks/mail.html">Mail</a><br>
+-<a href="CoreTasks/macrodef.html">MacroDef</a><br>
+-<a href="CoreTasks/manifest.html">Manifest</a><br>
+-<a href="CoreTasks/manifestclasspath.html">ManifestClassPath</a><br>
+-<a href="CoreTasks/mkdir.html">Mkdir</a><br>
+-<a href="CoreTasks/move.html">Move</a><br>
+-<a href="CoreTasks/nice.html">Nice</a><br>
+-<a href="CoreTasks/parallel.html">Parallel</a><br>
+-<a href="CoreTasks/patch.html">Patch</a><br>
+-<a href="CoreTasks/pathconvert.html">PathConvert</a><br>
+-<a href="CoreTasks/presetdef.html">PreSetDef</a><br>
+-<a href="CoreTasks/property.html">Property</a><br>
+-<a href="CoreTasks/recorder.html">Record</a><br>
+-<a href="CoreTasks/rename.html"><i>Rename</i></a><br>
+-<a href="CoreTasks/replace.html">Replace</a><br>
+-<a href="CoreTasks/resourcecount.html">ResourceCount</a><br>
+-<a href="CoreTasks/rmic.html">Rmic</a><br>
+-<a href="CoreTasks/sequential.html">Sequential</a><br>
+-<a href="CoreTasks/signjar.html">SignJar</a><br>
+-<a href="CoreTasks/sleep.html">Sleep</a><br>
+-<a href="CoreTasks/sql.html">Sql</a><br>
+-<a href="CoreTasks/subant.html">Subant</a><br>
+-<a href="CoreTasks/sync.html">Sync</a><br>
+-<a href="CoreTasks/tar.html">Tar</a><br>
+-<a href="CoreTasks/taskdef.html">Taskdef</a><br>
+-<a href="CoreTasks/tempfile.html">Tempfile</a><br>
+-<a href="CoreTasks/touch.html">Touch</a><br>
+-<a href="CoreTasks/tstamp.html">TStamp</a><br>
+-<a href="CoreTasks/typedef.html">Typedef</a><br>
+-<a href="CoreTasks/unzip.html">Unjar</a><br>
+-<a href="CoreTasks/unzip.html">Untar</a><br>
+-<a href="CoreTasks/unzip.html">Unwar</a><br>
+-<a href="CoreTasks/unzip.html">Unzip</a><br>
+-<a href="CoreTasks/uptodate.html">Uptodate</a><br>
+-<a href="CoreTasks/waitfor.html">Waitfor</a><br>
+-<a href="CoreTasks/whichresource.html">WhichResource</a><br>
+-<a href="CoreTasks/war.html">War</a><br>
+-<a href="CoreTasks/xmlproperty.html">XmlProperty</a><br>
+-<a href="CoreTasks/style.html">XSLT/<i>Style</i></a><br>
+-<a href="CoreTasks/zip.html">Zip</a><br>
++<a href="CoreTasks/ant.html">Ant</a><br/>
++<a href="CoreTasks/antcall.html">AntCall</a><br/>
++<a href="CoreTasks/antstructure.html">AntStructure</a><br/>
++<a href="CoreTasks/apply.html">Apply/<i>ExecOn</i></a><br/>
++<a href="CoreTasks/apt.html">Apt</a><br/>
++<a href="CoreTasks/available.html">Available</a><br/>
++<a href="CoreTasks/basename.html">Basename</a><br/>
++<a href="CoreTasks/buildnumber.html">BuildNumber</a><br/>
++<a href="CoreTasks/unpack.html">BUnzip2</a><br/>
++<a href="CoreTasks/pack.html">BZip2</a><br/>
++<a href="CoreTasks/checksum.html">Checksum</a><br/>
++<a href="CoreTasks/chmod.html">Chmod</a><br/>
++<a href="CoreTasks/concat.html">Concat</a><br/>
++<a href="CoreTasks/condition.html">Condition</a><br/>
++<div style="padding-left:1em">
++  <a href="CoreTasks/conditions.html">Supported conditions</a><br/>
++</div>
++<a href="CoreTasks/copy.html">Copy</a><br/>
++<a href="CoreTasks/copydir.html"><i>Copydir</i></a><br/>
++<a href="CoreTasks/copyfile.html"><i>Copyfile</i></a><br/>
++<a href="CoreTasks/cvs.html">Cvs</a><br/>
++<a href="CoreTasks/changelog.html">CvsChangeLog</a><br/>
++<a href="CoreTasks/cvsversion.html">CvsVersion</a><br/>
++<a href="CoreTasks/cvspass.html">CVSPass</a><br/>
++<a href="CoreTasks/cvstagdiff.html">CvsTagDiff</a><br/>
++<a href="CoreTasks/defaultexcludes.html">Defaultexcludes</a><br/>
++<a href="CoreTasks/delete.html">Delete</a><br/>
++<a href="CoreTasks/deltree.html"><i>Deltree</i></a><br/>
++<a href="CoreTasks/dependset.html">Dependset</a><br/>
++<a href="CoreTasks/diagnostics.html">Diagnostics</a><br/>
++<a href="CoreTasks/dirname.html">Dirname</a><br/>
++<a href="CoreTasks/ear.html">Ear</a><br/>
++<a href="CoreTasks/echo.html">Echo</a><br/>
++<a href="CoreTasks/echoxml.html">EchoXML</a><br/>
++<a href="CoreTasks/exec.html">Exec</a><br/>
++<a href="CoreTasks/fail.html">Fail</a><br/>
++<a href="CoreTasks/filter.html">Filter</a><br/>
++<a href="CoreTasks/fixcrlf.html">FixCRLF</a><br/>
++<a href="CoreTasks/genkey.html">GenKey</a><br/>
++<a href="CoreTasks/get.html">Get</a><br/>
++<a href="CoreTasks/unpack.html">GUnzip</a><br/>
++<a href="CoreTasks/pack.html">GZip</a><br/>
++<a href="CoreTasks/import.html">Import</a><br/>
++<a href="CoreTasks/input.html">Input</a><br/>
++<a href="CoreTasks/jar.html">Jar</a><br/>
++<a href="CoreTasks/java.html">Java</a><br/>
++<a href="CoreTasks/javac.html">Javac</a><br/>
++<a href="CoreTasks/javadoc.html">Javadoc/<i>Javadoc2</i></a><br/>
++<a href="CoreTasks/length.html">Length</a><br/>
++<a href="CoreTasks/loadfile.html">LoadFile</a><br/>
++<a href="CoreTasks/loadproperties.html">LoadProperties</a><br/>
++<a href="CoreTasks/loadresource.html">LoadResource</a><br/>
++<a href="CoreTasks/makeurl.html">MakeURL</a><br/>
++<a href="CoreTasks/mail.html">Mail</a><br/>
++<a href="CoreTasks/macrodef.html">MacroDef</a><br/>
++<a href="CoreTasks/manifest.html">Manifest</a><br/>
++<a href="CoreTasks/manifestclasspath.html">ManifestClassPath</a><br/>
++<a href="CoreTasks/mkdir.html">Mkdir</a><br/>
++<a href="CoreTasks/move.html">Move</a><br/>
++<a href="CoreTasks/nice.html">Nice</a><br/>
++<a href="CoreTasks/parallel.html">Parallel</a><br/>
++<a href="CoreTasks/patch.html">Patch</a><br/>
++<a href="CoreTasks/pathconvert.html">PathConvert</a><br/>
++<a href="CoreTasks/presetdef.html">PreSetDef</a><br/>
++<a href="CoreTasks/property.html">Property</a><br/>
++<a href="CoreTasks/recorder.html">Record</a><br/>
++<a href="CoreTasks/rename.html"><i>Rename</i></a><br/>
++<a href="CoreTasks/replace.html">Replace</a><br/>
++<a href="CoreTasks/resourcecount.html">ResourceCount</a><br/>
++<a href="CoreTasks/rmic.html">Rmic</a><br/>
++<a href="CoreTasks/sequential.html">Sequential</a><br/>
++<a href="CoreTasks/signjar.html">SignJar</a><br/>
++<a href="CoreTasks/sleep.html">Sleep</a><br/>
++<a href="CoreTasks/sql.html">Sql</a><br/>
++<a href="CoreTasks/subant.html">Subant</a><br/>
++<a href="CoreTasks/sync.html">Sync</a><br/>
++<a href="CoreTasks/tar.html">Tar</a><br/>
++<a href="CoreTasks/taskdef.html">Taskdef</a><br/>
++<a href="CoreTasks/tempfile.html">Tempfile</a><br/>
++<a href="CoreTasks/touch.html">Touch</a><br/>
++<a href="CoreTasks/tstamp.html">TStamp</a><br/>
++<a href="CoreTasks/typedef.html">Typedef</a><br/>
++<a href="CoreTasks/unzip.html">Unjar</a><br/>
++<a href="CoreTasks/unzip.html">Untar</a><br/>
++<a href="CoreTasks/unzip.html">Unwar</a><br/>
++<a href="CoreTasks/unzip.html">Unzip</a><br/>
++<a href="CoreTasks/uptodate.html">Uptodate</a><br/>
++<a href="CoreTasks/waitfor.html">Waitfor</a><br/>
++<a href="CoreTasks/whichresource.html">WhichResource</a><br/>
++<a href="CoreTasks/war.html">War</a><br/>
++<a href="CoreTasks/xmlproperty.html">XmlProperty</a><br/>
++<a href="CoreTasks/style.html">XSLT/<i>Style</i></a><br/>
++<a href="CoreTasks/zip.html">Zip</a><br/>
+ </body>
+ </html>
