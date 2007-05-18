@@ -1,21 +1,4 @@
-Adding New Antlibs to the Sandbox
+This ant library provides tools to create, install & remove debian packages (.deb).
 
-To add a new antlib to the Sandbox, you should perform the following steps
-   - Use svn mkdir to create the antlib directory
-   - Use svn mkdir to add the trunk, branches and tags directories.
-
-This gives the antlib the correct SVN dir layout. Once you have committed
-the basic antlib layout, you should add the antlib trunk to the externals
-definition in the all-trunks directory. You can use
-
-svn pe svn:externals .
-
-in the all-trunks directory. The format of the file should be evident from 
-the existing entries.
-
-You can now add the common antlib code using an externals definiton. In the
-trunk directory of your antlib add the following as an svn:externals property
-
-common          http://svn.apache.org/repos/asf/ant/antlibs/common/trunk
-
-
+The library provides a wrapper around the debian command line tools.  Therefore a requirement
+to use this library is a properly configured debian-based system with the required tools installed.
