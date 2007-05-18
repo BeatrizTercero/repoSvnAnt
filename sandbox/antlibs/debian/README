@@ -1,0 +1,4 @@
+This ant library provides tools to create, install & remove debian packages (.deb).
+
+The library provides a wrapper around the debian command line tools.  Therefore a requirement
+to use this library is a properly configured debian-based system with the required tools installed.
