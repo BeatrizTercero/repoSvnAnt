@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<project default="all" basedir="../../../.."
+  xmlns:au="antlib:org.apache.ant.antunit"
+  xmlns:deb="antlib:org.apache.ant.debian">
+
+  <property name="ant.src.dir" value="${basedir}/ant-core-trunk"/>
+  <property name="package" value="${ant.src.dir}/ant_1.7.1_all.deb"/>
+  <property name="controlfile" value="${ant.src.dir}/dist/DEBIAN/control"/>
+
+  <target name="tearDown">
+    <delete file="${controlfile}"/>
+    <delete file="${package}"/>
+  	<delete dir="${ant.src.dir}/dist/DEBIAN"/>
+  </target>
+
+  <target name="setUp">
+  	<mkdir dir="${ant.src.dir}/dist/DEBIAN"/>
+  	<au:assertFileExists file="${ant.src.dir}/dist/DEBIAN"/>
+    <au:assertFileDoesntExist file="${controlfile}"/>
+  	<deb:control file="${controlfile}" 
+  	  package="ant" version="1.7.1alpha" maintainer="kevj@apache.org"
+  	  essential="no" priority="optional" section="Development" architecture="all">
+  	  <dependency name="java-gjc-compat | java-virtual-machine"/>
+  	  <dependency name="java-gjc-compat | java1-runtime | java2-runtime"/>
+  	  <dependency name="libxerces2-java"/>
+  	  <recommends name="ant-optional"/>
+  	  <recommends name="jike | java-compiler"/>
+  	  <description>Java based build tool like make</description>
+  	</deb:control>
+    <au:assertFileExists file="${controlfile}"/>
+  </target>
+
+  <target name="test-build">
+    <au:assertFileDoesntExist file="${package}"/>
+    <deb:dpkg packageName="${package}" dir="${ant.src.dir}/dist"/>
+    <au:assertFileExists file="${package}"/>
+  </target>
+
+  <target name="all">
+    <au:antunit>
+      <fileset file="${ant.file}"/>
+      <au:plainlistener/>
+    </au:antunit>
+  </target>
+</project>

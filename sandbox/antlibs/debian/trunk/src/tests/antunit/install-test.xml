@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project default="all" 
+  xmlns:au="antlib:org.apache.ant.antunit"
+  xmlns:deb="antlib:org.apache.ant.debian">
+
+  <property name="package" value="cf"/>
+  <property name="installed" value=""/>
+
+  <target name="test-install">
+    <deb:install packagename="${package}"/>
+    <au:assertFileExists file="${installed}"/>
+  </target>
+  
+  <target name="all">
+    <au:antunit>
+      <fileset file="${ant.file}"/>
+      <au:plainlistener/>
+    </au:antunit>
+  </target>
+</project>
