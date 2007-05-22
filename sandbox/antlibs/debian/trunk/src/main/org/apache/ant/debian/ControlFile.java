@@ -42,11 +42,16 @@ public class ControlFile extends Resource {
     private static final String MAINTAINER_HEADER = "Maintainer: ";
     private static final String PROVIDES_HEADER = "Provides: ";
     private static final String DESCRIPTION_HEADER = "Description: ";
-    private static final String DEPENDENCIES_HEADER = "Dependencies: ";
-
+    private static final String DEPENDENCIES_HEADER = "Depends: ";
+    private static final String RECOMMENDS_HEADER = "Recommeds: ";
+    
 
     private Vector dependencies = new Vector();
+    
+    private Vector recommends = new Vector();
 
+    private Vector provides = new Vector();
+    
     private String debPackage;
 
     private String debVersion;
@@ -61,8 +66,6 @@ public class ControlFile extends Resource {
 
     private String debMaintainer;
 
-    private String debProvides;
-
     private Description description;
 
     /* default */
@@ -72,6 +75,14 @@ public class ControlFile extends Resource {
         dependencies.add(d);
     }
 
+    public void addRecommends(Recommends r) {
+        recommends.add(r);
+    }
+    
+    public void addProvides(Provides p) {
+        provides.add(p);
+    }
+    
     public String getDebPackage() {
         return debPackage;
     }
@@ -128,14 +139,6 @@ public class ControlFile extends Resource {
         this.debMaintainer = debMaintainer;
     }
 
-    public String getDebProvides() {
-        return debProvides;
-    }
-
-    public void setDebProvides(String debProvides) {
-        this.debProvides = debProvides;
-    }
-
     public void addDescription(Description d) {
         this.description = d;
     }
@@ -148,41 +151,39 @@ public class ControlFile extends Resource {
         writer.println(ARCHITECTURE_HEADER+debArchitecture);
         writer.println(ESSENTIAL_HEADER+debEssential);
         writer.println(MAINTAINER_HEADER+debMaintainer);
-        writer.println(PROVIDES_HEADER+debProvides);
-        if(dependencies.size() > 0) {
-            writer.print(DEPENDENCIES_HEADER);
-            for(Iterator i = dependencies.iterator();i.hasNext();) {
-                writer.print(((Dependency)i.next()).getName());
-                if(i.hasNext()) {
-                    writer.print(",");
-                } else {
-                    writer.print("\n");
-                }
-            }
-        }
+        writeVector(dependencies, DEPENDENCIES_HEADER, writer);
+        writeVector(recommends, RECOMMENDS_HEADER, writer);
+        writeVector(provides, PROVIDES_HEADER, writer);
+        
         if(null != description) {
             writer.println(DESCRIPTION_HEADER+description.getDesc());
         }
     }
 
-    public static class Dependency {
-        private String name;
-
-        public Dependency() {}
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void addText(String text) {
-            this.name = text;
+    private void writeVector(Vector v, String header, PrintWriter w) 
+            throws IOException {
+        
+        if (v.size() > 0) {
+            for(Iterator i = v.iterator();i.hasNext();) {
+                w.print(header);
+                w.print(((DpkgLine)i.next()).getName());
+                w.print("\n");
+            }
         }
     }
+    
+    public static class Dependency extends DpkgLine {
+        public Dependency() {}
+    }
 
+    public static class Recommends extends DpkgLine {
+        public Recommends() {}
+    }
+    
+    public static class Provides extends DpkgLine {
+        public Provides() {}
+    }
+    
     public static class Description {
         private String desc;
 
@@ -198,6 +199,22 @@ public class ControlFile extends Resource {
 
         public void addText(String text) {
             this.desc = text;
+        }
+    }
+    
+    public abstract static class DpkgLine {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void addText(String text) {
+            this.name = text;
         }
     }
 }

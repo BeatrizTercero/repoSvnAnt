@@ -108,8 +108,8 @@ public class ControlFileTask extends Task {
         controlFile.setDebMaintainer(debMaintainer);
     }
 
-    public void setProvides(String debProvides) {
-        controlFile.setDebProvides(debProvides);
+    public void addProvides(ControlFile.Provides provides) {
+        controlFile.addProvides(provides);
     }
 
     public void addDescription(ControlFile.Description description) {
@@ -118,5 +118,9 @@ public class ControlFileTask extends Task {
 
     public void addDependency(ControlFile.Dependency dependency) {
         controlFile.addDependency(dependency);
+    }
+    
+    public void addRecommends(ControlFile.Recommends recommends) {
+        controlFile.addRecommends(recommends);
     }
 }
