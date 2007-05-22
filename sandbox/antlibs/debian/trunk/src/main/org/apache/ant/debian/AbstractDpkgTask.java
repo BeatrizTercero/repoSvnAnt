@@ -127,7 +127,7 @@ public abstract class AbstractDpkgTask extends Task {
 
         if (this.executeStreamHandler == null) {
             setExecuteStreamHandler(new PumpStreamHandler(getOutputStream(),
-                                                          getErrorStream()));
+                    getErrorStream()));
         }
 
         return this.executeStreamHandler;
@@ -157,10 +157,10 @@ public abstract class AbstractDpkgTask extends Task {
             if (output != null) {
                 try {
                     setOutputStream(new PrintStream(
-                                        new BufferedOutputStream(
-                                            new FileOutputStream(output
-                                                                 .getPath(),
-                                                                 append))));
+                            new BufferedOutputStream(
+                                    new FileOutputStream(output
+                                            .getPath(),
+                                            append))));
                 } catch (IOException e) {
                     throw new BuildException(e, getLocation());
                 }
@@ -197,9 +197,9 @@ public abstract class AbstractDpkgTask extends Task {
 
                 try {
                     setErrorStream(new PrintStream(
-                                       new BufferedOutputStream(
-                                           new FileOutputStream(error.getPath(),
-                                                                append))));
+                            new BufferedOutputStream(
+                                    new FileOutputStream(error.getPath(),
+                                            append))));
                 } catch (IOException e) {
                     throw new BuildException(e, getLocation());
                 }
@@ -246,10 +246,10 @@ public abstract class AbstractDpkgTask extends Task {
             /*Throw an exception if svn exited with error. (Iulian)*/
             if (failOnError && Execute.isFailure(retCode)) {
                 throw new BuildException("svn exited with error code "
-                                         + retCode
-                                         + StringUtils.LINE_SEP
-                                         + "Command line was ["
-                                         + actualCommandLine + "]", getLocation());
+                        + retCode
+                        + StringUtils.LINE_SEP
+                        + "Command line was ["
+                        + actualCommandLine + "]", getLocation());
             }
         } catch (IOException e) {
             if (failOnError) {
@@ -316,7 +316,7 @@ public abstract class AbstractDpkgTask extends Task {
 
         StringBuffer stringBuffer =
             new StringBuffer(Commandline.describeCommand(execute
-                                                         .getCommandline()));
+                    .getCommandline()));
 
         String newLine = StringUtils.LINE_SEP;
         String[] variableArray = execute.getEnvironment();
@@ -478,30 +478,30 @@ public abstract class AbstractDpkgTask extends Task {
             return;
         }
         c.setExecutable(EXECUTABLE);
-//        if (quiet) {
-//            c.createArgument(true).setValue("--quiet");
-//        }
-//        if (verbose) {
-//            c.createArgument(true).setValue("--verbose");
-//        }
-//        if (file != null) {
-//            c.createArgument(true).setValue("--file");
-//            c.createArgument(true).setFile(file);
-//        }
-//        if (force) {
-//            c.createArgument(true).setValue("--force");
-//        }
-//        if (recursive != null) {
-//            if (recursive.booleanValue()) {
-//                c.createArgument(true).setValue("--recursive");
-//            } else {
-//                c.createArgument(true).setValue("--non-recursive");
-//            }
-//        }
-//        if (targets != null) {
-//            c.createArgument(true).setValue("--targets");
-//            c.createArgument(true).setFile(targets);
-//        }
+//      if (quiet) {
+//      c.createArgument(true).setValue("--quiet");
+//      }
+//      if (verbose) {
+//      c.createArgument(true).setValue("--verbose");
+//      }
+//      if (file != null) {
+//      c.createArgument(true).setValue("--file");
+//      c.createArgument(true).setFile(file);
+//      }
+//      if (force) {
+//      c.createArgument(true).setValue("--force");
+//      }
+//      if (recursive != null) {
+//      if (recursive.booleanValue()) {
+//      c.createArgument(true).setValue("--recursive");
+//      } else {
+//      c.createArgument(true).setValue("--non-recursive");
+//      }
+//      }
+//      if (targets != null) {
+//      c.createArgument(true).setValue("--targets");
+//      c.createArgument(true).setFile(targets);
+//      }
     }
 
     /**
@@ -525,9 +525,9 @@ public abstract class AbstractDpkgTask extends Task {
      * @param c commandline to insert
      * @param insertAtStart If true, c is
      * inserted at the beginning of the vector of command lines
-    */
+     */
     public void addConfiguredCommandline(Commandline c,
-                                         boolean insertAtStart) {
+            boolean insertAtStart) {
         if (c == null) {
             return;
         }

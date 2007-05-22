@@ -52,7 +52,7 @@ public class BuildDpkg extends AbstractDpkgTask {
             throw new BuildException("Cannot read contents of ["+dir+"].");
         }
         if (null == packageName || packageName.length() == 0) {
-           log("You haven't specified a package name, the file will be created under ["+dir+"].");
+            log("You haven't specified a package name, the file will be created under ["+dir+"].");
         }
         //TODO add checks for missing control file, and package name checks
     }

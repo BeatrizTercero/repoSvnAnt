@@ -62,9 +62,9 @@ public class ControlFileTask extends Task {
             controlFile.write(w);
         } catch (IOException e) {
             throw new BuildException("Failed to write " + file,
-                                     e, getLocation());
+                    e, getLocation());
         } finally {
-           FileUtils.close(w);
+            FileUtils.close(w);
         }
     }
 
