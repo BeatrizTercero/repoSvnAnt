@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project default="compile" name="svn">
+<project default="compile" name="debian">
 
   <!-- easy way to override properties -->
   <property file="build.properties"/>
