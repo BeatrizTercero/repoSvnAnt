@@ -1,13 +1,9 @@
 <?xml version="1.0"?>
-<project default="all" xmlns:au="antlib:org.apache.ant.antunit">
+<project default="all" 
+	xmlns:au="antlib:org.apache.ant.antunit"
+	xmlns:deb="antlib:org.apache.ant.debian">
 
     <property name="testfile" value="cf"/>
-
-    <target name="setUp">
-        <taskdef name="control"
-          classname="org.apache.ant.debian.ControlFileTask"
-        />
-    </target>
 
     <target name="tearDown">
       <delete file="${java.io.tmpdir}/${testfile}"/>
@@ -15,10 +11,10 @@
 
     <target name="testControlFileCreated">
       <au:assertFileDoesntExist file="${java.io.tmpdir}/${testfile}"/>
-      <control file="${java.io.tmpdir}/${testfile}" package="ant" version="1.71alpha" maintainer="kevj@apache.org">
+      <deb:control file="${java.io.tmpdir}/${testfile}" package="ant" version="1.71alpha" maintainer="kevj@apache.org">
         <dependency name="test1"/>
         <dependency name="test2"/>
-      </control>
+      </deb:control>
       <au:assertFileExists file="${java.io.tmpdir}/${testfile}"/>
     </target>
 
