@@ -3,17 +3,23 @@
 	xmlns:au="antlib:org.apache.ant.antunit"
 	xmlns:deb="antlib:org.apache.ant.debian">
 
-    <property name="testfile" value="cf"/>
+    <property name="testfile" value="control"/>
 
     <target name="tearDown">
       <delete file="${java.io.tmpdir}/${testfile}"/>
     </target>
 
-    <target name="testControlFileCreated">
+    <target name="test-control-file-created">
       <au:assertFileDoesntExist file="${java.io.tmpdir}/${testfile}"/>
-      <deb:control file="${java.io.tmpdir}/${testfile}" package="ant" version="1.71alpha" maintainer="kevj@apache.org">
-        <dependency name="test1"/>
-        <dependency name="test2"/>
+      <deb:control file="${java.io.tmpdir}/${testfile}" 
+      	package="ant" version="1.7.1alpha" maintainer="kevj@apache.org"
+      	essential="no" priority="optional" section="Development" architecture="all">
+        <dependency name="java-gjc-compat | java-virtual-machine"/>
+        <dependency name="java-gjc-compat | java1-runtime | java2-runtime"/>
+      	<dependency name="libxerces2-java"/>
+      	<recommends name="ant-optional"/>
+      	<recommends name="jike | java-compiler"/>
+ 		<description>Java based build tool like make</description>
       </deb:control>
       <au:assertFileExists file="${java.io.tmpdir}/${testfile}"/>
     </target>
@@ -24,4 +30,9 @@
         <au:plainlistener/>
       </au:antunit>
     </target>
+	
+	<target name="clean">
+	  <delete file="${java.io.tmpdir}/${testfile}"/>
+	</target>
+	
 </project>
