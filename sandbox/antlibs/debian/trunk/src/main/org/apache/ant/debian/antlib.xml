@@ -24,4 +24,8 @@
     name="control"
     classname="org.apache.ant.debian.ControlFileTask"
     />
+  <taskdef
+    name="install"
+    classname="org.apache.ant.debian.InstallDpkg"
+    />
 </antlib>
