@@ -107,6 +107,10 @@ public class ControlFileTask extends Task {
     public void setMaintainer(String debMaintainer) {
         controlFile.setDebMaintainer(debMaintainer);
     }
+    
+    public void setHomepage(String h) {
+        controlFile.setHomepage(h);
+    }
 
     public void addProvides(ControlFile.Provides provides) {
         controlFile.addProvides(provides);
@@ -114,10 +118,6 @@ public class ControlFileTask extends Task {
 
     public void addDescription(ControlFile.Description description) {
         controlFile.addDescription(description);
-    }
-
-    public void addDependency(ControlFile.Dependency dependency) {
-        controlFile.addDependency(dependency);
     }
     
     public void addRecommends(ControlFile.Recommends recommends) {

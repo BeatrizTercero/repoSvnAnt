@@ -42,15 +42,11 @@ public class ControlFile extends Resource {
     private static final String MAINTAINER_HEADER = "Maintainer: ";
     private static final String PROVIDES_HEADER = "Provides: ";
     private static final String DESCRIPTION_HEADER = "Description: ";
-    private static final String DEPENDENCIES_HEADER = "Dependency of: ";
-    private static final String RECOMMENDS_HEADER = "Recommeds: ";
+    private static final String RECOMMENDS_HEADER = "Recommends: ";
     private static final String SUGGESTS_HEADER = "Suggests: ";
     private static final String CONFLICTS_HEADER = "Conflicts: ";
     private static final String REPLACES_HEADER = "Replaces: ";
     private static final String DEPENDS_HEADER = "Depends: ";
-    
-
-    private Vector dependencies = new Vector();
     
     private Vector recommends = new Vector();
 
@@ -77,15 +73,13 @@ public class ControlFile extends Resource {
     private String debEssential;
 
     private String debMaintainer;
+    
+    private String homepage;
 
     private Description description;
 
     /* default */
     public ControlFile() {}
-
-    public void addDependency(Dependency d) {
-        dependencies.add(d);
-    }
 
     public void addRecommends(Recommends r) {
         recommends.add(r);
@@ -166,6 +160,10 @@ public class ControlFile extends Resource {
     public void setDebMaintainer(String debMaintainer) {
         this.debMaintainer = debMaintainer;
     }
+    
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
 
     public void addDescription(Description d) {
         this.description = d;
@@ -185,7 +183,7 @@ public class ControlFile extends Resource {
         writeVector(suggests, SUGGESTS_HEADER, writer);
         writeVector(conflicts, CONFLICTS_HEADER, writer);
         writeVector(replaces, REPLACES_HEADER, writer);
-        writeVector(dependencies, DEPENDENCIES_HEADER, writer);
+        //writeVector(dependencies, DEPENDENCIES_HEADER, writer);
         
         if(null != description) {
             writer.println(DESCRIPTION_HEADER+description.getDesc());
@@ -196,10 +194,18 @@ public class ControlFile extends Resource {
             throws IOException {
         
         if (v.size() > 0) {
+            boolean first = true;
             for(Iterator i = v.iterator();i.hasNext();) {
-                w.print(header);
+                if (first) {
+                    w.print(header);
+                }
+                first = false;
                 w.print(((DpkgLine)i.next()).getName());
-                w.print("\n");
+                if(i.hasNext()) {
+                    w.print(",");
+                } else {
+                    w.print("\n");
+                }
             }
         }
     }
