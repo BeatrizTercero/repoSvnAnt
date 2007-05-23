@@ -2,9 +2,6 @@ Docs
 - write index.html &c
 
 ControlFile
-- add suggests
-- add conflicts
-- add replaces
 - more tests
 
 BuildDpkg
@@ -12,3 +9,9 @@ BuildDpkg
 
 InstallDpkg
 - finish antunit tests
+
+MD5 for files
+
+Look at jdeb ant tasks @ http://vafer.org/projects/jdeb/ for x-platform builds
+
+Make tests more generic (remove dependency to my current ant src dir :)
