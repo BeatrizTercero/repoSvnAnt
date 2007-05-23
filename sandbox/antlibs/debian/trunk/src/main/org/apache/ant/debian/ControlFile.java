@@ -42,8 +42,12 @@ public class ControlFile extends Resource {
     private static final String MAINTAINER_HEADER = "Maintainer: ";
     private static final String PROVIDES_HEADER = "Provides: ";
     private static final String DESCRIPTION_HEADER = "Description: ";
-    private static final String DEPENDENCIES_HEADER = "Depends: ";
+    private static final String DEPENDENCIES_HEADER = "Dependency of: ";
     private static final String RECOMMENDS_HEADER = "Recommeds: ";
+    private static final String SUGGESTS_HEADER = "Suggests: ";
+    private static final String CONFLICTS_HEADER = "Conflicts: ";
+    private static final String REPLACES_HEADER = "Replaces: ";
+    private static final String DEPENDS_HEADER = "Depends: ";
     
 
     private Vector dependencies = new Vector();
@@ -51,6 +55,14 @@ public class ControlFile extends Resource {
     private Vector recommends = new Vector();
 
     private Vector provides = new Vector();
+    
+    private Vector suggests = new Vector();
+    
+    private Vector conflicts = new Vector();
+    
+    private Vector replaces = new Vector();
+    
+    private Vector depends = new Vector();
     
     private String debPackage;
 
@@ -81,6 +93,22 @@ public class ControlFile extends Resource {
     
     public void addProvides(Provides p) {
         provides.add(p);
+    }
+    
+    public void addSuggests(Suggests s) {
+        suggests.add(s);
+    }
+    
+    public void addConflicts(Conflicts c) {
+        conflicts.add(c);
+    }
+    
+    public void addReplaces(Replaces r) {
+        replaces.add(r);
+    }
+    
+    public void addDepends(Depends d) {
+        depends.add(d);
     }
     
     public String getDebPackage() {
@@ -151,9 +179,13 @@ public class ControlFile extends Resource {
         writer.println(ARCHITECTURE_HEADER+debArchitecture);
         writer.println(ESSENTIAL_HEADER+debEssential);
         writer.println(MAINTAINER_HEADER+debMaintainer);
-        writeVector(dependencies, DEPENDENCIES_HEADER, writer);
+        writeVector(depends, DEPENDS_HEADER, writer);
         writeVector(recommends, RECOMMENDS_HEADER, writer);
         writeVector(provides, PROVIDES_HEADER, writer);
+        writeVector(suggests, SUGGESTS_HEADER, writer);
+        writeVector(conflicts, CONFLICTS_HEADER, writer);
+        writeVector(replaces, REPLACES_HEADER, writer);
+        writeVector(dependencies, DEPENDENCIES_HEADER, writer);
         
         if(null != description) {
             writer.println(DESCRIPTION_HEADER+description.getDesc());
@@ -182,6 +214,22 @@ public class ControlFile extends Resource {
     
     public static class Provides extends DpkgLine {
         public Provides() {}
+    }
+    
+    public static class Suggests extends DpkgLine {
+        public Suggests() {}
+    }
+    
+    public static class Conflicts extends DpkgLine {
+        public Conflicts() {}
+    }
+    
+    public static class Replaces extends DpkgLine {
+        public Replaces() {}
+    }
+    
+    public static class Depends extends DpkgLine {
+        public Depends() {}
     }
     
     public static class Description {

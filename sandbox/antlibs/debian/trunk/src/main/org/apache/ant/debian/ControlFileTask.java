@@ -123,4 +123,20 @@ public class ControlFileTask extends Task {
     public void addRecommends(ControlFile.Recommends recommends) {
         controlFile.addRecommends(recommends);
     }
+    
+    public void addSuggests(ControlFile.Suggests suggests) {
+        controlFile.addSuggests(suggests);
+    }
+    
+    public void addConflicts(ControlFile.Conflicts conflicts) {
+        controlFile.addConflicts(conflicts);
+    }
+    
+    public void addReplaces(ControlFile.Replaces replaces) {
+        controlFile.addReplaces(replaces);
+    }
+    
+    public void addDepends(ControlFile.Depends depends) {
+        controlFile.addDepends(depends);
+    }
 }
