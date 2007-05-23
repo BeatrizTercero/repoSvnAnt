@@ -13,7 +13,7 @@
       <au:assertFileDoesntExist file="${java.io.tmpdir}/${testfile}"/>
       <deb:control file="${java.io.tmpdir}/${testfile}" 
       	package="ant" version="1.7.1alpha" maintainer="kevj@apache.org"
-      	essential="no" priority="optional" section="Development" architecture="all"
+      	essential="no" priority="optional" section="devel" architecture="all"
       	homepage="http://ant.apache.org">
         <depends>java-gcj-compat | java-virtual-machine</depends>
         <depends>java-gcj-compat | java1-runtime | java2-runtime</depends>
@@ -21,10 +21,10 @@
       	<recommends>ant-optional</recommends>
       	<recommends>jikes | java-compiler</recommends>
       	<suggests>ant-doc</suggests>
-      	<conflicts>ant(&lt;=1.6.5-6)</conflicts>
-      	<conflicts>ant-doc(&lt;=1.6.5-6)</conflicts>
-      	<replaces>ant(&lt;=1.6.5-6)</replaces>
-      	<replaces>ant-doc(&lt;=1.6.5-6)</replaces>
+      	<conflicts>ant (&lt;=1.6.5-6)</conflicts>
+      	<conflicts>ant-doc (&lt;=1.6.5-6)</conflicts>
+      	<replaces>ant (&lt;=1.6.5-6)</replaces>
+      	<replaces>ant-doc (&lt;=1.6.5-6)</replaces>
       	<description>Java based build tool like make</description>
       </deb:control>
       <au:assertFileExists file="${java.io.tmpdir}/${testfile}"/>
