@@ -20,11 +20,27 @@
   	<deb:control file="${controlfile}" 
   	  package="ant" version="1.7.1alpha" maintainer="kevj@apache.org"
   	  essential="no" priority="optional" section="Development" architecture="all">
-  	  <dependency name="java-gjc-compat | java-virtual-machine"/>
-  	  <dependency name="java-gjc-compat | java1-runtime | java2-runtime"/>
-  	  <dependency name="libxerces2-java"/>
-  	  <recommends name="ant-optional"/>
-  	  <recommends name="jike | java-compiler"/>
+      <depends>java-gjc-compat | java-virtual-machine</depends>
+      <depends>java-gjc-compat | java1-runtime | java2-runtime</depends>
+  	  <depends>libxerces2-java</depends>
+  	  <recommends>ant-optional</recommends>
+  	  <recommends>jikes | java-compiler</recommends>
+  	  <suggests>ant-doc</suggests>
+  	  <conflicts>ant-(&lt;1.7.0)</conflicts>
+  	  <conflicts>ant-doc(&lt;1.7.0)</conflicts>
+  	  <replaces>ant-(&lt;1.7.0)</replaces>
+  	  <replaces>ant-doc(&lt;1.7.0)</replaces>
+  	  <dependency>nice</dependency>
+  	  <dependency>libzeroc-ice-java</dependency>
+  	  <dependency>libtomcat5.5-java</dependency>
+  	  <dependency>libtomcat5-java</dependency>
+  	  <dependency>libow-util-ant-tasks-java</dependency>
+  	  <dependency>libaxis-java</dependency>
+  	  <dependency>velocity</dependency>
+  	  <dependency>jde</dependency>
+  	  <dependency>ecj</dependency>
+  	  <dependency>ant-optional</dependency>
+  	  <dependency>ant-doc</dependency>
   	  <description>Java based build tool like make</description>
   	</deb:control>
     <au:assertFileExists file="${controlfile}"/>
