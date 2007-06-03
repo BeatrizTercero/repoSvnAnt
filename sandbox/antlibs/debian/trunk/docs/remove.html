@@ -1,0 +1,65 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>remove Task</title>
+  </head>
+
+  <body>
+    <h2><a name="remove">Remove</a></h2>
+
+    <h3>Description</h3>
+
+    <p>Removes the specified debian package.</p>
+
+    <h3>Parameters</h3>
+    <table border="1" cellpadding="2" cellspacing="0">
+      <tr>
+        <td valign="top"><b>Attribute</b></td>
+        <td valign="top"><b>Description</b></td>
+        <td align="center" valign="top"><b>Required</b></td>
+      </tr>
+      <tr>
+        <td valign="top">packagename</td>
+        <td valign="top">The name of the debian package to remove.</td>
+        <td align="center">Yes.</td>
+      </tr>
+      <tr>
+        <td valign="top">purge</td>
+        <td valign="top">Set to true to remove config files.</td>
+        <td align="center">No.</td>
+      </tr>
+    </table>
+
+    <h3>Examples</h3>
+
+    <p>Remove the package foo:</p>
+
+    <pre>
+ 	  &lt;deb:remove packagename="foo"/&gt;
+    </pre>
+
+	<p>Remove and purge any config files for package foo:</p>
+
+    <pre>
+ 	  &lt;deb:remove purge="true" packagename="foo"/&gt;
+    </pre>
+    <hr/>
+  </body>
+</html>
