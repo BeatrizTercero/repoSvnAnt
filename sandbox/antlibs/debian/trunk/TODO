@@ -10,7 +10,8 @@ BuildDpkg
 InstallDpkg
 - finish antunit tests
 
-MD5 for files
+RemoveDpkg
+- finish antunit tests
 
 Look at jdeb ant tasks @ http://vafer.org/projects/jdeb/ for x-platform builds
 
