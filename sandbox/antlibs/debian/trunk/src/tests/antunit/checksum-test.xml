@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project default="all" basedir="../../../.."
+  xmlns:au="antlib:org.apache.ant.antunit"
+  xmlns:deb="antlib:org.apache.ant.debian">
+  
+  <property name="output" value="${basedir}/ant-core-trunk/dist/md5sums"/>
+  
+  <target name="tearDown">
+    <delete file="${output}"/>
+  </target>
+  
+  <target name="test-checksum">
+    <au:assertFileDoesntExist file="${output}"/>
+    <deb:checksum output="${output}">
+      <fileset dir="${basedir}/ant-core-trunk/dist">
+        <include name="bin/*.*"/>
+      </fileset>
+    </deb:checksum>
+    <au:assertFileExists file="${output}"/>
+  </target>
+  
+  <target name="all">
+    <au:antunit>
+      <fileset file="${ant.file}"/>
+      <au:plainlistener/>
+    </au:antunit>
+  </target>
+</project>

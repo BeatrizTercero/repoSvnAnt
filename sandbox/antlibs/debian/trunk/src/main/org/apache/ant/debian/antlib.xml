@@ -28,4 +28,12 @@
     name="install"
     classname="org.apache.ant.debian.InstallDpkg"
     />
+  <taskdef
+    name="remove"
+    classname="org.apache.ant.debian.RemoveDpkg"
+    />
+  <taskdef
+    name="checksum"
+    classname="org.apache.ant.debian.ChecksumTask"
+    />
 </antlib>

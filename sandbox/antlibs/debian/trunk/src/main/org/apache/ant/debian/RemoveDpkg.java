@@ -20,61 +20,44 @@ package org.apache.ant.debian;
 import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.BuildException;
 
-import java.io.File;
-
-
 /**
- * Build a debian package with dpkg
+ * Remove a debian package 
  */
-public class BuildDpkg extends AbstractDpkgTask {
-
-    /** the directory to use as a source for dpkg */
-    private File dir;
+public class RemoveDpkg extends AbstractDpkgTask {
 
     /** the name of the .deb package to create */
     private String packageName;
-
+    
+    /** are we going to remove config files too ? */
+    private boolean purge = false;
+    
     public void execute() throws BuildException {
         validate();
         Commandline c = new Commandline();
         c.setExecutable("dpkg");
-        String[] args = { "--build", dir.getAbsolutePath(), packageName };
+        String[] args;
+        if(purge) {
+            args = new String[] { "--purge", packageName };
+        } else {
+            args = new String[] { "--remove", packageName };
+        }
         c.addArguments(args);
         super.addConfiguredCommandline(c);
         super.execute();
     }
-
+    
     private void validate() throws BuildException {
-        if (null == dir || dir.toString().length() == 0) {
-            throw new BuildException("You must set a dir that contains the files you wish to package.");
+        if((packageName == null || packageName.length() == 0)) {
+            throw new BuildException("You must specify a packagename.");
         }
-        if (!dir.canRead()) {
-            throw new BuildException("Cannot read contents of ["+dir+"].");
-        }
-        if (null == packageName || packageName.length() == 0) {
-            log("You haven't specified a package name, the file will be created under ["+dir+"].");
-        }
-        File controlFile = new File(dir.getAbsolutePath()+File.separator+"DEBIAN"+File.separator+"control");
-        if (!controlFile.canRead()) {
-            throw new BuildException("Cannot read control file ["+controlFile+"].");
-        }
-        //TODO add checks for missing control file, and package name checks, and MD5 checks
     }
 
-    public File getDir() {
-        return dir;
+    /* setters */
+    public void setPackageName(final String p) {
+        packageName = p;
     }
-
-    public void setDir(File dir) {
-        this.dir = dir;
+    
+    public void setPurge(final boolean p) {
+        purge = p;
     }
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
-
 }
