@@ -22,6 +22,9 @@ import java.io.File;
 import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.BuildException;
 
+/**
+ * Install a debian package
+ */
 public class InstallDpkg extends AbstractDpkgTask {
 
     /** the name of the .deb package to create */
