@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+
+
+<project default="manually-todo">
+
+    <description>
+        This buildfile generates the directory layout for a new AntLib.
+    </description>
+
+
+
+    <target name="read-properties" unless="antlib.shortname">
+        <input addproperty="antlib.shortname"
+               message="Please enter the short name (for root directory and package) of your AntLib"
+        />
+        <input addproperty="antlib.fullname"
+               message="Please enter the full name of you AntLib"
+               defaultvalue="${antlib.shortname}"
+        />
+        <input addproperty="name.first"
+               message="Please enter your first name"
+        />
+        <input addproperty="name.last"
+               message="Please enter your last name"
+        />
+    </target>
+
+
+
+    <target name="setup-properties" depends="read-properties">
+        <property name="antlib.trunk" value="${antlib.shortname}/trunk"/>
+        <tstamp>   
+            <format property="tstamp.year" pattern="yyyy"/>
+        </tstamp>
+        <property name="antlib.src.root" value="${antlib.trunk}/src/main/org/apache/ant/${antlib.shortname}"/>
+        <property name="manual.dir" value="${antlib.trunk}/docs"/>
+    </target>
+
+
+
+    <target name="make-dir-layout" depends="setup-properties">
+        <!-- Subversion directory layout -->
+        <mkdir dir="${antlib.shortname}/tags"/>
+        <mkdir dir="${antlib.shortname}/branches"/>
+        <mkdir dir="${antlib.trunk}"/>
+        <!-- Common AntLib directory layout -->
+        <mkdir dir="${antlib.trunk}/src/main"/>
+        <mkdir dir="${antlib.trunk}/src/test/junit"/>
+        <mkdir dir="${antlib.trunk}/src/test/antunit"/>
+        <mkdir dir="${manual.dir}"/>
+        <!-- the root package for the antlib -->
+        <mkdir dir="${antlib.src.root}"/>
+    </target>
+
+
+
+    <target name="create-artifacts" depends="make-dir-layout,changes,antlib.xml,contributors.xml,build.xml,manual">
+        <copy file="http/trunk/common/NOTICE.template" tofile="${antlib.trunk}/NOTICE">
+            <filterset begintoken="[" endtoken="]">
+                <filter token="PRODUCT_NAME" value="${antlib.fullname}"/>
+                <filter token="yyyy" value="${tstamp.year}"/>
+            </filterset>
+        </copy>
+        <echo 
+            file="${antlib.trunk}/version.properties"
+            message="#artifact.version=1.0alpha" 
+        />
+    </target>
+ 
+
+
+    <target name="changes" depends="make-dir-layout">
+        <echo file="${antlib.trunk}/changes.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE document
+[
+&lt;!ELEMENT document (properties?, release+)&gt;
+&lt;!ELEMENT properties (title)&gt;
+&lt;!ELEMENT title (#PCDATA)&gt;
+&lt;!ELEMENT release (action*)&gt;
+&lt;!ELEMENT action (#PCDATA)&gt;
+&lt;!ATTLIST release
+          version CDATA #REQUIRED
+          date CDATA #REQUIRED
+          description CDATA #IMPLIED&gt;
+&lt;!ATTLIST action
+          issue CDATA #IMPLIED
+          type (add|fix|remove|update) #REQUIRED
+          breaks-bwc (true|false) #IMPLIED&gt;
+]
+&gt;
+&lt;document&gt;
+  &lt;properties&gt;
+    &lt;title&gt;Apache AntLib ${antlib.fullname}&lt;/title&gt;
+  &lt;/properties&gt;
+
+  &lt;release version=&quot;SVN trunk&quot; date=&quot;unpublished&quot;&gt;
+    &lt;action type=&quot;add&quot;&gt;
+      Initial import of ${antlib.fullname}
+    &lt;/action&gt;
+  &lt;/release&gt;
+
+&lt;/document&gt;        
+        </echo>
+    </target>
+
+
+
+    <target name="antlib.xml" depends="make-dir-layout">
+        <echo file="${antlib.trunk}/src/main/org/apache/ant/${antlib.shortname}/antlib.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;antlib&gt;
+  &lt;!--
+  &lt;taskdef
+    name=&quot;&quot;
+    classname=&quot;org.apache.ant.${antlib.shortname}.&quot;
+  /&gt;
+  &lt;macrodef name=&quot;&quot;&gt;
+    &lt;attribute name=&quot;&quot; default=&quot;&quot;/&gt;
+    &lt;element name=&quot;&quot; optional=&quot;yes&quot;/&gt;
+    &lt;text name=&quot;text&quot; optional=&quot;yes&quot; trim=&quot;true&quot;/&gt;
+    &lt;sequential&gt;
+        &lt;echo/&gt;
+    &lt;/sequential&gt;
+  &lt;/macrodef&gt;
+  &lt;presetdef name=&quot;&quot;&gt;
+  &lt;/presetdef&gt;
+  --&gt;
+&lt;/antlib&gt;
+        </echo>
+    </target>
+
+
+
+    <target name="contributors.xml" depends="make-dir-layout">
+        <echo file="${antlib.trunk}/changes.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!DOCTYPE contributors
+[
+&lt;!ELEMENT name (first?, middle?, last)&gt;
+&lt;!ELEMENT contributors (introduction, name+)&gt;
+&lt;!ELEMENT first (#PCDATA)&gt;
+&lt;!ELEMENT introduction (#PCDATA)&gt;
+&lt;!ELEMENT middle (#PCDATA)&gt;
+&lt;!ELEMENT last (#PCDATA)&gt;
+]
+&gt;
+&lt;contributors&gt;
+  &lt;introduction&gt;
+  These are some of the many people who have helped with this Ant Library.
+  &lt;/introduction&gt;
+  
+  &lt;name&gt;
+    &lt;first&gt;${name.first}&lt;/first&gt;
+    &lt;last&gt;${name.last}&lt;/last&gt;
+  &lt;/name&gt;
+&lt;/contributors&gt;
+        </echo>
+    </target>
+
+
+
+    <target name="manual" depends="make-dir-layout">
+        <copy file="${ant.home}/docs/favicon.ico" todir="${manual.dir}"/>
+        <echoxml file="${manual.dir}/index.html">
+<html>
+<head>
+  <meta http-equiv="Content-Language" content="en-us"/>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <title>User Manual - ${antlib.fullname}</title>
+</head>
+<frameset cols="26%,74%">
+  <frame src="toc.html" name="navFrame"/>
+  <frame src="cover.html" name="mainFrame"/>
+</frameset>
+<noframes>
+  <H2>User Manual - ${antlib.fullname}</H2>
+  <a href="toc.html">User Manual - ${antlib.fullname}</a>
+</noframes>
+</html>
+        </echoxml>
+        <echoxml file="${manual.dir}/toc.html">
+<html>
+<head>
+  <meta http-equiv="Content-Language" content="en-us"/>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <title>${antlib.fullname}</title>
+  <base target="mainFrame"/>
+</head>
+<body>
+  <a href="cover.html">Overview</a><br/>
+  <h2>Tasks</h2>
+  <a href="task.html">task</a><br/>
+</body>
+</html>
+        </echoxml>
+        <echoxml file="${manual.dir}/cover.html">
+<html>
+<head>
+  <meta http-equiv="Content-Language" content="en-us"/>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <title>${antlib.fullname}</title>
+</head>
+<body>
+  <h2>${antlib.fullname}</h2>
+  <p> TODO: something about this antlib </p>
+  <h3>What's this?</h3>
+  <h3>Building</h3>
+  <p>dependencies on Ant <i>version?</i>, external libs and tools</p>
+  <h3>Using</h3>
+</body>
+</html>
+        </echoxml>
+    </target>
+
+
+
+    <target name="build.xml" depends="make-dir-layout">
+        <echo file="${antlib.trunk}/build.xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;project default=&quot;compile&quot; name=&quot;${antlib.shortname}&quot;&gt;
+
+  &lt;!-- easy way to override properties --&gt;
+  &lt;property file=&quot;build.properties&quot;/&gt;
+
+  &lt;import file=&quot;common/build.xml&quot;/&gt;
+
+&lt;/project&gt;
+        </echo>
+    </target>
+
+
+
+    <target name="manually-todo" depends="create-artifacts">
+        <echo>
+            The AntLib directory layout and initial artifacts are created.
+            Your next steps are:
+            - maybe add your middle name to contributors.xml
+            - maybe add others to contributors.xml
+            - say something in the manuals cover.html about this AntLib
+            - add the files to svn
+            - modify the svn-properties of trunk-directory and add svn:externals
+              common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk
+            - update from svn for getting the common directory
+            - implement the AntLib
+            - implement testcases (hopefully using AntUnit)
+            - document the AntLib
+        </echo>
+    </target>
+
+
+</project>
