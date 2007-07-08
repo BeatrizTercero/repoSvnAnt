@@ -1,0 +1,156 @@
+<project name="scriptcondition-test" default="antunit" xmlns:au="antlib:org.apache.ant.antunit">
+  <import file="../antunit-base.xml" />
+
+  <macrodef name="t">
+    <element name="test" implicit="yes" />
+    <attribute name="message"/>
+    <sequential>
+      <au:assertTrue message="query @{message} failed; result was false">
+        <test />
+      </au:assertTrue>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="f">
+    <element name="test" implicit="yes" />
+    <attribute name="message"/>
+    <sequential>
+      <au:assertFalse message="test @{message} failed; result was true">
+        <test />
+      </au:assertFalse>
+    </sequential>
+  </macrodef>
+
+  <!-- this is here to test the macro is well coded -->
+ <target name="testMacro">
+    <t message="testMacro">
+      <istrue value="true"/>
+    </t>
+    <f message="testMacro2">
+      <istrue value="false"/>
+    </f>
+  </target>
+
+ <target name="testNolanguage">
+    <au:expectfailure message="Absence of language attribute not detected"
+                      expectedMessage="script language must be specified">
+      <t message="testNolanguage">
+        <scriptcondition>
+          self.setValue(true);
+        </scriptcondition>
+      </t>
+    </au:expectfailure>
+  </target>
+
+  <target name="testClearByDefault">
+    <f message="testClearByDefault">
+      <scriptcondition language="javascript">
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testValueWorks">
+    <t message="testValueWorks">
+      <scriptcondition language="javascript" value="true" />
+    </t>
+  </target>
+
+  <target name="testSetWorks">
+    <t message="testSetWorks">
+      <scriptcondition language="javascript" value="false">
+        self.setValue(true);
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testClearWorks">
+    <f message="testClearWorks">
+      <scriptcondition language="javascript" value="true">
+        self.setValue(false);
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testBeanshellReturnTrue">
+    <t message="testBeanshellReturnTrue">
+      <scriptcondition language="beanshell" value="false">
+        return true;
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testBeanshellReturnFalse">
+    <f message="testBeanshellReturnFalse">
+      <scriptcondition language="beanshell" value="true">
+        return false;
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testBeanshellReturnOverridesValue">
+    <f message="testBeanshellReturnOverridesValue">
+      <scriptcondition language="beanshell" value="false">
+        self.setValue(true);
+        return false;
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testBeanshellReturnNullIgnored">
+    <t message="testBeanshellReturnNullIgnored">
+      <scriptcondition language="beanshell" value="true">
+        return null;
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testBeanshellReturnNonBooleanIgnored">
+    <t message="testBeanshellReturnNonBooleanIgnored">
+      <scriptcondition language="beanshell" value="true">
+        return 20;
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testJsReturnTrue">
+    <t message="testJsReturnTrue">
+      <scriptcondition language="javascript" value="false">
+        java.lang.Boolean.TRUE
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testJsReturnFalse">
+    <f message="testJsReturnFalse">
+      <scriptcondition language="javascript" value="true">
+        java.lang.Boolean.FALSE
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testJsReturnOverridesValue">
+    <f message="testJsReturnOverridesValue">
+      <scriptcondition language="javascript" value="false">
+        self.setValue(true);
+        false
+      </scriptcondition>
+    </f>
+  </target>
+
+  <target name="testJsReturnNullIgnored">
+    <t message="testJsReturnNullIgnored">
+      <scriptcondition language="javascript" value="true">
+        null
+      </scriptcondition>
+    </t>
+  </target>
+
+  <target name="testJsReturnNonBooleanIgnored">
+    <t message="testJsReturnNonBooleanIgnored">
+      <scriptcondition language="javascript" value="true">
+        new java.lang.Integer(20)
+      </scriptcondition>
+    </t>
+  </target>
+
+</project>
