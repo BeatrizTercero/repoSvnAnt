@@ -1,0 +1,7 @@
+I created these files using "reverseengeneering" of Ant.
+
+I went through all error message reported by Eclipse, created the classes and
+created the methods and fields manually or via Eclipse Quick-Fix.
+
+I had to use two different source folders "src" and "src2" because there are
+"com.*" classes and a "COM.*" class. 

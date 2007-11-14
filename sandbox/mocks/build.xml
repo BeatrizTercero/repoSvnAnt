@@ -1,0 +1,106 @@
+<project default="build">
+
+    <property name="javac.source" value="1.3" />
+    <property name="javac.target" value="1.3" />
+
+    <property name="src.dir"   value="src" />
+    <property name="build.dir" value="build" />
+
+    <property name="classes.dir" value="${build.dir}/classes" />
+    <property name="jars.dir"    value="${build.dir}/jars" />
+
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+    
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}" />
+        <javac srcdir="${src.dir}"  
+               destdir="${classes.dir}"  
+               source="${javac.source}" 
+               target="${javac.target}" 
+        />
+        <mkdir dir="${classes.dir}2" />
+        <javac srcdir="${src.dir}2" 
+               destdir="${classes.dir}2" 
+               source="${javac.source}" 
+               target="${javac.target}"
+               classpath="${classes.dir}" 
+        />
+    </target>
+
+    
+    
+    <macrodef name="makeJar">
+        <attribute name="name"/>
+        <attribute name="basedir" default="${classes.dir}"/>
+        <element name="selectors" implicit="true"/>
+        <sequential>
+            <jar destfile="${jars.dir}/mock-@{name}.jar">
+                <fileset dir="@{basedir}">
+                    <selectors/>
+                </fileset>
+            </jar>
+        </sequential>
+    </macrodef>
+
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jars.dir}" />
+        <makeJar name="jdepend">
+            <filename name="jdepend/"/>
+        </makeJar>
+        <makeJar name="jai">
+            <or>
+            	<filename name="javax/media/"/>
+                <filename name="com/sun/media/"/>
+            </or>
+        </makeJar>
+        <makeJar name="mail">
+            <or>
+            	<filename name="javax/mail/"/>
+                <filename name="javax/activation/"/>
+            </or>
+        </makeJar>
+        <makeJar name="jcraft">
+            <filename name="com/jcraft/"/>
+        </makeJar>
+        <makeJar name="netrexx">
+            <filename name="netrexx/"/>
+        </makeJar>
+        <makeJar name="netrexx2" basedir="${classes.dir}2">
+            <filename name="COM/"/>
+        </makeJar>
+        <makeJar name="bcel">
+            <filename name="org/apache/bcel/"/>
+        </makeJar>
+        <makeJar name="bsf">
+            <filename name="org/apache/bsf"/>
+        </makeJar>
+        <makeJar name="commons-logging">
+            <filename name="org/apache/commons/logging/"/>
+        </makeJar>
+        <makeJar name="commons-net">
+            <filename name="org/apache/commons/net/"/>
+        </makeJar>
+        <makeJar name="log4j">
+            <filename name="org/apache/log4j/"/>
+        </makeJar>
+        <makeJar name="oro">
+            <filename name="org/apache/oro/"/>
+        </makeJar>
+        <makeJar name="regexp">
+            <filename name="org/apache/regexp/"/>
+        </makeJar>
+        <makeJar name="xml-resolver">
+            <filename name="org/apache/xml/resolver/"/>
+        </makeJar>
+    </target>
+
+
+    <target name="build" depends="jar" />
+
+
+</project>
