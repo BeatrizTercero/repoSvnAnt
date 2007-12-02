@@ -1,0 +1,100 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<project default="generate-site"
+        xmlns:xooki="antlib:xooki">
+
+    <property name="target.dir" value="${basedir}/target" />
+        
+    <target name="generate-site" depends="init-imported-history"
+            description="--> Generates site for publication">
+		<!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
+        <copy todir="${target.dir}">
+	        <fileset dir="${basedir}" 
+	        	includes="images/**,style/**,samples/**,js/**,schemas/**,presentations/**,history/*/images/**,history/*/samples/**" />
+        </copy>
+        <xooki:generate destDir="${target.dir}" checkUpToDate="true">
+			<fileset dir="${basedir}">
+			    <include name="**/*.html"/>
+			    <exclude name="**/template.html"/>
+			    <exclude name="**/*Template.html"/>
+			    <exclude name="presentations/**"/>
+			    <exclude name="samples/**"/>
+			    <exclude name="js/**"/>
+			    <exclude name="**/xooki/**"/>
+			    <exclude name="target/**"/>
+			    <exclude name="ivyde/**"/>
+			</fileset>
+		</xooki:generate>
+        <!-- ivyde site is a separate site, we generate it separately -->
+        <copy todir="${target.dir}/ivyde">
+	        <fileset dir="${basedir}/ivyde" includes="images/**,style/**" />
+        </copy>
+        <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="true">
+			<fileset dir="${basedir}/ivyde">
+			    <include name="**/*.html"/>
+			    <exclude name="template.html"/>
+			    <exclude name="*Template.html"/>
+			    <exclude name="**/xooki/**"/>
+			</fileset>
+		</xooki:generate>
+    </target>
+
+	<target name="publish-site"
+			description="--> generate site and upload it to people.apache.org server (requires an apache account)">
+		<property name="host.name" value="people.apache.org" />
+		<echo message="Preparing to upload site to ${host.name}..." />
+		<input addproperty="username" message="Please enter username:" />
+		<input addproperty="password" message="Please enter password:" />
+		
+        <antcall target="generate-site" />
+        
+		<scp todir="${username}:${password}@${host.name}:/www/ant.apache.org/ivy/" 
+			 trust="true" verbose="true" sftp="true">
+		    <fileset dir="${target.dir}"/>
+		</scp>
+	</target>
+    
+    <target name="clean" description="--> clean generated site">
+        <delete dir="${target.dir}" />
+    </target>
+        
+        
+    <!-- 
+    INITIALIZE IMPORTED DOCUMENTATION OF HISTORY VERSIONS
+    Imported documentations need to have a special configuration javascript
+    in their home, so that they know they are imported and properly
+    display the whole TOC, and not only their own one.
+    The targets below are used to initialize those imported versions
+    with ad hoc configuration file. It should only be called once 
+    per imported documentation version.
+    -->
+    <macrodef name="init-imported-version">
+        <attribute name="version" />
+        <sequential>
+            <echo file="history/@{version}/config.extra.js" 
+                  message="xooki.c.setImportLevel(2);" />
+        </sequential>
+    </macrodef>
+
+    <target name="init-imported-history"
+            description="--> initialize all imported documentation history">
+        <init-imported-version version="trunk" />
+        <init-imported-version version="2.0.0-alpha2" />
+    </target>
+</project>

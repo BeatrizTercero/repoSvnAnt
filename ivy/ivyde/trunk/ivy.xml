@@ -1,0 +1,14 @@
+<ivy-module version="1.0">
+    <info 
+        organisation="apache"
+        module="ivyde" 
+        status="integration"/>
+    <configurations>
+    	<conf name="default" visibility="public" description="Default configuration"/>
+    	<conf name="ant" visibility="public" description="For ant contribution"/>
+    </configurations>
+    <dependencies>
+        <dependency org="apache" name="ivy" rev="latest.integration" conf="default->core,httpclient,oro,vfs,sftp;ant->default"/>
+        <dependency org="commons-logging" name="commons-logging" rev="1.0.4" conf="default->default"/>
+    </dependencies>
+</ivy-module>
