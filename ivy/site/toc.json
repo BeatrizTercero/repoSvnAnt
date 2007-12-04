@@ -26,6 +26,13 @@
                 ]
             },
             {
+              "id":"CryptoNotice",
+              "title":"Crypto Notice",
+              "children": [
+
+                ]
+            },
+            {
               "id":"demo",
               "title":"Demo",
               "children": [
