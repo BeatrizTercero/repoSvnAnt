@@ -92,6 +92,10 @@
                     "title":"2.0.x",
                     "children": [
                         {
+                          "title":"2.0.0-beta1",
+                          "importRoot":"history/2.0.0-beta1",
+                          "importNode":"index"                        },
+                        {
                           "title":"2.0.0-alpha2",
                           "importRoot":"history/2.0.0-alpha2",
                           "importNode":"index"                        },

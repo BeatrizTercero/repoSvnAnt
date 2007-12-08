@@ -26,7 +26,7 @@
 		<!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <copy todir="${target.dir}">
 	        <fileset dir="${basedir}" 
-	        	includes="images/**,style/**,samples/**,js/**,schemas/**,presentations/**,history/*/images/**,history/*/samples/**" />
+	        	includes="*.cgi,images/**,style/**,samples/**,js/**,schemas/**,presentations/**,history/*/images/**,history/*/samples/**" />
         </copy>
         <xooki:generate destDir="${target.dir}" checkUpToDate="true">
 			<fileset dir="${basedir}">
@@ -95,6 +95,7 @@
     <target name="init-imported-history"
             description="--> initialize all imported documentation history">
         <init-imported-version version="trunk" />
-        <init-imported-version version="2.0.0-alpha2" />
+    	<init-imported-version version="2.0.0-beta1" />
+    	<init-imported-version version="2.0.0-alpha2" />
     </target>
 </project>

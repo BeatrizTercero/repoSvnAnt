@@ -25,17 +25,20 @@
 </head>
 <body>
 	<textarea id="xooki-source">
-Each distribution of ivy contains samples. The documentation is packaged separately due to its size. It corresponds to a snapshot of the online documentation at the time of the release. Prefer the site itself if you want to have an updated and commented version of the documentation.
+Each distribution of ivy contains examples and documentation. The documentation can also be browsed online, we have an history of all versions since 2.0.0-alpha2.
+
 With each version of ivy, you can find:
 <h2>binary distribution</h2>
-Containing ivy jars, dependencies and samples.
-This is the recommended version if you just want to use ivy. It requires at least a jre 1.4+ to run, and it is recommended to use it from ant (1.5.1+, 1.6.2+ recommended).
+Containing ivy jars, documentation and examples + a build.xml to download dependencies from maven2 repository.
+This is the recommended version to use Ivy, you will get ivy jar and be able to make your first use of Ivy to download the dependencies you need. All Ivy dependencies are only optional, so you can even use it without downloading any dependency. It requires at least a jre 1.4+ to run, and it is recommended to use it with Ant (1.5.1+, 1.6.2+ recommended).
+<h2>binary distribution with dependencies</h2>
+Containing ivy jars, dependencies, documentation and examples.
+This version is well suited if you want to easily use Ivy with all its optional tasks reying on external dependencies, without having to download them later. It requires at least a jre 1.4+ to run, and it is recommended to use it with Ant (1.5.1+, 1.6.2+ recommended).
 <h2>sources</h2>
-Ready to be build with ant 1.6.0 or greater and ... ivy 1.4-RC1+. Yes, ivy eats its own dog food, and needs a binary version of itself to be build. Note that you will also need to have an internet access during build in order to ivy to download dependencies from ibiblio.
-This is the recommended version if you want to build ivy yourself and see it in action at the same time.
-<i>Note:</i> version 1.6.0 of ant is required here because the build file use its namespace feature to import ivy tasks.
-<h2>documentation</h2>
-Full ivy documentation easily browsable offline, packaged as a zip.</textarea>
+Ready to be build with Ant 1.6.0 or greater. You will need to have an internet access during the build in order to get Ivy download its dependencies from the repository.
+This is the recommended version if you want to build Ivy yourself and see it in action at the same time.
+<i>Note:</i> version 1.6.0 of ant is required here because the build file use its namespace feature to import Ivy tasks.
+</textarea>
 <script type="text/javascript">xooki.postProcess();</script>
 </body>
 </html>
