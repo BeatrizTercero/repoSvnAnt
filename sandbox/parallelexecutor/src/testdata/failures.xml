@@ -1,0 +1,36 @@
+<project>
+
+    <target name="A">
+        <echo>A</echo>
+        <fail message="A failed"/>
+    </target>
+    
+    <target name="B" depends="C">
+        <echo>B</echo>
+    </target>
+    <target name="C">
+        <echo>C</echo>
+        <faill message="C failed"/>
+    </target>
+    
+    <target name="D" depends="E">
+        <echo>D</echo>
+        <faill message="D failed"/>
+    </target>
+    <target name="E">
+        <echo>E</echo>
+    </target>
+
+    <target name="F" depends="G,H">
+        <echo>F</echo>
+    </target>
+    <target name="G">
+        <echo>G</echo>
+        <faill message="G failed"/>
+    </target>
+    <target name="H">
+        <echo>H</echo>
+        <faill message="H failed"/>
+    </target>
+
+</project>

@@ -1,0 +1,6 @@
+<project>
+    <target name="A" depends="B,C"/>
+    <target name="B" depends="D"/>
+    <target name="C" depends="D"/>
+    <target name="D"/>
+</project>
