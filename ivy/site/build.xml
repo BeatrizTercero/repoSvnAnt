@@ -20,15 +20,22 @@
         xmlns:xooki="antlib:xooki">
 
     <property name="target.dir" value="${basedir}/target" />
+
+    <target name="/all" description="--> force whole site generation, disabling incremental mode">
+        <property name="checkUpToDate" value="false" />
+    </target>
         
     <target name="generate-site" depends="init-imported-history"
             description="--> Generates site for publication">
+        <!-- by default we use incremental mode, which checks if files require generation -->
+        <property name="checkUpToDate" value="true" />
+        
 		<!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <copy todir="${target.dir}">
 	        <fileset dir="${basedir}" 
 	        	includes="*.cgi,images/**,style/**,samples/**,js/**,schemas/**,presentations/**,history/*/images/**,history/*/samples/**" />
         </copy>
-        <xooki:generate destDir="${target.dir}" checkUpToDate="true">
+        <xooki:generate destDir="${target.dir}" checkUpToDate="${checkUpToDate}">
 			<fileset dir="${basedir}">
 			    <include name="**/*.html"/>
 			    <exclude name="**/template.html"/>
@@ -45,7 +52,7 @@
         <copy todir="${target.dir}/ivyde">
 	        <fileset dir="${basedir}/ivyde" includes="images/**,style/**" />
         </copy>
-        <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="true">
+        <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="${checkUpToDate}">
 			<fileset dir="${basedir}/ivyde">
 			    <include name="**/*.html"/>
 			    <exclude name="template.html"/>
@@ -53,10 +60,6 @@
 			    <exclude name="**/xooki/**"/>
 			</fileset>
 		</xooki:generate>
-    </target>
-
-    <target name="clean" description="--> clean generated site">
-        <delete dir="${target.dir}" />
     </target>
         
         
