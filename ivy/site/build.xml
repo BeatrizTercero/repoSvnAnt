@@ -55,21 +55,6 @@
 		</xooki:generate>
     </target>
 
-	<target name="publish-site"
-			description="--> generate site and upload it to people.apache.org server (requires an apache account)">
-		<property name="host.name" value="people.apache.org" />
-		<echo message="Preparing to upload site to ${host.name}..." />
-		<input addproperty="username" message="Please enter username:" />
-		<input addproperty="password" message="Please enter password:" />
-		
-        <antcall target="generate-site" />
-        
-		<scp todir="${username}:${password}@${host.name}:/www/ant.apache.org/ivy/" 
-			 trust="true" verbose="true" sftp="true">
-		    <fileset dir="${target.dir}"/>
-		</scp>
-	</target>
-    
     <target name="clean" description="--> clean generated site">
         <delete dir="${target.dir}" />
     </target>
