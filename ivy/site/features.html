@@ -28,8 +28,8 @@
 <p>Ivy is a very powerful dependency manager oriented toward Java dependency management, even though it could be used to manage dependencies of any kind.</p>
 <p>If you don't see why you should use a dependency manager at all, or have any question concerning Ivy in general, have a look at the <a href="faq.html">FAQ</a> and at the [[mailing-lists]].</p>
 <h1>Integrated with Ant</h1>
-<p>Of course, Ivy is integrated with the most popular build management system for Java projects. But the integration goes way beyond common Ant integration. Indeed Ivy has been designed with Ant integration and design principles in mind. If you have Ant skills, you already have Ivy skills! The plugin mechanism in Ivy follows the same design as Ant, you will find macrodef and files import in Ivy configuration, many things with which Ant users are already familiar with.<br/>
-And since Ivy is now an Apache project, we are getting even closer to Ant development.</p>
+<p>Of course, Ivy is integrated with the most popular build management system for Java projects. But the integration goes way beyond common Ant integration. Indeed Ivy has been designed with Ant integration and design principles in mind. If you have Ant skills, you already have Ivy skills! The plugin mechanism in Ivy follows the same design as Ant, you will find macrodef and files import in Ivy configuration, many things Ant users are already familiar with.<br/>
+And as Ivy is a sub project of Ant, we even share the same development community!</p>
 <h1>Simple to use</h1>
 <p>For simple cases, Ivy is easy to use. Declare your dependencies, and that's all. See the [[doc:tutorial/start quick start tutorial]] to check yourself, it should take less than 5 minutes!</p>
 <p>Ivy can therefore be used to bring the dependency management feature of maven to Ant build files, for those of you who already use Ant and who do not want to setup a maven project. But Ivy does not stop there, it provides many more great features!</p>
@@ -45,20 +45,19 @@ And since Ivy is now an Apache project, we are getting even closer to Ant develo
 <p>With Ivy, you usually do not have to adapt your project to Ivy structure, Ivy will conform to your environment.</p>
 <p>Even though Ivy comes with a lots of default values to work out of the box, you can change many things in Ivy. Of course, the dependencies repositories possibilities covers a lot of uses (file system, URL based, repository chaining, ...). But that's not all. You can change the way Ivy finds latest versions of your dependencies, you can change of conflict manager, you can choose if you want Ivy to copy dependencies in your project libs or use them directly from Ivy cache, ...</p>
 <h1>Easily extensible</h1>
-<p>When Ivy does not do what you want out of the box, you can often extend it to solve your problem. For instance, you can plug your own repository (like Scott Haug did for a svn repository now available in Ivy tools). But you can also define your own latest strategy and your own conflict manager. See [[doc:extend how to extend Ivy]] in the reference doc. </p>
-<p>Since Ivy 1.4 you can even define very easily your own metadata on your modules, with [[doc:concept extra attributes]].</p>
+<p>When Ivy does not do what you want out of the box, you can often extend it to solve your problem. For instance, you can plug your own repository. But you can also define your own latest strategy and your own conflict manager. See [[doc:extend how to extend Ivy]] in the reference doc. </p>
+<p>Moreover you can even define very easily your own metadata on your modules, with [[doc:concept extra attributes]].</p>
 <h1>High performances</h1>
-<p>In Ivy, performances have been taken in consideration from the beginning. It uses a cache to avoid downloading twice a dependency, its strong conflict management system has been thought to avoid downloading a dependency if not necessary, all configuration and Ivy file parsing are done using SAX for maximum performance, and so on...</p>
+<p>In Ivy, performances have been taken in consideration from the beginning. It uses a cache to avoid downloading twice a dependency, its strong conflict management system has been thought to avoid downloading a dependency if not necessary, all settings and Ivy files parsing are done using SAX for maximum performance, and so on...</p>
 <h1>Transitive dependencies</h1>
-<p>Imagine you have a component that you often reuse in your software development. Imagine that this component has dependencies as well. Then with classical dependency management, each time you use this component in your software you have to declare it as a dependency, but also all its dependencies.</p>
+<p>Imagine you have a component that you often reuse in your software development. Imagine that this component has dependencies as well. Then without a good dependency management tool, each time you use this component in your software you have to declare it as a dependency, but also all its dependencies.</p>
 <p>With Ivy it's different: you simply write a dependency file once for the component, declaring its own dependencies, then anytime you want to use this component you simply have to declare a dependency on it.</p>
 <p>And this is even more powerful if the component your software depends on changes of dependencies during its own development. Then, without Ivy, you have to maintain all your components dependencies declaration each time the dependencies of this component change. With Ivy, you update the Ivy file of the component and that's it !</p>
-<p><i>If you want to quickly start using this feature or simply see it in action with real world examples, check the official repository: <a href="http://ivyrep.jayasoft.org/">ivyrep</a></i></p>
 <h1>Strong conflict management</h1>
-<p>The problem with transitive dependencies is that it's sometimes difficult to know exactly which version of a dependency you get, because several modules are depending on it in different versions. Ivy provides a strong and flexible conflict management engine, which let you easily choose which version should be evicted or kept if its default behaviour does not fit your needs. </p>
+<p>The problem with transitive dependencies is that it's sometimes difficult to know exactly which version of a dependency you get, because several modules are depending on it in different versions. Ivy provides a strong and flexible conflict management engine, which let you easily choose which version should be evicted or kept if its default behavior does not fit your needs. </p>
 <p>It is also fully integrated with transitive dependencies management, which means that conflicts are solved for each dependency before being solved for your whole module. This  ensures that problematic conflicts will only need to solved in the dependency they are encountered.</p>
-<h1>Out of the box ibiblio repository support</h1>
-<p>Maven users all know this repository, where you can find a lot of Java projects artifacts. With Ivy, you benefit from this repository out of the box. But you even benefit from more, since Ivy also uses its <a href="http://ivyrep.jayasoft.org/">own repository</a> for dependencies metadata, leveraging the power of transitive dependencies.</p>
+<h1>Out of the box maven repository support</h1>
+<p>The public maven repository has many advantages: a lot of modules available, easy search with mvnrepository.com, ... With Ivy, you benefit from this repository out of the box thanks to maven 2 metadata compatibility. </p>
 <h1>Continuous Integration Ready</h1>
 <p>Are you working in a continuous integration environment? No? You should ;-)</p>
 <p>If you are working in a continuous integration environment, and if you have many projects that depend one on each other, then you are maybe experiencing the dependency management nightmare... Fortunately, Ivy is there to help !</p>
@@ -70,14 +69,14 @@ And since Ivy is now an Apache project, we are getting even closer to Ant develo
 <h1>Unique enterprise features</h1>
 <p>Ivy is the only dependency management tool to support powerful features such as repository namespace and building through the install task. A [[doc:tutorial/build-repository tutorial]] is dedicated to this feature, and show you how you can build your own repository importing data from public one, and converting heterogeneous repositories into a stable and homogeneous one.</p>
 <h1>Heavily tested</h1>
-<p>Ivy benefits from a lot of unit tests checked at each code modification. It is also under heavy testing by the community itself, and bugs reported by the community are often fixed in only a few days.</p>
-<h1>Supported by several tools</h1>
-<p>A growing number of tools support Ivy, see the <a href="links.html">links</a> page for details.</p>
+<p>Ivy benefits from a lot of unit tests checked at each code modification. It is also under heavy testing by the community itself, and we pay a lot of attention to bug fixing and code stability.</p>
 <h1>Free and open source</h1>
-<p>Ivy is an incubating Apache project, which means that it's fully open sourced, with a business friendly Apache license.</p>
+<p>Ivy is an Apache project, which means that it's fully open sourced, with a business friendly Apache license.</p>
 <p>Being open source, you can even modify it for your own needs, and let the community benefit from your enhancements if you like.</p>
 <h1>Extensively documented</h1>
-<p>With Ivy, not only the tool is free and open source, but you also have access to a documentation of about 120 pages in its printer friendly version for free!</p></textarea>
+<p>With Ivy, not only the tool is free and open source, but you also have access to a very detailed documentation including tutorials and reference documentation, all for free!</p>
+<h1>Self contained</h1>
+<p>The core Ivy engine which allows to perform most of Ivy features is provided as a single jar with no dependency at all, except on JRE 1.4 or greater. This means that you can very easily use Ivy to bootstrap your build system, or embedded in your own tool. Ant support itself is provided only as a thin wrapper over Ivy engine so that you can do everything in embedded or standalone mode</p></textarea>
 <script type="text/javascript">xooki.postProcess();</script>
 </body>
 </html>
