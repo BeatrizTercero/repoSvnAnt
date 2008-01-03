@@ -17,5 +17,15 @@
  */
 
 /* the class shell is used when a copy of the content of a shell or DOS window is made */
-.shell {background-color: black; color: white; border: medium gray solid;}
-.shell pre {background-color: black; border: none; font-size: small;}
+.shell {
+	background-color: black; 
+	color: white; 
+	border: medium gray solid;
+	overflow: auto;
+}
+.shell pre {
+	background-color: black; 
+	border: none; 
+	font-size: small; 
+	overflow: visible;
+}
