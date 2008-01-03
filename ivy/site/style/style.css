@@ -37,7 +37,6 @@ body  {
   display: table;
   margin: 8px auto;
   padding: 0;
-  width: 98%;
 }
 body, p, td, li, ul, ol  {
   font-family: Verdana, Helvetica, Arial, sans-serif;
@@ -97,6 +96,7 @@ blockquote {
 pre {
   padding: 0.75em 1.5em;
   font-size: 1em;
+  overflow: auto;
 }
 .form-item {
   margin-top: 1em;
