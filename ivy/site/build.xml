@@ -83,6 +83,7 @@
     <target name="init-imported-history"
             description="--> initialize all imported documentation history">
         <init-imported-version version="trunk" />
+        <init-imported-version version="latest-milestone" />
     	<init-imported-version version="2.0.0-beta1" />
     	<init-imported-version version="2.0.0-alpha2" />
     </target>
