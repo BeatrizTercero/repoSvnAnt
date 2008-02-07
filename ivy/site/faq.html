@@ -45,7 +45,10 @@ With the shared repository the problem is often to maintain the list of dependen
 <p>First, check if the ibiblio site is ok with your favorite browser. If the site is ok, maybe it's a problem of proxy configuration. Set your ANT_OPTS environment variable<br />
 to configure your proxy if you have one.<br />
 For instance:<br />
-<code>set ANT_OPTS=-Dhttp.proxyHost=myproxy -Dhttp.proxyPort=3128</code></p>
+<code>set ANT_OPTS=-Dhttp.proxyHost=myproxy -Dhttp.proxyPort=3128</code>
+Or for authenticated proxy:
+<code>set ANT_OPTS=-Dhttp.proxyHost=myproxyhost -Dhttp.proxyPort=8080 -Dhttp.proxyUserName=myproxyusername -Dhttp.proxyPassword=myproxypassword -Dhttps.proxyHost=myproxyhost -Dhttps.proxyPort=8080</code>
+</p>
 <p>If it still doesn't work, maybe it's your dependency file which is not ok. Check<br />
 if the module name you depend on is actually a name of directory under<br />
 <a href="http://www.ibiblio.org/maven/" title="www.ibiblio.org/maven/">www.ibiblio.org/maven/</a>. If this is the case, check if the jar with a name like<br />
@@ -63,7 +66,9 @@ and your ivy file.</p>
 <p>The first thing to do is to ensure the setting is correct. Ivy should log the url it tried, copy this url and paste it in your favorite browser, and verify you get no error.</p>
 <p>If this is ok, check if you don't need any proxy setting nor authentication. For proxy setting, you can use for instance this:<br />
 <code>set ANT_OPTS=-Dhttp.proxyHost=myproxy -Dhttp.proxyPort=3128</code><br />
-For authentication, fill in the appropriate data at [[doc:use/configure configuration]] time.</p>
+Or for authenticated proxy:
+<code>set ANT_OPTS=-Dhttp.proxyHost=myproxyhost -Dhttp.proxyPort=8080 -Dhttp.proxyUserName=myproxyusername -Dhttp.proxyPassword=myproxypassword -Dhttps.proxyHost=myproxyhost -Dhttps.proxyPort=8080</code>
+For http authentication, fill in the appropriate data at [[doc:use/configure configuration]] time.</p>
 <p>If you still have no idea of what is wrong, then I suggest to use commons-httpclient if it isn't already the case (you should just put commons-httpclient in you classpath), and then <a href="http://jakarta.apache.org/commons/httpclient/logging.html">turn on the debug logging</a>.</p>
 <p>You will then have very detailed information on how your url is handled. If you still have problem, ask for help on the [[mailing-lists]].</p>
 <h2><a name="getting-rid-of-lib-directory"></a>What if I do not want to put my library files in the lib directory ? </h2>
