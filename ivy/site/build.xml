@@ -19,6 +19,7 @@
 <project default="generate-site"
         xmlns:xooki="antlib:xooki">
 
+    <taskdef uri="antlib:xooki" file="${basedir}/xooki/antlib.xml" />
     <property name="target.dir" value="${basedir}/target" />
 
     <target name="/all" description="--> force whole site generation, disabling incremental mode">
