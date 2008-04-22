@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <head>
+    <meta content="en-us" http-equiv="Content-Language" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title>DBPathc</title>
+  </head>
+  <body>
+    <h2>DBPatch</h2>
+    <p>TODO: something about this antlib</p>
+ <pre>
+ An Ant task that supports maintaining evolving database schema via incremental 
+SQL "patches". A "DB Patch" is a text file that contains native SQL code for 
+the target database. Patches are indexed in a special "patch index" file that defines
+the order of patches. Patch names can be arbitrary. An extra arbitrary "patchReleaseId"
+attribute is defined to provide a simple namespace for patches. Otherwise the task is 
+configured similar to the standard Ant "SQL" task:
+
+    http://ant.apache.org/manual/CoreTasks/sql.html
+
+The following taskdef is needed: 
+
+   <taskdef name="dbpatch" classname="org.apache.cayenne.tools.DBPatchTask"/>
+   
+   
+An example of dbpatch task invocation:
+
+	<dbpatch 
+		patchIndex="patches/index.txt" 
+		patchReleaseId="${version}"
+		driver="com.mysql.jdbc.Driver" 
+		url="${db.url}"
+		userid="${db.userid}"
+		password="${db.password}"/>
+
+DB patch task does all its initial setup tasks on its own. Namely, on first run it creates 
+a table called "patch_tracking" (or a table with a different name if a user sets a 'patch_tracking' 
+attribute). This table stores the names of patches that have been applied to the target DB, so
+that subsequent runs could skip them.
+
+Supported attributes:
+
+patchIndex:
+    (Required)
+    A text file that contains the names of the patches to run in the order they should be executed, 
+    one file per line. Empty lines and lines starting with # or // are skipped. The rest are treated
+    as file names in the directory relative to the patch index file directory.
+patchTableName: 
+    (Optional, default value is 'patch_tracking') 
+    An attribute that defines the name of the table where patch tracking information is stored. 
+    Can contain schema name. E.g. "myschema.mypatchtable".
+patchReleaseId: 
+	(Optional, default is null)
+	Defines a namespace for patch file names. All patch files must have unique names for a given patch 
+	release id.
+
+... SQL task attributes ...
+    
+ 
+ </pre>
+  </body>
+</html>
