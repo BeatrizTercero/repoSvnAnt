@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -15,18 +15,24 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<html>
-  <head>
-    <meta content="en-us" http-equiv="Content-Language" />
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <title>dbpatch</title>
-    <base target="mainFrame" />
-  </head>
-  <body>
-    <a href="cover.html">Overview</a>
-    <br />
-    <h2>Tasks</h2>
-    <a href="dbpatch.html">DBPatch</a>
-    <br />
-  </body>
-</html>
+<!DOCTYPE contributors
+[
+<!ELEMENT name (first?, middle?, last)>
+<!ELEMENT contributors (introduction, name+)>
+<!ELEMENT first (#PCDATA)>
+<!ELEMENT introduction (#PCDATA)>
+<!ELEMENT middle (#PCDATA)>
+<!ELEMENT last (#PCDATA)>
+]
+>
+<contributors>
+  <introduction>
+  These are some of the many people who have helped with this Ant Library.
+  </introduction>
+  
+  <name>
+    <first>Andrus</first>
+    <last>Adamchik</last>
+  </name>
+</contributors>
+        
