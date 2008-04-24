@@ -1,0 +1,14 @@
+
+What we need for release 1.0:
+
+* Unit tests
+* Documentation
+* Support for passing driver classpath ref
+* Support for alternative workflow that requires no index file, 
+  and uses numbered patch files instead 
+  (such workflow targets smaller projects with less commit concurrency).
+* Support for arbitrary patch tracking table schema for better portability.
+* Support for patch file update detection and optional re-run (confirmed interactively).
+  This would allow to test partial patches, undo them manually and rerun again.
+* Support for multi-DB patches, with support for default patches that fit all DB's, and minimal required overrides.
+  

@@ -26,36 +26,35 @@ import org.apache.tools.ant.Project;
 
 /**
  * A DataPatchRunner that uses Ant loggers.
- * 
- * @author andrus
  */
 class AntDBPatchRunner extends DBPatchRunner {
-	private DBPatchTask parentTask;
+    private DBPatchTask parentTask;
 
-	public AntDBPatchRunner(DBPatchTask parentTask, Connection connection,
-			File patchIndex, String patchTableName, String patchReleaseId) {
-		super(connection, patchIndex, patchTableName, patchReleaseId);
-		this.parentTask = parentTask;
-	}
+    public AntDBPatchRunner(DBPatchTask parentTask, Connection connection,
+                            File patchIndex, String patchTableName,
+                            String patchReleaseId) {
+        super(connection, patchIndex, patchTableName, patchReleaseId);
+        this.parentTask = parentTask;
+    }
 
-	void log(String message) {
-		parentTask.log(message);
-	}
+    void log(String message) {
+        parentTask.log(message);
+    }
 
-	void logVerbose(String message) {
-		parentTask.log(message, Project.MSG_VERBOSE);
-	}
+    void logVerbose(String message) {
+        parentTask.log(message, Project.MSG_VERBOSE);
+    }
 
-	void applyPatch(String patchName) throws SQLException {
-		File patchFile = new File(patchDir, patchName);
-		if (!patchFile.isFile()) {
-			throw new SQLException("Missing or invalid patch file: "
-					+ patchFile.getAbsolutePath());
-		}
+    void applyPatch(String patchName) throws SQLException {
+        File patchFile = new File(patchDir, patchName);
+        if (!patchFile.isFile()) {
+            throw new SQLException("Missing or invalid patch file: "
+                                   + patchFile.getAbsolutePath());
+        }
 
-		logVerbose("Will run patch: " + patchName);
+        logVerbose("Will run patch: " + patchName);
 
-		parentTask.setSrc(patchFile);
-		parentTask.runSQL();
-	}
+        parentTask.setSrc(patchFile);
+        parentTask.runSQL();
+    }
 }

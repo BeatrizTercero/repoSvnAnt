@@ -28,82 +28,82 @@ import org.apache.tools.ant.taskdefs.SQLExec;
 
 /**
  * An Ant task that supports maintaining evolving database schema via
- * incremental SQL "patches". Patches are written in a native SQL dialect o the
+ * incremental SQL "patches". Patches are written in a native SQL dialect of the
  * target database. Patch status is tracked via a special
- * 
- * @author andrus
  */
 // many things are cloned from SQLExec Ant task...
 public class DBPatchTask extends SQLExec {
 
-	static final String PATCH_TABLE_NAME = "patch_tracking";
+    static final String PATCH_TABLE_NAME = "patch_tracking";
 
-	protected String patchReleaseId;
-	protected File patchIndex;
-	protected String patchTableName;
+    protected String patchReleaseId;
+    protected File patchIndex;
+    protected String patchTableName;
 
-	/**
-	 * A required file that stores an index of patch SQL files in the order they
-	 * should be applied.
-	 */
-	public void setPatchIndex(File patchIndex) {
-		this.patchIndex = patchIndex;
-	}
+    /**
+     * A required file that stores an index of patch SQL files in the order they
+     * should be applied.
+     */
+    public void setPatchIndex(File patchIndex) {
+        this.patchIndex = patchIndex;
+    }
 
-	/**
-	 * An optional attribute specifying the table name to store database
-	 * patches. Default value is "patch_tracking".
-	 */
-	public void setPatchTableName(String patchTableName) {
-		this.patchTableName = patchTableName;
-	}
+    /**
+     * An optional attribute specifying the table name to store database
+     * patches. Default value is "patch_tracking".
+     */
+    public void setPatchTableName(String patchTableName) {
+        this.patchTableName = patchTableName;
+    }
 
-	/**
-	 * An optional release ID String that defines patch files namespace.
-	 */
-	public void setPatchReleaseId(String patchReleaseId) {
-		this.patchReleaseId = patchReleaseId;
-	}
+    /**
+     * An optional release ID String that defines patch files namespace.
+     */
+    public void setPatchReleaseId(String patchReleaseId) {
+        this.patchReleaseId = patchReleaseId;
+    }
 
-	public void execute() throws BuildException {
-		validate();
-		initDefaults();
+    public void execute() throws BuildException {
+        validate();
+        initDefaults();
 
-		Connection connection = getConnection();
-		try {
-			DBPatchRunner runner = new AntDBPatchRunner(this, connection,
-					patchIndex, patchTableName, patchReleaseId);
-			runner.execute();
-		} catch (SQLException e) {
-			throw new BuildException("SQL exception " + e.getMessage(), e);
-		} catch (IOException e) {
-			throw new BuildException("IO exception " + e.getMessage(), e);
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException ignore) {
-			}
-		}
-	}
-	
-	void runSQL() throws BuildException {
-		super.execute();
-	}
+        Connection connection = getConnection();
+        try {
+            DBPatchRunner runner = new AntDBPatchRunner(this, connection,
+                                                        patchIndex,
+                                                        patchTableName,
+                                                        patchReleaseId);
+            runner.execute();
+        } catch (SQLException e) {
+            throw new BuildException("SQL exception " + e.getMessage(), e);
+        } catch (IOException e) {
+            throw new BuildException("IO exception " + e.getMessage(), e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ignore) {
+            }
+        }
+    }
 
-	private void initDefaults() {
-		if (patchTableName == null) {
-			patchTableName = PATCH_TABLE_NAME;
-		}
-	}
+    void runSQL() throws BuildException {
+        super.execute();
+    }
 
-	private void validate() throws BuildException {
-		if (patchIndex == null) {
-			throw new BuildException("No 'patchIndex' file specified.");
-		}
+    private void initDefaults() {
+        if (patchTableName == null) {
+            patchTableName = PATCH_TABLE_NAME;
+        }
+    }
 
-		if (!patchIndex.isFile()) {
-			throw new BuildException("Invalid 'patchIndex' file specified: "
-					+ patchIndex.getAbsolutePath());
-		}
-	}
+    private void validate() throws BuildException {
+        if (patchIndex == null) {
+            throw new BuildException("No 'patchIndex' file specified.");
+        }
+
+        if (!patchIndex.isFile()) {
+            throw new BuildException("Invalid 'patchIndex' file specified: "
+                                     + patchIndex.getAbsolutePath());
+        }
+    }
 }
