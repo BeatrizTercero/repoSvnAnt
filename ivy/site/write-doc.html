@@ -43,7 +43,7 @@ Then open the index.html file, and you will browse the web site exactly as when 
  
 <center><img src="images/xooki-toolbar.png"/></center>
 <br/><br/>
-<h2><a name="edit-inline">Inline editing</a></h2>
+<h1><a name="edit-inline">Inline editing</a></h1>
 When you choose edit you will see a pretty familiar textbox where you can edit the page source.
 
 <center><a href="images/xooki-edit.png"><img src="images/xooki-edit-small.png"/></a></center>
@@ -65,15 +65,15 @@ Feel free to edit this page to get a good overview of what is possible.
 
 And do not forget to save your changes before leaving the page! Then you can use your favorite IDE or svn and compute a patch for what you changed, and submit this patch by attaching it to a jira issue, or simply sending it to the ivy-dev [[mailing-lists mailing list]].
 
-<h2><a name="edit-toc">Editing the TOC</a></h2>
+<h1><a name="edit-toc">Editing the TOC</a></h1>
 
 The structure of the TOC is stored in the [[svn:doc/toc.json toc.json]]. Some operations are available in the toolbar, others need manual editing of the json file.
 
-<h3>Moving entries</h3>
+<h2>Moving entries</h2>
 
 To move up or down an entry within its category, you can use the arrows in the toolbar. First go on the page you want to move and then use the arrows (<img src="xooki/images/up.gif" /> <img src="xooki/images/down.gif" />). Note that the changes are directly done in the json file, there is no need to trigger some "save" action.
 
-<h3>Adding entries</h3>
+<h2>Adding entries</h2>
 
 You can also add an entry to the TOC via the toolbar, but only as a child of an existing entry. Select the parent, and use the <img src="xooki/images/addchild.gif" /> button. Then you will be asked for a title (displayed to the end user) and a path (the path of the html file on the filesystem, relative to the root).
 
@@ -122,7 +122,7 @@ And create an HTML file mydir/myfilename.html with:
 </code>
 And finally reload the index.html in your favorite browser, the new entry will appear. You can now add some content by <a href="#edit-inline">editing the page</a>.
 
-<h3>Abstract Entries</h3>
+<h2>Abstract Entries</h2>
 
 Some entries in the tree of the TOC can be abstract. Such kind of node does not link to any page, but holds some children. So a node will appear in the tree, with an arrow to display or hide the children, but there is no html links associated, as there is no page to display.
 
@@ -137,7 +137,7 @@ To specify a such node, edit the toc.json and set the "isAbstract" property to t
            }
 </code>
 
-<h3>External TOC reference</h3>
+<h2>External TOC reference</h2>
 
 It is possible to not have the entire documentation in one place. This is particularly useful for the [[history versioning of some documentation]]. So the end user will see an unified tree whereas every information is not stored in the toc.json.
 
@@ -157,7 +157,7 @@ For instance:
 },
 </code>
 
-<h2><a name="issues">Known issues</a></h2>
+<h1><a name="issues">Known issues</a></h1>
 
 There is a special xml tag used by Xooki to handle the inline edition of the content: textarea with id xooki-source. In the current page we had to include that special tag. So in the source of this page there would be two tags with the same id "xooki-source", which is forbidden. So we have to xml encode it in the source, with some &amp;amp;amp;lt; and &amp;amp;amp;gt;.
 
