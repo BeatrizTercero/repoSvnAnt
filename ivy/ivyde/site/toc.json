@@ -1,0 +1,86 @@
+{
+  "children": [
+      {
+        "id":"index",
+        "title":"Home",
+        "children": [
+
+          ]
+      },
+      {
+        "id":"download",
+        "title":"Download",
+        "children": [
+
+          ]
+      },
+      {
+        "title":"Documentation",
+        "importRoot":"history/latest-milestone",
+        "importNode":"index"
+      },
+      {
+        "id":"documentation",
+        "title":"Documentation",
+        "children": [
+            {
+              "id":"editor",
+              "title":"Editor",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"cp_container",
+              "title":"Classpath Container",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"maven",
+              "title":"Use with maven poms",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"history",
+        "title":"History",
+        "children": [
+            {
+              "title":"trunk",
+              "importRoot":"history/trunk",
+              "importNode":"index"
+            },
+            {
+              "title":"1.2.0",
+              "importRoot":"history/1.2.0",
+              "importNode":"index"
+            }
+          ]
+      },
+      {
+        "id":"get-involved",
+        "title":"Get Involved",
+        "children": [
+            {
+              "id":"mailing-lists",
+              "title":"Mailing Lists",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"issues",
+              "title":"Issue Tracking",
+              "children": [
+
+                ]
+            }
+          ]
+      }
+    ]
+}
