@@ -30,8 +30,8 @@
 The warning you get is about a module which you are trying to get in two different configurations. Ivy does the resolve and evict conflits for only one configuration at a time. The resolve process is one by one configuration. If you have a use case where you have to build a classpath with a lot of different configuration, then you should consider having a new configuration that extends the other ones. Although in most case I think the configurations themselves should be fixed.
 For instance in Eclipse you might want to resolve 3 kinds of configuration: compile, test, and runtime. And then you get the warning, because test and runtime conflicts on one dependency. So this means that the ant target that will run the tests (after doing a resolve only on the test configuration) will actually use a different version of a dependency from the one used at runtime, from the one use by the ant target which build the jar. So tests are not running in the same environment as the runtime one. Then you should fix the dependencies by having a direct dependency on the module that generated the conflict. Actually you might want to introduce a private "core" configuration, which will resolve the problematic dependency, and then make "runtime" and "test" extends that "core" configuration.
 
-The topic has been also discussed here :
-http://mail-archives.apache.org/mod_mbox/ant-dev/200801.mbox/%3c5D017C51-ED7A-4A43-BBCA-08F291F4D92C@anyware-tech.com%3e</textarea>
+The topic has been also discussed on the <a href="http://mail-archives.apache.org/mod_mbox/ant-dev/200801.mbox/%3c5D017C51-ED7A-4A43-BBCA-08F291F4D92C@anyware-tech.com%3e">ant-dev mailing list</a>.
+</textarea>
 <script type="text/javascript">xooki.postProcess();</script>
 </body>
 </html>
