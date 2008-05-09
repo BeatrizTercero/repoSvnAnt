@@ -43,7 +43,7 @@ Then open the index.html file, and you will browse the web site exactly as when 
  
 <center><img src="images/xooki-toolbar.png"/></center>
 <br/><br/>
-<h1><a name="edit-inline">Inline editing</a></h1>
+<h1><a name="edit-inline"></a>Inline editing</h1>
 When you choose edit you will see a pretty familiar textbox where you can edit the page source.
 
 <center><a href="images/xooki-edit.png"><img src="images/xooki-edit-small.png"/></a></center>
@@ -65,7 +65,7 @@ Feel free to edit this page to get a good overview of what is possible.
 
 And do not forget to save your changes before leaving the page! Then you can use your favorite IDE or svn and compute a patch for what you changed, and submit this patch by attaching it to a jira issue, or simply sending it to the ivy-dev [[mailing-lists mailing list]].
 
-<h1><a name="edit-toc">Editing the TOC</a></h1>
+<h1><a name="edit-toc"></a>Editing the TOC</h1>
 
 The structure of the TOC is stored in the [[svn:doc/toc.json toc.json]]. Some operations are available in the toolbar, others need manual editing of the json file.
 
@@ -157,7 +157,7 @@ For instance:
 },
 </code>
 
-<h1><a name="issues">Known issues</a></h1>
+<h1><a name="issues"></a>Known issues</h1>
 
 There is a special xml tag used by Xooki to handle the inline edition of the content: textarea with id xooki-source. In the current page we had to include that special tag. So in the source of this page there would be two tags with the same id "xooki-source", which is forbidden. So we have to xml encode it in the source, with some &amp;amp;amp;lt; and &amp;amp;amp;gt;.
 
