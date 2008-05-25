@@ -26,10 +26,41 @@
         <property name="checkUpToDate" value="false" />
     </target>
 
-    <target name="copy-resources">
-        <copy todir="${target.dir}">
-            <fileset dir="${basedir}" 
-                includes="*.cgi,images/**,style/**,samples/**,js/**,schemas/**,presentations/**,history/*/images/**,history/*/samples/**,test/**" />
+    <target name="copy-resources" depends="copy-resources-ivy,copy-resources-ivyde" />
+
+    <target name="copy-resources-ivy">
+        <property name="checkUpToDate" value="true" />
+        <condition property="overwrite">
+             <isfalse value="${checkUpToDate}"/>
+        </condition>
+        <copy todir="${target.dir}" overwrite="${overwrite}" >
+            <fileset dir="${basedir}">
+                <include name="*.cgi" />
+                <include name="images/**" />
+                <include name="style/**" />
+                <include name="samples/**" />
+                <include name="js/**" />
+                <include name="schemas/**" />
+                <include name="presentations/**" />
+                <include name="history/*/images/**" />
+                <include name="history/*/samples/**" />
+                <include name="test/**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="copy-resources-ivyde">
+        <property name="checkUpToDate" value="true" />
+        <condition property="overwrite">
+             <isfalse value="${checkUpToDate}"/>
+        </condition>
+        <copy todir="${target.dir}/ivyde" overwrite="${overwrite}">
+            <fileset dir="${basedir}/ivyde">
+                <include name="style/**" />
+                <include name="js/**" />
+                <include name="images/**" />
+                <include name="history/*/images/**" />
+            </fileset>
         </copy>
     </target>
 
@@ -59,8 +90,11 @@
     </target>
 
 
-    <target name="generate-site" depends="init-imported-history, copy-resources"
-            description="--> Generates site for publication">
+    <target name="generate-site" depends="generate-site-ivy,generate-site-ivyde"
+            description="--> Generates site of Ivy and IvyDE for publication" />
+
+    <target name="generate-site-ivy" depends="init-imported-history-ivy, copy-resources-ivy"
+            description="--> Generates site of Ivy for publication">
         <!-- by default we use incremental mode, which checks if files require generation -->
         <property name="checkUpToDate" value="true" />
 
@@ -78,16 +112,21 @@
                 <exclude name="ivyde/**"/>
             </fileset>
         </xooki:generate>
-        <!-- ivyde site is a separate site, we generate it separately -->
-        <copy todir="${target.dir}/ivyde">
-            <fileset dir="${basedir}/ivyde" includes="images/**,style/**" />
-        </copy>
+    </target>
+
+    <target name="generate-site-ivyde" depends="init-imported-history-ivyde, copy-resources-ivyde"
+            description="--> Generates site of IvyDE for publication">
+        <!-- by default we use incremental mode, which checks if files require generation -->
+        <property name="checkUpToDate" value="true" />
+
+        <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="${checkUpToDate}">
             <fileset dir="${basedir}/ivyde">
                 <include name="**/*.html"/>
-                <exclude name="template.html"/>
-                <exclude name="*Template.html"/>
+                <exclude name="**/template.html"/>
+                <exclude name="**/*Template.html"/>
                 <exclude name="**/xooki/**"/>
+                <exclude name="js/**"/>
             </fileset>
         </xooki:generate>
     </target>
@@ -104,18 +143,29 @@
     -->
     <macrodef name="init-imported-version">
         <attribute name="version" />
+        <attribute name="basepath" default="." />
         <sequential>
-            <echo file="history/@{version}/config.extra.js" 
+            <echo file="@{basepath}/history/@{version}/config.extra.js" 
                   message="xooki.c.setImportLevel(2);" />
         </sequential>
     </macrodef>
 
-    <target name="init-imported-history"
-            description="--> initialize all imported documentation history">
+    <target name="init-imported-history" depends="init-imported-history-ivy,init-imported-history-ivyde"
+            description="--> initialize all imported documentation history for Ivy and IvyDE" />
+
+    <target name="init-imported-history-ivy"
+            description="--> initialize all imported documentation history for Ivy">
         <init-imported-version version="trunk" />
         <init-imported-version version="latest-milestone" />
         <init-imported-version version="2.0.0-beta2" />
         <init-imported-version version="2.0.0-beta1" />
         <init-imported-version version="2.0.0-alpha2" />
+    </target>
+
+    <target name="init-imported-history-ivyde"
+            description="--> initialize all imported documentation history for IvyDE">
+        <init-imported-version basepath="ivyde" version="trunk" />
+        <init-imported-version basepath="ivyde" version="latest-milestone" />
+        <init-imported-version basepath="ivyde" version="1.2.0" />
     </target>
 </project>
