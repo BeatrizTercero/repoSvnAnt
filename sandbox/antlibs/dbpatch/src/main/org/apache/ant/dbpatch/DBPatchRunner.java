@@ -94,7 +94,7 @@ abstract class DBPatchRunner {
         }
 
         if (!patchTableExists) {
-            StringBuilder createTable = new StringBuilder();
+            StringBuffer createTable = new StringBuffer();
             createTable.append("CREATE TABLE ");
             createTable.append(patchTableName);
             createTable.append(" (ID INTEGER NOT NULL,");
