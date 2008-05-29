@@ -54,7 +54,6 @@ class AntDBPatchRunner extends DBPatchRunner {
 
         logVerbose("Will run patch: " + patchName);
 
-        parentTask.setSrc(patchFile);
-        parentTask.runSQL();
+        parentTask.runPatch(patchFile);
     }
 }

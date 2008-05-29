@@ -63,6 +63,96 @@ public class DBPatchTask extends SQLExec {
         this.patchReleaseId = patchReleaseId;
     }
 
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setSrc(File srcFile) {
+        throw new UnsupportedOperationException(
+                "'src' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setOutput(File output) {
+        throw new UnsupportedOperationException(
+                "'output' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setPrint(boolean print) {
+        throw new UnsupportedOperationException(
+                "'print' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setAppend(boolean append) {
+        throw new UnsupportedOperationException(
+                "'append' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setOnerror(OnError action) {
+        throw new UnsupportedOperationException(
+                "'onerror' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setRdbms(String rdbms) {
+        throw new UnsupportedOperationException(
+                "'rdbms' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setVersion(String version) {
+        throw new UnsupportedOperationException(
+                "'version' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setCaching(boolean enable) {
+        throw new UnsupportedOperationException(
+                "'caching' parameter is not supported");
+    }
+
+    /**
+     * Blocks super implementation by throwing an UnsupportedOperationException
+     * to prevent users from using it.
+     */
+    public void setExpandProperties(boolean expandProperties) {
+        throw new UnsupportedOperationException(
+                "'caching' parameter is not supported");
+    }
+
+    /**
+     * A callback method repeatedly invoked by {@link AntDBPatchRunner} to
+     * execute each patch.
+     */
+    void runPatch(File patchFile) {
+        super.setSrc(patchFile);
+        runSQL();
+    }
+
     public void execute() throws BuildException {
         validate();
         initDefaults();
@@ -70,9 +160,7 @@ public class DBPatchTask extends SQLExec {
         Connection connection = getConnection();
         try {
             DBPatchRunner runner = new AntDBPatchRunner(this, connection,
-                                                        patchIndex,
-                                                        patchTableName,
-                                                        patchReleaseId);
+                    patchIndex, patchTableName, patchReleaseId);
             runner.execute();
         } catch (SQLException e) {
             throw new BuildException("SQL exception " + e.getMessage(), e);
@@ -103,7 +191,7 @@ public class DBPatchTask extends SQLExec {
 
         if (!patchIndex.isFile()) {
             throw new BuildException("Invalid 'patchIndex' file specified: "
-                                     + patchIndex.getAbsolutePath());
+                    + patchIndex.getAbsolutePath());
         }
     }
 }

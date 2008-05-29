@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
 <html>
   <head>
     <meta content="en-us" http-equiv="Content-Language" />
@@ -6,7 +22,58 @@
     <title>DBPatch</title>
   </head>
   <body>
-    <h2>DBPatch</h2>
-    <p>DBPatch library is intended to maintain versioning of a database schema and data during iterative development.</p>
+    <h2>DBPatch Antlib</h2>
+    
+    <h3>Overview</h3>
+    <p>DBPatch is an Antlib for maintaining evolving database schema and data. It provides the approach
+    and the tools to bring up multiple databases in sync with the state of the database and application code 
+    development. It is used in development allowing multiple programmers to synchronize their local databases 
+	with the current state of the application code in repository and in deployment to synchronize production 
+	or test database with the version of the deployed code.</p> 
+	
+	<p>To include DBPatch Antlib in your build, use the following code:</p>
+	
+	<pre>&lt;typedef resource="org/apache/ant/dbpatch/antlib.xml"/&gt;</pre>
+    
+    <h3>How It Works</h3>
+    <p>From the DBPatch perspective there are two types of changes that are made to the database:
+    (1) those made by the applications during their normal operation course and (2) those made by the programmers
+    during the development and deployed periodically as a part of the release process. DBPatch makes the assumption 
+	that within a finite development cycle only the second category of changes (those made by developers) are 
+	needed to describe each distinct database state. The difference between each subsequent state is represented 
+	as a <i>patch</i>. A patch is simply a file that contains a SQL script that performs some operation (e.g. 
+	ALTER TABLE, INSERT, etc.). Patch files are created by programmers in the course of development and checked 
+	in the repository together with the application code. DBPatch tools keep track of the database state and ensure 
+	that each patch is only applied once and all patches are applied in the correct predefined order.</p> 
+    <p>
+    
+    <h3>DBPatch Files</h3>
+	<h4>Using Explicit Index File</h4>
+    <p>With the index file approach, there is a single index file that lists all the patch files in the order they
+	should be applied. Index file contains one patch name per line. Empty lines and lines that
+	start with "//" or "#" (comments) are ignored. Index file and patch files can have any names. There are no 
+	restrictions on naming them. Patch file names are resolved relative to the directory where the index file is 
+	located.</p> 
+	<p>Here is an example index file:</p>
+
+	<pre># This is a comment
+somepatch.sql
+someotherpatch.sql
+
+// another comment
+lastpatch.sql</pre>
+    
+<p>Here is an example patch file:</p>
+<pre>ALTER TABLE mytable ADD COLUMN newcolumn VARCHAR(20) NOT NULL;
+INSERT INTO mytable (id, oldcolumn, newcolumn) VALUES (1, 'X', 'Y');
+</pre>
+
+	<h4>Using Implicit Ordering</h4>
+	<p><i>TODO: this mode is not supported yet</i></p>
+
+    <h3>Tasks</h3>
+    <ul>
+    <li><a href="dbpatch.html">DBPatch</a> - a task that brings up a target database in sync with the latest patch state.</li>
+    </p>
   </body>
 </html>

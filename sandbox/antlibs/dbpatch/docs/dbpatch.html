@@ -19,60 +19,147 @@
   <head>
     <meta content="en-us" http-equiv="Content-Language" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <title>DBPathc</title>
+    <title>DBPatch</title>
   </head>
   <body>
     <h2>DBPatch</h2>
-    <p>TODO: something about this antlib</p>
- <pre>
- An Ant task that supports maintaining evolving database schema via incremental 
-SQL "patches". A "DB Patch" is a text file that contains native SQL code for 
-the target database. Patches are indexed in a special "patch index" file that defines
-the order of patches. Patch names can be arbitrary. An extra arbitrary "patchReleaseId"
-attribute is defined to provide a simple namespace for patches. Otherwise the task is 
-configured similar to the standard Ant "SQL" task:
-
-    http://ant.apache.org/manual/CoreTasks/sql.html
-
-The following taskdef is needed: 
-
-   <taskdef name="dbpatch" classname="org.apache.cayenne.tools.DBPatchTask"/>
-   
-   
-An example of dbpatch task invocation:
-
-	<dbpatch 
-		patchIndex="patches/index.txt" 
-		patchReleaseId="${version}"
-		driver="com.mysql.jdbc.Driver" 
-		url="${db.url}"
-		userid="${db.userid}"
-		password="${db.password}"/>
-
-DB patch task does all its initial setup tasks on its own. Namely, on first run it creates 
-a table called "patch_tracking" (or a table with a different name if a user sets a 'patch_tracking' 
-attribute). This table stores the names of patches that have been applied to the target DB, so
-that subsequent runs could skip them.
-
-Supported attributes:
-
-patchIndex:
-    (Required)
-    A text file that contains the names of the patches to run in the order they should be executed, 
-    one file per line. Empty lines and lines starting with # or // are skipped. The rest are treated
-    as file names in the directory relative to the patch index file directory.
-patchTableName: 
-    (Optional, default value is 'patch_tracking') 
-    An attribute that defines the name of the table where patch tracking information is stored. 
-    Can contain schema name. E.g. "myschema.mypatchtable".
-patchReleaseId: 
-	(Optional, default is null)
-	Defines a namespace for patch file names. All patch files must have unique names for a given patch 
-	release id.
-
-... SQL task attributes ...
-    
+    <h3>Description</h3>
+    <p>DBPatch is an Ant task that brings the state of the target database in sync with 
+	the local patches. It is usually run locally as a part of the build process to update a local development
+	database or it can be run before deployment to update a test or production database. Read more
+	about patch creation strategies and including the Antlib <a href="cover.html">here</a>.
+	</p>
+	
+	<p>DBPatch uses a special database table to track which patches were already applied. Such table is 
+	created automatically if it is missing, so it requires no preliminary setup. However if the database
+	user id used to run DB patches does not have enough permissions to create tables in the target table space,
+	a user must take care of setting it up. The default table structure is the following (table and column names 
+	can be customized, see parameter definitions for details):</p>
+	
+	<pre>CREATE TABLE patch_tracking(
+   ID INTEGER NOT NULL PRIMARY KEY,
+   PATCH_NAME VARCHAR(100), 
+   PATCH_RELEASE_ID VARCHAR(20), 
+   APPLIED_TIMESTAMP TIMESTAMP, 
+   PATCH_UTILITY_VERSION VARCHAR(20)
+)</pre>
  
- </pre>
+ <h3>Parameters</h3>
+ <table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">patchindex</td>
+    <td valign="top">A text file that contains the names of the patches to run in the order they should be executed, 
+    one file per line. Empty lines and lines starting with # or // are skipped. The rest are treated
+    as file names in the directory relative to the patch index file directory.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">patchreleaseid</td>
+    <td valign="top">Defines a namespace for patch file names. All patch files must have unique names for a given patch 
+	release id.</td>
+    <td valign="top" align="center">No - default is empty</td>
+  </tr>
+  <tr>
+    <td valign="top">patchtablename</td>
+    <td valign="top">An attribute that defines the name of the table where patch tracking information is stored. 
+    Can contain schema name. E.g. "myschema.mypatchtable".</td>
+    <td valign="top" align="center">No - default is 'patch_tracking'</td>
+  </tr>
+  <tr>
+    <td valign="top">driver</td>
+    <td valign="top">Class name of the jdbc driver</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">url</td>
+    <td valign="top">Database connection url</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">userid</td>
+    <td valign="top">Database user name</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">password</td>
+    <td valign="top">Database password</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">encoding</td>
+    <td valign="top">Encoding of the SQL patch files</td>
+    <td valign="top" align="center">No - defaults to default JVM encoding</td>
+  </tr>
+  <tr>
+    <td valign="top">delimiter</td>
+    <td valign="top">String that separates SQL statements</td>
+    <td valign="top" align="center">No - default ";"</td>
+  </tr>
+  <tr>
+    <td valign="top">autocommit</td>
+    <td valign="top">Auto commit flag for database connection</td>
+    <td valign="top" align="center">No - default "false"</td>
+  </tr>
+  <tr>
+    <td valign="top">showheaders</td>
+    <td valign="top">Print headers for result sets from the statements</td>
+    <td valign="top">No, default &quot;true&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">showtrailers</td>
+    <td valign="top">Print trailer for number of rows affected</td>
+    <td valign="top">No, default &quot;true&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">classpath</td>
+    <td valign="top">Classpath used to load driver</td>
+    <td valign="top">No (use system classpath)</td>
+  </tr>
+  <tr>
+    <td valign="top">classpathref</td>
+    <td valign="top">The classpath to use, given as a reference to a path defined elsewhere.</td>
+    <td valign="top">No (use system classpath)</td>
+  </tr>
+  <tr>
+    <td valign="top">delimitertype</td>
+    <td valign="top">Control whether the delimiter will only be recognized on a line by itself.
+    Can be "normal" -anywhere on the line, or "row", meaning it must be on a line by itself</td>
+    <td valign="top">No (default:normal)</td>
+  </tr>
+  <tr>
+    <td valign="top">keepformat</td>
+    <td valign="top">Control whether the format of the sql will be preserved.
+    Useful when loading packages and procedures.
+    <td valign="top">No (default=false)</td>
+  </tr>
+  <tr>
+    <td>escapeprocessing</td>
+    <td valign="top">Control whether the Java statement
+    object will perform escape substitution.<br>
+    See <a
+    href="http://java.sun.com/j2se/1.4.2/docs/api/java/sql/Statement.html#setEscapeProcessing(boolean)">Statement's
+    API docs</a> for details.  <em>Since Ant 1.6</em>.
+    <td valign="top">No (default=true)</td>
+  </tr>
+</table>
+ 
+<h3>Examples</h3>
+
+<p>Running dbpatches listed in "patches/index.txt":</p>
+
+<pre>&lt;dbpatch 
+  patchIndex="patches/index.txt" 
+  patchReleaseId="${version}"
+  driver="com.mysql.jdbc.Driver" 
+  url="${db.url}"
+  userid="${db.userid}"
+  password="${db.password}"
+  classpathref="my.drivers.ref"/&gt;
   </body>
 </html>
