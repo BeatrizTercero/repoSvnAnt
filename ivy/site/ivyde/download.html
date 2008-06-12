@@ -24,21 +24,108 @@
 </head>
 <body>
 	<textarea id="xooki-source">
-Note that no release has been made within the Apache Software Foundation. Releases described below were made by Jayasoft, and are listed here for historical reason, and should not be considered as Apache software.
+The Apache IvyDE distribution is available in an <a href="#">update site</a>, but you can also download them <a href="#">manually</a> from one of our mirrors. We encourage you to <a href="#">verify the integrity</a> of the downloaded files using signatures downloaded from our main distribution directory.
 
-What you can get here at the ASF is the latest sources from the Subversion repository:
+<h1>Update site</h1>
+
+You can install Apache IvyDE plugins from the IvyDE update site: <a href="http://ant.apache.org/ivy/ivyde/updatesite">http://ant.apache.org/ivy/ivyde/updatesite</a>.
+
+To proceed to the configuration of Eclipse, follow the steps (Note that for Eclipse 3.4 it may defers):
+<ul>
+<li>Open the update manager in Eclipse: Help > Software Updates > Find and Install...</li>
+<li>In the popup window, select "Search for features to install", and click <b>Next</b></li>
+<li>Then click on "New Remote Site..."</li>
+<li>Name: <b>Apache Ivy update site</b></li>
+<li>URL: http://ant.apache.org/ivy/ivyde/updatesite </li>
+<li>Click OK</li>
+</ul>
+
+And to proceed to the installation of the plugins:
+<ul>
+<li>Make sure you selected the "Apache Ivy update site" and click "Finish" to trigger the search of features</li>
+<li>After some amount of time, you will see the list of available features to install. Select the ones in which you are interested</li>
+<li>If Eclipse warn you about non dependencies, click on "Select Required"</li>
+<li>Click Next</li>
+<li>You have to accept the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License</a> agreement</li>
+<li>Eclipse will present you the summary of the plugins to download: click "Finish" to start downloading</li>
+</li>After the download, Eclipse will ask you if you really want to install the plugins. Click "Install" for each one or "Install All" for a bulk install.</li>
+<li>It is then recommended to restart Eclipse: click Yes</li>
+<li>The ivyDE plugins should have started. You can check the version of Ivy you are using on the top of the configuration panel of Ivy (Window > Preferences, and select Ivy); or in Eclipse's list of plugins (Help > About Eclipse, click "Plug-in Details")</li>
+</ul>
+
+<h1>Manual install</h1>
+
+<h2>Select mirror</h2>
+You are currently using <b>[preferred]</b>. If you encounter a problem with this mirror, please select another mirror.  If all mirrors are failing, there are <i>backup</i> mirrors (at the end of the mirrors list) that should be available.
+
+<form action="[location]" method="get" id="SelectMirror">
+Other mirrors: <select name="Preferred">
+[if-any http]
+  [for http]<option value="[http]">[http]</option>[end]
+[end]
+[if-any ftp]
+  [for ftp]<option value="[ftp]">[ftp]</option>[end]
+[end]
+[if-any backup]
+  [for backup]<option value="[backup]">[backup] (backup)</option>[end]
+[end]
+</select>
+<input type="submit" value="Change" />
+</form>
+
+<h2>Zip binaries</h2>
+
+It includes every binaries ready to be install in your Eclipse installation.
+
+Download <a href="[preferred]/ant/ivy/ivyde/2.0.0.alpha1/org.apache.ivyde.feature-2.0.0.alpha1.zip">org.apache.ivyde.feature-2.0.0.alpha1.zip</a>
+
+You can then install it with:
 <code>
-svn co https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk ivyde
+cd $ECLIPSE_HOME
+unzip org.apache.ivyde.feature-2.0.0.alpha1.zip
 </code>
 
-<h1>IvyDE 1.2.0 - 2006-11-17</h1>
+<h2>Full sources</h2>
+
+The source distribution includes the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.
+
+Download <a href="[preferred]/ant/ivy/ivyde/2.0.0.alpha1/apache-ivyde-sources-2.0.0.alpha1.zip">apache-ivyde-sources-2.0.0.alpha1.zip</a>
+
+<h1><a name="VerifyReleases">Verify Releases</a></h1>
+It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.
+
+The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivy/">main distribution directory</a>, rather than from a mirror. Then verify the signatures using
+
+<code>
+% pgpk -a KEYS
+% pgpv apache-ivy-2.0.0-beta2-bin.tar.gz.asc
+</code>
+<em>or</em>
+<code>
+% pgp -ka KEYS
+% pgp apache-ivy-2.0.0-beta2-bin.tar.gz.asc
+</code>
+<em>or</em>
+<code>
+% gpg --import KEYS
+% gpg --verify apache-ivy-2.0.0-beta2-bin.tar.gz.asc
+</code>
+
+Alternatively, you can verify the checksums on the files.  Unix programs called md5/sha1 or md5sum/sha1sum are included in many unix distributions.  *sum is also available as part of <a href="http://www.gnu.org/software/textutils/textutils.html">GNU Textutils</a>.  Windows users can get binary md5 programs from <a href="http://www.fourmilab.ch/md5/">here</a>, <a href="http://www.pc-tools.net/win32/freeware/console/">here</a>.  <a href="http://www.slavasoft.com/fsum/">fsum</a> supports MD5 and SHA1.
+
+We highly recommend to verify the PGP signature, though.
+
+<h1>Old releases</h1>
+Releases described below were made by Jayasoft, and are listed here for historical reason, and should not be considered as Apache software.
+
+<h2>IvyDE 1.2.0 - 2006-11-17</h2>
 - upgrade to Ivy 1.4.1<br/>
 - NEW: Link Sources to Classes by Artifact Type in Classpath Container (IVYDE-12) (thanks to Peter Blstak)<br/>
 - FIX: No resolve messages in console (IVYDE-39)<br/>
 
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.2.0.zip">IvyDE 1.2.0</a>
 <br/>
-<h1>IvyDE 1.1.0 - 2006-10-09</h1>
+<h2>IvyDE 1.1.0 - 2006-10-09</h2>
 - upgrade to Ivy 1.4<br/>
 - several stability improvements<br/>
 - NEW: enabling user to choose what types get added to the classpath (IVYDE-24)<br/>
@@ -51,31 +138,31 @@ svn co https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk ivyde
 
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.1.0.v20061009130000.zip">IvyDE 1.1.0</a>
 <br/>
-<h1>IvyDE 1.0.3 - 2006-05-23</h1>
+<h2>IvyDE 1.0.3 - 2006-05-23</h2>
 - include source in distribution<br/>
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.0.3.zip">IvyDE 1.0.3</a>
 <br/>
-<h1>IvyDE 1.0.2 - 2006-04-11</h1>
+<h2>IvyDE 1.0.2 - 2006-04-11</h2>
 - Include IVY 1.3.1 release<br/>
 - Fix common-logging classloader issue<br/>
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.0.2.zip">IvyDE 1.0.2</a>
 <br/>
-<h1>IvyDE 1.0.1 (a.k.a. 1.0) - 2006-03-17</h1>
+<h2>IvyDE 1.0.1 (a.k.a. 1.0) - 2006-03-17</h2>
 - Include IVY 1.3 release<br/>
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.0.1.zip">IvyDE 1.0.1</a>
 <br/>
-<h1>IvyDE 1.0.0 (a.k.a. 1.0 RC1) - 2006-03-07</h1>
+<h2>IvyDE 1.0.0 (a.k.a. 1.0 RC1) - 2006-03-07</h2>
 - Fix source attachment from class editor<br/>
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.0.0.zip">IvyDE 1.0.0</a>
 <br/>
 <br/>
-<h1>IvyDE 0.9.7 (a.k.a. 1.0 beta 2) - 2006-02-14</h1>
+<h2>IvyDE 0.9.7 (a.k.a. 1.0 beta 2) - 2006-02-14</h2>
 - Fix source attachment for contained in ivycontainer <br/>
 - Fix startup refresh problem <br/>
 <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_0.9.7.zip">IvyDE 0.9.7 beta</a>
 <br/>
 <br/>
-<h1>IvyDE 0.9.3 (a.k.a. 1.0 beta 1) - 2006-01-25</h1>
+<h2>IvyDE 0.9.3 (a.k.a. 1.0 beta 1) - 2006-01-25</h2>
 initial public version<br/>
 - integration of plugin formerly known as ivyeclipseui<br/>
 - added IvyClasspathContainer and configuration stuff<br/>
