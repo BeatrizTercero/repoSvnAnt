@@ -24,36 +24,37 @@
 </head>
 <body>
 	<textarea id="xooki-source">
-The Apache IvyDE distribution is available in an <a href="#">update site</a>, but you can also download them <a href="#">manually</a> from one of our mirrors. We encourage you to <a href="#">verify the integrity</a> of the downloaded files using signatures downloaded from our main distribution directory.
+The Apache IvyDE distribution is available as an <a href="#updatesite">Eclipse update site</a>, but you can also download and install it <a href="#manual">manually</a> from one of our mirrors. We encourage you to <a href="#verify">verify the integrity</a> of the downloaded files using signatures downloaded from our main distribution directory.
 
-<h1>Update site</h1>
+<h1><a name="updatesite"></a>Update site</h1>
 
-You can install Apache IvyDE plugins from the IvyDE update site: <a href="http://ant.apache.org/ivy/ivyde/updatesite">http://ant.apache.org/ivy/ivyde/updatesite</a>.
+You can install Apache IvyDE plugins from the IvyDE update site: http://ant.apache.org/ivy/ivyde/updatesite.
 
-To proceed to the configuration of Eclipse, follow the steps (Note that for Eclipse 3.4 it may defers):
+First you have to configure Eclipse: add the IvyDE update site. In order to do it, follow these steps (Note that for Eclipse 3.4 it may defers):
 <ul>
-<li>Open the update manager in Eclipse: Help > Software Updates > Find and Install...</li>
-<li>In the popup window, select "Search for features to install", and click <b>Next</b></li>
-<li>Then click on "New Remote Site..."</li>
-<li>Name: <b>Apache Ivy update site</b></li>
-<li>URL: http://ant.apache.org/ivy/ivyde/updatesite </li>
-<li>Click OK</li>
+<li>Open the update manager in Eclipse: <b>Help > Software Updates > Find and Install...</b></li>
+<li>In the popup window, select <b>Search for features to install</b>, and click <b>Next</b></li>
+<li>Then click on <b>New Remote Site...</b></li>
+<li>Name: <i>Apache Ivy update site</i></li>
+<li>URL: <i> http://ant.apache.org/ivy/ivyde/updatesite </i> </li>
+<li>Click <b>OK</b></li>
+<li>A new entry "Apache Ivy update site" will appear in the list of update sites</li>
 </ul>
 
-And to proceed to the installation of the plugins:
+And to proceed to the installation of the plugins from the configured IvyDE update site:
 <ul>
-<li>Make sure you selected the "Apache Ivy update site" and click "Finish" to trigger the search of features</li>
-<li>After some amount of time, you will see the list of available features to install. Select the ones in which you are interested</li>
-<li>If Eclipse warn you about non dependencies, click on "Select Required"</li>
-<li>Click Next</li>
-<li>You have to accept the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License</a> agreement</li>
-<li>Eclipse will present you the summary of the plugins to download: click "Finish" to start downloading</li>
-</li>After the download, Eclipse will ask you if you really want to install the plugins. Click "Install" for each one or "Install All" for a bulk install.</li>
-<li>It is then recommended to restart Eclipse: click Yes</li>
-<li>The ivyDE plugins should have started. You can check the version of Ivy you are using on the top of the configuration panel of Ivy (Window > Preferences, and select Ivy); or in Eclipse's list of plugins (Help > About Eclipse, click "Plug-in Details")</li>
+<li>Make sure you selected the "Apache Ivy update site" and click <b>Finish</b> to trigger the search for features</li>
+<li>After some amount of time, you will see the list of available features to install. Select the ones in which you are interested in</li>
+<li>If Eclipse warns you about non resolved dependencies, click on <b>Select Required</b></li>
+<li>To continue click <b>Next</b></li>
+<li>Then you have to accept the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache Software License</a> agreement</li>
+<li>Eclipse will present you the summary of the plugins to download: click <b>Finish</b> to start downloading</li>
+</li>After the download, Eclipse will ask you if you really want to install the plugins. Click <b>Install</b> or <b>Install All</b>.</li>
+<li>It is then recommended to restart Eclipse: click <b>Yes</b></li>
+<li>After restarting, the IvyDE plugins should have started. You can check the version of Ivy you are using on the top of the configuration panel of Ivy (<b>Window > Preferences, and select Ivy</b>); or in Eclipse's list of plugins (<b>Help > About Eclipse</b>, click <b>Plug-in Details</b>)</li>
 </ul>
 
-<h1>Manual install</h1>
+<h1><a name="manual"></a>Manual install</h1>
 
 <h2>Select mirror</h2>
 You are currently using <b>[preferred]</b>. If you encounter a problem with this mirror, please select another mirror.  If all mirrors are failing, there are <i>backup</i> mirrors (at the end of the mirrors list) that should be available.
@@ -75,7 +76,7 @@ Other mirrors: <select name="Preferred">
 
 <h2>Zip binaries</h2>
 
-It includes every binaries ready to be install in your Eclipse installation.
+This distribution contains every binaries ready to be installed in your Eclipse installation.
 
 Download <a href="[preferred]/ant/ivy/ivyde/2.0.0.alpha1/org.apache.ivyde.feature-2.0.0.alpha1.zip">org.apache.ivyde.feature-2.0.0.alpha1.zip</a>
 
@@ -87,14 +88,14 @@ unzip org.apache.ivyde.feature-2.0.0.alpha1.zip
 
 <h2>Full sources</h2>
 
-The source distribution includes the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.
+The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.
 
 Download <a href="[preferred]/ant/ivy/ivyde/2.0.0.alpha1/apache-ivyde-sources-2.0.0.alpha1.zip">apache-ivyde-sources-2.0.0.alpha1.zip</a>
 
-<h1><a name="VerifyReleases">Verify Releases</a></h1>
+<h1><a name="verify">Verify Releases</a></h1>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.
 
-The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivy/">main distribution directory</a>, rather than from a mirror. Then verify the signatures using
+The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivy/ivyde">main distribution directory</a>, rather than from a mirror. Then verify the signatures using
 
 <code>
 % pgpk -a KEYS
@@ -153,19 +154,16 @@ Download on Jayasoft: <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayas
 - Fix source attachment from class editor<br/><br/>
 Download on Jayasoft: <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_1.0.0.zip">IvyDE 1.0.0</a>
 <br/>
-<br/>
 <h2>IvyDE 0.9.7 (a.k.a. 1.0 beta 2) - 2006-02-14</h2>
 - Fix source attachment for contained in ivycontainer <br/>
 - Fix startup refresh problem <br/><br/>
 Download on Jayasoft: <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_0.9.7.zip">IvyDE 0.9.7 beta</a>
-<br/>
 <br/>
 <h2>IvyDE 0.9.3 (a.k.a. 1.0 beta 1) - 2006-01-25</h2>
 initial public version<br/>
 - integration of plugin formerly known as ivyeclipseui<br/>
 - added IvyClasspathContainer and configuration stuff<br/><br/>
 Download on Jayasoft: <a href="http://www.jaya.free.fr/downloads/ivyde/org.jayasoft.ivyde.eclipse_0.9.3.zip">IvyDE 0.9.3 beta</a>
-<br/>
 <br/>
 </textarea>
 <script type="text/javascript">xooki.postProcess();</script>
