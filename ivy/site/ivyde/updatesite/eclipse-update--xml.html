@@ -1,0 +1,16 @@
+<mirrors>
+<mirror url="[preferred]/ant/ivy/ivyde/updatesite/"
+label="Recommended mirror: [preferred]"/>
+[if-any http]
+  [for http]
+    <mirror url="[http]/ant/ivy/ivyde/updatesite/"
+      label="[http]"/>
+  [end]
+[end]
+[if-any backup]
+  [for backup]
+    <mirror url="[backup]/ant/ivy/ivyde/updatesite/"
+      label="Backup mirror: [backup]"/>
+  [end]
+[end]
+</mirrors>
