@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<script type="text/javascript">var xookiConfig = {level: 0};</script>	
+	
+
+<title>Use with maven poms | IvyDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../../style/style.css" />
+  <script src="../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant"><img src="../../images/ant-group-logo.gif" alt="Apache Ant"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="../../images/logo.png" alt="IvyDE" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://ant.apache.org/">Apache Ant</a> &gt; <a href="http://ant.apache.org/ivy/">Ivy</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">IvyDE</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.0.0.alpha1)</a> &gt; <a href="../../history/latest-milestone/maven.html" class="current">Use with maven poms</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>IvyDE</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../../index.html" >Home</a><ul class="closed"><li id="xooki-faq"><a href="../../faq.html" >FAQ</a></li></ul></li><li id="xooki-download"><a href="../../download.html" >Download</a></li><li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.0.0.alpha1)</a><ul class="open"><li id="xooki-history/latest-milestone/editor"><a href="../../history/latest-milestone/editor.html" >Editor</a></li><li id="xooki-history/latest-milestone/cp_container"><a href="../../history/latest-milestone/cp_container.html" >Classpath Container</a></li><li id="xooki-history/latest-milestone/maven"><a href="../../history/latest-milestone/maven.html" class="current">Use with maven poms</a></li><li id="xooki-history/latest-milestone/console"><a href="../../history/latest-milestone/console.html" >Ivy Console</a></li><li id="xooki-history/latest-milestone/build"><a href="../../history/latest-milestone/build.html" >Building IvyDE</a></li></ul></li><li id="xooki-history" class="submenu"><a href="../../history.html" >History</a><ul class="closed"><li id="xooki-history/trunk/index" class="submenu"><a href="../../history/trunk/index.html" >trunk</a><ul class="closed"><li id="xooki-history/trunk/editor"><a href="../../history/trunk/editor.html" >Editor</a></li><li id="xooki-history/trunk/cp_container"><a href="../../history/trunk/cp_container.html" >Classpath Container</a></li><li id="xooki-history/trunk/maven"><a href="../../history/trunk/maven.html" >Use with maven poms</a></li><li id="xooki-history/trunk/console"><a href="../../history/trunk/console.html" >Ivy Console</a></li><li id="xooki-history/trunk/build"><a href="../../history/trunk/build.html" >Building IvyDE</a></li></ul></li><li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-history/2.0" class="submenu">2.0.x<ul class="closed"><li id="xooki-history/2.0.0.alpha1/index" class="submenu"><a href="../../history/2.0.0.alpha1/index.html" >2.0.0.alpha1</a><ul class="closed"><li id="xooki-history/2.0.0.alpha1/editor"><a href="../../history/2.0.0.alpha1/editor.html" >Editor</a></li><li id="xooki-history/2.0.0.alpha1/cp_container"><a href="../../history/2.0.0.alpha1/cp_container.html" >Classpath Container</a></li><li id="xooki-history/2.0.0.alpha1/maven"><a href="../../history/2.0.0.alpha1/maven.html" >Use with maven poms</a></li><li id="xooki-history/2.0.0.alpha1/console"><a href="../../history/2.0.0.alpha1/console.html" >Ivy Console</a></li><li id="xooki-history/2.0.0.alpha1/build"><a href="../../history/2.0.0.alpha1/build.html" >Building IvyDE</a></li></ul></li></ul></li></ul></li><li id="xooki-history/1.2.0/index" class="submenu"><a href="../../history/1.2.0/index.html" >1.2.0</a><ul class="closed"><li id="xooki-history/1.2.0/editor"><a href="../../history/1.2.0/editor.html" >Editor</a></li><li id="xooki-history/1.2.0/cp_container"><a href="../../history/1.2.0/cp_container.html" >Classpath Container</a></li><li id="xooki-history/1.2.0/maven"><a href="../../history/1.2.0/maven.html" >Use with maven poms</a></li></ul></li></ul></li><li id="xooki-get-involved" class="submenu"><a href="../../get-involved.html" >Get Involved</a><ul class="closed"><li id="xooki-mailing-lists"><a href="../../mailing-lists.html" >Mailing Lists</a></li><li id="xooki-issues"><a href="../../issues.html" >Issue Tracking</a></li></ul></li></ul></div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">Use with maven poms</h1>
+            <br class="xooki-br"/><h1>General</h1>
+<p>If you want to use a maven pom.xml instead of ivy.xml file, you just have to select a pom file in the configuration form of IvyDE class path.<br/>When a maven pom is selected, the configurations list is updated with all maven scopes.</p>
+<p>Both examples below are a good illustration of maven pom use simplicity :</p>
+<ul>
+<li><a href="#one">Maven1 sample</a></li>
+<li><a href="#two">Maven2 sample</a></li>
+</ul>
+<h1><a name="one"></a>Maven1 Sample</h1>
+<p>This sample presents a simple use case of maven pom for IvyDE class path container. We are going to create an eclipse project on commons-httpclient sources.</p>
+<p><b> - Download the <a href="http://archive.apache.org/dist/httpcomponents/commons-httpclient/3.0/source/commons-httpclient-3.0-src.zip">commons httpclient sources</a></b></p>
+<p><b> - Unzip this file (c:/tmp/commons-httpclient/)</b></p>
+<p><b> - Create a new Eclipse java project based on the unzipped sources (c:/tmp/commons-httpclient/)</b><br />
+<center><img src="images/httpProject_errors.jpg"><br/><br />
+<u><b>Notes:</b></u> your project do not compile: some imports cannot be resolved.<br />
+</center><br />
+<b> - Add a new class path container based on the "project.xml" pom and select "default" configuration (maven scope)</b><br />
+<center><br />
+<img src="images/httpProject_pom.jpg"><br />
+</center><br />
+<b> - That's all : your project compiles !</b><br />
+<center><br />
+<img src="images/httpProject_clean.jpg"><br />
+</center></p>
+<h1><a name="two"></a>Maven2 Sample</h1>
+<p>This sample shows that IvyDE Class path container on a Maven2 pom can handle transitive dependancies.</p>
+<p><b> - Create a new empty java project in eclipse.</b></p>
+<p><b> - In your Ivy project configuration, set the ivy settings file below (Project/Properties/Ivy):</b></p>
+<pre>&lt;ivysettings&gt;<br class="xooki-br"/>	&lt;conf defaultResolver="ibiblio"/&gt;<br class="xooki-br"/>	&lt;resolvers&gt;<br class="xooki-br"/>		&lt;ibiblio name="ibiblio" /&gt;<br class="xooki-br"/>	&lt;/resolvers&gt;<br class="xooki-br"/>&lt;/ivysettings&gt;
+</pre>
+<p>Using the m2compatible attribute, you can benefit from Maven2 repository compatibility.<br/><br />
+<b> - Add the pom below in your project and select it for an IvyDE class path container choosing "compile" and "runtime" configurations.</b><br/></p>
+<pre>
+&lt;project&gt;<br class="xooki-br"/>	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>	&lt;groupId&gt;com.mycompany&lt;/groupId&gt;<br class="xooki-br"/>	&lt;artifactId&gt;myproject&lt;/artifactId&gt;<br class="xooki-br"/>	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;<br class="xooki-br"/>	&lt;dependencies&gt;<br class="xooki-br"/>		&lt;dependency&gt;<br class="xooki-br"/>			&lt;groupId&gt;commons-httpclient&lt;/groupId&gt;<br class="xooki-br"/>			&lt;artifactId&gt;commons-httpclient&lt;/artifactId&gt;<br class="xooki-br"/>			&lt;version&gt;3.0&lt;/version&gt;<br class="xooki-br"/>		&lt;/dependency&gt;<br class="xooki-br"/>	&lt;/dependencies&gt;<br class="xooki-br"/>&lt;/project&gt;
+</pre>
+
+<p><b> - That's all ! Your IvyDE class path container gets all dependencies even those that were transitive to the commons-httpclient module !</b><br />
+<br/><br />
+<img src="images/maven2classpath.jpg"/></p>
+
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="../../index.html">Home</a> ::
+			<a href="../../download.html">Download</a> ::
+			<a href="../../documentation.html">Documentation</a> ::
+			<a href="../../get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message"></div>
+
+
+</div><!-- body -->
+</body>
+</html>

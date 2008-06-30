@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<script type="text/javascript">var xookiConfig = {level: 0};</script>	
+	
+
+<title>Building IvyDE | IvyDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../../style/style.css" />
+  <script src="../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant"><img src="../../images/ant-group-logo.gif" alt="Apache Ant"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="../../images/logo.png" alt="IvyDE" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://ant.apache.org/">Apache Ant</a> &gt; <a href="http://ant.apache.org/ivy/">Ivy</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">IvyDE</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.0.0.alpha1)</a> &gt; <a href="../../history/latest-milestone/build.html" class="current">Building IvyDE</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>IvyDE</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../../index.html" >Home</a><ul class="closed"><li id="xooki-faq"><a href="../../faq.html" >FAQ</a></li></ul></li><li id="xooki-download"><a href="../../download.html" >Download</a></li><li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.0.0.alpha1)</a><ul class="open"><li id="xooki-history/latest-milestone/editor"><a href="../../history/latest-milestone/editor.html" >Editor</a></li><li id="xooki-history/latest-milestone/cp_container"><a href="../../history/latest-milestone/cp_container.html" >Classpath Container</a></li><li id="xooki-history/latest-milestone/maven"><a href="../../history/latest-milestone/maven.html" >Use with maven poms</a></li><li id="xooki-history/latest-milestone/console"><a href="../../history/latest-milestone/console.html" >Ivy Console</a></li><li id="xooki-history/latest-milestone/build"><a href="../../history/latest-milestone/build.html" class="current">Building IvyDE</a></li></ul></li><li id="xooki-history" class="submenu"><a href="../../history.html" >History</a><ul class="closed"><li id="xooki-history/trunk/index" class="submenu"><a href="../../history/trunk/index.html" >trunk</a><ul class="closed"><li id="xooki-history/trunk/editor"><a href="../../history/trunk/editor.html" >Editor</a></li><li id="xooki-history/trunk/cp_container"><a href="../../history/trunk/cp_container.html" >Classpath Container</a></li><li id="xooki-history/trunk/maven"><a href="../../history/trunk/maven.html" >Use with maven poms</a></li><li id="xooki-history/trunk/console"><a href="../../history/trunk/console.html" >Ivy Console</a></li><li id="xooki-history/trunk/build"><a href="../../history/trunk/build.html" >Building IvyDE</a></li></ul></li><li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-history/2.0" class="submenu">2.0.x<ul class="closed"><li id="xooki-history/2.0.0.alpha1/index" class="submenu"><a href="../../history/2.0.0.alpha1/index.html" >2.0.0.alpha1</a><ul class="closed"><li id="xooki-history/2.0.0.alpha1/editor"><a href="../../history/2.0.0.alpha1/editor.html" >Editor</a></li><li id="xooki-history/2.0.0.alpha1/cp_container"><a href="../../history/2.0.0.alpha1/cp_container.html" >Classpath Container</a></li><li id="xooki-history/2.0.0.alpha1/maven"><a href="../../history/2.0.0.alpha1/maven.html" >Use with maven poms</a></li><li id="xooki-history/2.0.0.alpha1/console"><a href="../../history/2.0.0.alpha1/console.html" >Ivy Console</a></li><li id="xooki-history/2.0.0.alpha1/build"><a href="../../history/2.0.0.alpha1/build.html" >Building IvyDE</a></li></ul></li></ul></li></ul></li><li id="xooki-history/1.2.0/index" class="submenu"><a href="../../history/1.2.0/index.html" >1.2.0</a><ul class="closed"><li id="xooki-history/1.2.0/editor"><a href="../../history/1.2.0/editor.html" >Editor</a></li><li id="xooki-history/1.2.0/cp_container"><a href="../../history/1.2.0/cp_container.html" >Classpath Container</a></li><li id="xooki-history/1.2.0/maven"><a href="../../history/1.2.0/maven.html" >Use with maven poms</a></li></ul></li></ul></li><li id="xooki-get-involved" class="submenu"><a href="../../get-involved.html" >Get Involved</a><ul class="closed"><li id="xooki-mailing-lists"><a href="../../mailing-lists.html" >Mailing Lists</a></li><li id="xooki-issues"><a href="../../issues.html" >Issue Tracking</a></li></ul></li></ul></div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">Building IvyDE</h1>
+            <br class="xooki-br"/>This page describes how to build the IvyDE plugin from the source. The build is based on the Eclipse build system so it requires an Eclipse install. You also need to have an Ivy bundle installed.<br class="xooki-br"/><br class="xooki-br"/><h1>Setup of the build</h1>
+
+<h2>Eclipse installation</h2>
+
+You need first an Eclipse install which contains the PDE plugins (by default included in the "SDK" and "Classic" versions). We will refer to the eclipse installation path in the documentation as $ECLIPSE_HOME. In that $ECLIPSE_HOME folder you should have the plugins and features folders. The current build have been successfully tested with:
+<ul>
+<li>Eclipse 3.2 under Linux</li>
+<li>Eclipse 3.3 under Linux, Windows and MacOS</li>
+<li>Eclipse 3.4M5 under Linux</li>
+</ul>
+If it does work for your unlisted configuration, please send us an email on the <a href="http://ant.apache.org/ivy/mailing-lists.html">ant-dev mailing list</a>.<br class="xooki-br"/><h2>The Ivy bundle</h2>
+
+The IvyDE plugins depends on the Ivy 2.0 OSGi bundle. So the Ivy bundle have to be installed in the Eclipse installation before starting the build.<br class="xooki-br"/><br class="xooki-br"/>You can get an officially released version of Ivy. Go to the <a href="http://ant.apache.org/ivy/download.cgi">Ivy download page</a> and get the binary distribution. You will find in the zip the jar ivy-2.X.Y-Z.jar.<br class="xooki-br"/>Note: due to <a href="https://issues.apache.org/jira/browse/IVY-802">a bug in the build script of Ivy</a>, the OSGi version of Ivy is "0.0.0" for every version older than the 2.0.0-RC1. So a repackaging is needed. If you get the sources (which includes the build system), you can automatically install the repackaged 2.0.0-beta2 into you Eclipse install by running <pre>ant install-ivy</pre>.<br class="xooki-br"/><br class="xooki-br"/>You can also build it from the sources (from <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/">subversion</a> or from the <a href="http://ant.apache.org/ivy/download.cgi">releases</a>). In the build/artifact folder you should then find the bundle org.apache.ivy_2.X.Y-Z.jar.<br class="xooki-br"/><br class="xooki-br"/>Actually every Ivy jar is an OSGi bundle. So just copy it in your Eclipse install:
+<pre>cp XXXXXX.jar $ECLIPSE_HOME/plugins/org.apache.ivy_2.X.Y-Z.jar</pre>
+
+<h1>Building</h1>
+
+First somehow you got some sources, for instance from <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk/">subversion</a>.<br class="xooki-br"/>And go into the root folder of the sources. In that folder you should see the builder, org.apache.ivyde.eclipse and org.apache.ivyde.feature folders.<br class="xooki-br"/><br class="xooki-br"/>And run the build:
+<pre>ant build -DbaseLocation=$ECLIPSE_HOME</pre>
+
+The baseLocation property is mandatory: it defines the path of your Eclipse install you want to build with. You can put this property in your local.build.properties so you don't have to specify it each time you run the build. The file local.build.properties have to be next to the build.xml.<br class="xooki-br"/><br class="xooki-br"/>Note that it is not recommended to have your Eclipse started when you build IvyDE. The build clean the Eclipse cache of installed plugins, so a running Eclipse might be confused.<br class="xooki-br"/><br class="xooki-br"/>Then in the created directory "work" you will find a directory (something like 2.0.0.alpha1-200804171513) in which you will find the zip archive ready to be unzipped in an Eclipse install.<br class="xooki-br"/><br class="xooki-br"/><h1>Install</h1>
+
+After a successful build you should have a zip file at dist/org.apache.ivyde.feature-$VERSION.zip. The zip file contains the "plugins" and "features" folders ready to be unzipped in an Eclipse install. So here is the process:
+<pre>
+cd $ECLIPSE_HOME<br class="xooki-br"/>unzip ...../dist/org.apache.ivyde.feature-$VERSION.zip
+</pre>
+
+Then start your Eclipse and enjoy !<br class="xooki-br"/>
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="../../index.html">Home</a> ::
+			<a href="../../download.html">Download</a> ::
+			<a href="../../documentation.html">Documentation</a> ::
+			<a href="../../get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message"></div>
+
+
+</div><!-- body -->
+</body>
+</html>
