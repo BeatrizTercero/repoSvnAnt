@@ -166,6 +166,7 @@
             description="--> initialize all imported documentation history for IvyDE">
         <init-imported-version basepath="ivyde" version="trunk" />
         <init-imported-version basepath="ivyde" version="latest-milestone" />
+        <init-imported-version basepath="ivyde" version="2.0.0.alpha1" />
         <init-imported-version basepath="ivyde" version="1.2.0" />
     </target>
 </project>
