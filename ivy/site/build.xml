@@ -56,8 +56,10 @@
         </condition>
         <copy todir="${target.dir}/ivyde" overwrite="${overwrite}">
             <fileset dir="${basedir}/ivyde">
+                <include name="*.cgi" />
                 <include name="style/**" />
                 <include name="js/**" />
+                <include name="updatesite/**" />
                 <include name="images/**" />
                 <include name="history/*/images/**" />
             </fileset>
@@ -127,6 +129,7 @@
                 <exclude name="**/*Template.html"/>
                 <exclude name="**/xooki/**"/>
                 <exclude name="js/**"/>
+                <exclude name="updatesite/**"/>
             </fileset>
         </xooki:generate>
     </target>
