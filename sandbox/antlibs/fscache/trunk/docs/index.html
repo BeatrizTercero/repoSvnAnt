@@ -1,0 +1,190 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>FSCache Ant Library</title>
+  </head>
+
+  <body>
+    <h2>Introduction</h2>
+
+    <p>This is a library of tasks/types to allow arbitrary resources to be,
+       as transparently as possible, cached to the filesystem for use with
+       tasks that require file resources, e.g. Ant's core &lt;unzip&gt; and
+       &lt;javac&gt; tasks among others.</p>
+
+    <h2>Requirements</h2>
+
+    <p>The current version of this antlib is built against the Ant 1.8.x development version,
+       to be found in Ant's Subversion trunk.
+    </p>
+
+    <h2>Where is it?</h2>
+
+    <p>The source code for the library lives in the sandbox antlibs subspace of Ant's SVN -
+    <a href="http://svn.apache.org/viewvc/ant/sandbox/antlibs/fscache/trunk/">http://svn.apache.org/viewvc/ant/sandbox/antlibs/fscache/trunk/</a>.</p>
+
+    <h2>Installation</h2>
+
+    <p>If you are building this from sources, run the antlib target
+    and you'll get a file <code>ant-fscache.jar</code>.</p>
+
+    <p>There are several ways to use the tasks:</p>
+
+    <ul>
+      <li><p>The traditional way:
+        <pre>
+          &lt;typedef resource="org/apache/ant/fscache/antlib.xml"
+                   classpath="YOUR-PATH-TO/ant-fscache.jar"/&gt;
+        </pre>
+
+        Using this approach the provided extensions will live in the default namespace.
+        Note that the antlib is written in such a way that the default task/typenames
+        (collect, single, preload) may be too generic and should either be
+        explicitly overridden or used with a namespace.</p>
+      </li>
+
+      <li><p>Similar, but assigning a namespace URI
+        <pre>
+          &lt;typedef uri="antlib:org.apache.ant.fscache"
+                   resource="org/apache/ant/fscache/antlib.xml"
+                   classpath="YOUR-PATH-TO/ant-fscache.jar"/&gt;
+        </pre>
+
+        Placing the properties extensions into their own namespace, usable e.g.:
+
+        <pre>
+          &lt;project xmlns:fscache="antlib:org.apache.ant.fscache"&gt;
+            ...
+            &lt;collect&gt;
+              &lt;!-- other resources --&gt;
+            &lt;/collect&gt;
+        </pre>
+
+        or a variation thereof.</p>
+      </li>
+
+      <li><p>Using Ant's autodiscovery.  Place <code>ant-fscache.jar</code>
+      into a directory and use <code>ant -lib
+      DIR-CONTAINING-THE-JAR</code> or copy it into
+      <code>ANT_HOME/lib</code> - and then in your build file, simply
+      declare the namespace on the <code>project</code> tag:
+
+        <pre>
+          &lt;project xmlns:fscache="antlib:org.apache.ant.fscache"&gt;
+        </pre>
+
+        And all tasks of this library will automatically be available
+        in the <code>fscache</code> namespace without any <code>typedef</code>.</p>
+      </li>
+    </ul>
+
+    <h2>Tasks and Types</h2>
+
+    <a name="collect" />
+    <h3>collect</h3>
+    <p>Presents nested <a href="http://ant.apache.org/manual/CoreTypes/resources.html#collection">
+      Resource Collection</a>s of arbitrary types such that they live in a single directory
+      structure on the filesystem.</p>
+
+    <table border="1" cellpadding="2" cellspacing="0">
+      <tr>
+        <td valign="top"><b>Attribute</b></td>
+        <td valign="top"><b>Description</b></td>
+        <td align="center" valign="top"><b>Required</b></td>
+      </tr>
+      <tr>
+        <td valign="top">basedir</td>
+        <td valign="top">Directory that will hold the cache.</td>
+        <td align="center" valign="top">No, default <i>${java.io.tmpdir}</i></td>
+      </tr>
+      <tr>
+        <td valign="top">deleteonexit</td>
+        <td valign="top">Whether cached resources should be deleted on JVM exit via
+          <code>java.io.File#deleteOnExit()</code>. This may or may not be reliable.
+        </td>
+        <td align="center" valign="top">No, defaults to <i>false</i> if <code>basedir</code>
+          is specified, <i>true</i> otherwise.
+        </td>
+      </tr>
+      <tr>
+        <td valign="top">enablemultiplemappings</td>
+        <td valign="top">Whether resources will be created for all names (rather than the
+          first only) returned from the configured
+          <a href="http://ant.apache.org/manual/CoreTypes/mapper.html">File Mapper</a>, if present.
+        </td>
+        <td align="center" valign="top">No, default <i>false</i></td>
+      </tr>
+    </table>
+    <h4>Parameters specified as nested elements</h4>
+    <p>One or more nested
+      <a href="http://ant.apache.org/manual/CoreTypes/resources.html#collection">Resource
+      Collections</a> must be specified.</p>
+
+    <p>A nested <a href="http://ant.apache.org/manual/CoreTypes/mapper.html">File Mapper</a>
+      may be specified.</p>
+
+    <a name="single" />
+    <h3>single</h3>
+    <p>Filesystem cache for a single nested
+      <a href="http://ant.apache.org/manual/CoreTypes/resources.html">Resource</a>.
+      The specific file used can be specified explicitly or derived using the name of
+      the nested resource.</p>
+
+    <p>This type inherits from the
+      <a href="http://ant.apache.org/manual/CoreTypes/resources.html#file">file</a> resource type
+      and therefore supports its same attributes in addition to the following:</p>
+
+    <table border="1" cellpadding="2" cellspacing="0">
+      <tr>
+        <td valign="top"><b>Attribute</b></td>
+        <td valign="top"><b>Description</b></td>
+        <td align="center" valign="top"><b>Required</b></td>
+      </tr>
+      <tr>
+        <td valign="top">deleteonexit</td>
+        <td valign="top">Whether the cached resource should be deleted on JVM exit via
+          <code>java.io.File#deleteOnExit()</code>. This may or may not be reliable.
+        </td>
+        <td align="center" valign="top">No, defaults to <i>false</i> if <code>basedir</code>
+          or <code>file</code> is specified, <i>true</i> otherwise.
+        </td>
+      </tr>
+    </table>
+
+    <h4>Parameters specified as nested elements</h4>
+    <p>A single nested 
+      <a href="http://ant.apache.org/manual/CoreTypes/resources.html">Resource</a>
+      is required.</p>
+
+    <a name="preload" />
+    <h3>preload</h3>
+    <p>Task to preload cached resources onto disk. This is necessary when one needs to
+      use a filesystem cache with e.g. directory-based tasks such as
+      <a href="http://ant.apache.org/manual/CoreTasks/javac.html">Javac</a>.</p>
+
+    <h4>Parameters specified as nested elements</h4>
+    <p>One or more nested
+      <a href="http://ant.apache.org/manual/CoreTypes/resources.html#collection">Resource
+      Collection</a>s must be specified. It is considered an error condition if any resource
+      returned from these is not a cached resource.</p>
+
+    <hr/>
+  </body>
+</html>

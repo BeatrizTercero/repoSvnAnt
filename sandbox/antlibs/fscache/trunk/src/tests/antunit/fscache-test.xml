@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<project name="test-fscache"
+         xmlns:fscache="antlib:org.apache.ant.fscache"
+         xmlns:au="antlib:org.apache.ant.antunit">
+
+  <property name="out.dir" location="tempdir"/>
+  <property name="zip.filename" value="stuff.zip" />
+  <property name="zip.file" location="${out.dir}/${zip.filename}" />
+  <property name="nested.zip.filename" value="nonsense.zip" />
+  <property name="nested.zip.file" location="${out.dir}/${nested.zip.filename}" />
+  <property name="testCollect.cache" location="${out.dir}/testCollect" />
+  <property name="java.src.cache" location="${out.dir}/src" />
+
+  <resources id="foobarbaz">
+    <string>foo</string>
+    <string>bar</string>
+    <string>baz</string>
+  </resources>
+
+  <target name="setUp">
+    <mkdir dir="${out.dir}" />
+  </target>
+
+  <target name="tearDown">
+    <delete dir="${out.dir}" quiet="true"/>
+  </target>
+
+  <target name="-setupArchive">
+    <zip destfile="${zip.file}">
+      <resources refid="foobarbaz" />
+    </zip>
+    <au:assertTrue>
+      <resourcecount count="3">
+        <zipfileset src="${zip.file}" />
+      </resourcecount>
+    </au:assertTrue>
+  </target>
+
+  <target name="-setupNestedArchive" depends="-setupArchive">
+    <zip destfile="${nested.zip.file}">
+      <file file="${zip.file}" />
+    </zip>
+    <au:assertTrue>
+      <resourcecount count="1">
+        <zipfileset src="${nested.zip.file}" />
+      </resourcecount>
+    </au:assertTrue>
+  </target>
+
+  <macrodef name="readCollectResource">
+    <attribute name="name" />
+    <attribute name="value" default="@{name}" />
+    <attribute name="refid" />
+    <sequential>
+      <au:assertTrue>
+        <resourcesmatch>
+          <restrict>
+            <resources refid="@{refid}" />
+            <name name="@{name}" />
+          </restrict>
+          <string>@{value}</string>
+        </resourcesmatch>
+      </au:assertTrue>
+    </sequential>
+  </macrodef>
+
+  <target name="testCollect" depends="-setupArchive">
+    <fscache:collect id="cacheTestCollect" basedir="${testCollect.cache}">
+      <zipfileset src="${zip.file}" />
+    </fscache:collect>
+    <au:assertTrue>
+      <resourcecount count="3">
+        <resources refid="cacheTestCollect" />
+      </resourcecount>
+    </au:assertTrue>
+    <readCollectResource name="foo" refid="cacheTestCollect" />
+    <readCollectResource name="bar" refid="cacheTestCollect" />
+    <readCollectResource name="baz" refid="cacheTestCollect" />
+  </target>
+
+  <target name="testMapping" depends="-setupArchive">
+    <fscache:collect id="cacheTestMapping" basedir="${testCollect.cache}">
+      <zipfileset src="${zip.file}" />
+      <globmapper from="*" to="*.txt" />
+    </fscache:collect>
+    <au:assertTrue>
+      <resourcecount count="3">
+        <resources refid="cacheTestMapping" />
+      </resourcecount>
+    </au:assertTrue>
+    <readCollectResource name="foo.txt" value="foo" refid="cacheTestMapping" />
+    <readCollectResource name="bar.txt" value="bar" refid="cacheTestMapping" />
+    <readCollectResource name="baz.txt" value="baz" refid="cacheTestMapping" />
+  </target>
+
+  <target name="testSingle" depends="-setupNestedArchive">
+    <au:assertTrue>
+      <resourcesmatch>
+        <restrict>
+          <zipfileset>
+            <fscache:single>
+              <zipentry name="${zip.filename}" zipfile="${nested.zip.file}" />
+            </fscache:single>
+          </zipfileset>
+          <name name="foo" />
+        </restrict>
+        <string>foo</string>
+      </resourcesmatch>
+    </au:assertTrue>
+  </target>
+
+  <target name="testPreloadSingle">
+    <loadresource property="Foo.java">
+      <string>
+public class Foo {
+  public static void main(String[] args) {
+    System.out.print("foo");
+  }
+}
+      </string>
+    </loadresource>
+
+    <au:assertFalse>
+      <available file="${java.src.cache}/Foo.java" type="file" />
+    </au:assertFalse>
+
+    <fscache:preload>
+      <fscache:single basedir="${java.src.cache}">
+        <propertyresource name="Foo.java" />
+      </fscache:single>
+    </fscache:preload>
+
+    <au:assertTrue>
+      <available file="${java.src.cache}/Foo.java" type="file" />
+    </au:assertTrue>
+
+    <javac srcdir="${java.src.cache}" />
+
+    <au:assertTrue>
+      <available file="${java.src.cache}/Foo.class" type="file" />
+    </au:assertTrue>
+
+    <java classname="Foo" classpath="${java.src.cache}" outputproperty="Foo.out" />
+
+    <au:assertTrue>
+      <equals arg1="${Foo.out}" arg2="foo" />
+    </au:assertTrue>
+
+  </target>
+
+  <target name="testPreloadCollect">
+    <fscache:preload>
+      <fscache:collect id="cachePreloadCollect" basedir="${testCollect.cache}">
+        <resources refid="foobarbaz" />
+      </fscache:collect>
+    </fscache:preload>
+    <resourcecount count="3">
+      <fileset dir="${testCollect.cache}" />
+    </resourcecount>
+    <readCollectResource name="foo" refid="cachePreloadCollect" />
+    <readCollectResource name="bar" refid="cachePreloadCollect" />
+    <readCollectResource name="baz" refid="cachePreloadCollect" />
+  </target>
+</project>
