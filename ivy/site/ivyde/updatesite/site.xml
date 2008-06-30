@@ -22,9 +22,9 @@
     svn.apache.org/repos/asf/ant/ivy/site/ivyde/updatesite/site.xml
 -->
 <site pack200="true"
-      digestURL="http://www.apache.org/dist/ant/ivy/ivyde/updatesite/digest.zip/"
-      mirrorsURL="http://www.apache.org/ant/ivy/ivyde/updatesite/eclipse-update--xml.cgi">
-   <description url="http://www.apache.org/ant/ivy/ivyde/updatesite">
+      digestURL="http://ant.apache.org/ivy/ivyde/updatesite/digest.zip/"
+      mirrorsURL="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi">
+   <description url="http://ant.apache.org/ivy/ivyde/updatesite">
       Eclipse update site for Apache IvyDE.
    </description>
 
