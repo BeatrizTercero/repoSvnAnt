@@ -21,7 +21,7 @@
           ]
       },
       {
-        "title":"Documentation (1.2.0)",
+        "title":"Documentation (2.0.0.alpha1)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
       {
@@ -32,6 +32,24 @@
               "title":"trunk",
               "importRoot":"history/trunk",
               "importNode":"index"            },
+            {
+              "id":"2.x",
+              "title":"2.x",
+              "isAbstract":true,
+              "children": [
+                  {
+                    "id":"history/2.0",
+                    "title":"2.0.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "title":"2.0.0.alpha1",
+                          "importRoot":"history/2.0.0.alpha1",
+                          "importNode":"index"                        }
+                      ]
+                  }
+                ]
+            },
             {
               "title":"1.2.0",
               "importRoot":"history/1.2.0",
