@@ -24,10 +24,24 @@
   <body>
     <h2>Introduction</h2>
 
-    <p>This is a library of tasks/types to allow arbitrary resources to be,
-       as transparently as possible, cached to the filesystem for use with
-       tasks that require file resources, e.g. Ant's core &lt;unzip&gt; and
-       &lt;javac&gt; tasks among others.</p>
+    <p>This is a library of tasks/types to allow arbitrary resources to be, as
+       transparently as possible, cached to the filesystem for use with tasks that
+       require file resources: for example, many of the tasks that work with archives.
+       You might need access to the contents of a JAR resource located at a given URL,
+       by means of the <a href="http://ant.apache.org/manual/CoreTasks/unzip.html">unzip</a>
+       task. Alternatively, you might simply need access to a particular entry in the JAR as a
+       <a href="http://ant.apache.org/manual/CoreTypes/resources.html#zipentry">zipentry</a>.
+       Long story short, the <i>fscache</i> Antlib allows you to expose a resource of
+       arbitrary origin as a filesystem resource, and provides options which can be used or
+       omitted to control the generation of the cache. In most cases accepting
+       default options will cause temporary files to be generated on-demand in your system
+       <i>${java.io.tmpdir}</i> temp directory, and these files will be marked for deletion
+       on VM exit. Other possible applications of this functionality include compiling
+       Java source found e.g. in an archive using the
+       <a href="http://ant.apache.org/manual/CoreTasks/javac.html">javac</a> task, or accessing
+       nested archive resources by caching multiple levels from an outer archive file,
+       e.g. reading a JAR resource from a WAR or, indirectly, an EAR file.
+    </p>
 
     <h2>Requirements</h2>
 
