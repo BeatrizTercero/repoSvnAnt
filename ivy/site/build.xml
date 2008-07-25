@@ -172,4 +172,72 @@
         <init-imported-version basepath="ivyde" version="2.0.0.alpha1" />
         <init-imported-version basepath="ivyde" version="1.2.0" />
     </target>
+
+    <target name="tagsdoc" 
+            description="--> Generates tagsdoc.properties file which can be used in IvyDE for code completion documentation">
+        <scriptdef name="generate-tagsdoc" language="javascript">
+            <element name="fileset" type="fileset"/>
+            <attribute name="destFile"/>
+            <![CDATA[
+                importPackage(java.io);
+                importPackage(javax.xml.xpath);
+                importPackage(org.xml.sax);
+                importPackage(javax.xml.parsers);
+
+                fs = elements.get("fileset").get(0);
+                srcDir = elements.get("fileset").get(0).getDir(project);
+
+                // Get the files (array) of that fileset
+                ds = fs.getDirectoryScanner(project);
+                srcFiles = ds.getIncludedFiles();
+
+
+                // iterate over that array
+                print('processing '+srcFiles.length+' source files...');
+                var xpath = XPathFactory.newInstance().newXPath();
+
+                out = new FileWriter(self.getProject().resolveFile(attributes.get("destfile")));
+                for (i=0; i<srcFiles.length; i++) {
+                    try {
+                        // get the values via Java API
+                        var file = new File(fs.getDir(project), srcFiles[i]);
+                        print('processing '+ file + '...');
+                    
+                        // skip DOCTYPE in source
+                        r = new BufferedReader(new FileReader(file));
+                        r.readLine();
+                        inputSource = new InputSource(r);
+
+                        builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                        document = builder.parse(inputSource);
+
+                        var expression = "//span[@class='tagdoc']";
+                        var t = xpath.evaluate(expression, document, XPathConstants.NODE);
+                        if (t == null) {
+                            print('\tno tagdoc span found: ignored');
+                            continue;
+                        }
+                        var id = t.getAttributes().getNamedItem("id").getTextContent();
+
+                        out.write('##### ' + id + '\n');
+                        out.write(id + ' = ' + t.getTextContent() + '\n');
+
+                        expression = "//table[@class='ivy-attributes'][1]/tbody/tr/td[1]";
+                        var atts = xpath.evaluate(expression, document, XPathConstants.NODESET);
+                        for (j=0; j<atts.getLength(); j++) {
+                            out.write(id + '.@' + atts.item(j).getTextContent() + ' = ' 
+                                + xpath.evaluate("../td[2]", atts.item(j), XPathConstants.NODE).getTextContent() + '\n');
+                        }
+                    } catch (e) {
+                        print('\terror: ' + e);
+                    }
+                }
+                out.close();
+            ]]>
+        </scriptdef>
+        <property name="ivydoc" value="${basedir}/target/history/trunk/" />
+        <generate-tagsdoc destFile="tagsdoc.properties">
+            <fileset dir="${ivydoc}" includes="settings/**/*.html,resolver/**/*.html" />
+        </generate-tagsdoc>
+    </target>        
 </project>
