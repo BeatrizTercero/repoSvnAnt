@@ -79,11 +79,28 @@
 		<div id="main">
 
 		<h1 class="title">FAQ</h1>
-            <br class="xooki-br"/><h2><a name="duplicate-entries"></a>What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means?</h2>
+            <br class="xooki-br"/><ol>
+   <li><a href="#duplicate-entries">What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means?</a><br class="xooki-br"/>   <li><a href="#logs">Something goes wrong with IvyDE, where could I found more logs</a><br class="xooki-br"/>   <li><a href="#empty-container">The IvyDE classpath container disappear when it becomes empty</a><br class="xooki-br"/></ol>
+
+<br/>
+	    
+<h2><a name="duplicate-entries"></a>What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means?</h2>
 
 The warning you get is about a module which you are trying to get in two different configurations. Ivy does the resolve and evict conflicts for only one configuration at a time. The resolve process is one by one configuration. If you have a use case where you have to build a classpath with a lot of different configuration, then you should consider having a new configuration that extends the other ones. Although in most case I think the configurations themselves should be fixed.<br class="xooki-br"/>For instance in Eclipse you might want to resolve 3 kinds of configuration: compile, test, and runtime. And then you get the warning, because test and runtime conflicts on one dependency. So this means that the ant target that will run the tests (after doing a resolve only on the test configuration) will actually use a different version of a dependency from the one used at runtime, from the one use by the ant target which build the jar. So tests are not running in the same environment as the runtime one. Then you should fix the dependencies by having a direct dependency on the module that generated the conflict. Actually you might want to introduce a private "core" configuration, which will resolve the problematic dependency, and then make "runtime" and "test" extends that "core" configuration.<br class="xooki-br"/><br class="xooki-br"/>The topic has been also discussed on the <a href="http://mail-archives.apache.org/mod_mbox/ant-dev/200801.mbox/%3c5D017C51-ED7A-4A43-BBCA-08F291F4D92C@anyware-tech.com%3e">ant-dev mailing list</a>.<br class="xooki-br"/><br class="xooki-br"/><h2><a name="logs"></a>Something goes wrong with IvyDE, where could I found more logs</h2>
 
-You can first look into the <a href="history/latest-milestone/console.html">IvyConsole</a><br class="xooki-br"/><br class="xooki-br"/>If you are running with the SDK version of Eclipse, you can find every Eclipse plugins log in the "Error log" view. You can open this view within the Menu <i>Window > Show View > Other...</i> and select the "Error Log" view in the "PDE Runtime" category.<br class="xooki-br"/><br class="xooki-br"/>Otherwise, you should look to the log file in your workspace: workspace/.metadata/.log<br class="xooki-br"/><br class="xooki-br"/>
+You can first look into the <a href="history/latest-milestone/console.html">IvyConsole</a><br class="xooki-br"/><br class="xooki-br"/>If you are running with the SDK version of Eclipse, you can find every Eclipse plugins log in the "Error log" view. You can open this view within the Menu <i>Window > Show View > Other...</i> and select the "Error Log" view in the "PDE Runtime" category.<br class="xooki-br"/><br class="xooki-br"/>Otherwise, you should look to the log file in your workspace: workspace/.metadata/.log<br class="xooki-br"/><br class="xooki-br"/><h2><a name="empty-container"></a>The IvyDE classpath container disappear when it becomes empty</h2>
+
+Since Eclipse 3.3, when a classpath container contains no entry, Eclipse makes it disappear. As the IvyDE context menu can only be triggered on the IvyDE container, if it disappears, the user is not able to easily manage its container. It has been decided (<a href="http://issues.apache.org/jira/browse/IVYDE-82">IVYDE-82</a>) to not try to fix it as this behavior is hard coded in the deep code of Eclipse, and that there is a workaround:
+<ul><li>with Eclipse 3.3, to configure Ivy and trigger a resolve:<ul>
+    <li>enter the configuration panel of the build path of your project</li>
+    <li>enter in the "Libraries" tab</li>
+    <li>select the IvyDE container and click the button "edit": you enter in the configuration panel of your container</li>
+    </li></ul>
+Then as soon as you save the configuration of your IvyDE container (by clicking on "finish"), a resolve will be triggered automatically. 
+<li>since Eclipse 3.4 you can configure that filter: enter the configuration panel of the filters of the package explorer and deselect the entry "Empty library containers".</li>
+</ul>
+
+
             <hr/>
             <a href="?action=print">Printer Friendly</a>
  		</div><!-- main -->
