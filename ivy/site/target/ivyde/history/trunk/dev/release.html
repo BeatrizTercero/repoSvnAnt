@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
+	
+
+<title>Releasing | IvyDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../../../style/style.css" />
+  <script src="../../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../../xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant"><img src="../../../images/ant-group-logo.gif" alt="Apache Ant"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="../../../images/logo.png" alt="IvyDE" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://ant.apache.org/">Apache Ant</a> &gt; <a href="http://ant.apache.org/ivy/">Ivy</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">IvyDE</a> &gt; <span class="breadCrumb"><a href="../../../history.html" >History</a> &gt; <a href="../../../history/trunk/index.html" >trunk</a> &gt; <a href="../../../history/trunk/dev.html" >Developer doc</a> &gt; <a href="../../../history/trunk/dev/release.html" class="current">Releasing</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>IvyDE</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../../../index.html" >Home</a><ul class="closed"><li id="xooki-faq"><a href="../../../faq.html" >FAQ</a></li></ul></li><li id="xooki-download"><a href="../../../download.html" >Download</a></li><li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.0.0.alpha1)</a><ul class="closed"><li id="xooki-history/latest-milestone/editor"><a href="../../../history/latest-milestone/editor.html" >Editor</a></li><li id="xooki-history/latest-milestone/cp_container"><a href="../../../history/latest-milestone/cp_container.html" >Classpath Container</a></li><li id="xooki-history/latest-milestone/maven"><a href="../../../history/latest-milestone/maven.html" >Use with maven poms</a></li><li id="xooki-history/latest-milestone/console"><a href="../../../history/latest-milestone/console.html" >Ivy Console</a></li><li id="xooki-history/latest-milestone/build"><a href="../../../history/latest-milestone/build.html" >Building IvyDE</a></li></ul></li><li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="open"><li id="xooki-history/trunk/index" class="submenu"><a href="../../../history/trunk/index.html" >trunk</a><ul class="open"><li id="xooki-history/trunk/editor"><a href="../../../history/trunk/editor.html" >Editor</a></li><li id="xooki-history/trunk/cp_container"><a href="../../../history/trunk/cp_container.html" >Classpath Container</a></li><li id="xooki-history/trunk/maven"><a href="../../../history/trunk/maven.html" >Use with maven poms</a></li><li id="xooki-history/trunk/console"><a href="../../../history/trunk/console.html" >Ivy Console</a></li><li id="xooki-history/trunk/dev" class="submenu"><a href="../../../history/trunk/dev.html" >Developer doc</a><ul class="open"><li id="xooki-history/trunk/dev/build"><a href="../../../history/trunk/dev/build.html" >Building</a></li><li id="xooki-history/trunk/dev/release"><a href="../../../history/trunk/dev/release.html" class="current">Releasing</a></li></ul></li></ul></li><li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-history/2.0" class="submenu">2.0.x<ul class="closed"><li id="xooki-history/2.0.0.alpha1/index" class="submenu"><a href="../../../history/2.0.0.alpha1/index.html" >2.0.0.alpha1</a><ul class="closed"><li id="xooki-history/2.0.0.alpha1/editor"><a href="../../../history/2.0.0.alpha1/editor.html" >Editor</a></li><li id="xooki-history/2.0.0.alpha1/cp_container"><a href="../../../history/2.0.0.alpha1/cp_container.html" >Classpath Container</a></li><li id="xooki-history/2.0.0.alpha1/maven"><a href="../../../history/2.0.0.alpha1/maven.html" >Use with maven poms</a></li><li id="xooki-history/2.0.0.alpha1/console"><a href="../../../history/2.0.0.alpha1/console.html" >Ivy Console</a></li><li id="xooki-history/2.0.0.alpha1/build"><a href="../../../history/2.0.0.alpha1/build.html" >Building IvyDE</a></li></ul></li></ul></li></ul></li><li id="xooki-history/1.2.0/index" class="submenu"><a href="../../../history/1.2.0/index.html" >1.2.0</a><ul class="closed"><li id="xooki-history/1.2.0/editor"><a href="../../../history/1.2.0/editor.html" >Editor</a></li><li id="xooki-history/1.2.0/cp_container"><a href="../../../history/1.2.0/cp_container.html" >Classpath Container</a></li><li id="xooki-history/1.2.0/maven"><a href="../../../history/1.2.0/maven.html" >Use with maven poms</a></li></ul></li></ul></li><li id="xooki-get-involved" class="submenu"><a href="../../../get-involved.html" >Get Involved</a><ul class="closed"><li id="xooki-mailing-lists"><a href="../../../mailing-lists.html" >Mailing Lists</a></li><li id="xooki-issues"><a href="../../../issues.html" >Issue Tracking</a></li></ul></li></ul></div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">Releasing</h1>
+            <br class="xooki-br"/>This documentation is defining every steps that needs to be accomplished when releasing IvyDE.<br class="xooki-br"/>In this doc, the released version is denoted as $VERSION, so it HAVE to be replaced in the command line argument accordingly. There is also some $LOGIN which is referencing your login on the Apache machines.<br class="xooki-br"/><br class="xooki-br"/><h1>Prepare</h1>
+
+<h2>Jira</h2>
+
+First in <a href="https://issues.apache.org/jira/browse/IVYDE">Jira</a> make sure that no more issues are opened for the target release.<br class="xooki-br"/><br class="xooki-br"/><h2>Release branch</h2>
+
+Some modifications of the branch are need to do the release. So a new branch is needed:
+<pre>
+svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk">https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> \<br class="xooki-br"/>      -m "Creating a release branch for IvyDE $VERSION"
+</pre>
+
+and then checkout it:
+<pre>
+svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> ivyde-$VERSION
+</pre>
+
+<h2>Documentation release</h2>
+
+The documentation have to specify the correct version number:<br class="xooki-br"/>In the files:
+<ul>
+<li>doc/template.html</li>
+</ul>
+The header should look like this
+<pre>
+&lt;title&gt;${title} | IvyDE $VERSION Documentation&lt;/title&gt;
+</pre>
+
+<h2>Release notes</h2>
+
+TODO: some release notes exists in ivyde/trunk/org.apache.ivyde.eclipse/CHANGE.txt. Some work need to be done before they can be published on the website.<br class="xooki-br"/><br class="xooki-br"/><h2>Commit your change</h2>
+
+Don't forget to commit the changes you've done into the release branch.<br class="xooki-br"/><br class="xooki-br"/><h1>Building</h1>
+
+Make sure you have a proper working copy with a <tt>svn status</tt>. You should have no modification.<br class="xooki-br"/><br class="xooki-br"/>Then launch the build:
+<pre>ant /release clean dist</pre>
+And sign the artifacts:
+<pre>./signArtifacts.sh</pre>
+
+<h1>Prepare the updatesite</h1>
+
+The instructions to build the updatesite are there:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/history/latest-milestone/updatesite.html">http://ant.apache.org/ivy/history/latest-milestone/updatesite.html</a><br class="xooki-br"/><br class="xooki-br"/><h1>Vote for the released artifacts</h1>
+
+It is recommended to publish the distribution artifacts and the updatesite in your public_html on people.apache.org directory so not only committers can test it.<br class="xooki-br"/><br class="xooki-br"/>On people.apache.org, create your "staging" directory:
+<pre>mkdir ~/public_html/ivyde-$VERSION/</pre>
+And then the copy:
+<pre>scp dist/* $LOGIN@people.apache.org:/home/$LOGIN/public_html/ivyde-$VERSION/</pre>
+It is recommended to also deploy a staging updatesite there. See <a href="http://ant.apache.org/ivy/history/latest-milestone/updatesite.html">that page</a> to know how to proceed.<br class="xooki-br"/><br class="xooki-br"/>And launch the vote on the ant-dev mailing list:
+<pre>
+Subject: [VOTE] IvyDE $VERSION Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for IvyDE $VERSION<br class="xooki-br"/><br class="xooki-br"/>You can download the distribution from this URL: <a href="http://people.apache.org/~$LOGIN/ivyde-$VERSION/">http://people.apache.org/~$LOGIN/ivyde-$VERSION/</a><br class="xooki-br"/><br class="xooki-br"/>And a staging update site has been setup there: <a href="http://people.apache.org/~$LOGIN/staging-updatesite">http://people.apache.org/~$LOGIN/staging-updatesite</a><br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>$ME, IvyDE $VERSION release manager
+</pre>
+
+Note: this <a href="http://ant.apache.org/bylaws.html">page</a> is defining when and how a release can be accepted.<br class="xooki-br"/><br class="xooki-br"/><h1>The release has been accepted</h1>
+
+Then it is time to tag the release:
+<pre>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION</a> \<br class="xooki-br"/>      -m "Tag IvyDE release $VERSION"
+</pre>
+
+<h1>Deployment</h1>
+
+<h2>Publish the artifacts</h2>
+
+The binaries have to be pushed with their signatures and checksums in the apache dist directory. On people.apache.org:
+<pre>
+mkdir /www/www.apache.org/dist/ant/ivyde/$VERSION<br class="xooki-br"/>cp /home/$LOGIN/public_html/ivyde-$VERSION/* $LOGIN@people.apache.org:/www/www.apache.org/dist/ant/ivyde/$VERSION
+</pre>
+
+<h2>Deploy the updatesite</h2>
+
+Follow the instructions of that page: <a href="http://ant.apache.org/ivy/history/latest-milestone/updatesite.html">http://ant.apache.org/ivy/history/latest-milestone/updatesite.html</a><br class="xooki-br"/><br class="xooki-br"/><h1>Update the documentation</h1>
+
+The table of content needs to be updated so that the last documentation point to that new release.<br class="xooki-br"/><br class="xooki-br"/>First we need to update the external links. In svn/site/ivyde/history:
+<pre>svn pe svn:externals .</pre>
+And: <ul><li>update latest-milestone:
+<pre>
+latest-milestone <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre>
+</li>
+<li>add an entry:
+<pre>$VERSION <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre></li>
+</ul>
+
+Then we need to edit svn/site/ivyde/toc.json:
+<ul>
+<li>add the following data to the correct abstract node:
+<pre>
+            {<br class="xooki-br"/>                "title":"$VERSION",<br class="xooki-br"/>                "importRoot":"history/$VERSION",<br class="xooki-br"/>                "importNode":"index"<br class="xooki-br"/>            }
+</pre>
+</li>
+<li>update the title of the latest-milestone history entry:
+<pre>
+            "title":"Documentation ($VERSION)"
+</pre>
+</li></ul>
+
+<h1>Post release tasks</h1>
+
+<h2>Jira</h2>
+
+Update the <a href="https://issues.apache.org/jira/secure/project/ManageVersions.jspa?pid=12310640">IvyDE Jira project</a>: mark the version as released.<br class="xooki-br"/><br class="xooki-br"/><h2>Bump the version</h2>
+
+Update the versions needs to be updated in the following files:
+<ul>
+<li>build.properties (edit the qualifier)</li>
+<li>org.apache.ivyde.eclipse/META-INF/MANIFEST.MF</li>
+<li>org.apache.ivyde.feature/feature.xml</li>
+</ul>
+
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="../../../index.html">Home</a> ::
+			<a href="../../../download.html">Download</a> ::
+			<a href="../../../documentation.html">Documentation</a> ::
+			<a href="../../../get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message"></div>
+
+
+</div><!-- body -->
+</body>
+</html>

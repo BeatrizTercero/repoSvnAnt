@@ -79,7 +79,7 @@
 		<div id="main">
 
 		<h1 class="title">Download</h1>
-            <br class="xooki-br"/>The Apache IvyDE distribution is available as an <a href="#updatesite">Eclipse update site</a>, but you can also download and install it <a href="#manual">manually</a> from one of our mirrors. We encourage you to <a href="#verify">verify the integrity</a> of the downloaded files using signatures downloaded from our main distribution directory.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="updatesite"></a>Update site</h1>
+            <br class="xooki-br"/>The Apache IvyDE distribution is available as an <a href="#updatesite">Eclipse update site</a>, but you can also download and install it <a href="#manual">manually</a> from one of our mirrors. We encourage you to <a href="#verify">verify the integrity</a> of the downloaded files using signatures downloaded from our main distribution directory. You are also invited to look to the <a href="#svn">ASF subversion</a> if you are interested into contributing to IvyDE.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="updatesite"></a>Update site</h1>
 
 You can install Apache IvyDE plugins from the IvyDE update site: <a href="http://ant.apache.org/ivy/ivyde/updatesite">http://ant.apache.org/ivy/ivyde/updatesite</a>.<br class="xooki-br"/><br class="xooki-br"/>First you have to configure Eclipse: add the IvyDE update site. In order to do it, follow these steps (Note that for Eclipse 3.4 it may defers):
 <ul>
@@ -121,9 +121,16 @@ This distribution contains every binaries ready to be installed in your Eclipse 
 cd $ECLIPSE_HOME<br class="xooki-br"/>unzip org.apache.ivy.feature-2.0.0.beta2.zip<br class="xooki-br"/>unzip org.apache.ivyde.feature-2.0.0.alpha1.zip
 </pre>
 
-<h2>Full sources</h2>
+<h2><a name="sources"></a>Full sources</h2>
 
-The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.<br class="xooki-br"/><br class="xooki-br"/>Download <a href="[preferred]/ant/ivyde/2.0.0.alpha1/apache-ivyde-sources-2.0.0.alpha1.zip">apache-ivyde-sources-2.0.0.alpha1.zip</a><br class="xooki-br"/><br class="xooki-br"/><h1><a name="verify">Verify Releases</a></h1>
+The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.<br class="xooki-br"/><br class="xooki-br"/>Download <a href="[preferred]/ant/ivyde/2.0.0.alpha1/apache-ivyde-sources-2.0.0.alpha1.zip">apache-ivyde-sources-2.0.0.alpha1.zip</a><br class="xooki-br"/><br class="xooki-br"/><h1><a name="svn"></a>Sources from the version control system</h1>
+
+The IvyDE sources can be also found on the ASF Subversion repository. You can checkout the trunk by running the command
+<pre>
+svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk">https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk</a> ivyde-trunk
+</pre>
+
+<h1><a name="verify"></a>Verify Releases</h1>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.<br class="xooki-br"/><br class="xooki-br"/>The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivyde">main distribution directory</a>, rather than from a mirror. Then verify the signatures using<br class="xooki-br"/>
 <pre>
 % pgpk -a KEYS<br class="xooki-br"/>% pgpv org.apache.ivyde.feature-2.0.0.alpha1.zip.asc
