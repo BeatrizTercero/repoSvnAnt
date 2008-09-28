@@ -26,21 +26,22 @@
 <body>
 	<textarea id="xooki-source">
 <ol>
-   <li><a href="#duplicate-entries">What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means?</a>
-   <li><a href="#logs">Something goes wrong with IvyDE, where could I found more logs</a>
+   <li><a href="#duplicate-entries">What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means ?</a>
+   <li><a href="#logs">Something goes wrong with IvyDE, where could I found more logs ?</a>
    <li><a href="#empty-container">The IvyDE classpath container disappear when it becomes empty</a>
+   <li><a href="#wtp">How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</a>
 </ol>
 
 <br/>
 	    
-<h2><a name="duplicate-entries"></a>What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means?</h2>
+<h2><a name="duplicate-entries"></a>What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means ?</h2>
 
 The warning you get is about a module which you are trying to get in two different configurations. Ivy does the resolve and evict conflicts for only one configuration at a time. The resolve process is one by one configuration. If you have a use case where you have to build a classpath with a lot of different configuration, then you should consider having a new configuration that extends the other ones. Although in most case I think the configurations themselves should be fixed.
 For instance in Eclipse you might want to resolve 3 kinds of configuration: compile, test, and runtime. And then you get the warning, because test and runtime conflicts on one dependency. So this means that the ant target that will run the tests (after doing a resolve only on the test configuration) will actually use a different version of a dependency from the one used at runtime, from the one use by the ant target which build the jar. So tests are not running in the same environment as the runtime one. Then you should fix the dependencies by having a direct dependency on the module that generated the conflict. Actually you might want to introduce a private "core" configuration, which will resolve the problematic dependency, and then make "runtime" and "test" extends that "core" configuration.
 
 The topic has been also discussed on the <a href="http://mail-archives.apache.org/mod_mbox/ant-dev/200801.mbox/%3c5D017C51-ED7A-4A43-BBCA-08F291F4D92C@anyware-tech.com%3e">ant-dev mailing list</a>.
 
-<h2><a name="logs"></a>Something goes wrong with IvyDE, where could I found more logs</h2>
+<h2><a name="logs"></a>Something goes wrong with IvyDE, where could I found more logs ?</h2>
 
 You can first look into the <a href="history/latest-milestone/console.html">IvyConsole</a>
 
@@ -59,6 +60,15 @@ Since Eclipse 3.3, when a classpath container contains no entry, Eclipse makes i
 Then as soon as you save the configuration of your IvyDE container (by clicking on "finish"), a resolve will be triggered automatically. 
 <li>since Eclipse 3.4 you can configure that filter: enter the configuration panel of the filters of the package explorer and deselect the entry "Empty library containers".</li>
 </ul>
+
+<h2><a name="wtp"></a>How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</h2>
+
+WTP is the <a href="http://www.eclipse.org/webtools/">Web Tools Plateform</a> project from the Eclipse fondation which allow to easily develop, launch and debug web applications. IvyDE can be used with this framework, but only from the version 2.0 of WTP, which is supported since Eclipse 3.3.
+
+In the properties of your project configured to use WTP, there is a section "Java EE Module Dependencies". There should be your configured IvyDE classpath container listed, usually with the name "ivy.xml [*]". Just select it and the Ivy dependencies will be deployed as well.
+
+This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.
+
 
 </textarea>
 <script type="text/javascript">xooki.postProcess();</script>
