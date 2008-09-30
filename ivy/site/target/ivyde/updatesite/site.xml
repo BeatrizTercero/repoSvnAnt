@@ -17,13 +17,9 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<!--
-  publishing this files means copying it into the ivyde website at:
-    svn.apache.org/repos/asf/ant/ivy/site/ivyde/updatesite/site.xml
--->
 <site pack200="true"
-      digestURL="./"
-      mirrorsURL="eclipse-update--xml.cgi">
+      mirrorsURL="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi"
+      digestURL="./">
    <description url="http://ant.apache.org/ivy/ivyde/updatesite">
       Eclipse update site for Apache IvyDE.
    </description>
