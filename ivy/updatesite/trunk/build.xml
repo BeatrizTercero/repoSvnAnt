@@ -16,7 +16,9 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<project default="optimize">
+<project default="optimize" basedir=".">
+
+    <property file="local.build.properties" />
 
     <property name="work.dir" value="${basedir}/work"/>
     <property name="updatesite.dir" value="${basedir}/dist"/>
@@ -100,17 +102,33 @@
     	Targets to manage the updatesite
         ===================================================================================================================    
       -->
-    <target name="optimize" depends="pack-jars,build-digest" description="Optimize the update site" />
+    <target name="optimize-ivy" depends="pack-ivy-jars,build-digest" description="Optimize the update site for an Ivy release" />
 
-    <target name="pack-jars" depends="eclipse-classpath">
+    <target name="optimize-ivyde" depends="pack-ivyde-jars,build-digest" description="Optimize the update site for an IvyDE release" />
+
+    <target name="prepare-pack-ivy-jars">
         <!-- prepare the working area, so copy plugin jars -->
         <delete dir="${work.dir}/updatesite/" />
         <mkdir dir="${work.dir}/updatesite/" />
         <copy todir="${work.dir}/updatesite">
             <fileset dir="${updatesite.dir}">
-                <include name="plugins/*.jar" />
+                <include name="plugins/org.apache.ivy_*.jar" />
             </fileset>
         </copy>
+    </target>
+
+    <target name="prepare-pack-ivyde-jars">
+        <!-- prepare the working area, so copy plugin jars -->
+        <delete dir="${work.dir}/updatesite/" />
+        <mkdir dir="${work.dir}/updatesite/" />
+        <copy todir="${work.dir}/updatesite">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivyde.*.jar" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="do-pack-jars" depends="eclipse-classpath">
         <!-- launch the packing -->
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
             <arg value="-consolelog" />
@@ -126,6 +144,10 @@
             </fileset>
         </copy>
     </target>
+
+    <target name="pack-ivy-jars" depends="prepare-pack-ivy-jars,do-pack-jars" />
+
+    <target name="pack-ivyde-jars" depends="prepare-pack-ivyde-jars,do-pack-jars" />
 
     <target name="build-digest" depends="eclipse-classpath">
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
