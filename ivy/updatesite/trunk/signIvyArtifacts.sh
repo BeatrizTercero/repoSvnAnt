@@ -19,7 +19,7 @@
 
 read -s -p "Key passphrase: " passphrase
 
-for i in dist/features/org.apache.ivy*.jar; do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
-for i in dist/plugins/org.apache.ivy*.jar;  do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
-for i in dist/plugins/org.apache.ivy*.jar.pack.gz;  do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
+for i in dist/features/org.apache.ivy_*.jar; do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
+for i in dist/plugins/org.apache.ivy_*.jar;  do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
+for i in dist/plugins/org.apache.ivy_*.jar.pack.gz;  do gpg --passphrase "$passphrase" --output $i.asc --detach-sig --armor $i; done
 gpg --passphrase "$passphrase" --output dist/digest.zip.asc --detach-sig --armor dist/digest.zip
