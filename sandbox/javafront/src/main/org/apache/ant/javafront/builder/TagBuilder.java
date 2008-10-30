@@ -15,26 +15,30 @@
  *  limitations under the License.
  *
  */
-package org.example;
+package org.apache.ant.javafront.builder;
 
-import org.apache.ant.javafront.annotations.AntProject;
-import org.apache.ant.javafront.annotations.AntTarget;
 import org.apache.tools.ant.Project;
-import org.apache.ant.javafront.builder.TagBuilder;
 
-@AntProject(Name="simple3", BaseDir="..")
-public class Simple3 {
-    private Project p;
+public final class TagBuilder {
 
-    public void setProject(Project p) {
-        this.p = p;
+    private final Project project;
+
+    private TagBuilder(Project project) {
+        this.project = project;
     }
 
-    @AntTarget
-    public void hello() {
-        TagBuilder.forProject(p)
-            .newTag("echo")
-            .withAttribute("message", "Hello, world!")
-            .execute();
+    /**
+     * A TagBuilder for a given project.
+     */
+    public static TagBuilder forProject(Project p) {
+        return new TagBuilder(p);
     }
+
+    /**
+     * Collects information for a giben task/type.
+     */
+    public Tag newTag(String name) {
+        return new Tag(project, name);
+    }
+
 }
