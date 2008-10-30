@@ -22,7 +22,7 @@ import org.apache.ant.javafront.annotations.AntTarget;
 import org.apache.tools.ant.Project;
 import org.apache.ant.javafront.builder.TagBuilder;
 
-@AntProject(Name="simple3", BaseDir="..")
+@AntProject(Name="simple3", BaseDir="..", DefaultTarget="hello")
 public class Simple3 {
     private Project p;
 
@@ -30,11 +30,17 @@ public class Simple3 {
         this.p = p;
     }
 
-    @AntTarget
+    @AntTarget(Name="-setup")
+    public void setup() {
+        TagBuilder.forProject(p)
+            .newProperty().withName("world").andValue("world").execute();
+    }
+
+    @AntTarget(Depends="-setup")
     public void hello() {
         TagBuilder.forProject(p)
             .newTag("echo")
-            .withAttribute("message", "Hello, world!")
+            .withAttribute("message", "Hello, ${world}!")
             .execute();
     }
 }

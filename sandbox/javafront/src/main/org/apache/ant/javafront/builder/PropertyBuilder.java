@@ -19,29 +19,24 @@ package org.apache.ant.javafront.builder;
 
 import org.apache.tools.ant.Project;
 
-public final class TagBuilder {
-
-    private final Project project;
-
-    private TagBuilder(Project project) {
-        this.project = project;
+public class PropertyBuilder extends Tag<PropertyBuilder> {
+    public PropertyBuilder(Project p) {
+        super(p, "property");
     }
 
-    /**
-     * A TagBuilder for a given project.
-     */
-    public static TagBuilder forProject(Project p) {
-        return new TagBuilder(p);
+    public PropertyWithNameBuilder withName(String name) {
+        withAttribute("name", name);
+        return new PropertyWithNameBuilder();
     }
 
-    /**
-     * Collects information for a given task/type.
-     */
-    public Tag newTag(String name) {
-        return new Tag(project, name);
-    }
-
-    public PropertyBuilder newProperty() {
-        return new PropertyBuilder(project);
+    public class PropertyWithNameBuilder {
+        public PropertyBuilder andValue(String value) {
+            withAttribute("value", value);
+            return PropertyBuilder.this;
+        }
+        public PropertyBuilder andLocation(String value) {
+            withAttribute("location", value);
+            return PropertyBuilder.this;
+        }
     }
 }
