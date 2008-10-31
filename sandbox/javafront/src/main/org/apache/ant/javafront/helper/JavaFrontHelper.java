@@ -115,6 +115,7 @@ public class JavaFrontHelper extends ProjectHelper {
         javac.setProject(p);
         javac.setSrcdir(new Path(p, BUILD_FILE_DIR.getAbsolutePath()));
         javac.setDestdir(BUILD_FILE_DIR);
+        javac.setTaskName("buildfile");
         javac.execute();
     }
 

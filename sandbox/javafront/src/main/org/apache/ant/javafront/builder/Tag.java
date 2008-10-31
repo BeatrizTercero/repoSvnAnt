@@ -17,6 +17,7 @@
  */
 package org.apache.ant.javafront.builder;
 
+import javax.xml.namespace.QName;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.RuntimeConfigurable;
 import org.apache.tools.ant.Task;
@@ -29,7 +30,17 @@ public class Tag<T extends Tag<T>> {
     private final RuntimeConfigurable rc;
 
     protected Tag(Project p, String name) {
+        this(p, name, "");
+    }
+
+    protected Tag(Project p, String name, String namespaceUri) {
         ue = new UnknownElement(name);
+        ue.setNamespace(namespaceUri);
+        if (namespaceUri == null || namespaceUri.length() == 0) {
+            ue.setQName(new QName(name).toString());
+        } else {
+            ue.setQName(new QName(namespaceUri, name).toString());
+        }
         ue.setProject(p);
         ue.setTaskType(name);
         ue.setTaskName(name);

@@ -38,9 +38,19 @@ public final class TagBuilder {
      * Collects information for a given task/type.
      */
     public Tag newTag(String name) {
-        return new Tag(project, name);
+        return newTag(name, "");
     }
 
+    /**
+     * Collects information for a given task/type.
+     */
+    public Tag newTag(String name, String namespaceUri) {
+        return new Tag(project, name, namespaceUri);
+    }
+
+    /**
+     * Specialized for the property task.
+     */
     public PropertyBuilder newProperty() {
         return new PropertyBuilder(project);
     }
