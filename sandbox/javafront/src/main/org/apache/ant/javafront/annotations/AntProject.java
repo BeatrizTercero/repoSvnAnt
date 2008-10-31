@@ -31,4 +31,5 @@ public @interface AntProject {
     String Name() default "";
     String DefaultTarget() default "";
     String BaseDir() default ".";
+    String Description() default "";
 }

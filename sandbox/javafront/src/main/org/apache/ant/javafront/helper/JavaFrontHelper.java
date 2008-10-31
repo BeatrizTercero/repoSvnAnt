@@ -208,6 +208,9 @@ public class JavaFrontHelper extends ProjectHelper {
             if (projectAttributes.Name().length() > 0) {
                 targetProject.setName(projectAttributes.Name());
             }
+            if (projectAttributes.Description().length() > 0) {
+                targetProject.setDescription(projectAttributes.Description());
+            }
             if (projectAttributes.DefaultTarget().length() > 0) {
                 targetProject.setDefault(projectAttributes.DefaultTarget());
             }

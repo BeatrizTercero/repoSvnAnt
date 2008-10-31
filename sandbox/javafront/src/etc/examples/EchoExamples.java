@@ -26,14 +26,14 @@ import org.apache.tools.ant.types.FileSet;
 
 import static org.apache.ant.javafront.builder.EchoBuilder.echoMessage;
 
-@AntProject(Name="lists all build files in the current directory",
+@AntProject(Description="lists all build files in the current directory",
             DefaultTarget="list")
 public class EchoExamples extends BuildFileBase {
     public EchoExamples(Project p) {
         super(p);
     }
 
-    @AntTarget
+    @AntTarget(Description="list the files in the example dir")
     public void list() {
         FileSet fs = (FileSet)
             build().tag("fileset")
