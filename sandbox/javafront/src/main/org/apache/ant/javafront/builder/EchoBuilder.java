@@ -15,29 +15,21 @@
  *  limitations under the License.
  *
  */
-package org.example;
+package org.apache.ant.javafront.builder;
 
-import org.apache.ant.javafront.annotations.AntProject;
-import org.apache.ant.javafront.annotations.AntTarget;
 import org.apache.tools.ant.Project;
-import org.apache.ant.javafront.builder.TagBuilder;
 
-@AntProject(Name="simple3", DefaultTarget="hello")
-public class Simple3 {
-    private Project p;
-
-    public void setProject(Project p) {
-        this.p = p;
+public class EchoBuilder extends Tag<EchoBuilder> {
+    EchoBuilder(Project p) {
+        super(p, "echo");
     }
 
-    @AntTarget(Name="-setup")
-    public void setup() {
-        TagBuilder.forProject(p)
-            .property().withName("world").andValue("world").execute();
+    public EchoBuilder message(String msg) {
+        withAttribute("message", msg);
+        return this;
     }
 
-    @AntTarget(Depends="-setup")
-    public void hello() {
-        TagBuilder.forProject(p).echo().message("Hello, ${world}!").execute();
+    public static void echoMessage(Project project, String msg) {
+        new EchoBuilder(project).message(msg).execute();
     }
 }

@@ -22,50 +22,55 @@ import org.apache.ant.javafront.annotations.AntProject;
 import org.apache.ant.javafront.annotations.AntTarget;
 import org.apache.tools.ant.Project;
 
+import static org.apache.ant.javafront.builder.EchoBuilder.echoMessage;
+import static org.apache.ant.javafront.builder.DeleteBuilder.deleteDir;
+import static org.apache.ant.javafront.builder.MkdirBuilder.mkdir;
+
 @AntProject(Name="example using AntUnit", BaseDir="../../..",
             DefaultTarget="antunit")
 public class AntUnitTest extends BuildFileBase {
+    private static final String FILE = "build.xml";
+    private static final String OUTPUT = "${output}";
+
     public AntUnitTest(Project p) {
         super(p);
+        build().property().withName("output").andLocation("build/testoutput")
+            .execute();
     }
 
     @AntTarget(Description="describes this build file")
     public void describe() {
-        build().newTag("echo")
-            .withAttribute("message", "${ant.version}").execute();
-        build().newTag("echo")
-            .withNestedText("Demonstrates running an AntUnit test.").execute();
+        echoMessage(getProject(), "${ant.version}");
+        echoMessage(getProject(), "Demonstrates running an AntUnit test.");
     }
 
     @AntTarget
     public void setUp() {
-        build().newTag("mkdir")
-            .withAttribute("dir", "build/testoutput").execute();
+        mkdir(getProject(), OUTPUT);
     }
 
     @AntTarget
     public void tearDown() {
-        build().newTag("delete")
-            .withAttribute("dir", "build/testoutput").execute();
+        deleteDir(getProject(), OUTPUT);
     }
 
     @AntTarget
     public void testCopy() {
-        build().newCopy().withAttribute("verbose", "true")
-            .file("build.xml").toDir("build/testoutput")
+        build().copy().withAttribute("verbose", "true")
+            .file(FILE).toDir(OUTPUT)
             .execute();
-        build().newTag("assertFileExists", "antlib:org.apache.ant.antunit")
-            .withAttribute("file", "build/testoutput/build.xml")
+        build().tagWithNs("assertFileExists", "antlib:org.apache.ant.antunit")
+            .withAttribute("file", OUTPUT + "/" + FILE)
             .execute();
     }
 
     @AntTarget(Description="runs the test")
     public void antunit() {
-        build().newTag("antunit", "antlib:org.apache.ant.antunit")
-            .withChild(build().newTag("plainlistener",
-                                      "antlib:org.apache.ant.antunit"))
-            .withChild(build().newTag("file").withAttribute("file",
-                                                            "${ant.file}"))
+        build().tagWithNs("antunit", "antlib:org.apache.ant.antunit")
+            .withChild(build().tagWithNs("plainlistener",
+                                         "antlib:org.apache.ant.antunit"))
+            .withChild(build().tag("file").withAttribute("file",
+                                                         "${ant.file}"))
             .execute();
     }
 }

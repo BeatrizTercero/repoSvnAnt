@@ -15,29 +15,21 @@
  *  limitations under the License.
  *
  */
-package org.example;
+package org.apache.ant.javafront.builder;
 
-import org.apache.ant.javafront.annotations.AntProject;
-import org.apache.ant.javafront.annotations.AntTarget;
 import org.apache.tools.ant.Project;
-import org.apache.ant.javafront.builder.TagBuilder;
 
-@AntProject(Name="simple3", DefaultTarget="hello")
-public class Simple3 {
-    private Project p;
-
-    public void setProject(Project p) {
-        this.p = p;
+public class MkdirBuilder extends Tag<MkdirBuilder> {
+    MkdirBuilder(Project p) {
+        super(p, "mkdir");
     }
 
-    @AntTarget(Name="-setup")
-    public void setup() {
-        TagBuilder.forProject(p)
-            .property().withName("world").andValue("world").execute();
+    public MkdirBuilder dir(String name) {
+        withAttribute("dir", name);
+        return this;
     }
 
-    @AntTarget(Depends="-setup")
-    public void hello() {
-        TagBuilder.forProject(p).echo().message("Hello, ${world}!").execute();
+    public static void mkdir(Project project, String name) {
+        new MkdirBuilder(project).dir(name).execute();
     }
 }

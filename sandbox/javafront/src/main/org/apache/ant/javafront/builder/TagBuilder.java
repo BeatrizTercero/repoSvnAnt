@@ -37,25 +37,49 @@ public final class TagBuilder {
     /**
      * Collects information for a given task/type.
      */
-    public Tag newTag(String name) {
-        return newTag(name, "");
+    public Tag tag(String name) {
+        return tagWithNs(name, "");
     }
 
     /**
      * Collects information for a given task/type.
      */
-    public Tag newTag(String name, String namespaceUri) {
+    public Tag tagWithNs(String name, String namespaceUri) {
         return new Tag(project, name, namespaceUri);
     }
 
     /**
      * Specialized for the property task.
      */
-    public PropertyBuilder newProperty() {
+    public PropertyBuilder property() {
         return new PropertyBuilder(project);
     }
 
-    public CopyBuilder newCopy() {
+    /**
+     * Specialized for the copy task.
+     */
+    public CopyBuilder copy() {
         return new CopyBuilder(project);
+    }
+
+    /**
+     * Specialized for the echo task.
+     */
+    public DeleteBuilder delete() {
+        return new DeleteBuilder(project);
+    }
+
+    /**
+     * Specialized for the mkdir task.
+     */
+    public MkdirBuilder mkdir() {
+        return new MkdirBuilder(project);
+    }
+
+    /**
+     * Specialized for the mkdir task.
+     */
+    public EchoBuilder echo() {
+        return new EchoBuilder(project);
     }
 }

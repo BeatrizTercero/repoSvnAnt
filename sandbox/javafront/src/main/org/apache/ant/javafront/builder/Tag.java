@@ -25,7 +25,10 @@ import org.apache.tools.ant.UnknownElement;
 
 public class Tag<T extends Tag<T>> {
 
+    // is there a cleaner way to do it?
+    @SuppressWarnings("unchecked")
     private final T self = (T) this;
+
     private final UnknownElement ue;
     private final RuntimeConfigurable rc;
 
