@@ -212,9 +212,10 @@ public class JavaFrontHelper extends ProjectHelper {
                 targetProject.setDefault(projectAttributes.DefaultTarget());
             }
             if (projectAttributes.BaseDir().length() > 0) {
-                targetProject
-                    .setBaseDir(new File(buildFileLocation.getParentFile(),
-                                         projectAttributes.BaseDir()));
+                File bd = FileUtils.getFileUtils()
+                    .resolveFile(buildFileLocation.getParentFile(),
+                                 projectAttributes.BaseDir());
+                targetProject.setBaseDir(bd);
                 baseDirSet = true;
             }
         }
