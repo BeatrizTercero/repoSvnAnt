@@ -20,7 +20,7 @@ package org.apache.ant.javafront.builder;
 import org.apache.tools.ant.Project;
 
 public class PropertyBuilder extends Tag<PropertyBuilder> {
-    public PropertyBuilder(Project p) {
+    PropertyBuilder(Project p) {
         super(p, "property");
     }
 

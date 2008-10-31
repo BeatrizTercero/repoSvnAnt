@@ -24,6 +24,7 @@ import org.apache.tools.ant.UnknownElement;
 
 public class Tag<T extends Tag<T>> {
 
+    private final T self = (T) this;
     private final UnknownElement ue;
     private final RuntimeConfigurable rc;
 
@@ -35,20 +36,20 @@ public class Tag<T extends Tag<T>> {
         rc = new RuntimeConfigurable(ue, name);
     }
 
-    public Tag<T> withAttribute(String name, String value) {
+    public T withAttribute(String name, String value) {
         rc.setAttribute(name, value);
-        return this;
+        return self;
     }
 
-    public Tag<T> withChild(Tag<?> child) {
+    public T withChild(Tag<?> child) {
         ue.addChild(child.ue);
         rc.addChild(child.rc);
-        return this;
+        return self;
     }
 
-    public Tag<T> withNestedText(String text) {
+    public T withNestedText(String text) {
         rc.addText(text);
-        return this;
+        return self;
     }
 
     public Object build() {
