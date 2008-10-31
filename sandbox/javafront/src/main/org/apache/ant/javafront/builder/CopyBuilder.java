@@ -19,43 +19,20 @@ package org.apache.ant.javafront.builder;
 
 import org.apache.tools.ant.Project;
 
-public final class TagBuilder {
-
-    private final Project project;
-
-    private TagBuilder(Project project) {
-        this.project = project;
+public class CopyBuilder extends Tag<CopyBuilder> {
+    CopyBuilder(Project p) {
+        super(p, "copy");
     }
 
-    /**
-     * A TagBuilder for a given project.
-     */
-    public static TagBuilder forProject(Project p) {
-        return new TagBuilder(p);
+    public NeedsToDir file(String name) {
+        withAttribute("file", name);
+        return new NeedsToDir();
     }
 
-    /**
-     * Collects information for a given task/type.
-     */
-    public Tag newTag(String name) {
-        return newTag(name, "");
-    }
-
-    /**
-     * Collects information for a given task/type.
-     */
-    public Tag newTag(String name, String namespaceUri) {
-        return new Tag(project, name, namespaceUri);
-    }
-
-    /**
-     * Specialized for the property task.
-     */
-    public PropertyBuilder newProperty() {
-        return new PropertyBuilder(project);
-    }
-
-    public CopyBuilder newCopy() {
-        return new CopyBuilder(project);
+    public class NeedsToDir {
+        public CopyBuilder toDir(String value) {
+            withAttribute("todir", value);
+            return CopyBuilder.this;
+        }
     }
 }
