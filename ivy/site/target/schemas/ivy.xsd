@@ -33,6 +33,25 @@
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+        <xs:anyAttribute namespace="##other" processContents="lax" />
+	</xs:complexType>
+
+	<xs:complexType name="global-exclude">
+        <xs:sequence>
+      		<xs:element name="conf" minOccurs="0" maxOccurs="unbounded">
+            	<xs:complexType>
+		            <xs:attribute name="name" type="xs:string" use="required"/>
+            	</xs:complexType>
+      		</xs:element>
+        </xs:sequence>
+        <xs:attribute name="org" type="xs:string"/>
+        <xs:attribute name="module" type="xs:string"/>
+        <xs:attribute name="artifact" type="xs:string"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="ext" type="xs:string"/>
+        <xs:attribute name="conf" type="xs:string"/>
+        <xs:attribute name="matcher" type="xs:string"/>
+        <xs:anyAttribute namespace="##other" processContents="lax" />
 	</xs:complexType>
 
   <xs:element name="ivy-module">
@@ -70,6 +89,7 @@
 					            <xs:attribute name="homepage" type="xs:string"/>
 			            	</xs:complexType>
 			      		</xs:element>
+			      		<xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other" processContents="lax"/>
 			        </xs:sequence>
 		            <xs:attribute name="organisation" type="xs:string" use="required"/>
 		            <xs:attribute name="module" type="xs:string" use="required"/>
@@ -80,6 +100,7 @@
 		            <xs:attribute name="resolver" type="xs:string"/>
 		            <xs:attribute name="namespace" type="xs:string"/>
 		            <xs:attribute name="default" type="xs:boolean"/>
+		            <xs:anyAttribute namespace="##other" processContents="lax" />
 	            </xs:complexType>
       		</xs:element>
       		<xs:element name="configurations" minOccurs="0">
@@ -116,9 +137,11 @@
 						            <xs:attribute name="ext" type="xs:string"/>
 						            <xs:attribute name="conf" type="xs:string"/>
 						            <xs:attribute name="url" type="xs:string"/>
+						            <xs:anyAttribute namespace="##other" processContents="lax" />
 				            	</xs:complexType>
 				      		</xs:element>
 				        </xs:sequence>
+						<xs:attribute name="defaultconf" type="xs:string"/>				  
 			      </xs:complexType>
       		</xs:element>
       		<xs:element name="dependencies" minOccurs="0">
@@ -154,6 +177,7 @@
 									            <xs:attribute name="ext" type="xs:string"/>
 									            <xs:attribute name="conf" type="xs:string"/>
 									            <xs:attribute name="url" type="xs:string"/>
+									            <xs:anyAttribute namespace="##other" processContents="lax" />
 							            	</xs:complexType>
 							      		</xs:element>
 							      		<xs:element name="include" minOccurs="0" maxOccurs="unbounded">
@@ -170,6 +194,7 @@
 									            <xs:attribute name="ext" type="xs:string"/>
 									            <xs:attribute name="conf" type="xs:string"/>
 									            <xs:attribute name="matcher" type="xs:string"/>
+									            <xs:anyAttribute namespace="##other" processContents="lax" />
 							            	</xs:complexType>
 							      		</xs:element>
 							      		<xs:element name="exclude" minOccurs="0" maxOccurs="unbounded">
@@ -188,35 +213,41 @@
 									            <xs:attribute name="ext" type="xs:string"/>
 									            <xs:attribute name="conf" type="xs:string"/>
 									            <xs:attribute name="matcher" type="xs:string"/>
+									            <xs:anyAttribute namespace="##other" processContents="lax" />
 							            	</xs:complexType>
 							      		</xs:element>
 							        </xs:sequence>
 						            <xs:attribute name="org" type="xs:string"/>
 						            <xs:attribute name="name" type="xs:string" use="required"/>
 						            <xs:attribute name="branch" type="xs:string"/>
+						            <xs:attribute name="branchConstraint" type="xs:string"/>
 						            <xs:attribute name="rev" type="xs:string" use="required"/>
+						            <xs:attribute name="revConstraint" type="xs:string"/>
 						            <xs:attribute name="force" type="xs:boolean"/>
 						            <xs:attribute name="changing" type="xs:boolean" default="false"/>
 						            <xs:attribute name="transitive" type="xs:boolean" default="true"/>
 						            <xs:attribute name="conf" type="xs:string"/>
+						            <xs:anyAttribute namespace="##other" processContents="lax" />
 				            	</xs:complexType>
 				      		</xs:element>
-				      		<xs:element name="exclude" minOccurs="0" maxOccurs="unbounded">
+				      		<xs:element name="exclude" type="global-exclude" minOccurs="0" maxOccurs="unbounded" />
+				      		<xs:element name="override" minOccurs="0" maxOccurs="unbounded">
 				            	<xs:complexType>
-							        <xs:sequence>
-							      		<xs:element name="conf" minOccurs="0" maxOccurs="unbounded">
-							            	<xs:complexType>
-									            <xs:attribute name="name" type="xs:string" use="required"/>
-							            	</xs:complexType>
-							      		</xs:element>
-							        </xs:sequence>
 						            <xs:attribute name="org" type="xs:string"/>
 						            <xs:attribute name="module" type="xs:string"/>
-						            <xs:attribute name="artifact" type="xs:string"/>
-						            <xs:attribute name="type" type="xs:string"/>
-						            <xs:attribute name="ext" type="xs:string"/>
-						            <xs:attribute name="conf" type="xs:string"/>
 						            <xs:attribute name="matcher" type="xs:string"/>
+						            <xs:attribute name="rev" type="xs:string"/>
+						            <xs:attribute name="branch" type="xs:string"/>
+				            	</xs:complexType>
+				      		</xs:element>
+				      		<xs:element name="conflict" minOccurs="0" maxOccurs="unbounded">
+				            	<xs:complexType>
+						            <xs:attribute name="org" type="xs:string"/>
+						            <xs:attribute name="module" type="xs:string"/>
+						            <xs:attribute name="manager" type="xs:string"/>
+						            <xs:attribute name="rev" type="xs:string"/>
+						            <xs:attribute name="matcher" type="xs:string"/>
+						            <xs:anyAttribute namespace="##other" processContents="lax" />
 				            	</xs:complexType>
 				      		</xs:element>
 				        </xs:sequence>
@@ -235,6 +266,7 @@
 						            <xs:attribute name="name" type="xs:string"/>
 						            <xs:attribute name="rev" type="xs:string"/>
 						            <xs:attribute name="matcher" type="xs:string"/>
+						            <xs:anyAttribute namespace="##other" processContents="lax" />
 				            	</xs:complexType>
 				      		</xs:element>
 				        </xs:sequence>
