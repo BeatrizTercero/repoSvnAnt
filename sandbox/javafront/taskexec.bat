@@ -18,22 +18,83 @@ REM  limitations under the License.
 cls
 set START=call ant -lib build\classes -main org.apache.ant.javafront.TaskExec
 
+
 echo ----- Build the library -----
 call ant
 
-echo ----- First Run: using ^<echo^> as Hello World
+
+
+
+echo ===============================================================================================
+echo XML: ^<echo message="Hello World"/^>
+echo CMD: echo message "Hello World"
+echo -----------------------------------------------------------------------------------------------
 %START% echo message "Hello World"
 
-echo ----- Second Run: using ^<echoproperties^> for printing all Ant related properties -----
+
+echo ===============================================================================================
+echo XML: ^<echo message="This is Ant version ${ant.version}"/^>
+echo CMD: echo message "This is Ant version ${ant.version}"
+echo -----------------------------------------------------------------------------------------------
+%START% echo message "This is Ant version ${ant.version}"
+
+
+echo ===============================================================================================
+echo XML: ^<echoproperties prefix="ant."/^>
+echo CMD: echoproperties prefix ant.
+echo -----------------------------------------------------------------------------------------------
 %START% echoproperties prefix ant.
 
-echo ----- Third Run: using ^<copy^> for copying one file -----
+
+echo ===============================================================================================
+echo XML: ^<copy file="build.xml" tofile="build.xml.bak"/^>
+echo CMD: copy file build.xml tofile build.xml.bak
+echo -----------------------------------------------------------------------------------------------
 %START% copy file build.xml tofile build.xml.bak
 
 echo ----- A 'build.xml.bak' should exist -----
 dir bu*.*
 
-echo ----- Delete that file again -----
+
+echo ===============================================================================================
+echo XML: ^<delete file="build.xml.bak"/^>
+echo CMD: delete file build.xml.bak
+echo -----------------------------------------------------------------------------------------------
 %START% delete file build.xml.bak
+
+echo ----- A 'build.xml.bak' should not exist -----
 dir bu*.*
 
+
+echo ===============================================================================================
+echo XML: ^<mkdir dir="test"/^>
+echo XML: ^<copy todir="test"^>
+echo          ^<fileset dir="src"/^>
+echo      ^</copy^>
+echo CMD: mkdir dir test
+echo CMD: copy todir test + fileset dir src
+echo -----------------------------------------------------------------------------------------------
+%START% mkdir dir test
+%START% copy todir test + fileset dir src
+
+
+echo ===============================================================================================
+echo XML: ^<echo^>Hello World^</echo^>
+echo CMD: echo # This is Ant version ${ant.version}
+echo -----------------------------------------------------------------------------------------------
+%START% echo # This is Ant version ${ant.version}
+
+
+echo ===============================================================================================
+echo XML: ^<concat^>
+echo          ^<fileset dir="src" includes="*.properties"/^>
+echo          ^<header^>Ant Version ${ant.version}^</header^>
+echo          ^<footer^>End of text^</footer^>
+echo      ^</concat^>
+echo CMD: concat + fileset dir src includes *.properties - + header # Ant Version ${ant.version} - + footer # End of text
+echo -----------------------------------------------------------------------------------------------
+%START% concat + fileset dir src includes *.properties - + header # Ant Version ${ant.version} - + footer # End of text
+
+
+
+:end

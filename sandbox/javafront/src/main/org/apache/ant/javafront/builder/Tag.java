@@ -77,4 +77,12 @@ public class Tag<T extends Tag<T>> {
             ((Task) o).perform();
         }
     }
+    
+    // More for debugging ...
+    public String toString() {
+        return ue.getTag();
+    }
+    public UnknownElement getUE() {
+        return ue;
+    }
 }

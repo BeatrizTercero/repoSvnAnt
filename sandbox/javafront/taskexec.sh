@@ -25,18 +25,75 @@ clear
 echo '----- Build the library -----'
 ant
 
-echo '----- First Run: using ^<echo^> as Hello World'
+
+
+
+echo '============================================================================================='
+echo XML: ^<echo message="Hello World"/^>
+echo CMD: echo message "Hello World"
+echo -----------------------------------------------------------------------------------------------
 StartAnt echo message "Hello World"
 
-echo '----- Second Run: using ^<echoproperties^> for printing all Ant related properties -----'
+
+echo ===============================================================================================
+echo XML: ^<echo message="This is Ant version ${ant.version}"/^>
+echo CMD: echo message "This is Ant version ${ant.version}"
+echo '---------------------------------------------------------------------------------------------'
+StartAnt echo message "This is Ant version ${ant.version}"
+
+
+echo '==============================================================================================='
+echo XML: ^<echoproperties prefix="ant."/^>
+echo CMD: echoproperties prefix ant.
+echo '---------------------------------------------------------------------------------------------'
 StartAnt echoproperties prefix ant.
 
-echo '----- Third Run: using ^<copy^> for copying one file -----'
+
+echo '==============================================================================================='
+echo XML: ^<copy file="build.xml" tofile="build.xml.bak"/^>
+echo CMD: copy file build.xml tofile build.xml.bak
+echo '---------------------------------------------------------------------------------------------'
 StartAnt copy file build.xml tofile build.xml.bak
 
-echo "----- A 'build.xml.bak' should exist -----"
+echo ----- A 'build.xml.bak' should exist -----
 ls bu*.*
 
-echo '----- Delete that file again -----'
+
+echo '==============================================================================================='
+echo XML: ^<delete file="build.xml.bak"/^>
+echo CMD: delete file build.xml.bak
+echo '---------------------------------------------------------------------------------------------'
 StartAnt delete file build.xml.bak
+
+echo ----- A 'build.xml.bak' should not exist -----
 ls bu*.*
+
+
+echo '==============================================================================================='
+echo XML: ^<mkdir dir="test"/^>
+echo XML: ^<copy todir="test"^>
+echo          ^<fileset dir="src"/^>
+echo      ^</copy^>
+echo CMD: mkdir dir test
+echo CMD: copy todir test + fileset dir src
+echo '---------------------------------------------------------------------------------------------'
+StartAnt mkdir dir test
+StartAnt copy todir test + fileset dir src
+
+
+echo '==============================================================================================='
+echo XML: ^<echo^>Hello World^</echo^>
+echo CMD: echo # This is Ant version ${ant.version}
+echo '---------------------------------------------------------------------------------------------'
+StartAnt echo # This is Ant version ${ant.version}
+
+
+echo '==============================================================================================='
+echo XML: ^<concat^>
+echo          ^<fileset dir="src" includes="*.properties"/^>
+echo          ^<header^>Ant Version ${ant.version}^</header^>
+echo          ^<footer^>End of text^</footer^>
+echo      ^</concat^>
+echo CMD: concat + fileset dir src includes *.properties - + header # Ant Version ${ant.version} - + footer # End of text
+echo '---------------------------------------------------------------------------------------------'
+StartAnt concat + fileset dir src includes *.properties - + header # Ant Version ${ant.version} - + footer # End of text
