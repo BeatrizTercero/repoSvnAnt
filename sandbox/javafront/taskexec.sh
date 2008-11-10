@@ -107,5 +107,5 @@ mkdir _ivy
 echo "------ First we '<get>' Ivy -----"
 StartAnt get dest _ivy/ivy.jar src http://people.apache.org/~xavier/ivy/ivy-trunk.jar
 echo '------ Then we use Ivy to retrieve JUnit -----'
-ant -lib build/classes -lib _ivy -main org.apache.ant.javafront.TaskExec -xmlns:ivy=antlib:org.apache.ivy.ant ivy:retrieve organisation junit module junit pattern _ivy/[artifact].[ext] inline true
+StartAnt -lib _ivy -xmlns:ivy antlib:org.apache.ivy.ant ivy:retrieve organisation junit module junit pattern _ivy/\[artifact\].\[ext\] inline true
 
