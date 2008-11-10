@@ -94,8 +94,14 @@ public class TaskExec implements AntMain {
             if (arg.equals("+")) {
                 nextIs = NextStatementIs.TAG;
             } else if (arg.equals("-")) {
+		if (text.length() > 0) {
+                    debug("XXSTORE: " + text.toString());
+                    current.withNestedText(text.toString());
+                    text = new StringBuilder();
+		}
                 debug("CLOSE: " + tags.pop());
                 current = tags.peek();
+                debug("CURRENT now: " + current);
                 nextIs = NextStatementIs.ATTRIBUTE;
             } else if (arg.equals("#")) {
                 nextIs = NextStatementIs.TEXT;
