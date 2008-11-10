@@ -96,7 +96,7 @@ echo          '<footer>End of text</footer>'
 echo      '</concat>'
 echo CMD: concat + fileset dir . includes \\\*.properties - + header \\\# \'Ant Version \${ant.version}\' - + footer \\\# \'End of text\'
 echo '---------------------------------------------------------------------------------------------'
-StartAnt concat + fileset dir src includes \*.properties - + header \# 'Ant Version \${ant.version}' - + footer \# 'End of text'
+StartAnt concat + fileset dir . includes \*.properties - + header \# 'Ant Version \${ant.version}' - + footer \# 'End of text'
 
 
 echo '============================================================================================='

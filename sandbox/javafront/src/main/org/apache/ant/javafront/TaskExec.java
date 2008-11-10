@@ -169,13 +169,6 @@ public class TaskExec implements AntMain {
             debug("STORE: " + text.toString());
         }
 
-        // Close all open nested elements
-        debug("Closing all open nested elements.");
-        for(int i=tags.size(); i>1; i--) {
-            debug("CLOSE: " + tags.peek().toString());
-            tags.pop().build();
-        }
-        
         // Run the task
         debug("RUN  : " + tags.firstElement());
         debug("Current Configuration:");
