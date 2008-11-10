@@ -47,6 +47,24 @@ import org.apache.ant.javafront.builder.Tag;
  *   <b> - </b> closes the last open element <br>
  *   <b> # </b> 'opens' the input of embedded text <br>
  * The last arguments closes all open elements.</p>
+ *
+ * You can also use external AntLibs, if <ul>
+ * <li>you add their jar to the classpath using <tt>-lib</tt> option and
+ * <li>load the AntLib using <tt>-xmlns:...</tt> option and
+ * <li>use the xmlns prefix
+ * </ul>
+ * Example:
+ * <pre>
+ * ant ^
+ *   -lib build\classes <b>-lib path-to-ivy.jar</b> ^
+ *   -main org.apache.ant.javafront.TaskExec ^
+ * 	 <b>-xmlns:ivy=antlib:org.apache.ivy.ant</b> ^
+ *      <b>ivy:</b>retrieve ^
+ *      organisation junit ^
+ *      module junit ^
+ *      pattern _ivy/[artifact].[ext] ^
+ *      inline true
+ * </pre>
  */
 public class TaskExec implements AntMain {
 
@@ -63,6 +81,8 @@ public class TaskExec implements AntMain {
         // Initializing
         Project    project = initProject();
         TagBuilder builder = TagBuilder.forProject(project);
+        
+        Hashtable<String,String> antlibs = new Hashtable<String,String>();
 
         // Process the arguments
         Stack<Tag> tags = new Stack<Tag>();
@@ -79,10 +99,26 @@ public class TaskExec implements AntMain {
                 nextIs = NextStatementIs.ATTRIBUTE;
             } else if (arg.equals("#")) {
                 nextIs = NextStatementIs.TEXT;
+            } else if (arg.startsWith("-xmlns:")) {
+                // Register an antlib
+                String xmlns = arg.substring(7);
+                String uri   = args[++i];
+                antlibs.put(xmlns, uri);
+                debug("REG  : Antlib " + xmlns + " to " + uri);
             } else {
                 switch (nextIs) {
                     case TAG :
-                         Tag newTag = builder.tag(arg);
+                         Tag newTag;
+                         int posSplit = arg.indexOf(":");
+                         if (posSplit > -1) {
+                            // Build a tag with xmlns
+                            String prefix = arg.substring(0, posSplit);
+                            String name   = arg.substring(posSplit + 1);
+                            String uri    = antlibs.get(prefix);
+                            newTag = builder.tagWithNs(name, uri);
+                         } else {
+                            newTag = builder.tag(arg);
+                         }
                          tags.push(newTag);
                          if (current != null) {
                              // This is not a root element so add it to its parent.

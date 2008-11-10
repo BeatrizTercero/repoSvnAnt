@@ -16,12 +16,14 @@ REM  See the License for the specific language governing permissions and
 REM  limitations under the License.
 
 cls
+
+REM Standard start arguments
 set START=call ant -lib build\classes -main org.apache.ant.javafront.TaskExec
+
 
 
 echo ----- Build the library -----
 call ant
-
 
 
 
@@ -96,5 +98,22 @@ echo ---------------------------------------------------------------------------
 %START% concat + fileset dir src includes *.properties - + header # Ant Version ${ant.version} - + footer # End of text
 
 
-
-:end
+echo ===============================================================================================
+echo XML: ^<ivy:retrieve xmlns:ivy="antlib:org.apache.ivy.ant" organisation="junit" module="junit" inline="true" pattern="_ivy/[artifact].[ext]"/^>
+echo CMD: -lib path-to-ivy.jar
+echo      -xmlns:ivy=antlib:org.apache.ivy.ant
+echo      ivy:retrieve organisation junit module junit inline true pattern _ivy/[artifact].[ext]
+echo -----------------------------------------------------------------------------------------------
+md _ivy
+echo ------ First we ^<get^> Ivy -----
+rem %START% get dest _ivy/ivy.jar src http://people.apache.org/~xavier/ivy/ivy-trunk.jar
+echo ------ Then we use Ivy to retrieve JUnit -----
+call ant ^
+     -lib build\classes -lib _ivy ^
+     -main org.apache.ant.javafront.TaskExec ^
+   	 -xmlns:ivy=antlib:org.apache.ivy.ant ^
+     ivy:retrieve ^
+        organisation junit ^
+        module junit ^
+        pattern _ivy/[artifact].[ext] ^
+        inline true
