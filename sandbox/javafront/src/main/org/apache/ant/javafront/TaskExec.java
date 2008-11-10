@@ -29,12 +29,36 @@ import org.apache.ant.javafront.builder.TagBuilder;
 import org.apache.ant.javafront.builder.Tag;
 
 
+/**
+ * <p>New pluggable Main class for Ant which changes "normal" buildfile execution to a
+ * command line based approach. With this you could run tasks directly.</p>
+ *
+ * <p>The syntax is: <pre>
+ * ant -lib build\classes -main org.apache.ant.javafront.TaskExec <taskname> [task-parameters]
+ * </pre>
+ * Samples are in the <tt>taskexec.[bat|sh]</tt>.</p>
+ *
+ * <p>After a tagname (first one is the taskname) the arguments are used as attribute names followed
+ * by their values, e.g. <tt>echo message Hello</tt> or
+ * <tt>copy file build.xml tofile build.xml.bak</tt>.</p>
+ *
+ * <p>Special characters are: <br>
+ *   <b> + </b> opens a new nested element, the following argument is its name <br>
+ *   <b> - </b> closes the last open element <br>
+ *   <b> # </b> 'opens' the input of embedded text <br>
+ * The last arguments closes all open elements.</p>
+ */
 public class TaskExec implements AntMain {
 
+    /**
+     * What is the meaning of the next argument?
+     * Tag (task or nested element), Attribute (key followed its value) or embedded text.
+     */
     private enum NextStatementIs {
         TAG, ATTRIBUTE, TEXT;
     }
 
+    /** {@inheritDoc} */
     public void startAnt(String[] args, Properties additionalUserProperties, ClassLoader coreLoader) {
         // Initializing
         Project    project = initProject();
@@ -119,6 +143,11 @@ public class TaskExec implements AntMain {
         
     }
 
+    /**
+     * Initialized a project instance with a DefaultLogger for printing
+     * to StdOut.
+     * @return initialized project
+     */
     private Project initProject() {
         DefaultLogger logger = new DefaultLogger();
         logger.setOutputPrintStream(System.out);
@@ -131,29 +160,40 @@ public class TaskExec implements AntMain {
 
         return rv;
     }
-    
-    
-    // ========== Debug facilities ==========
-    
 
+
+    // ========== Debug facilities ==========
+
+
+    /** Debugging on or off */
     private boolean debug = true;
 
-    private void debug(String s) {
+    /**
+     * Prints a message.
+     * @message Message to print
+     */
+    private void debug(String message) {
         if (debug) {
-            System.out.println(s);
+            System.out.println(message);
         }
     }
+
+    /**
+     * Prints an UnknownElement with hierarchical information.
+     * @indent  depth in the hierarchy
+     * @ue      the UnknownElement to print
+     */
     private void debug(int indent, UnknownElement ue) {
         if (debug) {
             // Visualize the hierarchy.
-            for(int i=0; i<indent-1; i++) {
+            for(int i = 0; i < indent - 1; i++) {
                 System.out.print("|  ");
             }
             if (indent > 0) {
                 System.out.print("+--");
             }
             // Print the information of the current UE.
-            System.out.println(debug(ue));
+            System.out.println(toString(ue));
             // Print the nested elements.
             java.util.List<UnknownElement> children = ue.getChildren();
             if (children != null) {
@@ -163,7 +203,13 @@ public class TaskExec implements AntMain {
             }
         }
     }
-    private String debug(UnknownElement ue) {
+
+    /**
+     * Converts an UnknownElement to a human readable form.
+     * @param ue the UE with the data
+     * @return a one liner containing the name and attributes of the UE
+     */
+    private String toString(UnknownElement ue) {
         StringBuilder sb = new StringBuilder();
         sb.append(ue.getTag());
         Map m = ue.getWrapper().getAttributeMap();
