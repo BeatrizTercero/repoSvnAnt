@@ -90,11 +90,11 @@ StartAnt echo \# 'This is Ant version \${ant.version}'
 
 echo '==============================================================================================='
 echo XML: '<concat>'
-echo          '<fileset dir="src" includes="*.properties"/>'
+echo          '<fileset dir="." includes="*.properties"/>'
 echo          '<header>Ant Version \${ant.version}</header>'
 echo          '<footer>End of text</footer>'
 echo      '</concat>'
-echo CMD: concat + fileset dir src includes \\\*.properties - + header \\\# \'Ant Version \${ant.version}\' - + footer \\\# \'End of text\'
+echo CMD: concat + fileset dir . includes \\\*.properties - + header \\\# \'Ant Version \${ant.version}\' - + footer \\\# \'End of text\'
 echo '---------------------------------------------------------------------------------------------'
 StartAnt concat + fileset dir src includes \*.properties - + header \# 'Ant Version \${ant.version}' - + footer \# 'End of text'
 
