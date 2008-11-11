@@ -94,11 +94,12 @@ public class TaskExec implements AntMain {
             if (arg.equals("+")) {
                 nextIs = NextStatementIs.TAG;
             } else if (arg.equals("-")) {
-		if (text.length() > 0) {
-                    debug("XXSTORE: " + text.toString());
+                // Closing text statements and the last opened tag.
+                if (text.length() > 0) {
+                    debug("STORE: " + text.toString());
                     current.withNestedText(text.toString());
                     text = new StringBuilder();
-		}
+                }
                 debug("CLOSE: " + tags.pop());
                 current = tags.peek();
                 debug("CURRENT now: " + current);
@@ -156,7 +157,7 @@ public class TaskExec implements AntMain {
                 }
                 if (!(nextIs == NextStatementIs.TEXT) && text.length()>0) {
                     // We have stored and no further text, so add it to the element.
-                    debug("XXSTORE: " + text.toString());
+                    debug("STORE: " + text.toString());
                     current.withNestedText(text.toString());
                     text = new StringBuilder();
                 }
@@ -201,7 +202,7 @@ public class TaskExec implements AntMain {
 
 
     /** Debugging on or off */
-    private boolean debug = true;
+    private boolean debug = false;
 
     /**
      * Prints a message.
