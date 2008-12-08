@@ -21,7 +21,7 @@
           ]
       },
       {
-        "title":"Documentation (2.0.0.alpha1)",
+        "title":"Documentation (2.0.0.beta1)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
       {
@@ -42,6 +42,11 @@
                     "title":"2.0.x",
                     "isAbstract":true,
                     "children": [
+                        {
+                          "title":"2.0.0.beta1",
+                          "importRoot":"history/2.0.0.beta1",
+                          "importNode":"index"
+                        },
                         {
                           "title":"2.0.0.alpha1",
                           "importRoot":"history/2.0.0.alpha1",
