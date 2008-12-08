@@ -1,0 +1,58 @@
+{
+  "children": [
+      {
+        "id":"index",
+        "title":"Documentation",
+        "children": [
+            {
+              "id":"editor",
+              "title":"Editor",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"cp_container",
+              "title":"Classpath Container",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"maven",
+              "title":"Use with maven poms",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"console",
+              "title":"Ivy Console",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"dev",
+              "title":"Developer doc",
+              "children": [
+                  {
+                    "id":"dev/build",
+                    "title":"Building",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"dev/release",
+                    "title":"Releasing",
+                    "children": [
+
+                      ]
+                  }
+                ]
+            }
+          ]
+      }
+    ]
+}
