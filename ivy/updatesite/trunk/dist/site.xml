@@ -20,7 +20,7 @@
 <site pack200="true"
       mirrorsURL="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi"
       digestURL="./">
-   <description url="http://ant.apache.org/ivy/ivyde/updatesite">
+   <description url="http://www.apache.org/dist/ant/ivyde/updatesite">
       Eclipse update site for Apache IvyDE.
    </description>
 
