@@ -28,7 +28,7 @@
       <category name="ivyde"/>
    </feature>
 
-   <feature url="features/org.apache.ivy.feature_2.0.0.jar" id="org.apache.ivy.feature" version="2.0.0">
+   <feature url="features/org.apache.ivy.feature_2.0.0.final.jar" id="org.apache.ivy.feature" version="2.0.0.final">
       <category name="ivyde"/>
    </feature>
 
