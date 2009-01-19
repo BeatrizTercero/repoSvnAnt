@@ -75,8 +75,8 @@
           ]
       },
       {
-        "title":"Documentation (2.0.0-rc2)",
-        "importRoot":"history/latest-milestone",
+        "title":"Documentation (2.0.0)",
+        "importRoot":"history/2.0.0",
         "importNode":"index"      },
       {
         "id":"history",
@@ -95,6 +95,10 @@
                     "id":"history/2.0",
                     "title":"2.0.x",
                     "children": [
+                        {
+                          "title":"2.0.0",
+                          "importRoot":"history/2.0.0",
+                          "importNode":"index"                        },
                         {
                           "title":"2.0.0-rc2",
                           "importRoot":"history/2.0.0-rc2",
