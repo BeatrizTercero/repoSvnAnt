@@ -149,6 +149,8 @@ cp -R ~/public_html/ivyde-$VERSION /www/www.apache.org/dist/ant/ivyde/$VERSION
 
 Follow the instructions of that page: <a href="http://ant.apache.org/ivy/history/latest-milestone/dev/updatesite.html#deployment">http://ant.apache.org/ivy/history/latest-milestone/dev/updatesite.html#deployment</a><br class="xooki-br"/><br class="xooki-br"/><h1>Update the documentation</h1>
 
+<h2>Update the table of content</h2>
+
 The table of content needs to be updated so that the last documentation point to that new release.<br class="xooki-br"/><br class="xooki-br"/>First we need to update the external links. In svn/site/ivyde/history:
 <pre>svn pe svn:externals .</pre>
 And: <ul><li>update latest-milestone:
@@ -172,7 +174,11 @@ Then we need to edit svn/site/ivyde/toc.json:
 </pre>
 </li></ul>
 
-Then svn update your working copy (to retrieve the new history branch).<br class="xooki-br"/><br class="xooki-br"/>Commit your changes, and proceed to the full deployment of the website (regenerate every page as the toc changed: <tt>ant /all generate-site-ivyde</tt>).<br class="xooki-br"/><br class="xooki-br"/><h1>Post release tasks</h1>
+Then svn update your working copy (to retrieve the new history branch).<br class="xooki-br"/><br class="xooki-br"/><h2>Update the download page</h2>
+
+In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy</h2>
+
+Commit your changes, and proceed to the full deployment of the website (regenerate every page as the toc changed: <tt>ant /all generate-site-ivyde</tt>).<br class="xooki-br"/><br class="xooki-br"/><h1>Post release tasks</h1>
 
 <h2>Jira</h2>
 

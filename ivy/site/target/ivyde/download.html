@@ -114,34 +114,44 @@ Other mirrors: <select name="Preferred">
 <input type="submit" value="Change" />
 </form>
 
-<h2>Zip binaries</h2>
+<h2>IvyDE zip binaries</h2>
 
-This distribution contains every binaries ready to be installed in your Eclipse installation.<br class="xooki-br"/><br class="xooki-br"/>Download the Ivy plugins <a href="[preferred]/ant/ivyde/2.0.0.alpha1/org.apache.ivy.feature-2.0.0.beta2.zip">org.apache.ivy.feature-2.0.0.beta2.zip</a><br class="xooki-br"/>Download the IvyDE plugins: <a href="[preferred]/ant/ivyde/2.0.0.alpha1/org.apache.ivyde.feature-2.0.0.alpha1.zip">org.apache.ivyde.feature-2.0.0.alpha1.zip</a><br class="xooki-br"/><br class="xooki-br"/>You can then install it with:
+This distribution contains every binaries ready to be installed in your Eclipse installation.<br class="xooki-br"/><br class="xooki-br"/>Download the IvyDE plugins: <a href="[preferred]/ant/ivyde/2.0.0.beta1/org.apache.ivyde.feature-2.0.0.beta1.zip">org.apache.ivyde.feature-2.0.0.beta1.zip</a><br class="xooki-br"/><br class="xooki-br"/>You can then install it with:
 <pre>
-cd $ECLIPSE_HOME<br class="xooki-br"/>unzip org.apache.ivy.feature-2.0.0.beta2.zip<br class="xooki-br"/>unzip org.apache.ivyde.feature-2.0.0.alpha1.zip
+cd $ECLIPSE_HOME<br class="xooki-br"/>unzip org.apache.ivyde.feature-2.0.0.beta1.zip
 </pre>
 
-<h2><a name="sources"></a>Full sources</h2>
+<h2>Install the latest Ivy bundle</h2>
 
-The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.alpha1 release.<br class="xooki-br"/><br class="xooki-br"/>Download <a href="[preferred]/ant/ivyde/2.0.0.alpha1/apache-ivyde-sources-2.0.0.alpha1.zip">apache-ivyde-sources-2.0.0.alpha1.zip</a><br class="xooki-br"/><br class="xooki-br"/><h1><a name="svn"></a>Sources from the version control system</h1>
+Get the latest Ivy feature and bundle for the updatesite:
+<ul>
+<li>the <a href="[preferred]/ant/ivyde/updatesite/features">features folder</a></li>
+<li>the <a href="[preferred]/ant/ivyde/updatesite/plugins">plugins folder</a></li>
+</ul>
+
+And then just copy them respectively in the $ECLIPSE_HOME/features and the $ECLIPSE_HOME/plugins folders.<br class="xooki-br"/>Then it is recommended to (re)start your Eclipse with the -clean option.<br class="xooki-br"/><br class="xooki-br"/><h2><a name="sources"></a>Full sources</h2>
+
+The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.beta1 release.<br class="xooki-br"/><br class="xooki-br"/>Download <a href="[preferred]/ant/ivyde/2.0.0.beta1/apache-ivyde-sources-2.0.0.beta1.zip">apache-ivyde-sources-2.0.0.beta1.zip</a><br class="xooki-br"/><br class="xooki-br"/><h1><a name="svn"></a>Sources from the version control system</h1>
 
 The IvyDE sources can be also found on the ASF Subversion repository. You can checkout the trunk by running the command
 <pre>
 svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk">https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk</a> ivyde-trunk
 </pre>
 
-<h1><a name="verify"></a>Verify Releases</h1>
+<h1><a name="hudson"></a>Trunk builds</h1>
+
+The trunk version of IvyDE is build by a continuous integration server (<a href="http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE/">a Hudson instance hosted by the ASF</a>).<br class="xooki-br"/><br class="xooki-br"/>It is automatically publishing the last build into an updatesite. So you can configure your Eclipse to use it:<br class="xooki-br"/><a href="http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE/ws/trunk/updatesite">http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE/ws/trunk/updatesite</a><br class="xooki-br"/><br class="xooki-br"/><h1><a name="verify"></a>Verify Releases</h1>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.<br class="xooki-br"/><br class="xooki-br"/>The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivyde">main distribution directory</a>, rather than from a mirror. Then verify the signatures using<br class="xooki-br"/>
 <pre>
-% pgpk -a KEYS<br class="xooki-br"/>% pgpv org.apache.ivyde.feature-2.0.0.alpha1.zip.asc
+% pgpk -a KEYS<br class="xooki-br"/>% pgpv org.apache.ivyde.feature-2.0.0.beta1.zip.asc
 </pre>
 <em>or</em>
 <pre>
-% pgp -ka KEYS<br class="xooki-br"/>% pgp org.apache.ivyde.feature-2.0.0.alpha1.zip.asc
+% pgp -ka KEYS<br class="xooki-br"/>% pgp org.apache.ivyde.feature-2.0.0.beta1.zip.asc
 </pre>
 <em>or</em>
 <pre>
-% gpg --import KEYS<br class="xooki-br"/>% gpg --verify org.apache.ivyde.feature-2.0.0.alpha1.zip.asc
+% gpg --import KEYS<br class="xooki-br"/>% gpg --verify org.apache.ivyde.feature-2.0.0.beta1.zip.asc
 </pre>
 
 Alternatively, you can verify the checksums on the files.  Unix programs called md5/sha1 or md5sum/sha1sum are included in many unix distributions.  *sum is also available as part of <a href="http://www.gnu.org/software/textutils/textutils.html">GNU Textutils</a>.  Windows users can get binary md5 programs from <a href="http://www.fourmilab.ch/md5/">here</a>, <a href="http://www.pc-tools.net/win32/freeware/console/">here</a>.  <a href="http://www.slavasoft.com/fsum/">fsum</a> supports MD5 and SHA1.<br class="xooki-br"/><br class="xooki-br"/>We highly recommend to verify the PGP signature, though.<br class="xooki-br"/><br class="xooki-br"/><h1>Old releases</h1>
