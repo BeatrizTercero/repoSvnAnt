@@ -76,7 +76,7 @@
       },
       {
         "title":"Documentation (2.0.0)",
-        "importRoot":"history/2.0.0",
+        "importRoot":"history/latest-release",
         "importNode":"index"      },
       {
         "id":"history",

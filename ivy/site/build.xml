@@ -88,6 +88,11 @@
         <generate-printdoc version="latest-milestone" />
     </target>
 
+    <target name="generate-printdoc-latest-release" depends="copy-resources"
+            description="--> Generates latest-release documentation printer friendly version">
+        <generate-printdoc version="latest-release" />
+    </target>
+
     <target name="generate-printdoc" depends="copy-resources"
             description="--> Generates documentation printer friendly version">
         <input message="Ivy version to generate doc for?" addproperty="version" />
