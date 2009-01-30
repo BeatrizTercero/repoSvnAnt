@@ -16,12 +16,14 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<project default="optimize" basedir=".">
+<project basedir=".">
 
     <property file="local.build.properties" />
 
     <property name="work.dir" value="${basedir}/work" />
     <property name="updatesite.dir" value="${basedir}/dist" />
+    <property name="mirrors.url" value="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi" />
+    <property name="updatesite.url" value="http://www.apache.org/dist/ant/ivyde/updatesite" />
 
     <target name="clean">
         <delete dir="$ {work.dir}" />
@@ -101,7 +103,7 @@
         </sequential>
     </macrodef>
 
-    <target name="install-ivy" description="Install an Ivy bundle into the updatesite">
+    <target name="put-ivy-jar">
         <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
         <!-- get the real OSGi version of the bundle -->
         <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
@@ -111,7 +113,11 @@
             <include name="features/org.apache.ivy_*" />
         </delete>
         <!-- install the plugin -->
+        <mkdir dir="${updatesite.dir}/plugins" />
         <copy file="${ivy.jar}" tofile="${updatesite.dir}/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
+    </target>
+
+    <target name="generate-ivy-feature">
         <!-- now take care of the generation of the Ivy feature -->
         <!-- first generate a feature descriptor with the proper version -->
         <delete file="${work.dir}/feature.xml" />
@@ -121,6 +127,7 @@
             </filterset>
         </copy>
         <!-- package the feature -->
+        <mkdir dir="${updatesite.dir}/features" />
         <jar destfile="${updatesite.dir}/features/org.apache.ivy.feature_${ivy.version}.jar">
             <fileset dir="ivy-feature-template">
                 <include name="feature.properties" />
@@ -131,16 +138,9 @@
                 <include name="feature.xml" />
             </fileset>
         </jar>
-        <!-- update the site.xml -->
-        <copy file="${updatesite.dir}/site.xml" tofile="${work.dir}/site.xml" overwrite="true">
-            <filterchain>
-                <replaceregex pattern="org\.apache\.ivy\.feature_(.*)\.jar\&quot; id=\&quot;org\.apache\.ivy\.feature\&quot; version=\&quot;(.*)\&quot;" replace="org.apache.ivy.feature_${ivy.version}.jar&quot; id=&quot;org.apache.ivy.feature&quot; version=&quot;${ivy.version}&quot;" flags="gi" />
-            </filterchain>
-        </copy>
-        <copy file="${work.dir}/site.xml" tofile="${updatesite.dir}/site.xml" overwrite="true" />
     </target>
 
-    <target name="install-ivyde" description="Install IvyDE into the updatesite">
+    <target name="put-ivyde-jars">
         <fail message="You have to specify the path to the zip of the IvyDE distribution via the property ivyde.zip" unless="ivyde.zip" />
         <!-- delete previously installed ivy bundles -->
         <delete dir="${updatesite.dir}">
@@ -148,7 +148,11 @@
             <include name="features/org.apache.ivyde*" />
         </delete>
         <!-- install the plugin -->
+        <mkdir dir="${updatesite.dir}" />
         <unzip src="${ivyde.zip}" dest="${updatesite.dir}" />
+    </target>
+
+    <target name="get-ivyde-version">
         <!-- get the path to the ivyde plugin -->
         <path id="ivyde.plugin.path.id">
             <first count="1">
@@ -159,14 +163,40 @@
         <property name="ivyde.plugin.path" refid="ivyde.plugin.path.id" />
         <!-- get the real OSGi version of the bundle -->
         <osgi-version jar="${ivyde.plugin.path}" outputproperty="ivyde.version" />
-        <!-- update the site.xml -->
-        <copy file="${updatesite.dir}/site.xml" tofile="${work.dir}/site.xml" overwrite="true">
+    </target>
+
+    <target name="get-ivy-version">
+        <!-- get the path to the ivyde plugin -->
+        <path id="ivy.plugin.path.id">
+            <first count="1">
+                <fileset dir="${updatesite.dir}/plugins" includes="org.apache.ivy_*.jar" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivy.plugin.path" refid="ivy.plugin.path.id" />
+        <!-- get the real OSGi version of the bundle -->
+        <osgi-version jar="${ivy.plugin.path}" outputproperty="ivy.version" />
+    </target>
+
+    <target name="generate-site">
+        <mkdir dir="${updatesite.dir}" />
+        <copy file="${basedir}/site-template.xml" tofile="${updatesite.dir}/site.xml" overwrite="true">
             <filterchain>
-                <replaceregex pattern="org\.apache\.ivyde\.feature_(.*)\.jar\&quot; id=\&quot;org\.apache\.ivyde\.feature\&quot; version=\&quot;(.*)\&quot;" replace="org.apache.ivyde.feature_${ivyde.version}.jar&quot; id=&quot;org.apache.ivyde.feature&quot; version=&quot;${ivyde.version}&quot;" flags="gi" />
+                <replacetokens>
+                    <token key="MIRRORS_URL" value="${mirrors.url}" />
+                    <token key="UPDATESITE_URL" value="${updatesite.url}" />
+                    <token key="IVY_VERSION" value="${ivy.version}" />
+                    <token key="IVYDE_VERSION" value="${ivyde.version}" />
+                </replacetokens>
             </filterchain>
         </copy>
-        <copy file="${work.dir}/site.xml" tofile="${updatesite.dir}/site.xml" overwrite="true" />
     </target>
+
+    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
+
+    <target name="install-ivyde" depends="put-ivyde-jars,get-ivyde-version,get-ivy-version,generate-site" description="Install IvyDE into the updatesite" />
+
+    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
 
     <!-- 
         ===================================================================================================================
@@ -292,7 +322,10 @@
         <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
         <echo file="local.build.properties">
 updatesite.dir=${basedir}/build
+mirrors.url=
+updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
 </echo>
+        <delete dir="${basedir}/build" />
     </target>
 
     <target name="hudson-find-ivy-jar">
@@ -308,6 +341,6 @@ updatesite.dir=${basedir}/build
         <property name="ivyde.zip" refid="ivyde.plugin.path.id" />
     </target>
 
-    <target name="hudson-build" depends="hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy,install-ivyde,optimize-ivy,optimize-ivyde,checksum" />
+    <target name="hudson-build" depends="hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize-ivy,optimize-ivyde,checksum" />
 
 </project>
