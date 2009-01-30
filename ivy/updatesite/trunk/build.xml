@@ -279,4 +279,35 @@
         <echo message="SHA Checksum verify passed successfully" />
     </target>
 
+    <!-- 
+        ===================================================================================================================
+        Targets dedicated to be used by Hudson
+        
+        The 'hudson-prepare' have to be launched first in its own ant call: it will setup build properties
+        Then 'hudson-build' will do build the updatesite (it has to be called in a separate ant call from 'hudson-prepare')
+        ===================================================================================================================    
+      -->
+
+    <target name="hudson-prepare">
+        <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
+        <echo file="local.build.properties">
+updatesite.dir=${basedir}/build
+</echo>
+    </target>
+
+    <target name="hudson-find-ivy-jar">
+        <property name="ivy.jar" value="${basedir}/../../../Ivy/lastSuccessful/archive/trunk/build/artifact/ivy.jar" />
+    </target>
+
+    <target name="hudson-find-ivyde-zip">
+        <path id="ivyde.zip.id">
+            <first count="1">
+                <fileset dir="${basedir}/../../../IvyDE/lastSuccessful/archive/trunk/dist/" includes="org.apache.ivyde.feature*.zip" />
+            </first>
+        </path>
+        <property name="ivyde.zip" refid="ivyde.plugin.path.id" />
+    </target>
+
+    <target name="hudson-build" depends="hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy,install-ivyde,optimize-ivy,optimize-ivyde,checksum" />
+
 </project>
