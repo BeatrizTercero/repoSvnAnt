@@ -329,7 +329,7 @@ updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesi
     </target>
 
     <target name="hudson-find-ivy-jar">
-        <property name="ivy.jar" value="${basedir}/../../../Ivy/lastSuccessful/archive/trunk/build/artifact/ivy.jar" />
+        <property name="ivy.jar" value="${basedir}/../../../Ivy/lastSuccessful/archive/trunk/build/artifact/jars/ivy.jar" />
     </target>
 
     <target name="hudson-find-ivyde-zip">
