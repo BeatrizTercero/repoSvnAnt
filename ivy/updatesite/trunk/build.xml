@@ -338,7 +338,7 @@ updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesi
                 <fileset dir="${basedir}/../../../IvyDE/lastSuccessful/archive/trunk/dist/" includes="org.apache.ivyde.feature*.zip" />
             </first>
         </path>
-        <property name="ivyde.zip" refid="ivyde.plugin.path.id" />
+        <property name="ivyde.zip" refid="ivyde.zip.id" />
     </target>
 
     <target name="hudson-build" depends="hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize-ivy,optimize-ivyde,checksum" />
