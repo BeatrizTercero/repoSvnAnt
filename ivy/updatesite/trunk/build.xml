@@ -19,11 +19,10 @@
 <project basedir=".">
 
     <property file="local.build.properties" />
+    <property file="build.properties" />
 
     <property name="work.dir" value="${basedir}/work" />
     <property name="updatesite.dir" value="${basedir}/dist" />
-    <property name="mirrors.url" value="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi" />
-    <property name="updatesite.url" value="http://www.apache.org/dist/ant/ivyde/updatesite" />
 
     <target name="clean">
         <delete dir="$ {work.dir}" />
@@ -318,14 +317,38 @@
         ===================================================================================================================    
       -->
 
-    <target name="hudson-prepare">
+    <target name="hudson-prepare" depends="hudson-prepare-eclipse">
         <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
         <echo file="local.build.properties">
 updatesite.dir=${basedir}/build
 mirrors.url=
 updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
+baseLocation=${basedir}/${hudson.eclipse.name}
 </echo>
         <delete dir="${basedir}/build" />
+    </target>
+
+    <target name="hudson-prepare-eclipse" depends="hudson-get-eclipse,hudson-unzip-eclipse" />
+
+    <target name="hudson-check-download-eclipse">
+        <condition property="hudson.eclipse.downloaded">
+            <available file="${hudson.eclipse.name}.zip" />
+        </condition>
+    </target>
+
+    <target name="hudson-get-eclipse" depends="hudson-check-download-eclipse" unless="hudson.eclipse.downloaded">
+        <get src="${hudson.eclipse.url}" dest="${hudson.eclipse.name}.zip" verbose="yes" />
+    </target>
+
+    <target name="hudson-check-unzip-eclipse">
+        <condition property="hudson.eclipse.unzipped">
+            <available file="${hudson.eclipse.name}" />
+        </condition>
+    </target>
+
+    <target name="hudson-unzip-eclipse" depends="hudson-check-unzip-eclipse" unless="hudson.eclipse.unzipped">
+        <unzip src="${hudson.eclipse.name}.zip" dest="${basedir}" />
+        <move file="eclipse" tofile="${hudson.eclipse.name}" />
     </target>
 
     <target name="hudson-find-ivy-jar">
