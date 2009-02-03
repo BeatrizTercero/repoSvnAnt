@@ -17,7 +17,7 @@
 #   specific language governing permissions and limitations
 #   under the License.
 
-for i in dist/features/org.apache.ivy*.jar; do gpg --verify $i.asc; done
-for i in dist/plugins/org.apache.ivy*.jar;  do gpg --verify $i.asc; done
-for i in dist/plugins/org.apache.ivy*.jar.pack.gz;  do gpg --verify $i.asc; done
-gpg --verify dist/digest.zip.asc
+for i in dist/features/org.apache.ivy*.jar; do echo "Verifying $i"; gpg --verify $i.asc; done
+for i in dist/plugins/org.apache.ivy*.jar; do echo "Verifying $i"; gpg --verify $i.asc; done
+for i in dist/plugins/org.apache.ivy*.jar.pack.gz; do echo "Verifying $i"; gpg --verify $i.asc; done
+echo "Verifying dist/digest.zip"; gpg --verify dist/digest.zip.asc
