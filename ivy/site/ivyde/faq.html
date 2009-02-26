@@ -30,6 +30,7 @@
    <li><a href="#logs">Something goes wrong with IvyDE, where could I found more logs ?</a>
    <li><a href="#empty-container">The IvyDE classpath container disappear when it becomes empty</a>
    <li><a href="#wtp">How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</a>
+   <li><a href="#xerces">Parsing ivy file fails in IvyDE while it succeeds in Ant</a>
 </ol>
 
 <br/>
@@ -69,6 +70,11 @@ In the properties of your project configured to use WTP, there is a section "Jav
 
 This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.
 
+<h2><a name="xerces"></a>Parsing ivy file fails in IvyDE while it succeeds in Ant</h2>
+
+The xml parser used in Ant (Apache Xerces) might be different from the one used by IvyDE, which by default is using the one provided by the JRE. The XML parser provided by the JRE is usually Xerces, but for instance the Sun's JRE 1.4 xml parser is Apache Crimson. And the latter doesn't support BOM markers. So you probably want to force IvyDE to use Apache Xerces in Eclipse.
+
+Xerces is an optional dependency of IvyDE, so as soon as it is installed in Eclipse, IvyDE will use it. To install it, use the Eclipse update manager, search for xerces (you should find it under Ganymede/Uncategorized/Apache Xerces), and ask Eclipse to install it.
 
 </textarea>
 <script type="text/javascript">xooki.postProcess();</script>
