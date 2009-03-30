@@ -75,8 +75,8 @@
           ]
       },
       {
-        "title":"Documentation (2.0.0)",
-        "importRoot":"history/latest-release",
+        "title":"Documentation (2.1.0-rc1)",
+        "importRoot":"history/2.1.0-rc1",
         "importNode":"index"      },
       {
         "id":"history",
@@ -91,6 +91,16 @@
               "title":"2.x",
               "isAbstract":true,
               "children": [
+                  {
+                    "id":"history/2.1",
+                    "title":"2.1.x",
+                    "children": [
+                        {
+                          "title":"2.1.0-rc1",
+                          "importRoot":"history/2.1.0-rc1",
+                          "importNode":"index"                        }
+                      ]
+                  },
                   {
                     "id":"history/2.0",
                     "title":"2.0.x",
