@@ -18,7 +18,6 @@
    under the License.    
 -->
 <site pack200="true"
-      mirrorsURL="http://ant.apache.org/ivy/ivyde/updatesite/eclipse-update--xml.cgi"
       digestURL="./">
    <description url="http://www.apache.org/dist/ant/ivyde/updatesite">
       Eclipse update site for Apache IvyDE.
@@ -28,7 +27,7 @@
       <category name="ivyde"/>
    </feature>
 
-   <feature url="features/org.apache.ivy.feature_2.0.0.final.jar" id="org.apache.ivy.feature" version="2.0.0.final">
+   <feature url="features/org.apache.ivy.feature_2.1.0.cr1_20090319213629.jar" id="org.apache.ivy.feature" version="2.1.0.cr1_20090319213629">
       <category name="ivyde"/>
    </feature>
 
