@@ -111,7 +111,7 @@
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <xooki:generate destDir="${target.dir}" checkUpToDate="${checkUpToDate}">
             <fileset dir="${basedir}">
-                <include name="history/latest-release/**/*.html"/>
+                <include name="**/*.html"/>
                 <exclude name="**/template.html"/>
                 <exclude name="**/*Template.html"/>
                 <exclude name="presentations/**"/>
