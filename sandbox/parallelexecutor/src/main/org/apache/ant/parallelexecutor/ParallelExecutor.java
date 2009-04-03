@@ -126,11 +126,10 @@ public class ParallelExecutor implements Executor {
     
     
     /**
-     * not used
      * @see org.apache.tools.ant.Executor#getSubProjectExecutor()
      */
     public Executor getSubProjectExecutor() {
-        return null;
+        return this;
     }
     
     
