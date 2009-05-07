@@ -31,6 +31,7 @@
    <li><a href="#empty-container">The IvyDE classpath container disappear when it becomes empty</a>
    <li><a href="#wtp">How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</a>
    <li><a href="#xerces">Parsing ivy file fails in IvyDE while it succeeds in Ant</a>
+   <li><a href="#norepo">Updating IvyDE fails with "no repository found containing [...]"</a>
 </ol>
 
 <br/>
@@ -75,6 +76,16 @@ This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and 
 The xml parser used in Ant (Apache Xerces) might be different from the one used by IvyDE, which by default is using the one provided by the JRE. The XML parser provided by the JRE is usually Xerces, but for instance the Sun's JRE 1.4 xml parser is Apache Crimson. And the latter doesn't support BOM markers. So you probably want to force IvyDE to use Apache Xerces in Eclipse.
 
 Xerces is an optional dependency of IvyDE, so as soon as it is installed in Eclipse, IvyDE will use it. To install it, use the Eclipse update manager, search for xerces (you should find it under Ganymede/Uncategorized/Apache Xerces), and ask Eclipse to install it.
+
+<h2><a name="norepo"></a>Updating IvyDE fails with "no repository found containing [...]"</h2>
+
+With Eclipse 3.4, the new update manager introduced a bug: https://bugs.eclipse.org/bugs/show_bug.cgi?id=236437
+
+The symptoms: you are willing to update IvyDE or the Ivy plugin. The Update Manager find a new version. But it finally fails complaining that it cannot find the Ivy or IvyDE artifacts.
+
+The bug will be fixed for Eclipse 3.5.
+
+The workaround is to remove the failing updatesite from the list of sites in the Update Manager. Then add it again (no need to restart Eclipse). You can now update Ivy or IvyDE successfully.
 
 </textarea>
 <script type="text/javascript">xooki.postProcess();</script>
