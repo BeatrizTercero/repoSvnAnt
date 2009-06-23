@@ -159,15 +159,16 @@ Be prepared to enter your passphrase several times if you use this script, gpg w
 
 <h3>11. Prepare the Eclipse update site</h3>
 
-To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Call for a vote to approve the release</h3>
+To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
+As soon as you are happy with the artifacts to be released, it is time to tag the svn repo
+<pre>
+svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Tag release 2.0.0-beta1."
+</pre>
+
+<h3>13. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
 <pre>
 Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>You can download it from this URL: ${url}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
-</pre>
-<h3>13. Tag the svn repository</h3>
-Now that the release is approved, it is time to tag the svn repo
-<pre>
-svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Tag release 2.0.0-beta1."
 </pre>
 <h3>14. Upload to public repository</h3>
 If the release is approved, it's now time to make it public by uploading it to the public Apache distrib repository (i.e. /www/www.apache.org/dist/ant/ivy/[version] on people.a.o).<br class="xooki-br"/><br class="xooki-br"/>Copy also the staging maven 2 repository to apache maven 2 rsync repo:<br class="xooki-br"/>/www/people.apache.org/repo/m2-ibiblio-rsync-repository<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>

@@ -137,7 +137,11 @@ For an <u>IvyDE</u> release:
 </li>
 </ul>
 
-<b>Note:</b> these previous targets may optimize, checksum and sign already released artifacts. Just so a <tt>svn status</tt> to check the modified artifacts; the only modified files should be the digest.zip (with its signature and checksum) and the site.xml; then there should be the added files of the release. Then do some <tt>svn revert <i>file</i></tt> to revert the unexpected changes.<br class="xooki-br"/><br class="xooki-br"/>And finally commit your changes.<br class="xooki-br"/><br class="xooki-br"/><h2>Test the updatesite</h2>
+<b>Note:</b> these previous targets may optimize, checksum and sign already released artifacts. Just so a <tt>svn status</tt> to check the modified artifacts; the only modified files should be the digest.zip (with its signature and checksum) and the site.xml; then there should be the added files of the release. Then do some <tt>svn revert <i>file</i></tt> to revert the unexpected changes.<br class="xooki-br"/><br class="xooki-br"/>And finally commit your changes.<br class="xooki-br"/><br class="xooki-br"/>As soon as you ar happy with the committed artifacts, we can tag the updatesite:
+<pre>
+svn cp <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk">https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk</a> <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME">https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME</a>
+</pre>
+with <tt>$TAGNAME</tt> the name of the release, so it would be either <tt>ivy-$VERSION</tt> or <tt>ivyde-$VERSION</tt>.<br class="xooki-br"/><br class="xooki-br"/><h2>Test the updatesite</h2>
 
 The updatesite is ready to be tested. You can deploy it where ever you want with the command:
 <pre>svn export <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk/dist">https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk/dist</a> updatesite
@@ -145,11 +149,7 @@ The updatesite is ready to be tested. You can deploy it where ever you want with
 
 For both local and remote testing, as the new jars are not yet deployed on Apache mirrors, the updatesite mirroring have to be disable.<br class="xooki-br"/>Basically it is just about modifying the site.xml and remove the reference to the eclipse-update--xml files: remove the attribute <tt>mirrorsURL</tt>.<br class="xooki-br"/><br class="xooki-br"/>To let the developper community test the updatesite, you can setup a staging updatesite in your public_html directory on people.apache.org. So if you deploy it on people.apache.org, in the directory ~/public_html/staging, then the developpers should setup the updatesite with the URL <a href="http://people.apache.org/~LOGIN/staging/updatesite">http://people.apache.org/~LOGIN/staging/updatesite</a> .<br class="xooki-br"/><br class="xooki-br"/><h1><a name="deployment"></a>Deployment of a release</h1>
 
-The release is accepted, so we can tag the updatesite:
-<pre>
-svn cp <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk">https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk</a> <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME">https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME</a>
-</pre>
-with <tt>$TAGNAME</tt> the name of the release, so it would be either <tt>ivy-$VERSION</tt> or <tt>ivyde-$VERSION</tt>.<br class="xooki-br"/><br class="xooki-br"/>Then backup and deploy. On people.apache.org:
+Then backup and deploy. On people.apache.org:
 <pre>
 cd /www/www.apache.org/dist/ant/ivyde/<br class="xooki-br"/>mv updatesite ~/updatesite.backup<br class="xooki-br"/>svn export <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME/dist">https://svn.apache.org/repos/asf/ant/ivy/updatesite/tags/$TAGNAME/dist</a> updatesite
 </pre>

@@ -184,6 +184,20 @@ If you want to use a different trigger, you can <a href="../extend.html">impleme
         </td>
         <td>Fired at the end of the retrieve process.</td>
     </tr>
+    <tr><td>pre-retrieve-artifact <br/><span class="since">since 2.1</span></td>
+        <td>
+          <ul>
+            <li>organisation</li>the organisation of the artifact which is about to be retrieved<br class="xooki-br"/>            <li>module</li>the name of the module of the artifact which is about to be retrieved<br class="xooki-br"/>            <li>revision</li>the revision of the the artifact which is about to be retrieved<br class="xooki-br"/>            <li>artifact</li>the name of the the artifact which is about to be retrieved<br class="xooki-br"/>            <li>type</li>the type of the the artifact which is about to be retrieved<br class="xooki-br"/>            <li>ext</li>the extension of the the artifact which is about to be retrieved<br class="xooki-br"/>            <li>metadata</li>true if the retrieved artifact is a metadata artifact, false for published artifacts <br class="xooki-br"/>            <li>size</li>the size in bytes of the retrieved artifact<br class="xooki-br"/>            <li>from</li>the absolute path from which it will be retrieved (usually a location in cache)<br class="xooki-br"/>            <li>to</li>the absolute path to which it will be retrieved<br class="xooki-br"/>          </ul>
+        </td>
+        <td>Fired before an artifact is retrieved from cache to a local location</td>
+    </tr>
+    <tr><td>post-retrieve-artifact <br/><span class="since">since 2.1</span></td>
+        <td>
+          <ul>
+            <li>organisation</li>the organisation of the artifact which has just been retrieved<br class="xooki-br"/>            <li>module</li>the name of the module of the artifact which has just been retrieved<br class="xooki-br"/>            <li>revision</li>the revision of the the artifact which has just been retrieved<br class="xooki-br"/>            <li>artifact</li>the name of the the artifact which has just been retrieved<br class="xooki-br"/>            <li>type</li>the type of the the artifact which has just been retrieved<br class="xooki-br"/>            <li>ext</li>the extension of the the artifact which has just been retrieved<br class="xooki-br"/>            <li>metadata</li>true if the retrieved artifact is a metadata artifact, false for published artifacts <br class="xooki-br"/>            <li>size</li>the size in bytes of the retrieved artifact<br class="xooki-br"/>            <li>from</li>the absolute path from which it has just been retrieved (usually a location in cache)<br class="xooki-br"/>            <li>to</li>the absolute path to which it has just been retrieved<br class="xooki-br"/>          </ul>
+        </td>
+        <td>Fired after an artifact is retrieved from cache to a local location</td>
+    </tr>
     <tr><td>pre-publish-artifact <br/><span class="since">since 2.0</span></td>
         <td>
           <ul>
