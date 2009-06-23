@@ -146,9 +146,17 @@
             <include name="plugins/org.apache.ivyde*" />
             <include name="features/org.apache.ivyde*" />
         </delete>
-        <!-- install the plugin -->
+        <!-- unzip -->
+        <mkdir dir="${work.dir}/distrib" />
+        <unzip src="${ivyde.zip}" dest="${work.dir}/distrib" />
+        <!-- install the binaries -->
         <mkdir dir="${updatesite.dir}" />
-        <unzip src="${ivyde.zip}" dest="${updatesite.dir}" />
+        <copy todir="${updatesite.dir}">
+            <fileset dir="${work.dir}/distrib">
+                <include name="plugins" />
+                <include name="features" />
+            </fileset>
+        </copy>
     </target>
 
     <target name="get-ivyde-version">
