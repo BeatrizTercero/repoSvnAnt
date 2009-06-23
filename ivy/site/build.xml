@@ -133,7 +133,7 @@
         <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="${checkUpToDate}">
             <fileset dir="${basedir}/ivyde">
                 <include name="**/*.html"/>
-                <exclude name="**/template.html"/>
+                <exclude name="**/template*.html"/>
                 <exclude name="**/*Template.html"/>
                 <exclude name="**/xooki/**"/>
                 <exclude name="js/**"/>
