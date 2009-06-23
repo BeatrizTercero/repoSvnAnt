@@ -366,7 +366,7 @@ baseLocation=${basedir}/${hudson.eclipse.name}
     <target name="hudson-find-ivyde-zip">
         <path id="ivyde.zip.id">
             <first count="1">
-                <fileset dir="${basedir}/../../../IvyDE/lastSuccessful/archive/trunk/dist/" includes="org.apache.ivyde.feature*.zip" />
+                <fileset dir="${basedir}/../../../IvyDE/lastSuccessful/archive/trunk/dist/" includes="apache-ivyde-2*.zip" />
             </first>
         </path>
         <property name="ivyde.zip" refid="ivyde.zip.id" />
