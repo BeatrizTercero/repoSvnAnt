@@ -141,7 +141,7 @@
 
     <target name="put-ivyde-jars">
         <fail message="You have to specify the path to the zip of the IvyDE distribution via the property ivyde.zip" unless="ivyde.zip" />
-        <!-- delete previously installed ivy bundles -->
+        <!-- delete previously installed ivyde bundles -->
         <delete dir="${updatesite.dir}">
             <include name="plugins/org.apache.ivyde*" />
             <include name="features/org.apache.ivyde*" />
@@ -149,12 +149,11 @@
         <!-- unzip -->
         <mkdir dir="${work.dir}/distrib" />
         <unzip src="${ivyde.zip}" dest="${work.dir}/distrib" />
-        <!-- install the binaries -->
-        <mkdir dir="${updatesite.dir}" />
+        <!-- install the new binaries -->
         <copy todir="${updatesite.dir}">
             <fileset dir="${work.dir}/distrib">
-                <include name="plugins" />
-                <include name="features" />
+                <include name="plugins/**" />
+                <include name="features/**" />
             </fileset>
         </copy>
     </target>
