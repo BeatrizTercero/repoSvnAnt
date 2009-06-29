@@ -25,7 +25,7 @@
     <property name="updatesite.dir" value="${basedir}/dist" />
 
     <target name="clean">
-        <delete dir="$ {work.dir}" />
+        <delete dir="${work.dir}" />
     </target>
 
     <!-- 
@@ -393,6 +393,6 @@ baseLocation=${basedir}/${hudson.eclipse.name}
         <property name="ivyde.zip" refid="ivyde.zip.id" />
     </target>
 
-    <target name="hudson-build" depends="hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize-ivy,optimize-ivyde,checksum" />
+    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize-ivy,optimize-ivyde,checksum" />
 
 </project>
