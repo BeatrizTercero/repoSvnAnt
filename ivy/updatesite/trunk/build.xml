@@ -213,6 +213,8 @@
 
     <target name="optimize-ivyde" depends="pack-ivyde-jars,build-digest" description="Optimize the update site for an IvyDE release" />
 
+    <target name="optimize" depends="pack-jars,build-digest" />
+
     <target name="prepare-pack-ivy-jars">
         <!-- prepare the working area, so copy plugin jars -->
         <delete dir="${work.dir}/updatesite/" />
@@ -255,6 +257,8 @@
     <target name="pack-ivy-jars" depends="prepare-pack-ivy-jars,do-pack-jars" />
 
     <target name="pack-ivyde-jars" depends="prepare-pack-ivyde-jars,do-pack-jars" />
+
+    <target name="pack-jars" depends="prepare-pack-ivy-jars,prepare-pack-ivyde-jars,do-pack-jars" />
 
     <target name="build-digest" depends="eclipse-classpath">
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
@@ -393,6 +397,6 @@ baseLocation=${basedir}/${hudson.eclipse.name}
         <property name="ivyde.zip" refid="ivyde.zip.id" />
     </target>
 
-    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize-ivy,optimize-ivyde,checksum" />
+    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize,checksum" />
 
 </project>
