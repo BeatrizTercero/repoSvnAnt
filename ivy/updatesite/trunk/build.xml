@@ -263,6 +263,28 @@
             <arg line="-digestBuilder -digestOutputDir=${updatesite.dir}" />
             <arg line="-siteXML=${updatesite.dir}/site.xml" />
         </java>
+        <!-- make the eclipse generated digest ASF compliant -->
+        <!-- first let's add a ASL2 header -->
+        <mkdir dir="${work.dir}/digest" />
+        <unzip src="${updatesite.dir}/digest.zip" dest="${work.dir}/digest" />
+        <loadfile property="asl2-header.xml" srcfile="${basedir}/ASL2-header.xml" />
+        <move file="${work.dir}/digest/digest.xml" tofile="${work.dir}/digest-generated.xml" />
+        <copy file="${work.dir}/digest-generated.xml" tofile="${work.dir}/digest/digest.xml">
+            <filterchain>
+                <tokenfilter>
+                    <replacestring from="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;" to="${asl2-header.xml}" />
+                </tokenfilter>
+            </filterchain>
+        </copy>
+        <!-- add notice and license -->
+        <copy todir="${work.dir}/digest">
+            <fileset dir="${basedir}">
+                <include name="NOTICE" />
+                <include name="LICENSE" />
+            </fileset>
+        </copy>
+        <!-- repackage it -->
+        <zip basedir="${work.dir}/digest" destfile="${updatesite.dir}/digest.zip" />
     </target>
 
     <target name="checksum" description="Compute the checksum for every artifact to distribute">
