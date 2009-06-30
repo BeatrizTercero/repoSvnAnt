@@ -217,7 +217,6 @@
 
     <target name="prepare-pack-ivy-jars">
         <!-- prepare the working area, so copy plugin jars -->
-        <delete dir="${work.dir}/updatesite/" />
         <mkdir dir="${work.dir}/updatesite/" />
         <copy todir="${work.dir}/updatesite">
             <fileset dir="${updatesite.dir}">
@@ -228,7 +227,6 @@
 
     <target name="prepare-pack-ivyde-jars">
         <!-- prepare the working area, so copy plugin jars -->
-        <delete dir="${work.dir}/updatesite/" />
         <mkdir dir="${work.dir}/updatesite/" />
         <copy todir="${work.dir}/updatesite">
             <fileset dir="${updatesite.dir}">
