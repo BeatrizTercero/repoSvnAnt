@@ -127,14 +127,6 @@ Don't forget to commit the changes you've done into the release branch.<br class
 Make sure you have a proper working copy with a <tt>svn status</tt>. You should have no modification.<br class="xooki-br"/><br class="xooki-br"/>Then launch the build:
 <pre>ant /release clean dist -DbaseLocation=/home/me/...../eclipse/</pre>
 
-Package the sources:
-<pre>
-cd work<br class="xooki-br"/>mkdir sources<br class="xooki-br"/>cd sources<br class="xooki-br"/>svn export <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a><br class="xooki-br"/>cd $VERSION<br class="xooki-br"/>zip -r ../../../dist/apache-ivyde-sources-$VERSION.zip *<br class="xooki-br"/>tar cvzf ../../../dist/apache-ivyde-sources-$VERSION.tgz *
-</pre>
-
-Generate the checksums:
-<pre>ant checksum</pre>
-
 And sign the artifacts:
 <pre>./signArtifacts.sh</pre>
 
