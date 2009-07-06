@@ -109,7 +109,7 @@
         <!-- delete previously installed ivy bundles -->
         <delete dir="${updatesite.dir}">
             <include name="plugins/org.apache.ivy_*" />
-            <include name="features/org.apache.ivy_*" />
+            <include name="features/org.apache.ivy.feature*" />
         </delete>
         <!-- install the plugin -->
         <mkdir dir="${updatesite.dir}/plugins" />
