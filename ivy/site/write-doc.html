@@ -157,6 +157,19 @@ For instance:
 },
 </code>
 
+<h2><a name="toc-url"></a>External URL</h2>
+
+A entry in the toc can point to an arbitrary URL rather than on a page identified by its <tt>id</tt>.
+
+To make an entry point to an external URL, just add an <tt>url</tt> property:
+<code type="json">
+{
+   "id":"external-search"
+   "title":"Some www search engine",
+   "url":"http://www.google.com/"
+},
+</code>
+
 <h1><a name="issues"></a>Known issues</h1>
 
 There is a special xml tag used by Xooki to handle the inline edition of the content: textarea with id xooki-source. In the current page we had to include that special tag. So in the source of this page there would be two tags with the same id "xooki-source", which is forbidden. So we have to xml encode it in the source, with some &amp;amp;amp;lt; and &amp;amp;amp;gt;.
