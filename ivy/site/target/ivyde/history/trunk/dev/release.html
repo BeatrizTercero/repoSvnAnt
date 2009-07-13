@@ -192,7 +192,14 @@ Then we need to edit svn/site/ivyde/toc.json:
 
 Then svn update your working copy (to retrieve the new history branch).<br class="xooki-br"/><br class="xooki-br"/><h2>Update the download page</h2>
 
-In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy</h2>
+In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Update the build script</h2>
+
+In the build script which generate the website (svn/site/build.xml), add the fix for the history import of the new release.<br class="xooki-br"/>In the target <tt>init-imported-history-ivyde</tt>, add a line with:
+<pre>
+&lt;init-imported-version basepath="ivyde" version="$VERSION" /&gt;
+</pre>
+
+<h2>Deploy</h2>
 
 Commit your changes, and proceed to the full deployment of the website (regenerate every page as the toc changed: <tt>ant /all generate-site-ivyde</tt>).<br class="xooki-br"/><br class="xooki-br"/><h1>Post release tasks</h1>
 
