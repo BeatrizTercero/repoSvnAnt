@@ -14,6 +14,13 @@
           ]
       },
       {
+        "id":"screenshots",
+        "title":"Screenshots",
+        "children": [
+
+          ]
+      },
+      {
         "id":"download",
         "title":"Download",
         "children": [
@@ -45,13 +52,11 @@
                         {
                           "title":"2.0.0.final",
                           "importRoot":"history/2.0.0.final",
-                          "importNode":"index"
-                        },
+                          "importNode":"index"                        },
                         {
                           "title":"2.0.0.beta1",
                           "importRoot":"history/2.0.0.beta1",
-                          "importNode":"index"
-                        },
+                          "importNode":"index"                        },
                         {
                           "title":"2.0.0.alpha1",
                           "importRoot":"history/2.0.0.alpha1",
