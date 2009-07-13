@@ -79,13 +79,17 @@ Other mirrors: <select name="Preferred">
 
 This distribution contains every binaries ready to be installed in your Eclipse installation.
 
-Download the IvyDE plugins: <a href="[preferred]/ant/ivyde/2.0.0.beta1/org.apache.ivyde.feature-2.0.0.beta1.zip">org.apache.ivyde.feature-2.0.0.beta1.zip</a>
+Download the IvyDE plugins:
+<ul>
+  <li>as a zip: <a href="[preferred]/ant/ivyde/2.0.0.final/apache-ivyde-2.0.0.final-200907011148-RELEASE.zip">apache-ivyde-2.0.0.final-200907011148-RELEASE.zip</a></li>
+  <li>or as a compressed tar: <a href="[preferred]/ant/ivyde/2.0.0.final/apache-ivyde-2.0.0.final-200907011148-RELEASE.tgz">apache-ivyde-2.0.0.final-200907011148-RELEASE.tgz</a></li>
+</ul>
 
-You can then install it with:
-<code>
-cd $ECLIPSE_HOME
-unzip org.apache.ivyde.feature-2.0.0.beta1.zip
-</code>
+Uncompress the archive. In there you will find two folders containing the artifacts to deploy in your Eclipse:
+<ul>
+  <li>the IvyDE feature <tt>features/org.apache.ivyde.feature_2.0.0.final-200907011148-RELEASE.jar</tt> to put in your <tt>$ECLIPSE_HOME/features</tt></li>
+  <li>the IvyDE plugin <tt>plugins/org.apache.ivyde.eclipse_2.0.0.final-200907011148-RELEASE.jar</tt> to put in your <tt>$ECLIPSE_HOME/plugins</tt></li>
+</ul>
 
 <h2>Install the latest Ivy bundle</h2>
 
@@ -100,9 +104,15 @@ Then it is recommended to (re)start your Eclipse with the -clean option.
 
 <h2><a name="sources"></a>Full sources</h2>
 
-The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.beta1 release.
+The source distribution contains the source files of the plugins, the features and the build system, so you will be able to reproduce the build that create the 2.0.0.final release.
 
-Download <a href="[preferred]/ant/ivyde/2.0.0.beta1/apache-ivyde-sources-2.0.0.beta1.zip">apache-ivyde-sources-2.0.0.beta1.zip</a>
+Download:
+<ul>
+  <li>as a zip: <a href="[preferred]/ant/ivyde/2.0.0.final/apache-ivyde-sources-2.0.0.final-200907011148-RELEASE.tgz">apache-ivyde-sources-2.0.0.final-200907011148-RELEASE.zip</a></li>
+  <li>or as a compressed tar: <a href="[preferred]/ant/ivyde/2.0.0.final/apache-ivyde-sources-2.0.0.final-200907011148-RELEASE.tgz">apache-ivyde-sources-2.0.0.final-200907011148-RELEASE.tgz</a></li>
+</ul>
+
+Then look into the distribution for the documentation about how to build it.
 
 <h1><a name="svn"></a>Sources from the version control system</h1>
 
@@ -118,7 +128,7 @@ The trunk version of IvyDE is build by a continuous integration server (<a href=
 It is automatically publishing the last build into an updatesite. So you can configure your Eclipse to use it:
 http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
 
-<b>Important note</b>: these are only test snapshots that is not be considered ready for users or even something like an official release. They are dedicated to people willing to understand and contribute to Ivy and IvyDE code. And then any issue you can have with that kind of snaphot should be reported to the ant-dev@ mailing-list and not the ivy-user@ one.
+<b>Important note</b>: these are only test snapshots that is not be considered ready for users or even something like an official release. They are dedicated to people willing to understand and contribute to Ivy and IvyDE code. And then any issue you can have with that kind of snaphot should be reported to the <a href="mailing-lists.html">ant-dev@ mailing-list</a> and not the ivy-user@ one.
 
 <h1><a name="verify"></a>Verify Releases</h1>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.
@@ -127,17 +137,17 @@ The PGP signatures can be verified using PGP or GPG.  First download the <a href
 
 <code>
 % pgpk -a KEYS
-% pgpv org.apache.ivyde.feature-2.0.0.beta1.zip.asc
+% pgpv apache-ivyde-2.0.0.final-200907011148-RELEASE.zip.asc
 </code>
 <em>or</em>
 <code>
 % pgp -ka KEYS
-% pgp org.apache.ivyde.feature-2.0.0.beta1.zip.asc
+% pgp apache-ivyde-2.0.0.final-200907011148-RELEASE.zip.asc
 </code>
 <em>or</em>
 <code>
 % gpg --import KEYS
-% gpg --verify org.apache.ivyde.feature-2.0.0.beta1.zip.asc
+% gpg --verify apache-ivyde-2.0.0.final-200907011148-RELEASE.zip.asc
 </code>
 
 Alternatively, you can verify the checksums on the files.  Unix programs called md5/sha1 or md5sum/sha1sum are included in many unix distributions.  *sum is also available as part of <a href="http://www.gnu.org/software/textutils/textutils.html">GNU Textutils</a>.  Windows users can get binary md5 programs from <a href="http://www.fourmilab.ch/md5/">here</a>, <a href="http://www.pc-tools.net/win32/freeware/console/">here</a>.  <a href="http://www.slavasoft.com/fsum/">fsum</a> supports MD5 and SHA1.
