@@ -152,7 +152,7 @@
         <!-- get the path to the ivyde folder -->
         <path id="ivyde.distrib.path.id">
             <first count="1">
-                <fileset dir="${work.dir}/distrib" includes="*" />
+                <dirset dir="${work.dir}/distrib" includes="*" />
             </first>
         </path>
         <!-- turn the path into a property -->
