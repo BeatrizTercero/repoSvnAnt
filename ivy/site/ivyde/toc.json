@@ -37,8 +37,8 @@
         "children": [
             {
               "title":"trunk",
-              "importRoot":"history/trunk",
-              "importNode":"index"            },
+              "url":"http://ant.apache.org/ivy/ivyde/history/trunk/index.html"
+            },
             {
               "id":"2.x",
               "title":"2.x",
@@ -51,24 +51,24 @@
                     "children": [
                         {
                           "title":"2.0.0.final",
-                          "importRoot":"history/2.0.0.final",
-                          "importNode":"index"                        },
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html"
+                        },
                         {
                           "title":"2.0.0.beta1",
-                          "importRoot":"history/2.0.0.beta1",
-                          "importNode":"index"                        },
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.beta1/index.html"
+                        },
                         {
                           "title":"2.0.0.alpha1",
-                          "importRoot":"history/2.0.0.alpha1",
-                          "importNode":"index"                        }
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.alpha1/index.html"
+                        }
                       ]
                   }
                 ]
             },
             {
               "title":"1.2.0",
-              "importRoot":"history/1.2.0",
-              "importNode":"index"            }
+              "url":"http://ant.apache.org/ivy/ivyde/history/1.2.0/index.html"
+            }
           ]
       },
       {
