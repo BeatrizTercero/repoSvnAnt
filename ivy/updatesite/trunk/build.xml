@@ -149,9 +149,17 @@
         <!-- unzip -->
         <mkdir dir="${work.dir}/distrib" />
         <unzip src="${ivyde.zip}" dest="${work.dir}/distrib" />
+        <!-- get the path to the ivyde folder -->
+        <path id="ivyde.distrib.path.id">
+            <first count="1">
+                <fileset dir="${work.dir}/distrib" includes="*" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivyde.distrib.path" refid="ivyde.distrib.path.id" />
         <!-- install the new binaries -->
         <copy todir="${updatesite.dir}">
-            <fileset dir="${work.dir}/distrib">
+            <fileset dir="${ivyde.distrib.path}">
                 <include name="plugins/**" />
                 <include name="features/**" />
             </fileset>
