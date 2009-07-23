@@ -76,6 +76,7 @@
                 <exclude name="ivyde/**"/>
             </fileset>
         </xooki:generate>
+    	<generate-printdoc version="latest-milestone" />
     </target>
 
     <target name="generate-history-ivy" description="Generate the part of the Ivy website of a specific history version">
