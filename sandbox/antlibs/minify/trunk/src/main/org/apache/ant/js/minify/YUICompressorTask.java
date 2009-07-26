@@ -15,7 +15,7 @@
  *  limitations under the License.
  *
  */
-package org.apache.ant.js.compressor;
+package org.apache.ant.js.minify;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -18,16 +18,16 @@
 <antlib>
   <taskdef
     name="yui.compressor"
-    classname="org.apache.ant.js.compressor.YUICompressorTask"
+    classname="org.apache.ant.js.minify.YUICompressorTask"
     />
     
   <taskdef
     name="yui.js"
-    classname="org.apache.ant.js.compressor.YUIJsCompressor"
+    classname="org.apache.ant.js.minify.YUIJsCompressor"
     />
     
   <taskdef
     name="yui.css"
-    classname="org.apache.ant.js.compressor.YUICssCompressor"
+    classname="org.apache.ant.js.minify.YUICssCompressor"
     />
 </antlib>

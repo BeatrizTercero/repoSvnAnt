@@ -5,10 +5,10 @@ Currently the Yahoo UI Compressor is supported and is required on Ant's classpat
 Example Usage
 -------------
 # Referencing: 
-<project name="x" basedir="." default="y" xmlns:compress="antlib:org.apache.ant.js.compressor">
+<project name="x" basedir="." default="y" xmlns:minify="antlib:org.apache.ant.js.minify">
 
 # Compressing many javascript files
-<compress:yui.compressor 
+<minify:yui.compressor 
   		verbose="true" 
   		outputPath="${outputPath}"
   		linebreak="80"
@@ -16,4 +16,4 @@ Example Usage
   <fileset dir="${testscript.dir}">
     <include name="*.js"/>
   </fileset>
-</compress:yui.compressor>
+</minify:yui.compressor>

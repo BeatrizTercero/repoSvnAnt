@@ -15,7 +15,7 @@
  *  limitations under the License.
  *
  */
-package org.apache.ant.js.compressor;
+package org.apache.ant.js.minify;
 
 /**
  * Task for compressing CSS files using the Yahoo! UI compressor

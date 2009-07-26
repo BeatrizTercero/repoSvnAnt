@@ -36,7 +36,7 @@ Also take a copy of this antlib and place in the same location.</p>
 <p>Utilise the antlib by referencing it:
 <pre>
 &lt;project name="compress-test" basedir="." 
-         default="all" xmlns:compress="antlib:org.apache.ant.js.compressor"&gt;
+         default="all" xmlns:minify="antlib:org.apache.ant.js.minify"&gt;
 </pre>
 </p>
 
@@ -76,7 +76,7 @@ sets of files to copy.</p>
 
 <h3>Examples</h3>
 <pre>  
-&lt;compress:yui.compressor 
+&lt;minify:yui.compressor 
   verbose="true" 
   outputPath="${outputPath}"
   linebreak="80"
@@ -85,7 +85,7 @@ sets of files to copy.</p>
   &lt;fileset dir="${testscript.dir}"&gt;
     &lt;include name="*.js"/&gt;
   &lt;/fileset&gt;
-&lt;/compress:yui.compressor&gt;
+&lt;/minify:yui.compressor&gt;
 </pre>
 <p>Minifies all javascript files found in the fileset.  In the output file lines are broken after 80 chars.</p>
 </body>
