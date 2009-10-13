@@ -52,6 +52,7 @@
 <li><a href="settingseditor.html">an Ivy settings files editor</a>: completion for xml tag, attributes but also attributes' values.</li>
 <li><a href="cp_container.html">a classpath container</a>: automatic downloads, access "resolve" task from your IDE, and <a href="cpc/workspace.html">resolve in Eclipse's workspace</a></li>
 <li><a href="cp_container.html">an Ivy console</a>: presents every log from Ivy, really helpful to debug a failing resolve</li>
+<li><a href="revdepexplorer.html">an Reverse Dependency Explorer</a>: help you work with conflicting dependencies amongs several projects</li>
 </ul>
 
 And IvyDE can be also used with other plugins like <a href="cpc/wtp.html">WTP</a> or <a href="ant.html">Ant</a>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Compatibility</div><br class="xooki-br"/><h2>Upgrading/Downgrading</h2>
@@ -198,7 +199,18 @@ Using the m2compatible attribute, you can benefit from Maven2 repository compati
 </center>   
 <hr/><div class='toc-title toc-title-3'>WTP integration</div><br class="xooki-br"/>WTP is the <a href="http://www.eclipse.org/webtools/">Web Tools Platform</a> project from the Eclipse fondation which allow to easily develop, launch and debug web applications. IvyDE can be used with this framework, but only from the version 2.0 of WTP, which is supported since Eclipse 3.3.<br class="xooki-br"/><br class="xooki-br"/>In the properties of your project configured to use WTP, there is a section "Java EE Module Dependencies". There should be your configured IvyDE classpath container listed, usually with the name "ivy.xml [*]". Just select it and the Ivy dependencies will be deployed as well.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wtp.jpg"/></center>
 
-This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Ivy file editor</div><br class="xooki-br"/>Edit your ivy files easily in eclipse with the <a href="index.html">IvyDE</a> Plugin editor.<br class="xooki-br"/><a href="index.html">IvyDE</a> brings creation wizard, html preview and completion for Ivy xml tag, attributes but also for attributes' values!<br class="xooki-br"/>Choose an organisation and browse thru its projects and revisions.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="wizard"></a>Wizard</h1>
+This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.<br class="xooki-br"/><br class="xooki-br"/><h1>IBM Rational Application Developer (RAD) 7.5.3+</h1>
+
+Users of RAD 7.5.3 will notice that the classpath container is not listed in the table.  RAD prevents the deployment of classpath containers by default.  To allow this behavior, selection Windows -> Preferences -> Java EE.  Check "Allow loose classpath module dependencies".  RAD will present you with a warning message.  To enable the behavior, you need to check the option again in the popup and click Yes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/rad_jee_page.jpg"/></center>
+
+<b>Note:</b> due to a bug in RAD 7.5.3, this IBM specific property is not persisted when we close the workbench and reopen it. To work around this:
+<ul>
+<li>export RSA preferences ( File -> Export: General -> Preferences)</li>
+<li>open exported .epf file and replace<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=false<br class="xooki-br"/>with<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=true</li>
+<li>load modified epf</li>
+</ul>
+
+<hr/><div class='toc-title toc-title-2'>Ivy file editor</div><br class="xooki-br"/>Edit your ivy files easily in eclipse with the <a href="index.html">IvyDE</a> Plugin editor.<br class="xooki-br"/><a href="index.html">IvyDE</a> brings creation wizard, html preview and completion for Ivy xml tag, attributes but also for attributes' values!<br class="xooki-br"/>Choose an organisation and browse thru its projects and revisions.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="wizard"></a>Wizard</h1>
 
 IvyDE comes with a wizard that allows you to create an ivy.xml file for your project.<br class="xooki-br"/>To open the wizard choose File->New->Other in the Eclipse menu (Ctrl+N by default)<br class="xooki-br"/>The Ivy wizard is accessible in the category Other. Select it then click Next<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wizard1.jpg"/></center>
 
@@ -331,6 +343,17 @@ Create an Ant build file and just declare the Ivy targets with:
 And don't forgot to declare the namespace <tt>xmlns:ivy="antlib:org.apache.ivy.ant"</tt>.<br class="xooki-br"/><br class="xooki-br"/>Then you will be able to have completion on Ivy tasks:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antedit.jpg" /></center>
 
 And run successul build:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antrun.jpg" /></center>
+
+<hr/><div class='toc-title toc-title-2'>Reverse Dependency Explorer</div><br class="xooki-br"/><h1>Introduction</h1>
+
+When working with multiple projects in a workspace that represent the whole or part of a larger application, you may want to simultaneously change the revisions of dependencies in several ivy files to a single new revision all at the same time (notwithstanding the eviction mechanism inherent to Ivy). <br class="xooki-br"/><br class="xooki-br"/>At other times it is instructive just to see what dependencies are being utilized by projects in the workspace by revision without having to dig into each project and look at each individual module descriptor.<br class="xooki-br"/><br class="xooki-br"/>The Reverse Dependency Explorer turns the dependency tree upside-down, exploring the workspace by organization, module, and revision and providing a mechanism to synchronize revisions across projects/classpath containers.<br class="xooki-br"/><br class="xooki-br"/>Consider the following workspace, with three projects, all of which have an ivy.xml file at their project root.  Each of these ivy files has an associated IvyDE managed classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_project.jpg"></center><br/>
+
+Right clicking on any (or all) of the projects and selecting Ivy -> Reverse Dependency Explorer opens the view.  The explorer displays a tree structure with an item for each organization/module pair.  The third column lists all of the revisions of this pair for the selected projects.  Expanding a tree item, you can see the module revision that a given ivy classpath container depends on (if at all).  Note that the view only shows direct dependencies and no transitive dependencies.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_view.jpg"></center><br/>
+
+Organization/module pairs that have conflicting revisions are highlighted in red (junit in the above example).  Note that in the above example, though the revisions do not match, these two revision attributes may actually resolve to the same artifact, depending on the what is available in the repository.  The view does not attempt to perform a resolve and match the resolved artifacts.  It simply compares the text of the attributes.<br class="xooki-br"/><br class="xooki-br"/><h1>Synchronizing revisions</h1>
+
+To synchronize revisions, click in column and row of the item you want to change and type in the new revision.  The item should be highlighted green to indicate that it is tagged for synchronization.  Click the synchronize button as shown to make your changes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_sync.jpg"></center><br/>
+
 
 <hr/><div class='toc-title toc-title-2'>Developer doc</div><br class="xooki-br"/>Adding features or fixing bugs needs a little more involvement.<br class="xooki-br"/>You will find here the basics to get into it:
 <ul>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<script type="text/javascript">var xookiConfig = {level: 0};</script>	
+	
+
+<title>Reverse Dependency Explorer | IvyDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <script src="js/jquery.pack.js" type="text/javascript"></script>
+  <script src="js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant"><img src="images/ant-group-logo.gif" alt="Apache Ant"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="images/logo.png" alt="IvyDE" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://ant.apache.org/">Apache Ant</a> &gt; <a href="http://ant.apache.org/ivy/">Ivy</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">IvyDE</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/history.html">History</a> &gt; <span class="breadCrumb"><a href="index.html" >Documentation (trunk)</a> &gt; <a href="revdepexplorer.html" class="current">Reverse Dependency Explorer</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>IvyDE</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-compatibility"><a href="compatibility.html" >Compatibility</a></li><li id="xooki-install"><a href="install.html" >Installation</a></li><li id="xooki-cp_container" class="submenu"><a href="cp_container.html" >Classpath Container</a><ul class="closed"><li id="xooki-cpc/create"><a href="cpc/create.html" >Create a container</a></li><li id="xooki-cpc/edit"><a href="cpc/edit.html" >Edit the classpath</a></li><li id="xooki-cpc/resolve"><a href="cpc/resolve.html" >Launching resolve</a></li><li id="xooki-cpc/retrieve"><a href="cpc/retrieve.html" >Retrieve the dependencies</a></li><li id="xooki-cpc/cleancache"><a href="cpc/cleancache.html" >Clean the caches</a></li><li id="xooki-cpc/reload_settings"><a href="cpc/reload_settings.html" >Reload settings</a></li><li id="xooki-cpc/workspace"><a href="cpc/workspace.html" >Resolve in workspace</a></li><li id="xooki-cpc/maven"><a href="cpc/maven.html" >Use with maven poms</a></li><li id="xooki-cpc/wtp"><a href="cpc/wtp.html" >WTP integration</a></li></ul></li><li id="xooki-ivyeditor"><a href="ivyeditor.html" >Ivy file editor</a></li><li id="xooki-settingseditor"><a href="settingseditor.html" >Ivy settings editor</a></li><li id="xooki-preferences"><a href="preferences.html" >Eclipse global preferences</a></li><li id="xooki-console"><a href="console.html" >Ivy Console</a></li><li id="xooki-ant"><a href="ant.html" >Eclipse's Ant interation</a></li><li id="xooki-revdepexplorer"><a href="revdepexplorer.html" class="current">Reverse Dependency Explorer</a></li><li id="xooki-dev" class="submenu"><a href="dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="dev/build.html" >Building</a></li><li id="xooki-dev/release"><a href="dev/release.html" >Releasing</a></li></ul></li></ul></li></ul></div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">Reverse Dependency Explorer</h1>
+            <br class="xooki-br"/><h1>Introduction</h1>
+
+When working with multiple projects in a workspace that represent the whole or part of a larger application, you may want to simultaneously change the revisions of dependencies in several ivy files to a single new revision all at the same time (notwithstanding the eviction mechanism inherent to Ivy). <br class="xooki-br"/><br class="xooki-br"/>At other times it is instructive just to see what dependencies are being utilized by projects in the workspace by revision without having to dig into each project and look at each individual module descriptor.<br class="xooki-br"/><br class="xooki-br"/>The Reverse Dependency Explorer turns the dependency tree upside-down, exploring the workspace by organization, module, and revision and providing a mechanism to synchronize revisions across projects/classpath containers.<br class="xooki-br"/><br class="xooki-br"/>Consider the following workspace, with three projects, all of which have an ivy.xml file at their project root.  Each of these ivy files has an associated IvyDE managed classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_project.jpg"></center><br/>
+
+Right clicking on any (or all) of the projects and selecting Ivy -> Reverse Dependency Explorer opens the view.  The explorer displays a tree structure with an item for each organization/module pair.  The third column lists all of the revisions of this pair for the selected projects.  Expanding a tree item, you can see the module revision that a given ivy classpath container depends on (if at all).  Note that the view only shows direct dependencies and no transitive dependencies.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_view.jpg"></center><br/>
+
+Organization/module pairs that have conflicting revisions are highlighted in red (junit in the above example).  Note that in the above example, though the revisions do not match, these two revision attributes may actually resolve to the same artifact, depending on the what is available in the repository.  The view does not attempt to perform a resolve and match the resolved artifacts.  It simply compares the text of the attributes.<br class="xooki-br"/><br class="xooki-br"/><h1>Synchronizing revisions</h1>
+
+To synchronize revisions, click in column and row of the item you want to change and type in the new revision.  The item should be highlighted green to indicate that it is tagged for synchronization.  Click the synchronize button as shown to make your changes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_sync.jpg"></center><br/>
+
+
+
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="index.html">Home</a> ::
+			<a href="download.html">Download</a> ::
+			<a href="documentation.html">Documentation</a> ::
+			<a href="get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message"></div>
+
+
+</div><!-- body -->
+</body>
+</html>
