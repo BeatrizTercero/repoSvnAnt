@@ -32,8 +32,8 @@
    </license>
 
    <url>
-      <update label="%updateSiteName" url="http://ant.apache.org/ivy/ivyde/updatesite"/>
-      <discovery label="%updateSiteName" url="http://ant.apache.org/ivy/ivyde/updatesite"/>
+      <update label="%updateSiteName" url="http://www.apache.org/dist/ant/ivyde/updatesite"/>
+      <discovery label="%updateSiteName" url="http://www.apache.org/dist/ant/ivyde/updatesite"/>
    </url>
 
    <plugin
