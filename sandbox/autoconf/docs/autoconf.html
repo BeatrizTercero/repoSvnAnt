@@ -1,0 +1,69 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>Autoconf Task</title>
+</head>
+
+<body>
+
+<h2><a name="taskname">Autoconf</a></h2>
+<h3>Description</h3>
+
+<p>Starts or stops autoconfiguration for tasks and datatypes.
+Autoconfiguration applies properties to tasks and datatypes if
+their names fit to the tasks/datatype and attribute names and the
+attribute is not set.</p>
+
+<p>The property name must match the following rule:<br>
+<tt>propertyname ::= prefix? taskname "." attributename</tt></p>
+
+<p>Only one Autoconf is active at the same time.</p>
+
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">start</td>
+    <td valign="top">'start' or 'stop' autoconfiguration</td>
+    <td align="center" valign="top">no, defaults to 'start'</td>
+  </tr>
+  <tr>
+    <td valign="top">prefix</td>
+    <td valign="top">Prefix to use for property names</td>
+    <td align="center" valign="top">no, empty as default</td>
+  </tr>
+</table>
+
+
+<h3>Examples</h3>
+<pre>
+&lt;property name=&quot;echo.message&quot; value=&quot;Default Message&quot;/&gt;
+&lt;autoconf/&gt;
+&lt;echo/&gt;
+</pre>
+Echoes <tt>Default Message</tt>, because the name rule ("" + "echo" + "." + "message")
+catches one existing property.
+
+<pre>
+&lt;property name=&quot;echo.notAnAttribute&quot; value=&quot;Default Message&quot;/&gt;
+&lt;autoconf/&gt;
+&lt;echo/&gt;
+</pre>
+Echoes an empty line as the default behaviour of &lt;echo/&gt;. The message
+is not applied because the property name does not match the rule.
+
+<pre>
+&lt;property name=&quot;echo.message&quot; value=&quot;Default Message&quot;/&gt;
+&lt;autoconf/&gt;
+&lt;echo message=&quot;Individual Message&quot;/&gt;
+</pre>
+Autoconf does not do anything because the attribute of the echo task is already set.
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<project>
+    <taskdef name="autoconf" classname="org.apache.tools.ant.taskdefs.AutoconfTask" classpath="build/classes"/>
+    <property name="echo.message" value="Default Message"/>
+    <autoconf/>
+    <echo/>
+    <echo message="Individual Message"/>
+</project>

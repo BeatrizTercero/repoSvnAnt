@@ -1,0 +1,7 @@
+<project>
+    <property file="build.properties"/>
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+
+    <ant antfile="test.xml"/>
+</project>
