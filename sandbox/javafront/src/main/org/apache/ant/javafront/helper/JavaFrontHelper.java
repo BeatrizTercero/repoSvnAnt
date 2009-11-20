@@ -36,6 +36,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.taskdefs.Javac;
 import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.util.FileUtils;
 
 /**
@@ -51,6 +52,14 @@ public class JavaFrontHelper extends ProjectHelper {
         Pattern.compile(".*?package\\s+(\\S+)\\s*;.*", Pattern.DOTALL);
     private static final Pattern CLASS_NAME =
         Pattern.compile(".*?class\\s+(\\S+)\\s.*", Pattern.DOTALL);
+
+    public boolean canParseBuildFile(Resource buildFile) {
+        return buildFile.getName().endsWith(".java");
+    }
+
+    public String getDefaultBuildFile() {
+        return "Build.java";
+    }
 
     @Override
     public void parse(Project project, Object source) throws BuildException {
