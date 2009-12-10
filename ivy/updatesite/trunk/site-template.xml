@@ -17,7 +17,7 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<site pack200="true"
+<site pack200="@SITE_PACK200@"
       mirrorsURL="@MIRRORS_URL@"
       digestURL="./">
    <description url="@UPDATESITE_URL@">
