@@ -405,10 +405,6 @@ baseLocation=${basedir}/${hudson.eclipse.name}
         <property name="ivyde.zip" refid="ivyde.zip.id" />
     </target>
 
-    <target name="suppress-pack200">
-        <property name="site.pack200" value="false" />
-    </target>
-
-    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,suppress-pack200,install-ivy-and-ivyde,optimize,checksum" />
+    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize,checksum" />
 
 </project>
