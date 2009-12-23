@@ -1,0 +1,565 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+    -->
+<html>
+<body>
+
+<h1>Introduction</h1>
+
+<p>
+The groovy frontend is about bringing Groovy into Ant, so you can write your
+build file in Groovy rather than in XML. The language change so the build files are
+less overloaded of useless characters. The build file structure is kept very
+similar to the XML one. So the learning of that new language is pretty straight
+forward, the translation of an XML build file into a groovy one is quite simple.
+</p>
+
+<p>
+Actually, behind the hood you will write XML, but the 
+<a href="http://groovy.codehaus.org/Creating+XML+using+Groovy%27s+MarkupBuilder">Groovy way</a>.
+And we will get all the benefit of a scripting language as Groovy. Just to mention
+at least one feature: no more need of the ant contrib for the use of the if-then-else
+structure, you will just use the Groovy one just like you would do in Java.
+</p>
+
+<h1>Hello world</h1>
+
+<p>
+Let's see throw a very simple example how easy is to write a Groovy build script.
+So here is a simple hello world build file:
+<pre>
+project.name = 'hello-world-project'
+project.basedir = '.'
+project.defaultTarget = 'sayhello'
+
+target(name: 'sayhello', description: 'Say hello to the world') {
+  echo(message: 'Hello world !')
+}
+</pre>
+Here is what it would have been written in XML:
+<pre>
+&lt;project name="myproject" basedir="." default="sayhello"&gt;
+
+  &lt;target name="sayhello" description="Say hello to the world"&gt;
+    &lt;echo message="Hello world !" /&gt;
+  &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+</p>
+
+<p>
+As you can see a Groovy build script do not start with some root node. It is actually
+just a simple Groovy script which has some predefined function
+and variables and with which is associated an Ant project instance.
+</p>
+<p>
+So as attached variable there is the Ant project, on which we set its name,
+base directory and default target. And there is a special function (that doesn't
+appear to be so but it is) "target" which will actually define a target. The
+definition of the target take into parameter a name, it also accept a depends,
+just like in XML.
+</p>
+
+<p>
+In the target we are entering into the XML mode, where you write XML with the
+<a href="http://groovy.codehaus.org/Creating+XML+using+Groovy%27s+MarkupBuilder">
+Groovy MarkupBuilder</a>. In this mode a function call is interpreted as a XML
+tag, the parameters of the function call the attributes of the XML tag, and the
+closure (the brackets) the content (data and sub tags) of the XML tag.
+</p>
+
+<p>
+And to run that script, nothing different from the classical XML build file
+invokation. Just name your Groovy build file <tt>build.groovy</tt> file and launch
+ant in the folder you put your file in:
+<pre>
+$ ls
+build.groovy
+$ ant -p
+Buildfile: build.groovy
+
+Main targets:
+
+Other targets:
+
+ sayhello  Say hello to the world
+Default target: sayhello
+$ ant
+Buildfile: build.groovy
+
+sayhello:
+     [echo] Hello world !
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+</pre> 
+</p>
+
+<h1>Strings in Groovy</h1>
+
+<p>
+In Groovy there are two kinds of strings. Some are simple quoted which are just
+basic Strings. Some are double quoted where Groovy is parsing and replacing
+property values (usually called GString).
+</p>
+
+<p>
+The ones with are double quoted are interpreted so that we can put variable in
+place of tokens, like in XML build script. But the difference with XML is that
+while the XML script find the variables in the Ant properties and the Ant
+references, Groovy is searching in its own variable space. The Groovy frontend
+of Ant is making the Ant properties and the Ant references available to Groovy.
+So setting and getting variables in Groovy is settings and getting Ant property
+and Ant references. The Groovy strings can be used as in the XML scripts. See:
+<pre>
+  property(name: 'myprop', value: 'myvalue')
+  echo(message: "the value of myprop is: ${myprop}")
+</pre>
+But as the string is interpreted by Groovy, properties with dots cannot be
+accessed. For instance this following piece of script will fail.
+<pre>
+  property(name: 'myprop.value', value: 'myvalue')
+  echo(message: "the value of myprop is: ${myprop.value}") // myprop doesn't exist for Groovy
+</pre>
+In that case you should prefer using the Ant tokenizer by using simple string,
+simple quoted:
+<pre>
+  property(name: 'myprop.value', value: 'myvalue')
+  echo(message: 'the value of myprop is: ${myprop.value}')
+</pre>
+</p>
+
+<p>
+Escaping <code>$</code> is different in GString and in simple strings. In Ant (the
+simple string), you will use <code>$$</code>. Whereas in Groovy you should use
+<code>\$\$</code> (it is doubled because it will be also interpreted by Ant).
+</p>
+
+<p>
+So it is <b>recommended to only use simple string</b>. And if you do want
+to refer to local variables, then use GString or just use simple string
+concatenation:
+<pre>
+  def localVar = 'foo'
+  echo(message: "using GSTring to get localVar: ${localVar}")
+  echo(message: 'using simple string concatenation to get localVar: ' + localVar)
+</pre>
+</p>
+
+<h1>Groovy variables</h1>
+
+<p>
+As in every Groovy script, we can define local variables, variables local to the
+environment they are being used. For instance we can do:
+<pre>
+  def myvar = 'foo'
+  echo(message: "the value of myvar is: ${myvar}")
+</pre>
+</p>
+
+<p>
+There are also variables which are properties of the enclosing class. In the Groovy
+frontend they are managed in a custom way. It tries to map these properties to
+the Ant environment of properties and references. So when setting a Groovy you
+will actually set an Ant property (which are immutable):
+<pre>
+  myprop = 'foo'
+  myprop = 'bar'
+  echo(message: 'the value of myprop will be foo: ${myprop}') 
+</pre>
+</p>
+
+<p>
+When trying to read a variable, the Groovy frontend search for
+<ul>
+<li>a corresponding Ant property. If none found it then search for</li>
+<li>a corresponding Ant reference. If none found it then search for</li>
+<li>a real Groovy property, like the predefined ones 'project'</li>
+</ul>
+</p>
+
+<p>
+When trying to set a value on a variable, the Groovy frontend will check that:
+<ul>
+<li>it doesn't try to modify the 'project' property</li>
+</ul>
+</p>
+
+<h1>Invoke a task</h1>
+
+<p>
+Invoking a task is pretty straight forward as soon as you know how to write it
+in XML. Let's see some examples.
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+        <th></th>
+        <th>In XML</th>
+        <th>in Groovy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A simple task with a simple attribute</td>
+      <td><pre>
+  &lt;touch file="temp.txt" /&gt;
+</pre></td>
+      <td><pre>
+  touch(file: 'temp.txt')
+</pre></td>
+    </tr>
+    <tr>
+      <td>A task with some text as value</td>
+      <td><pre>
+  &lt;echo&gt;
+    echoing some text
+  &lt;/echo&gt;
+</pre></td>
+      <td><pre>
+  echo('echoing some text')
+</pre></td>
+    </tr>
+    <tr>
+      <td>A task with an attribute and some text as value</td>
+      <td><pre>
+  &lt;echo file="log.txt"&gt;
+    echoing some text
+  &lt;/echo&gt;
+</pre></td>
+      <td><pre>
+  echo(file: 'log.txt', 'echoing some text')
+</pre></td>
+    </tr>
+    <tr>
+      <td>A task with sub element</td>
+      <td><pre>
+  &lt;copy todir="${basedir}/target"&gt;
+    &lt;fileset dir="${basedir}/src"&gt;
+      &lt;exclude name="**/*.java" /&gt;
+    &lt;/filset&gt;
+  &lt;/copy&gt;
+</pre></td>
+      <td><pre>
+  copy(todir: '${basedir}/target') {
+    fileset(dir: '${basedir}/src') {
+      exclude(name: '**/*.java')
+    }
+  }
+</pre></td>
+    </tr>
+    <tr>
+      <td>A task mixing text value and sub element</td>
+      <td><pre>
+  &lt;fail&gt;
+    oups, it failed !
+    &lt;condition&gt;
+      &lt;not&gt;
+        &lt;isset property="thisdoesnotexist"/&gt;
+      &lt;/not&gt;
+    &lt;/condition&gt;
+  &lt;/fail&gt;
+</pre></td>
+      <td><pre>
+  fail('oups, it failed !') {
+    condition() {
+      not() {
+        isset(property: 'thisdoesnotexist')
+      }
+    }
+  }
+</pre></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Task definition and namesapce</h1>
+
+<p>
+In Ant we can import new task and type definitions into a build script. These tasks
+and types can get into the default namespace, or in a custom one.
+</p>
+
+<p>
+When these types and tasks are defined in the default namespace, as in XML,
+nothing particular to do to call the imported tasks. For instance in XML we write:
+<pre>
+&lt;project&gt;
+
+  &lt;taskdef resource="org/apache/ivy/ant/antlib.xml" /&gt;
+
+  &lt;target name="buildlist"&gt;
+    &lt;buildlist reference="build-path" ivyfilepath="ivy/ivy.xml" reverse="true"&gt;
+      &lt;fileset dir="projects" includes="**/build.xml"/&gt;
+    &lt;/buildlist&gt;
+  &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+In Groovy it is as simple:
+<pre>
+taskdef(resource: 'org/apache/ivy/ant/antlib.xml')
+
+target(name: 'buildlist') {
+  buildlist(reference: 'build-path', ivyfilepath: 'ivy/ivy.xml', reverse: 'true') {
+    fileset(dir: 'projects', includes: '**/build.xml')
+  }
+}
+</pre>
+</p>
+
+<p>
+If the tasks or types are defined in a custom namespace, then in XML we need to
+define a XML namespace and the call of the imported tasks are in that XML namespace:
+<pre>
+&lt;project xmlns:ivy="org.apache.ivy.ant"&gt;
+
+  &lt;taskdef resource="org/apache/ivy/ant/antlib.xml" uri="org.apache.ivy.ant" /&gt;
+
+  &lt;target name="buildlist"&gt;
+    &lt;ivy:buildlist reference="build-path" ivyfilepath="ivy/ivy.xml" reverse="true"&gt;
+      &lt;fileset dir="projects" includes="**/build.xml"/&gt;
+    &lt;/ivy:buildlist&gt;
+  &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+In Groovy here is a pure Groovy way of playing with namespace:
+<pre>
+import groovy.xml.NamespaceBuilder
+
+taskdef(resource: 'org/apache/ivy/ant/antlib.xml', uri: 'org.apache.ivy.ant')
+def ns = NamespaceBuilder.newInstance([ 'ivy': 'org.apache.ivy.ant' ], project.references['groovyfront.builder'])
+
+target(name: 'buildlist') {
+  ns.'ivy:buildlist'(reference: 'build-path', ivyfilepath: 'ivy/ivy.xml', reverse: 'true') {
+    fileset(dir: 'projects', includes: '**/build.xml')
+  }
+}
+</pre>
+The Groovy frontend of Ant is providing easier way of playing with them:
+<pre>
+taskdef(resource: 'org/apache/ivy/ant/antlib.xml', uri: 'org.apache.ivy.ant')
+def ivy = groovyns(uri: 'org.apache.ivy.ant')
+
+target(name: 'buildlist') {
+  ivy.buildlist(reference: 'build-path', ivyfilepath: 'ivy/ivy.xml', reverse: 'true') {
+    fileset(dir: 'projects', includes: '**/build.xml')
+  }
+}
+</pre>
+You can also specify a prefix to the groovyns so that in the log you don't get
+the verbose uri log, just the prefix. Without the prefix you can get in the log
+something like this:
+<pre>
+  [org.apache.ivy.ant:buildlist] ...
+</pre>
+If you specify a prefix this way:
+<pre>
+def ivy = groovyns(prefix: 'ivy', uri: 'org.apache.ivy.ant')
+</pre>
+Then you get in the log:
+<pre>
+  [ivy:buildlist] ...
+</pre>
+</p>
+
+<h1>Import / Include</h1>
+
+<p>
+<code>import</code> being a keyword in Groovy, the <code>import</code> Ant task
+has been renamed in the Grovvy frontend <code>include</code>. So
+<code>include</code> is just a direct alias of <code>import</code>, the
+functionality is exactly the same.
+</p>
+
+<p>
+As this Groovy frontend is just a frontend above Ant, we can actually mix XML
+build files with Groovy ones. Only the language is different.
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+        <th></th>
+        <th>In XML</th>
+        <th>in Groovy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Import of a build.xml file</td>
+      <td><pre>
+  &lt;import file="common/build.xml" /&gt;
+</pre></td>
+      <td><pre>
+  include(file: 'common/build.xml')
+</pre></td>
+    </tr>
+    <tr>
+      <td>Import of a build.groovy file</td>
+      <td><pre>
+  &lt;import file="common/build.groovy" /&gt;
+</pre></td>
+      <td><pre>
+  include(file: 'common/build.groovy')
+</pre></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1>Bringing Groovy into Ant</h1>
+
+<p>
+As the script is expressed in the Groovy language, we can use some of the Groovy
+language feature into our build script.
+</p>
+
+<h2>if-then-else</h2>
+
+<p>
+A very basic feature that doesn't exist in Ant is branching. Well, there
+are some on targets (if, unless), and there are some in
+<a href="http://ant-contrib.sourceforge.net/tasks/tasks/if.html">ant-contrib</a>,
+but there are quite difficult or painful to write.
+</p>
+
+<p>
+So here is the basic use case:
+<pre>
+target(name: 'default') {
+  condition(property: 'fileExist', value: 'true', else: 'false') {
+    available(file: 'file.txt')
+  }
+  if (fileExist) {
+    echo('file.txt exists')
+  } else {
+    echo('file.txt was not found')
+  }
+}
+</pre>
+Note that the property has to be set for alternative value otherwise Groovy will
+complain that is it looking up for a property that doesn't exist. If no
+alternative value is provided, then the script should look like:
+<pre>
+target(name: 'default') {
+  condition(property: 'fileExist') {
+    available(file: 'file.txt')
+  }
+  if (project.properties['fileExist'] != null && fileExist) {
+    echo('file.txt exists')
+  } else {
+    echo('file.txt was not found')
+  }
+}
+</pre>
+</p>
+
+<p>
+You can even put an if-then-else structure in a task definition:
+<pre>
+target(name: 'default') {
+  copy(todir: basedir) {
+    fileset(dir: '${basedir}/target') {
+      if (excludeJava) {
+        exlude(name: '**/*.java')
+      }
+    }
+  }
+}
+</pre>
+</p>
+<h2>Loops</h2>
+
+<p>
+<code>for</code>, <code>while</code>, <code>do-while</code>
+</p>
+
+<h2>try-catch</h2>
+
+<p>
+TODO: should we document that ?
+</p>
+
+<h2>functions</h2>
+
+<p>
+In Groovy you can define function (closure with arguments). So we can define
+function that call ant task, latter to be called in some target.
+<pre>
+def copyselected = { dir, todir, includes ->
+  copy(todir: todir) {
+    fileset(dir: dir) {
+      include(name: includes)
+    }
+  }
+}
+
+target(name: 'copy-java') {
+  copyselected('${basedir}/src', '${basedir}/target/sources', '**/*.java')  
+}
+
+target(name: 'copy-txt') {
+  copyselected('${basedir}/src', '${basedir}/target/jar', '**/*.txt')  
+}
+</pre>
+</p>
+
+<p>
+But use these with caution, as local variables override ant tasks. If you
+define a local variable that has the same name of an ant task, then you won't be
+able to call the tasks. For instance this will fail:
+<pre>
+def echo = 3
+echo(message: 'calling this task will fail')
+</pre>
+</p>
+
+<h1>Crappy code allowed by Groovy</h1>
+
+<p>
+Properties can be set everywhere Groovy allow variable setting. And properties
+are global to the entire script while standard Groovy property are only affected
+to the local closure. This can be confusing. This kind of code should be avoided:
+<pre>
+target(name: 'set-prop') {
+  copy(todir: basedir) {
+    fileset(dir: '${basedir}/target') {
+      excludePattern = '**/*.java'
+      exlude(name: '${excludePattern}')
+    }
+  }
+}
+</pre>
+And we should prefer the folowing code that does exactly the same as above:
+<pre>
+target(name: 'set-prop') {
+  excludePattern = '**/*.java'
+  copy(todir: basedir) {
+    fileset(dir: '${basedir}/target') {
+      exlude(name: '${excludePattern}')
+    }
+  }
+}
+</pre>
+</p>
+
+</body>
+</html>
