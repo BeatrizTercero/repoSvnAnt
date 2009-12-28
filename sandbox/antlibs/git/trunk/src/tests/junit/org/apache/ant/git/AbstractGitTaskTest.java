@@ -26,6 +26,14 @@ public class AbstractGitTaskTest extends TestCase {
 		}
 	}
 	
+	public void testConfiguredShortNames() throws Exception {
+		
+	}
+	
+	public void testSpecialShortNames() throws Exception {
+		
+	}
+	
 	private class TestGitTask extends AbstractGitTask {
 		
 	}
