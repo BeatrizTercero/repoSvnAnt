@@ -3,6 +3,8 @@ package org.apache.ant.git;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import org.apache.tools.ant.BuildException;
+
 public class AbstractGitTaskTest extends TestCase {
 	
 	//TODO - need to consider special cases like 'origin'
@@ -32,6 +34,17 @@ public class AbstractGitTaskTest extends TestCase {
 	
 	public void testSpecialShortNames() throws Exception {
 		
+	}
+	
+	public void testValidate() throws Exception {
+		TestGitTask t = new TestGitTask();
+		try {
+			t.validate();
+		} catch(BuildException e) {
+			Assert.assertEquals("You must specify a gitRepo value",e.getMessage());
+		} catch(Exception e) {
+			Assert.fail("Expected BuildException");
+		}
 	}
 	
 	private class TestGitTask extends AbstractGitTask {
