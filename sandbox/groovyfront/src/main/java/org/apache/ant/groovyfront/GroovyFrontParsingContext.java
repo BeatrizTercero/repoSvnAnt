@@ -21,11 +21,9 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.tools.ant.Target;
-
 public class GroovyFrontParsingContext {
 
-    private Map<String, Target> currentTargets = new HashMap<String, Target>();
+    private Map/*<String, Target>*/ currentTargets = new HashMap/*<String, Target>*/();
 
     private String currentProjectName;
 
@@ -35,11 +33,11 @@ public class GroovyFrontParsingContext {
 
     private File buildFileParent;
 
-    public Map<String, Target> getCurrentTargets() {
+    public Map/*<String, Target>*/ getCurrentTargets() {
         return currentTargets;
     }
 
-    public void setCurrentTargets(Map<String, Target> currentTargets) {
+    public void setCurrentTargets(Map/*<String, Target>*/ currentTargets) {
         this.currentTargets = currentTargets;
     }
 

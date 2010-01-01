@@ -35,7 +35,6 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ComponentHelper;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
-import org.apache.tools.ant.Target;
 import org.apache.tools.ant.util.FileUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 
@@ -45,20 +44,16 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
 
     private static final String REFID_BUILDER = "groovyfront.builder";
 
-    @Override
     public String getDefaultBuildFile() {
         return "build.groovy";
     }
 
-    @Override
     public boolean supportsBuildFile(File buildFile) {
         return buildFile.getName().toLowerCase().endsWith(".groovy");
     }
 
-    @Override
     public void parse(Project project, Object source) throws BuildException {
-        @SuppressWarnings("unchecked")
-        Vector<Object> stack = getImportStack();
+        Vector/*<Object>*/ stack = getImportStack();
         stack.addElement(source);
         GroovyFrontParsingContext context = null;
         context = (GroovyFrontParsingContext) project.getReference(REFID_CONTEXT);
@@ -68,12 +63,12 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         }
 
         if (getImportStack().size() > 1) {
-            Map<String, Target> currentTargets = context.getCurrentTargets();
+            Map/*<String, Target>*/ currentTargets = context.getCurrentTargets();
             String currentProjectName = context.getCurrentProjectName();
             boolean imported = context.isImported();
             try {
                 context.setImported(true);
-                context.setCurrentTargets(new HashMap<String, Target>());
+                context.setCurrentTargets(new HashMap/*<String, Target>*/());
                 parse(project, source, context);
             } finally {
                 context.setCurrentTargets(currentTargets);
@@ -82,7 +77,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
             }
         } else {
             // top level file
-            context.setCurrentTargets(new HashMap<String, Target>());
+            context.setCurrentTargets(new HashMap/*<String, Target>*/());
             parse(project, source, context);
         }
     }
@@ -143,7 +138,6 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         script.setBinding(binding);
         script.setMetaClass(new GroovyFrontScriptMetaClass(script.getMetaClass(), groovyFrontProject, antBuilder, context));
         new GroovyRunner() {
-            @Override
             protected void doRun() {
                 script.run();
             }

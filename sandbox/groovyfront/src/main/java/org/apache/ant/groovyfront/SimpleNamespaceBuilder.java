@@ -34,7 +34,6 @@ public class SimpleNamespaceBuilder extends GroovyObjectSupport {
         nsBuilder = NamespaceBuilder.newInstance(Collections.singletonMap(this.prefix, uri), groovyFrontBuilder);
     }
 
-    @Override
     public Object invokeMethod(String name, Object args) {
         return nsBuilder.invokeMethod(prefix + ":" + name, args);
     }

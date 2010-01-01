@@ -17,18 +17,12 @@
  */
 package org.apache.ant.groovyfront;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import junit.framework.TestCase;
 
-import org.apache.ant.groovyfront.GroovyFrontBuilder;
-import org.apache.ant.groovyfront.GroovyFrontParsingContext;
-import org.apache.ant.groovyfront.GroovyFrontProject;
 import org.apache.tools.ant.Project;
-import org.junit.Test;
 
-public class GroovyFrontBuilderTest {
+public class GroovyFrontBuilderTest extends TestCase {
 
-    @Test
     public void testIsTaskDefined() throws Exception {
         GroovyFrontProject project = new GroovyFrontProject(new Project(), new GroovyFrontParsingContext(), "build.groovy");
         project.init();

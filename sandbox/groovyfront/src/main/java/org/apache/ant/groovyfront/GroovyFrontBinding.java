@@ -37,7 +37,6 @@ public class GroovyFrontBinding extends Binding {
         this.groovyFrontBuilder = grovyFrontBuilder;
     }
 
-    @Override
     public Object getVariable(final String name) {
         Object returnValue = project.getProperty(name);
         if (returnValue == null) {
@@ -52,7 +51,6 @@ public class GroovyFrontBinding extends Binding {
         return returnValue;
     }
 
-    @Override
     public void setVariable(final String name, final Object newValue) {
         if ("project".equals(name)) {
             throw new BuildException("The variable 'project' cannot be overriden");
@@ -60,8 +58,6 @@ public class GroovyFrontBinding extends Binding {
         project.setNewProperty(name, newValue == null ? NULL_TOSTRING : newValue.toString());
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
     public Map getVariables() {
         return project.getProperties();
     }

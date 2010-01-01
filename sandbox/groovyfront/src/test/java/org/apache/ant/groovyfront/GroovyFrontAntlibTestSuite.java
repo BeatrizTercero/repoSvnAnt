@@ -27,7 +27,7 @@ import org.apache.ant.antunit.junit3.AntUnitSuite;
 public class GroovyFrontAntlibTestSuite extends TestCase {
 
     public static TestSuite suite() {
-        File script = new File("src/test/antunit/antlibTest.groovy");
+        File script = new File(new File(new File(new File("src"), "test") , "antunit"), "antlibTest.groovy");
         return new AntUnitSuite(script, GroovyFrontAntlibTestSuite.class);
     }
 

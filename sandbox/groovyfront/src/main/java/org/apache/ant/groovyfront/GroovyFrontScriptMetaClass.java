@@ -20,10 +20,10 @@ package org.apache.ant.groovyfront;
 import groovy.lang.Closure;
 import groovy.lang.MetaClass;
 
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Map;
 
+import org.apache.ant.groovyfront.jvm15backport.Arrays;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Location;
 import org.apache.tools.ant.Project;
@@ -42,7 +42,6 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
         this.context = context;
     }
 
-    @Override
     public Object invokeMethod(Object object, String methodName, Object[] arguments) {
         if ("target".equals(methodName)) {
             defineTarget(arguments);
@@ -74,13 +73,12 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
         if (args.length != 2 || !(args[0] instanceof Map) || !(args[1] instanceof Closure)) {
             throw new BuildException("A target is ill formed. Expecting map, closure but was: " + Arrays.toString(args));
         }
-        @SuppressWarnings("unchecked")
-        Map<String, String> map = (Map<String, String>) args[0];
+        Map/*<String, String>*/ map = (Map/*<String, String>*/) args[0];
         Closure closure = (Closure) args[1];
         closure.setMetaClass(new GroovyFrontMetaClass(closure.getMetaClass(), groovyFrontBuilder));
-        String name = map.get("name");
-        String description = map.get("description");
-        String depends = map.get("depends");
+        String name = (String) map.get("name");
+        String description = (String) map.get("description");
+        String depends = (String) map.get("depends");
 
         if (name == null) {
             throw new BuildException("a target name must be set");
@@ -105,7 +103,7 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
             target.setDescription(description);
         }
 
-        Hashtable<?, ?> projectTargets = project.getTargets();
+        Hashtable/*<?, ?>*/ projectTargets = project.getTargets();
         // If the name has not already been defined, log an override
         // NB: unlike ant xml project helper, the imported file are executed before the target definition of the main
         // file

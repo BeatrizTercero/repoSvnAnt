@@ -38,13 +38,11 @@ public class GroovyFrontTarget extends Target {
         this.groovyFrontBuilder = other.groovyFrontBuilder;
     }
 
-    @Override
     public void execute() throws BuildException {
         groovyFrontBuilder.getAntXmlContext().setCurrentTarget(this);
         final Closure c = closure;
         // if (testIfCondition() && testUnlessCondition()) {
         new GroovyRunner() {
-            @Override
             protected void doRun() {
                 c.call();
             }

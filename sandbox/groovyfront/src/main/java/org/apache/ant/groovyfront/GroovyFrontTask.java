@@ -21,7 +21,6 @@ import org.apache.tools.ant.taskdefs.Ant;
 
 public class GroovyFrontTask extends Ant {
 
-    @Override
     protected String getDefaultBuildFile() {
         return "build.groovy";
     }

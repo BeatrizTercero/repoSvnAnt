@@ -33,7 +33,6 @@ public class GroovyFrontMetaClass extends DelegatingMetaClass {
         this.groovyFrontBuilder = groovyFrontBuilder;
     }
 
-    @Override
     public Object invokeMethod(final Object object, final String methodName, final Object[] arguments) {
         Object returnObject = null;
         try {
@@ -48,7 +47,6 @@ public class GroovyFrontMetaClass extends DelegatingMetaClass {
         return returnObject;
     }
 
-    @Override
     public Object invokeMethod(final Object object, final String methodName, final Object arguments) {
         if (arguments == null) {
             return invokeMethod(object, methodName, MetaClassHelper.EMPTY_ARRAY);
@@ -61,13 +59,10 @@ public class GroovyFrontMetaClass extends DelegatingMetaClass {
         }
     }
 
-    @Override
     public Object invokeMethod(final String name, final Object args) {
         return invokeMethod(this, name, args);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
     public Object invokeMethod(final Class sender, final Object receiver, final String methodName,
             final Object[] arguments, final boolean isCallToSuper, final boolean fromInsideClass) {
         return invokeMethod(receiver, methodName, arguments);

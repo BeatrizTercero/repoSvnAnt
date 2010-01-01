@@ -32,7 +32,6 @@ public class GroovyFrontBuilder extends AntBuilder {
         super(project);
     }
 
-    @Override
     protected void setClosureDelegate(Closure closure, Object node) {
         super.setClosureDelegate(closure, node);
         closure.setResolveStrategy(Closure.DELEGATE_FIRST);
