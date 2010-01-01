@@ -1,0 +1,44 @@
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+    -->
+<html>
+<body>
+
+<h1>Building on the command line</h1>
+
+<h2>Requirements:</h2>
+<ul>
+<li>a JDK 1.5</li>
+<li>Ant 1.7</li>
+<li>a trunk build of Ant 1.8.0</li>
+<li>a trunk build of Ant-antunit 1.2</li>
+<li>at least the first time an internet connection to get some dependencies</li>
+</ul>
+
+<h2>Steps</h2>
+
+<p>Retrieve the dependencies which have a released version with from the
+internet. Once retrieved, you won't need to do that again.</p>
+<code>ant -f get-deps.xml</code>
+<p>Put the ant.jar you have build from the Ant trunk into the folder 'lib'</p>
+<p>Put the ant-antunit-1.2alpha.jar you have build from the Ant-unit trunk into the folder 'lib'</p>
+<p>Launch the actual build:</p>
+<code>ant jar</code>
+
+</body>
+</html>

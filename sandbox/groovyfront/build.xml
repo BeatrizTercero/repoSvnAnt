@@ -20,50 +20,63 @@
 <!--
 	Bootstrap build
 -->
-<project name="ant-groovyfront" default="build" xmlns:ivy="ivy" xmlns:bushel="bushel" xmlns:au="antlib:org.apache.ant.antunit">
+<project name="ant-groovyfront" default="jar" xmlns:au="antlib:org.apache.ant.antunit">
 
-    <property name="project.version" value="1.0.0" />
+	<property file="local.build.properties" />
+	<property file="build.properties" />
 
-    <path id="antlib.classpath">
-        <fileset dir="${basedir}/../common-build/lib">
-            <include name="*.jar" />
-        </fileset>
-    </path>
+	<path id="lib.path">
+		<fileset dir="${basedir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 
-    <target name="clean">
-        <delete dir="${basedir}/target" />
-    </target>
+	<target name="clean">
+		<delete dir="${basedir}/target" />
+	</target>
 
-    <target name="build">
-        <taskdef uri="ivy" resource="org/apache/ivy/ant/antlib.xml" classpathref="antlib.classpath" />
-        <taskdef uri="bushel" resource="com/googlecode/bushel/ant/antlib.xml" classpathref="antlib.classpath" />
-        <bushel:buildobr dir="${basedir}/../external-bundles" out="${basedir}/../common-build/repo-external.xml" indent="true" />
-        <ivy:configure file="${basedir}/../common-build/ivysettings.xml" />
-        <ivy:resolve file="ivy.xml" conf="*" />
-        <ivy:cachepath pathid="ivy.compile.classpath" conf="default" useOrigin="true" />
-        <mkdir dir="${basedir}/target/classes" />
-        <path id="compile.classpath">
-            <fileset dir="${basedir}/../common-build/apache-ant-1.7.1/lib" includes="*.jar" />
-            <path refid="ivy.compile.classpath" />
-        </path>
-        <javac srcdir="${basedir}/src/main/java" classpathref="compile.classpath" destdir="${basedir}/target/classes" debug="true">
-        </javac>
-        <copy todir="${basedir}/target/classes">
-            <fileset dir="${basedir}/src/main/resources" />
-        </copy>
-        <jar basedir="${basedir}/target/classes" destfile="${basedir}/target/${ant.project.name}_${project.version}.jar">
-        </jar>
-    </target>
+	<target name="compile" description="Compile the project">
+		<mkdir dir="${basedir}/target/classes" />
+		<javac srcdir="${basedir}/src/main/java" classpathref="lib.path" destdir="${basedir}/target/classes" debug="true" source="1.4" target="1.4">
+		</javac>
+		<copy todir="${basedir}/target/classes">
+			<fileset dir="${basedir}/src/main/resources" />
+		</copy>
+	</target>
 
-    <target name="deploy" depends="clean,build">
-        <copy file="${basedir}/target/${ant.project.name}_${project.version}.jar" todir="${basedir}/../common-build/apache-ant-1.7.1/lib/" />
-    </target>
+	<target name="jar" depends="compile" description="Build the jar">
+		<jar basedir="${basedir}/target/classes" destfile="${basedir}/target/${ant.project.name}_${project.version}.jar">
+		</jar>
+	</target>
 
-    <target name="test">
-        <taskdef uri="antlib:org.apache.ant.antunit" resource="org/apache/ant/antunit/antlib.xml" classpathref="antlib.classpath" />
-        <au:antunit>
-            <fileset dir="${basedir}/src/test/antunit" includes="**/*-test.xml" />
-            <au:plainlistener />
-        </au:antunit>
-    </target>
+	<target name="compile-test" depends="compile" description="Compile the unit tests">
+		<mkdir dir="${basedir}/target/test-classes" />
+		<javac srcdir="${basedir}/src/test/java" destdir="${basedir}/target/test-classes" debug="true">
+			<classpath>
+				<path refid="lib.path" />
+				<pathelement location="${basedir}/target/classes" />
+			</classpath>
+		</javac>
+		<copy todir="${basedir}/target/test-classes">
+			<fileset dir="${basedir}/src/test/resources" />
+		</copy>
+	</target>
+
+	<target name="test" depends="compile-test" description="Launch the unit tests">
+		<mkdir dir="${basedir}/target/junit" />
+		<junit printsummary="yes" haltonfailure="no" haltonerror="no" showoutput="true">
+			<classpath>
+				<path refid="lib.path" />
+				<pathelement location="${basedir}/target/classes" />
+				<pathelement location="${basedir}/target/test-classes" />
+			</classpath>
+			<formatter type="plain" />
+			<batchtest fork="true" todir="${basedir}/target/junit">
+				<fileset dir="${basedir}/src/test/java">
+					<include name="**/*TestSuite.java" />
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
 </project>
