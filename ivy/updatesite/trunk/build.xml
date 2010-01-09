@@ -260,6 +260,7 @@
         <copy todir="${work.dir}/updatesite">
             <fileset dir="${updatesite.dir}">
                 <include name="plugins/org.apache.ivy_*.jar" />
+                <include name="plugins/org.apache.ivy.eclipse*.jar" />
             </fileset>
         </copy>
     </target>
