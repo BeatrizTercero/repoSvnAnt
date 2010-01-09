@@ -130,11 +130,40 @@
         <jar destfile="${updatesite.dir}/features/org.apache.ivy.feature_${ivy.version}.jar">
             <fileset dir="ivy-feature-template">
                 <include name="feature.properties" />
-                <include name="LICENCE" />
+                <include name="LICENSE" />
                 <include name="NOTICE" />
             </fileset>
             <fileset dir="${work.dir}">
                 <include name="feature.xml" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="generate-ivy-ant-plugin">
+        <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
+        <delete dir="${work.dir}/ivy-ant-plugin" />
+        <!-- put the jar of Ivy -->
+        <copy file="${ivy.jar}" tofile="${work.dir}/ivy-ant-plugin/ivy.jar" />
+        <!-- get the antlib.xml and produce a plugin.xml with it -->
+        <mkdir dir="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <unzip src="${ivy.jar}" dest="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <style in="${work.dir}/ivy-ant-plugin/ivyjar/org/apache/ivy/ant/antlib.xml" out="${work.dir}/ivy-ant-plugin/plugin.xml" style="ivy-ant-plugin/antlib2plugin.xsl" />
+        <!-- put the manifest with the correct version -->
+        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
+        <copy file="ivy-ant-plugin/MANIFEST.MF" todir="${work.dir}/ivy-ant-plugin">
+            <filterset>
+                <filter token="VERSION" value="${ivy.version}"/>
+            </filterset>
+        </copy>
+        <!-- package the jar -->
+        <jar destfile="${updatesite.dir}/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
+            <fileset dir="${work.dir}/ivy-ant-plugin">
+                <include name="plugin.xml" />
+                <include name="ivy.jar" />
+            </fileset>
+            <fileset dir="ivy-ant-plugin">
+                <include name="LICENSE" />
+                <include name="NOTICE" />
             </fileset>
         </jar>
     </target>
@@ -180,7 +209,7 @@
     </target>
 
     <target name="get-ivy-version">
-        <!-- get the path to the ivyde plugin -->
+        <!-- get the path to the ivy plugin -->
         <path id="ivy.plugin.path.id">
             <first count="1">
                 <fileset dir="${updatesite.dir}/plugins" includes="org.apache.ivy_*.jar" />
@@ -208,7 +237,7 @@
         </copy>
     </target>
 
-    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
+    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
 
     <target name="install-ivyde" depends="put-ivyde-jars,get-ivyde-version,get-ivy-version,generate-site" description="Install IvyDE into the updatesite" />
 
