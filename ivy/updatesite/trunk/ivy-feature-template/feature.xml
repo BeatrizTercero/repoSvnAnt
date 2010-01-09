@@ -43,4 +43,11 @@
          version="@ivy.version@"
          unpack="false"/>
 
+   <plugin
+         id="org.apache.ivy.eclipse.ant"
+         download-size="0"
+         install-size="0"
+         version="@ivy.version@"
+         unpack="true"/>
+
 </feature>
