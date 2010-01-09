@@ -423,16 +423,17 @@ baseLocation=${basedir}/${hudson.eclipse.name}
     </target>
 
     <target name="hudson-find-ivy-jar">
-        <property name="ivy.jar" value="${basedir}/../../../Ivy/lastSuccessful/archive/trunk/build/artifact/jars/ivy.jar" />
+        <get src="${hudson.baseUrl}/view/Ant/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/ivy-hudson.jar" verbose="yes" />
+        <property name="ivy.jar" value="${basedir}/ivy-hudson.jar" />
     </target>
 
     <target name="hudson-find-ivyde-zip">
-        <path id="ivyde.zip.id">
-            <first count="1">
-                <fileset dir="${basedir}/../../../IvyDE/lastSuccessful/archive/trunk/dist/" includes="apache-ivyde-2*.zip" />
-            </first>
-        </path>
-        <property name="ivyde.zip" refid="ivyde.zip.id" />
+        <!-- get the last sucessful version -->
+        <get src="${hudson.baseUrl}/view/Ant/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/version.properties" dest="${basedir}/ivyde-hudson-version.properties" verbose="yes" />
+        <property file="${basedir}/ivyde-hudson-version.properties" />
+        <!-- get the actual zip -->
+        <get src="${hudson.baseUrl}/view/Ant/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/apache-ivyde-${ivyde.build.version}.zip" dest="${basedir}/apache-ivyde-hudson.zip" verbose="yes" />
+        <property name="ivyde.zip" value="${basedir}/apache-ivyde-hudson.zip" />
     </target>
 
     <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize,checksum" />
