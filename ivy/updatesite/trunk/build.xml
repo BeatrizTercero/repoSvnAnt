@@ -241,7 +241,7 @@
 
     <target name="install-ivyde" depends="put-ivyde-jars,get-ivyde-version,get-ivy-version,generate-site" description="Install IvyDE into the updatesite" />
 
-    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
+    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
 
     <!-- 
         ===================================================================================================================
