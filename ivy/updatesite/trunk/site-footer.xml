@@ -1,0 +1,6 @@
+
+
+   <category-def name="latest" label="Apache Ivy/IvyDE Latest Plugins"/>
+
+   <category-def name="old" label="Apache Ivy/IvyDE Older Plugins"/>
+</site>

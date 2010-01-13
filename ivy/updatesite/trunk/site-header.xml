@@ -21,16 +21,6 @@
       mirrorsURL="@MIRRORS_URL@"
       digestURL="./">
    <description url="@UPDATESITE_URL@">
-      Eclipse update site for Apache IvyDE.
+      Eclipse update site for Apache Ivy and Apache IvyDE.
    </description>
 
-   <feature url="features/org.apache.ivyde.feature_@IVYDE_VERSION@.jar" id="org.apache.ivyde.feature" version="@IVYDE_VERSION@">
-      <category name="ivyde"/>
-   </feature>
-
-   <feature url="features/org.apache.ivy.feature_@IVY_VERSION@.jar" id="org.apache.ivy.feature" version="@IVY_VERSION@">
-      <category name="ivyde"/>
-   </feature>
-
-   <category-def name="ivyde" label="Apache IvyDE Eclipse plugins"/>
-</site>
