@@ -68,7 +68,7 @@
 		<div class="block block-book" id="block-book-0">
 		<h2>IvyDE</h2>
 
-		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li><li id="xooki-install"><a href="../install.html" >Installation</a></li><li id="xooki-cp_container" class="submenu"><a href="../cp_container.html" >Classpath Container</a><ul class="open"><li id="xooki-cpc/create"><a href="../cpc/create.html" >Create a container</a></li><li id="xooki-cpc/edit"><a href="../cpc/edit.html" >Edit the classpath</a></li><li id="xooki-cpc/resolve"><a href="../cpc/resolve.html" >Launching resolve</a></li><li id="xooki-cpc/retrieve"><a href="../cpc/retrieve.html" >Retrieve the dependencies</a></li><li id="xooki-cpc/cleancache"><a href="../cpc/cleancache.html" >Clean the caches</a></li><li id="xooki-cpc/reload_settings"><a href="../cpc/reload_settings.html" >Reload settings</a></li><li id="xooki-cpc/workspace"><a href="../cpc/workspace.html" >Resolve in workspace</a></li><li id="xooki-cpc/maven"><a href="../cpc/maven.html" class="current">Use with maven poms</a></li><li id="xooki-cpc/wtp"><a href="../cpc/wtp.html" >WTP integration</a></li></ul></li><li id="xooki-ivyeditor"><a href="../ivyeditor.html" >Ivy file editor</a></li><li id="xooki-settingseditor"><a href="../settingseditor.html" >Ivy settings editor</a></li><li id="xooki-preferences"><a href="../preferences.html" >Eclipse global preferences</a></li><li id="xooki-console"><a href="../console.html" >Ivy Console</a></li><li id="xooki-ant"><a href="../ant.html" >Eclipse's Ant interation</a></li><li id="xooki-revdepexplorer"><a href="../revdepexplorer.html" >Reverse Dependency Explorer</a></li><li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="../dev/build.html" >Building</a></li><li id="xooki-dev/release"><a href="../dev/release.html" >Releasing</a></li></ul></li></ul></li></ul></div>
+		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li><li id="xooki-install"><a href="../install.html" >Installation</a></li><li id="xooki-cp_container" class="submenu"><a href="../cp_container.html" >Classpath Container</a><ul class="open"><li id="xooki-cpc/create"><a href="../cpc/create.html" >Create a container</a></li><li id="xooki-cpc/edit"><a href="../cpc/edit.html" >Edit the classpath</a></li><li id="xooki-cpc/resolve"><a href="../cpc/resolve.html" >Launching resolve</a></li><li id="xooki-cpc/retrieve"><a href="../cpc/retrieve.html" >Retrieve the dependencies</a></li><li id="xooki-cpc/cleancache"><a href="../cpc/cleancache.html" >Clean the caches</a></li><li id="xooki-cpc/reload_settings"><a href="../cpc/reload_settings.html" >Reload settings</a></li><li id="xooki-cpc/workspace"><a href="../cpc/workspace.html" >Resolve in workspace</a></li><li id="xooki-cpc/launch"><a href="../cpc/launch.html" >Launch configuration</a></li><li id="xooki-cpc/maven"><a href="../cpc/maven.html" class="current">Use with maven poms</a></li><li id="xooki-cpc/wtp"><a href="../cpc/wtp.html" >WTP integration</a></li></ul></li><li id="xooki-ivyeditor"><a href="../ivyeditor.html" >Ivy file editor</a></li><li id="xooki-settingseditor"><a href="../settingseditor.html" >Ivy settings editor</a></li><li id="xooki-preferences"><a href="../preferences.html" >Eclipse global preferences</a></li><li id="xooki-eclipsevar"><a href="../eclipsevar.html" >Eclipse variables</a></li><li id="xooki-console"><a href="../console.html" >Ivy Console</a></li><li id="xooki-ant"><a href="../ant.html" >Eclipse's Ant interation</a></li><li id="xooki-revdepexplorer"><a href="../revdepexplorer.html" >Reverse Dependency Explorer</a></li><li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="../dev/build.html" >Building</a></li><li id="xooki-dev/release"><a href="../dev/release.html" >Releasing</a></li></ul></li></ul></li></ul></div>
 
 		</div>
 
@@ -110,15 +110,21 @@ Using the m2compatible attribute, you can benefit from Maven2 repository compati
 &lt;project&gt;<br class="xooki-br"/>	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>	&lt;groupId&gt;com.mycompany&lt;/groupId&gt;<br class="xooki-br"/>	&lt;artifactId&gt;myproject&lt;/artifactId&gt;<br class="xooki-br"/>	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;<br class="xooki-br"/>	&lt;dependencies&gt;<br class="xooki-br"/>		&lt;dependency&gt;<br class="xooki-br"/>			&lt;groupId&gt;commons-httpclient&lt;/groupId&gt;<br class="xooki-br"/>			&lt;artifactId&gt;commons-httpclient&lt;/artifactId&gt;<br class="xooki-br"/>			&lt;version&gt;3.0&lt;/version&gt;<br class="xooki-br"/>		&lt;/dependency&gt;<br class="xooki-br"/>	&lt;/dependencies&gt;<br class="xooki-br"/>&lt;/project&gt;
 </pre>
 
-<b> - On the pom.xml file, open the context menu and click on "Add Ivy Library...":</b><br class="xooki-br"/>
-<ul>
-    <li>Select "Enable project specific settings" and set the "Ivy setting path" to: <tt>project:///ivysettings.xml</tt> </li>
-    <li>Select the configuration <tt>compile</tt> and <tt>runtime</tt></li>
-</ul>
-
-<center>
+<b> - On the pom.xml file, open the context menu and click on "Add Ivy Library...":</b><br class="xooki-br"/><br class="xooki-br"/><b> - Select the configuration <tt>compile</tt> and <tt>runtime</tt></b><br class="xooki-br"/><br class="xooki-br"/><center>
     <img src="../images/maven2classpath1.jpg"/>
 </center>   
+
+<b> - Go into the "Settings" tab, select "Enable project specific settings" and click on the "Workspace..." button</b><br class="xooki-br"/><br class="xooki-br"/><center>
+    <img src="../images/maven2classpath1_settings.jpg"/>
+</center>   
+
+<b> - Choose the ivysettings.xml file in your project<b><br class="xooki-br"/><br class="xooki-br"/><center>
+    <img src="../images/maven2classpath1_workspacevar.jpg"/>
+</center>
+
+<b> - click "Finish"</b><br class="xooki-br"/><br class="xooki-br"/><center>
+    <img src="../images/maven2classpath1_done.jpg"/>
+</center>
 
 <b> - That's all ! Your IvyDE class path container gets all dependencies even those that were transitive to the commons-httpclient module !</b><br class="xooki-br"/><br class="xooki-br"/><center>
     <img src="../images/maven2classpath2.jpg"/>
