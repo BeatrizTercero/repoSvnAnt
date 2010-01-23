@@ -575,7 +575,18 @@ public abstract class AbstractGitTask extends Task {
 			throw new BuildException("You must specify a gitRepo value");
 		}
 		if(!validGitRepo()) {
-			throw new BuildException("The repository [ "+ getGitRepo()+ " ] specified is not recognised");
+			throw new BuildException("The repository [ "+ getGitRepo()+ " ] specified is invalid");
 		}
+	}
+	
+	protected boolean jgitPresent() throws BuildException {
+		try {
+			Class.forName("org.eclipse.jgit.lib.Repository");
+		} catch (ClassNotFoundException e){
+			return false;
+		} catch (Exception e) {
+			throw new BuildException(e);
+		}
+		return true;
 	}
 }
