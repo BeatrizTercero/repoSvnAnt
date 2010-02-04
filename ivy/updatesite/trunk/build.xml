@@ -405,6 +405,7 @@
             <fileset dir="${updatesite.dir}">
                 <include name="plugins/org.apache.ivy_*.jar" />
                 <include name="plugins/org.apache.ivy.eclipse*.jar" />
+                <include name="features/org.apache.ivy.*jar" />
             </fileset>
         </copy>
     </target>
@@ -415,23 +416,34 @@
         <copy todir="${work.dir}/updatesite">
             <fileset dir="${updatesite.dir}">
                 <include name="plugins/org.apache.ivyde.*.jar" />
+                <include name="features/org.apache.ivyde.*.jar" />
             </fileset>
         </copy>
     </target>
 
+    <macrodef name="siteOptimizerJarPack">
+        <attribute name="directory" />
+        <sequential>
+            <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main"
+                  fork="true" failonerror="true">
+                <arg value="-consolelog" />
+                <arg line="-application org.eclipse.update.core.siteOptimizer" />
+                <arg line="-jarProcessor -verbose -processAll -pack" />
+                <arg line="-outputDir @{directory}" />
+                <arg line="@{directory}" />
+            </java>
+        </sequential>
+    </macrodef>
+
     <target name="do-pack-jars" depends="eclipse-classpath">
         <!-- launch the packing -->
-        <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
-            <arg value="-consolelog" />
-            <arg line="-application org.eclipse.update.core.siteOptimizer" />
-            <arg line="-jarProcessor -verbose -processAll -pack" />
-            <arg line="-outputDir ${work.dir}/updatesite/plugins" />
-            <arg line="${work.dir}/updatesite/plugins" />
-        </java>
+        <siteOptimizerJarPack directory="${work.dir}/updatesite/plugins" />
+        <siteOptimizerJarPack directory="${work.dir}/updatesite/features" />
         <!-- put the packs back to the updatesite -->
         <copy todir="${updatesite.dir}">
             <fileset dir="${work.dir}/updatesite">
                 <include name="plugins/*.jar.pack.gz" />
+                <include name="features/*.jar.pack.gz" />
             </fileset>
         </copy>
     </target>
@@ -479,6 +491,7 @@
                 <include name="plugins/org.apache.ivy*.jar" />
                 <include name="plugins/org.apache.ivy*.jar.pack.gz" />
                 <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
                 <include name="digest.zip" />
             </fileset>
         </checksum>
@@ -487,6 +500,7 @@
                 <include name="plugins/org.apache.ivy*.jar" />
                 <include name="plugins/org.apache.ivy*.jar.pack.gz" />
                 <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
                 <include name="digest.zip" />
             </fileset>
         </checksum>
@@ -498,6 +512,7 @@
                 <include name="plugins/org.apache.ivy*.jar" />
                 <include name="plugins/org.apache.ivy*.jar.pack.gz" />
                 <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
                 <include name="digest.zip" />
             </fileset>
         </checksum>
@@ -512,6 +527,7 @@
                 <include name="plugins/org.apache.ivy*.jar" />
                 <include name="plugins/org.apache.ivy*.jar.pack.gz" />
                 <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
                 <include name="digest.zip" />
             </fileset>
         </checksum>
