@@ -16,6 +16,7 @@ REM   specific language governing permissions and limitations
 REM   under the License.
 
 FOR %%F IN (dist\features\org.apache.ivy.feature**.jar) do gpg --passphrase "%1" --output "%%~fF.asc" --detach-sign --armor "%%~fF"
+FOR %%F IN (dist\features\org.apache.ivy.feature**.jar.pack.gz) do gpg --passphrase "%1" --output "%%~fF.asc" --detach-sign --armor "%%~fF"
 FOR %%F IN (dist\plugins\org.apache.ivy_**.jar) do gpg --passphrase "%1" --output "%%~fF.asc" --detach-sign --armor "%%~fF"
 FOR %%F IN (dist\plugins\org.apache.ivy_**.jar.pack.gz) do gpg --passphrase "%1" --output "%%~fF.asc" --detach-sign --armor "%%~fF"
 FOR %%F IN (dist\digest**.zip) do gpg --passphrase "%1" --output "%%~fF.asc" --detach-sign --armor "%%~fF"
