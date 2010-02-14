@@ -24,15 +24,19 @@
       Eclipse update site for Apache Ivy and Apache IvyDE.
    </description>
 
-<feature url="features/org.apache.ivy.feature_2.1.0.final_20090925235825.jar" id="org.apache.ivy.feature" version="2.1.0.final_20090925235825"> <category name="latest"/> </feature>
-<feature id="org.apache.ivyde.feature" url="features/org.apache.ivyde.feature_2.1.0.final-201002110838-RELEASE.jar" version="2.1.0.final-201002110838-RELEASE">
+<feature id="org.apache.ivy.feature" url="features/org.apache.ivy.feature_2.1.0.final_20090925235825.jar" version="2.1.0.final_20090925235825">
   <category name="latest" />
 </feature>
-
-<feature url="features/org.apache.ivyde.feature_2.0.0.final-200907011148-RELEASE.jar" id="org.apache.ivyde.feature" version="2.0.0.final-200907011148-RELEASE"> <category name="old"/> </feature>
-<feature id="org.apache.ivy.feature" url="features/org.apache.ivy.feature_2.0.0.final_20090108225011.jar" version="2.0.0.final_20090108225011">
+<feature url="features/org.apache.ivyde.feature_2.1.0.final-201002110838-RELEASE.jar" id="org.apache.ivyde.feature" version="2.1.0.final-201002110838-RELEASE"> <category name="latest"/> </feature>
+                
+<feature url="features/org.apache.ivy.feature_2.0.0.final_20090108225011.jar" id="org.apache.ivy.feature" version="2.0.0.final_20090108225011"> <category name="old"/> </feature>
+                
+<feature id="org.apache.ivyde.feature" url="features/org.apache.ivyde.feature_2.0.0.final-200907011148-RELEASE.jar" version="2.0.0.final-200907011148-RELEASE">
   <category name="old" />
-</feature>                
+</feature>
+
+            
+            
 
    <category-def name="latest" label="Apache Ivy/IvyDE Latest Plugins"/>
 
