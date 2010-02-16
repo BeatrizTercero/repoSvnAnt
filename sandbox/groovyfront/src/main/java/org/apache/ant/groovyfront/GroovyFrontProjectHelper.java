@@ -30,9 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import org.apache.tools.ant.AntTypeDefinition;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.ComponentHelper;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.util.FileUtils;
@@ -123,8 +121,6 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
             groovyFrontProject = new GroovyFrontProject(project, context, buildFileName);
         }
 
-        defineDefaultTasks(groovyFrontProject);
-
         GroovyFrontBuilder antBuilder = new GroovyFrontBuilder(groovyFrontProject);
         groovyFrontProject.addReference(REFID_BUILDER, antBuilder);
         Binding binding = new GroovyFrontBinding(groovyFrontProject, antBuilder);
@@ -144,22 +140,4 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         }.run();
     }
 
-    private void defineDefaultTasks(GroovyFrontProject groovyFrontProject) {
-        defineDefaultTask("groovyant", GroovyFrontTask.class, groovyFrontProject);
-        defineDefaultTask("subgroovyant", SubGroovyFrontTask.class, groovyFrontProject);
-    }
-
-    private void defineDefaultTask(String name, Class cl, GroovyFrontProject groovyProject) {
-        AntTypeDefinition def = new AntTypeDefinition();
-        def.setName(name);
-        def.setClassName(cl.getCanonicalName());
-        def.setClass(cl);
-        def.setAdapterClass(null);
-        def.setAdaptToClass(null);
-        def.setRestrict(false);
-        def.setClassLoader(this.getClass().getClassLoader());
-        def.checkClass(groovyProject);
-        ComponentHelper.getComponentHelper(groovyProject).addDataTypeDefinition(def);
-
-    }
 }
