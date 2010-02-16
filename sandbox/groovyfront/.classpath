@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/asm-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/groovy-1.7.0.jar" sourcepath="lib-src/groovy-sources-1.7.0.jar"/>
-	<classpathentry kind="lib" path="lib/ant.jar"/>
 	<classpathentry kind="lib" path="lib/ant-antunit-1.2alpha.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.8.0.jar"/>
 	<classpathentry kind="output" path="eclipse-classes"/>
 </classpath>
