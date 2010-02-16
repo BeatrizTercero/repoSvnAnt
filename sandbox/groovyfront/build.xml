@@ -31,7 +31,7 @@
 		</fileset>
 	</path>
 
-	<target name="clean">
+	<target name="clean" description="Clean the working area">
 		<delete dir="${basedir}/target" />
 	</target>
 
