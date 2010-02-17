@@ -21,10 +21,17 @@ import groovy.lang.Closure;
 import groovy.util.AntBuilder;
 import groovy.xml.QName;
 
+import java.util.Collections;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.RuntimeConfigurable;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.TaskAdapter;
 import org.apache.tools.ant.UnknownElement;
+import org.apache.tools.ant.taskdefs.ConditionTask;
+import org.apache.tools.ant.taskdefs.condition.AccessorHack;
+import org.apache.tools.ant.taskdefs.condition.Condition;
 
 public class GroovyFrontBuilder extends AntBuilder {
 
@@ -66,4 +73,17 @@ public class GroovyFrontBuilder extends AntBuilder {
         return true;
     }
 
+    public Condition createCondition(String methodName, Object[] arguments) {
+        Object conditionNode = createNode("condition", Collections.singletonMap("property", "__groovyfront_condition__"));
+        Object current = getCurrent();
+        setCurrent(conditionNode);
+        invokeMethod(methodName, arguments);
+        setCurrent(current);
+        nodeCompleted(current, conditionNode);
+        UnknownElement element = (UnknownElement) postNodeCompletion(current, conditionNode);
+        element.maybeConfigure();
+        TaskAdapter taskAdapter = (TaskAdapter) element.getRealThing();
+        ConditionTask conditionTask = (ConditionTask) taskAdapter.getProxy();
+        return (Condition) AccessorHack.getConditions(conditionTask).nextElement();
+    }
 }

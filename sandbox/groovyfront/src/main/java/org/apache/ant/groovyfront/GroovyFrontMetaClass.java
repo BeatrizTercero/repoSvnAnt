@@ -22,11 +22,23 @@ import groovy.lang.MetaClass;
 import groovy.lang.MissingMethodException;
 import groovy.lang.Tuple;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.taskdefs.condition.Condition;
 import org.codehaus.groovy.runtime.MetaClassHelper;
 
 public class GroovyFrontMetaClass extends DelegatingMetaClass {
 
     protected final GroovyFrontBuilder groovyFrontBuilder;
+
+    private static final Set CONDITION_TASK_NAMES = new HashSet(Arrays.asList(new Object[] { "available", "uptodate",
+            "antversion" }));
 
     public GroovyFrontMetaClass(final MetaClass metaClass, final GroovyFrontBuilder groovyFrontBuilder) {
         super(metaClass);
@@ -34,17 +46,27 @@ public class GroovyFrontMetaClass extends DelegatingMetaClass {
     }
 
     public Object invokeMethod(final Object object, final String methodName, final Object[] arguments) {
-        Object returnObject = null;
         try {
-            returnObject = super.invokeMethod(object, methodName, arguments);
+            return super.invokeMethod(object, methodName, arguments);
         } catch (final MissingMethodException mme) {
-            if (groovyFrontBuilder.isTaskDefined(methodName)) {
-                returnObject = groovyFrontBuilder.invokeMethod(methodName, arguments);
-            } else {
-                throw mme;
+            if (groovyFrontBuilder.isTaskDefined(methodName) && isNotCondition(methodName, arguments)) {
+                return groovyFrontBuilder.invokeMethod(methodName, arguments);
             }
+//            try {
+//                Condition condition = groovyFrontBuilder.createCondition(methodName, arguments);
+//                return Boolean.valueOf(condition.eval());
+//            } catch (BuildException e) {
+                throw mme;
+//            }
         }
-        return returnObject;
+    }
+
+    // TODO this should be done more dynamically
+    private boolean isNotCondition(String methodName, Object[] arguments) {
+        if (!CONDITION_TASK_NAMES.contains(methodName)) {
+            return true;
+        }
+        return arguments.length > 0 && arguments[0] instanceof Map && ((Map) arguments[0]).containsKey("property");
     }
 
     public Object invokeMethod(final Object object, final String methodName, final Object arguments) {

@@ -15,20 +15,22 @@
  *  limitations under the License.
  *
  */
-package org.apache.ant.groovyfront;
+import groovy.xml.NamespaceBuilder
 
-import java.io.File;
+taskdef(uri: 'org.apache.ant.antunit', resource: 'org/apache/ant/antunit/antlib.xml')
+def au = groovyns(prefix: 'au', uri: 'org.apache.ant.antunit')
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+target(name: 'testIsSet') {
+    def myPropIsSet = isset(property: 'myprop')
+    au.assertEquals(actual: false, expected: myPropIsSet)
+    myprop = 'myvalue'
+    myPropIsSet = isset(property: 'myprop')
+    au.assertEquals(actual: true, expected: myPropIsSet)
+}
 
-import org.apache.ant.antunit.junit3.AntUnitSuite;
-
-public class GroovyFrontScriptTestSuite extends TestCase {
-
-    public static TestSuite suite() {
-        File script = new File(new File(new File(new File("src"), "test"), "antunit"), "varMappingTest.groovy");
-        return new AntUnitSuite(script, GroovyFrontScriptTestSuite.class);
-    }
-
+target(name: 'testAvailable') {
+    available(property: 'antavailable', classname: 'org.apache.tools.ant.Project')
+    au.assertEquals(actual: true, expected: '${antavailable}')
+    def a = available(classname: 'org.apache.tools.ant.Project')
+    au.assertEquals(actual: true, expected: a)
 }

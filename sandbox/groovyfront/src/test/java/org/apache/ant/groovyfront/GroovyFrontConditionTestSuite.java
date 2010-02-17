@@ -24,11 +24,11 @@ import junit.framework.TestSuite;
 
 import org.apache.ant.antunit.junit3.AntUnitSuite;
 
-public class GroovyFrontScriptTestSuite extends TestCase {
+public class GroovyFrontConditionTestSuite extends TestCase {
 
     public static TestSuite suite() {
-        File script = new File(new File(new File(new File("src"), "test"), "antunit"), "varMappingTest.groovy");
-        return new AntUnitSuite(script, GroovyFrontScriptTestSuite.class);
+        File script = new File(new File(new File(new File("src"), "test") , "antunit"), "conditionTest.groovy");
+        return new AntUnitSuite(script, GroovyFrontConditionTestSuite.class);
     }
 
 }
