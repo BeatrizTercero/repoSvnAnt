@@ -33,6 +33,7 @@ import java.util.Vector;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.util.FileUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 
@@ -46,7 +47,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         return "build.groovy";
     }
 
-    public boolean supportsBuildFile(File buildFile) {
+    public boolean canParseBuildFile(Resource buildFile) {
         return buildFile.getName().toLowerCase().endsWith(".groovy");
     }
 
