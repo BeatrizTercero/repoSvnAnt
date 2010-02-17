@@ -68,7 +68,14 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         </if>
 
         <!-- actual element / function name -->
-        <value-of select="local-name()" />
+        <choose>
+            <when test="local-name() = 'import'">
+                <text>include</text>
+            </when>
+            <otherwise>
+                <value-of select="local-name()" />
+            </otherwise>
+        </choose>
 
         <text>(</text>
 
