@@ -17,8 +17,8 @@
  */
 package org.apache.ant.groovyfront;
 
+import groovy.lang.Closure;
 import groovy.lang.GroovyObjectSupport;
-import groovy.xml.NamespaceBuilder;
 import groovy.xml.NamespaceBuilderSupport;
 
 import java.util.Collections;
@@ -31,7 +31,13 @@ public class SimpleNamespaceBuilder extends GroovyObjectSupport {
 
     public SimpleNamespaceBuilder(GroovyFrontBuilder groovyFrontBuilder, String prefix, String uri) {
         this.prefix = prefix == null ? uri.replaceAll(":", ".") : prefix;
-        nsBuilder = NamespaceBuilder.newInstance(Collections.singletonMap(this.prefix, uri), groovyFrontBuilder);
+        nsBuilder = new NamespaceBuilderSupport(groovyFrontBuilder, Collections.singletonMap(this.prefix, uri)) {
+            protected void setClosureDelegate(Closure closure, Object node) {
+                closure.setDelegate(this);
+                // ensure that we first hit the delegate: the builder
+                closure.setResolveStrategy(Closure.DELEGATE_FIRST);
+            }
+        };
     }
 
     public Object invokeMethod(String name, Object args) {

@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
     }
 
     public void parse(Project project, Object source) throws BuildException {
-        Vector/*<Object>*/ stack = getImportStack();
+        Vector/* <Object> */stack = getImportStack();
         stack.addElement(source);
         GroovyFrontParsingContext context = null;
         context = (GroovyFrontParsingContext) project.getReference(REFID_CONTEXT);
@@ -62,12 +63,12 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         }
 
         if (getImportStack().size() > 1) {
-            Map/*<String, Target>*/ currentTargets = context.getCurrentTargets();
+            Map/* <String, Target> */currentTargets = context.getCurrentTargets();
             String currentProjectName = context.getCurrentProjectName();
             boolean imported = context.isImported();
             try {
                 context.setImported(true);
-                context.setCurrentTargets(new HashMap/*<String, Target>*/());
+                context.setCurrentTargets(new HashMap/* <String, Target> */());
                 parse(project, source, context);
             } finally {
                 context.setCurrentTargets(currentTargets);
@@ -76,7 +77,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
             }
         } else {
             // top level file
-            context.setCurrentTargets(new HashMap/*<String, Target>*/());
+            context.setCurrentTargets(new HashMap/* <String, Target> */());
             parse(project, source, context);
         }
     }
@@ -128,12 +129,13 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         GroovyShell groovyShell = new GroovyShell(getClass().getClassLoader(), binding);
         final Script script;
         try {
-            script = groovyShell.parse(in, buildFileName);
+            script = groovyShell.parse(new InputStreamReader(in), buildFileName);
         } catch (CompilationFailedException e) {
             throw new BuildException("Error reading groovy file " + buildFileName + ": " + e.getMessage(), e);
         }
         script.setBinding(binding);
-        script.setMetaClass(new GroovyFrontScriptMetaClass(script.getMetaClass(), groovyFrontProject, antBuilder, context));
+        script.setMetaClass(new GroovyFrontScriptMetaClass(script.getMetaClass(), groovyFrontProject, antBuilder,
+                context));
         new GroovyRunner() {
             protected void doRun() {
                 script.run();

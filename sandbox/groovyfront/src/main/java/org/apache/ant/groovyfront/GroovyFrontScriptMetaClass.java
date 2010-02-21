@@ -18,7 +18,10 @@
 package org.apache.ant.groovyfront;
 
 import groovy.lang.Closure;
+import groovy.lang.DelegatingMetaClass;
 import groovy.lang.MetaClass;
+import groovy.lang.MissingMethodException;
+import groovy.lang.Tuple;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -29,27 +32,58 @@ import org.apache.tools.ant.Location;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Target;
 import org.apache.tools.ant.taskdefs.AntlibDefinition;
+import org.apache.tools.ant.taskdefs.condition.Condition;
+import org.codehaus.groovy.runtime.MetaClassHelper;
 
-public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
+public class GroovyFrontScriptMetaClass extends DelegatingMetaClass {
 
     private final GroovyFrontProject project;
     private final GroovyFrontParsingContext context;
+    private final GroovyFrontBuilder groovyFrontBuilder;
 
-    public GroovyFrontScriptMetaClass(MetaClass metaClass, GroovyFrontProject project, GroovyFrontBuilder groovyFrontBuilder,
-            GroovyFrontParsingContext context) {
-        super(metaClass, groovyFrontBuilder);
+    public GroovyFrontScriptMetaClass(MetaClass metaClass, GroovyFrontProject project,
+            GroovyFrontBuilder groovyFrontBuilder, GroovyFrontParsingContext context) {
+        super(metaClass);
         this.project = project;
+        this.groovyFrontBuilder = groovyFrontBuilder;
         this.context = context;
     }
 
+    public Object invokeMethod(final Object object, final String methodName, final Object arguments) {
+        if (arguments == null) {
+            return invokeMethod(object, methodName, MetaClassHelper.EMPTY_ARRAY);
+        } else if (arguments instanceof Tuple) {
+            return invokeMethod(object, methodName, ((Tuple) arguments).toArray());
+        } else if (arguments instanceof Object[]) {
+            return invokeMethod(object, methodName, (Object[]) arguments);
+        } else {
+            return invokeMethod(object, methodName, new Object[] { arguments });
+        }
+    }
+
+    public Object invokeMethod(final String name, final Object args) {
+        return invokeMethod(this, name, args);
+    }
+
+    public Object invokeMethod(final Class sender, final Object receiver, final String methodName,
+            final Object[] arguments, final boolean isCallToSuper, final boolean fromInsideClass) {
+        return invokeMethod(receiver, methodName, arguments);
+    }
+
     public Object invokeMethod(Object object, String methodName, Object[] arguments) {
+        logDebug("trying", methodName);
+
         if ("target".equals(methodName)) {
+            logDebug("caught", methodName);
             defineTarget(arguments);
             return null;
         }
+
         if ("include".equals(methodName)) {
+            logDebug("caught", methodName);
             return importScript(arguments);
         }
+
         if ("groovyns".equals(methodName)) {
             if (arguments.length != 1 && !(arguments[0] instanceof Map)) {
                 throw new BuildException("Invalid method signature for 'groovyns'");
@@ -59,23 +93,53 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
                 throw new BuildException("Missing 'uri' argument on 'groovyns'");
             }
             String prefix = (String) ((Map) arguments[0]).get("prefix");
+            logDebug("caught", methodName);
             return new SimpleNamespaceBuilder(groovyFrontBuilder, prefix, uri);
         }
-        Object returnObject = super.invokeMethod(object, methodName, arguments);
-        if (returnObject instanceof AntlibDefinition) {
-            AntlibDefinition antlibDefinition = (AntlibDefinition) returnObject;
-            returnObject = new SimpleNamespaceBuilder(groovyFrontBuilder, antlibDefinition.getURI(), antlibDefinition.getURI());
+
+        if (!groovyFrontBuilder.isNotCondition(methodName, arguments)) {
+            Condition condition = groovyFrontBuilder.createCondition(methodName, arguments);
+            logDebug("caught", methodName);
+            return Boolean.valueOf(condition.eval());
         }
+
+        Object returnObject;
+        try {
+            // try the script functions
+            returnObject = super.invokeMethod(object, methodName, arguments);
+        } catch (MissingMethodException mme) {
+            // this may be a call to an ant task
+            if (groovyFrontBuilder.isTaskDefined(methodName)
+                    && groovyFrontBuilder.isNotCondition(methodName, arguments)) {
+                return groovyFrontBuilder.invokeMethod(methodName, arguments);
+            }
+            logDebug("missed", methodName);
+            throw mme;
+        }
+        logDebug("caught", methodName);
+
+        if (returnObject instanceof AntlibDefinition) {
+            // wrap the antlib into a builder
+            AntlibDefinition antlibDefinition = (AntlibDefinition) returnObject;
+            returnObject = new SimpleNamespaceBuilder(groovyFrontBuilder, antlibDefinition.getURI(), antlibDefinition
+                    .getURI());
+        }
+
         return returnObject;
+    }
+
+    private void logDebug(String status, String methodName) {
+        project.log(status + " in GroovyFrontScriptMetaClass: " + methodName, Project.MSG_DEBUG);
     }
 
     private void defineTarget(Object[] args) {
         if (args.length != 2 || !(args[0] instanceof Map) || !(args[1] instanceof Closure)) {
             throw new BuildException("A target is ill formed. Expecting map, closure but was: " + Arrays.toString(args));
         }
-        Map/*<String, String>*/ map = (Map/*<String, String>*/) args[0];
+        Map/* <String, String> */map = (Map/* <String, String> */) args[0];
         Closure closure = (Closure) args[1];
-        closure.setMetaClass(new GroovyFrontMetaClass(closure.getMetaClass(), groovyFrontBuilder));
+        closure.setDelegate(groovyFrontBuilder);
+        closure.setResolveStrategy(Closure.DELEGATE_FIRST);
         String name = (String) map.get("name");
         String description = (String) map.get("description");
         String depends = (String) map.get("depends");
@@ -103,7 +167,7 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
             target.setDescription(description);
         }
 
-        Hashtable/*<?, ?>*/ projectTargets = project.getTargets();
+        Hashtable/* <?, ?> */projectTargets = project.getTargets();
         // If the name has not already been defined, log an override
         // NB: unlike ant xml project helper, the imported file are executed before the target definition of the main
         // file
@@ -123,7 +187,6 @@ public class GroovyFrontScriptMetaClass extends GroovyFrontMetaClass {
             context.getCurrentTargets().put(newName, newTarget);
             project.addOrReplaceTarget(newName, newTarget);
         }
-
     }
 
     private Object importScript(Object[] arguments) {

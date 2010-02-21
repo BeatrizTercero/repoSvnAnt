@@ -34,3 +34,11 @@ target(name: 'testAvailable') {
     def a = available(classname: 'org.apache.tools.ant.Project')
     au.assertEquals(actual: true, expected: a)
 }
+
+target(name: 'testAnd') {
+    def a = and {
+        available(classname: 'org.apache.tools.ant.Project')
+        istrue(value: 'true')
+    }
+    au.assertEquals(actual: true, expected: a)
+}
