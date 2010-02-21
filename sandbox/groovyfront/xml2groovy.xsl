@@ -71,6 +71,7 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <text>}</text>
     </template>
 
+    <!-- condition task transformation into if-then-else -->
     <template match="*[local-name() = 'condition' and @property]">
         <text>if (</text>
             <apply-templates select="child::*" mode="condition" />
@@ -91,20 +92,18 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <text>}</text>
     </template>
 
+    <!-- 'pure' condition handling -->
     <template match="*[local-name() = 'istrue']" mode="condition">
         <!-- TODO handle the case of a property with a dot -->
         <text>&quot;</text><value-of select="@value" /><text>&quot;</text>
     </template>
-
     <template match="*[local-name() = 'isfalse']" mode="condition">
         <!-- TODO handle the case of a property with a dot -->
         <text>!&quot;</text><value-of select="@value" /><text>&quot;</text>
     </template>
-
     <template match="*[local-name() = 'not']" mode="condition">
         <text>!</text><apply-templates select="child::*" />
     </template>
-
     <template match="*[local-name() = 'and']" mode="condition">
         <for-each select="*">
             <apply-templates select="." mode="condition" />
@@ -113,7 +112,6 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             </if>
         </for-each>
     </template>
-
     <template match="*[local-name() = 'or']" mode="condition">
         <for-each select="*">
             <apply-templates select="." mode="condition" />
@@ -122,7 +120,6 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             </if>
         </for-each>
     </template>
-
     <template match="*" mode="condition">
         <apply-templates select="." />
     </template>
@@ -142,6 +139,13 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             <when test="local-name() = 'import'">
                 <text>include</text>
             </when>
+            <when test="contains(local-name(), '-')">
+                <call-template name="replace">
+                    <with-param name="input" select="local-name()" />
+                    <with-param name="match" select="'-'" />
+                    <with-param name="replace" select="'_'" />
+                </call-template>
+            </when>
             <otherwise>
                 <value-of select="local-name()" />
             </otherwise>
@@ -153,7 +157,19 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <for-each select="@*">
             <value-of select="local-name()" />
             <text>: '</text>
-            <call-template name="escape-quotes" />
+            <choose>
+                <when test="local-name(..) = 'macrodef' and local-name() = 'name' and contains(., '-')">
+                    <!-- try to handle macrodefs with a dash name -->
+                    <call-template name="replace">
+                        <with-param name="input" select="." />
+                        <with-param name="match" select="'-'" />
+                        <with-param name="replace" select="'_'" />
+                    </call-template>
+                </when>
+                <otherwise>
+                    <call-template name="escape-quotes" />
+                </otherwise>
+            </choose>
             <text>'</text>
             <if test="position() != last()">
                 <text>, </text>
@@ -215,7 +231,7 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             </otherwise>
         </choose>
     </template>
-    
+
     <!-- try to not loose XML comments -->
     <template match="comment()" >
         <text>/* </text><value-of select="." /><text> */</text>
@@ -226,6 +242,26 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <if test="string-length(normalize-space(.)) = 0">
             <!-- just output it to keep the same indentation -->
             <value-of select="." />
+        </if>
+    </template>
+
+    <template name="replace">
+        <param name="input" />
+        <param name="match" />
+        <param name="replace" />
+        <if test="string-length(substring-before($input,$match)) =0">
+            <value-of select="$input" />
+        </if>
+        <if test="string-length(substring-before($input,$match)) > 0">
+            <value-of select="substring-before($input,$match)" />
+            <value-of select="$replace" />
+        </if>
+        <if test="string-length(substring-after($input,$match)) > 0">
+            <call-template name="replace">
+                <with-param name="input" select="substring-after($input,$match)" />
+                <with-param name="match" select="$match" />
+                <with-param name="replace" select="$replace" />
+            </call-template>
         </if>
     </template>
 
