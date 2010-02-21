@@ -58,13 +58,43 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <apply-templates select="child::node()" />
     </template>
 
+    <!-- heuristic about antcontrib's if -->
+    <template match="*[contains(namespace-uri(.), 'antcontrib') and local-name() = 'if']">
+        <text>if (</text>
+        <apply-templates select="*[position() = 1]" mode="condition" />
+        <text>) {</text>
+        <apply-templates select="then/child::node()" />
+        <if test="count(else/child::node()) != 0">
+            <text>} else {</text>
+            <apply-templates select="else/child::node()" />
+        </if>
+        <text>}</text>
+    </template>
+
+    <template match="*[local-name() = 'istrue' and starts-with(@value, '{') and not (starts-with(@value, '.') )]" mode="condition">
+        <text>&quot;</text><value-of select="@value" /><text>&quot;</text>
+    </template>
+
+    <template match="*[local-name() = 'isfalse' and starts-with(@value, '{') and not (starts-with(@value, '.') )]" mode="condition">
+        <text>!&quot;</text><value-of select="@value" /><text>&quot;</text>
+    </template>
+
+    <template match="*[local-name() = 'not']" mode="condition">
+        <text>!</text><apply-templates select="child::*" />
+    </template>
+
+    <template match="*" mode="condition">
+        <apply-templates select="." />
+    </template>
+
     <!-- generic xml to groovy transformer -->
     <template match="*">
 
         <!-- if there is some namespace, append the use of the grooyns -->
         <variable name="nsPrefix" select="substring-before(name(), ':')" />
         <if test="string-length($nsPrefix) != 0">
-            <value-of select="$nsPrefix" /><text>.</text>
+            <value-of select="$nsPrefix" />
+            <text>.</text>
         </if>
 
         <!-- actual element / function name -->
@@ -112,12 +142,12 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
                     <text>'</text>
                 </otherwise>
             </choose>
-        </if>        
+        </if>
 
         <text>)</text>
 
         <!-- process the children by recursively -->
-        <if test="count(child::node()) != 0">
+        <if test="count(child::*) != 0">
             <text> {</text>
             <apply-templates select="child::node()" />
             <text>}</text>
