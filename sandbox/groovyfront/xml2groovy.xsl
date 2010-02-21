@@ -71,16 +71,56 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <text>}</text>
     </template>
 
-    <template match="*[local-name() = 'istrue' and starts-with(@value, '{') and not (starts-with(@value, '.') )]" mode="condition">
+    <template match="*[local-name() = 'condition' and @property]">
+        <text>if (</text>
+            <apply-templates select="child::*" mode="condition" />
+        <text>) {
+</text>
+        <value-of select="@property" />
+        <!-- TODO handle the case of a property with a dot -->
+        <text> = &quot;</text><value-of select="@value" /><text>&quot;
+</text>
+        <if test="@else">
+            <text>} else {
+</text>
+            <value-of select="@property" />
+            <!-- TODO handle the case of a property with a dot -->
+            <text> = &quot;</text><value-of select="@else" /><text>&quot;
+</text>
+        </if>
+        <text>}</text>
+    </template>
+
+    <template match="*[local-name() = 'istrue']" mode="condition">
+        <!-- TODO handle the case of a property with a dot -->
         <text>&quot;</text><value-of select="@value" /><text>&quot;</text>
     </template>
 
-    <template match="*[local-name() = 'isfalse' and starts-with(@value, '{') and not (starts-with(@value, '.') )]" mode="condition">
+    <template match="*[local-name() = 'isfalse']" mode="condition">
+        <!-- TODO handle the case of a property with a dot -->
         <text>!&quot;</text><value-of select="@value" /><text>&quot;</text>
     </template>
 
     <template match="*[local-name() = 'not']" mode="condition">
         <text>!</text><apply-templates select="child::*" />
+    </template>
+
+    <template match="*[local-name() = 'and']" mode="condition">
+        <for-each select="*">
+            <apply-templates select="." mode="condition" />
+            <if test="position() != last()">
+                <text> &amp;&amp; </text>
+            </if>
+        </for-each>
+    </template>
+
+    <template match="*[local-name() = 'or']" mode="condition">
+        <for-each select="*">
+            <apply-templates select="." mode="condition" />
+            <if test="position() != last()">
+                <text> || </text>
+            </if>
+        </for-each>
     </template>
 
     <template match="*" mode="condition">
