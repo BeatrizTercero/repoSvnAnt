@@ -30,6 +30,7 @@ import org.apache.ant.groovyfront.jvm15backport.Arrays;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Location;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.PropertyHelper;
 import org.apache.tools.ant.Target;
 import org.apache.tools.ant.taskdefs.AntlibDefinition;
 import org.apache.tools.ant.taskdefs.condition.Condition;
@@ -95,6 +96,14 @@ public class GroovyFrontScriptMetaClass extends DelegatingMetaClass {
             String prefix = (String) ((Map) arguments[0]).get("prefix");
             logDebug("caught", methodName);
             return new SimpleNamespaceBuilder(groovyFrontBuilder, prefix, uri);
+        }
+
+        if ("anteval".equals(methodName)) {
+            if (arguments.length != 1 && !(arguments[0] instanceof String)) {
+                throw new BuildException("Invalid method signature for 'anteval'");
+            }
+            logDebug("caught", methodName);
+            return PropertyHelper.getPropertyHelper(project).parseProperties((String) arguments[0]);
         }
 
         if (!groovyFrontBuilder.isNotCondition(methodName, arguments)) {

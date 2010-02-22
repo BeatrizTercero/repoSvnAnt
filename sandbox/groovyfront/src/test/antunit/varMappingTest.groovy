@@ -43,10 +43,10 @@ target(name: 'testIfThenElse') {
     if (fileExist) {
         au.assertPropertyEquals(name: 'fileExist', value: 'true')
     } else {
-        au.testFail(message: 'the if branching of "fileExist" failed')
+        au.fail(message: 'the if branching of "fileExist" failed')
     }
     if (!fileExist) {
-        au.testFail(message: 'the else branching of "fileExist" failed')
+        au.fail(message: 'the else branching of "fileExist" failed')
     } else {
         au.assertPropertyEquals(name: 'fileExist', value: 'true')
     }
@@ -57,10 +57,10 @@ target(name: 'testIfThenElse') {
     if (project.properties['fileExistNoAlternative'] != null && fileExistNoAlternative) {
         au.assertPropertyEquals(name: 'fileExistNoAlternative', value: 'true')
     } else {
-        au.testFail(message: 'the if branching of "fileExistNoAlternative" failed')
+        au.fail(message: 'the if branching of "fileExistNoAlternative" failed')
     }
     if (project.properties['fileExistNoAlternative'] == null || !fileExistNoAlternative) {
-        au.testFail(message: 'the else branching of "fileExistNoAlternative" failed')
+        au.fail(message: 'the else branching of "fileExistNoAlternative" failed')
     } else {
         au.assertPropertyEquals(name: 'fileExistNoAlternative', value: 'true')
     }
@@ -71,7 +71,7 @@ target(name: 'testIfThenElse') {
         }
     }
     if (project.properties['fileNotExistNoAlternative'] != null && fileNotExistNoAlternative) {
-        au.testFail(message: 'the else branching of "fileNotExistNoAlternative" failed')
+        au.fail(message: 'the else branching of "fileNotExistNoAlternative" failed')
     } else {
         au.assertTrue() {
             not() {
@@ -86,7 +86,7 @@ target(name: 'testIfThenElse') {
             }
         }
     } else {
-        au.testFail(message: 'the if branching of "fileNotExistNoAlternative" failed')
+        au.fail(message: 'the if branching of "fileNotExistNoAlternative" failed')
     }
 }
 
@@ -208,4 +208,15 @@ target(name: 'testLocalVariable') {
         fail = true
     }
     au.assertEquals(message: 'Calling echo should have failed', expected: 'true', actual: fail)
+}
+
+target(name: 'testAntEval') {
+    property(name: 'fooproperty', value: 'foovalue')
+    def value = anteval('${fooproperty}')
+    au.assertEquals(expected: 'foovalue', actual: value)
+
+    boolproperty = 'true'
+    if (!anteval('${boolproperty}')) {
+        au.fail(message: 'the anteval did not properly evaluate the boolean property')
+    }
 }

@@ -77,29 +77,34 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             <apply-templates select="child::*" mode="condition" />
         <text>) {
 </text>
-        <value-of select="@property" />
-        <!-- TODO handle the case of a property with a dot -->
-        <text> = &quot;</text><value-of select="@value" /><text>&quot;
+        <call-template name="setprop">
+            <with-param name="name" select="@property" />
+            <with-param name="value" select="@value" />
+        </call-template>
+        <text>
 </text>
         <if test="@else">
             <text>} else {
 </text>
-            <value-of select="@property" />
-            <!-- TODO handle the case of a property with a dot -->
-            <text> = &quot;</text><value-of select="@else" /><text>&quot;
-</text>
+            <call-template name="setprop">
+                <with-param name="name" select="@property" />
+                <with-param name="value" select="@else" />
+            </call-template>
         </if>
         <text>}</text>
     </template>
 
     <!-- 'pure' condition handling -->
     <template match="*[local-name() = 'istrue']" mode="condition">
-        <!-- TODO handle the case of a property with a dot -->
-        <text>&quot;</text><value-of select="@value" /><text>&quot;</text>
+        <call-template name="anteval">
+            <with-param name="value" select="@value" />
+        </call-template>
     </template>
     <template match="*[local-name() = 'isfalse']" mode="condition">
-        <!-- TODO handle the case of a property with a dot -->
-        <text>!&quot;</text><value-of select="@value" /><text>&quot;</text>
+        <text>!</text>
+        <call-template name="anteval">
+            <with-param name="value" select="@value" />
+        </call-template>
     </template>
     <template match="*[local-name() = 'not']" mode="condition">
         <text>!</text><apply-templates select="child::*" />
@@ -159,7 +164,7 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             <text>: '</text>
             <choose>
                 <when test="local-name(..) = 'macrodef' and local-name() = 'name' and contains(., '-')">
-                    <!-- try to handle macrodefs with a dash name -->
+                    <!-- try to handle macrodefs with a dashed name -->
                     <call-template name="replace">
                         <with-param name="input" select="." />
                         <with-param name="match" select="'-'" />
@@ -265,4 +270,39 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         </if>
     </template>
 
+    <!-- try to be smart by avoiding a call anteval when it is not necessary -->
+    <template name="anteval">
+        <param name="value" />
+        <choose>
+            <when test="contains($value, '$')">
+                <text>anteval(&apos;</text><value-of select="$value" /><text>&apos;)</text>
+            </when>
+            <otherwise>
+                <text>&apos;</text><value-of select="$value" /><text>&apos;</text>
+            </otherwise>
+        </choose>
+    </template>
+
+    <!-- try to handle properly setting a ant property -->
+    <template name="setprop">
+        <param name="name" />
+        <param name="value" />
+        <choose>
+            <when test="contains($name, '-') or contains($name, '.') ">
+                <text>property(name: &apos;</text>
+                <value-of select="$name" />
+                <text>&apos;, value: &apos;</text>
+                <value-of select="$value" />
+                <text>&apos;)
+</text>
+            </when>
+            <otherwise>
+                <value-of select="$name" />
+                <text> = </text>
+                <call-template name="anteval">
+                    <with-param name="value" select="$value" />
+                </call-template>
+            </otherwise>
+        </choose>
+    </template>
 </stylesheet>
