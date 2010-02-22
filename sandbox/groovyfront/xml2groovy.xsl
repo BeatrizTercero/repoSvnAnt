@@ -129,8 +129,23 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         <apply-templates select="." />
     </template>
 
+    <!-- transform a condition of a fail task into a groovy if -->
+    <template match="*[local-name() = 'fail' and count(condition) != 0]">
+        <text>if (</text>
+        <apply-templates select="condition/*" mode="condition" />
+        <text>) {
+</text>
+        <value-of select="local-name()" />
+        <text>(</text>
+        <call-template name="process-args" />
+        <call-template name="process-text-content" />
+        <text>)
+}</text>
+    </template>
+
     <!-- generic xml to groovy transformer -->
     <template match="*">
+        <param name="recursive" select="'true'" />
 
         <!-- if there is some namespace, append the use of the grooyns -->
         <variable name="nsPrefix" select="substring-before(name(), ':')" />
@@ -157,8 +172,20 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
         </choose>
 
         <text>(</text>
+        <call-template name="process-args" />
+        <call-template name="process-text-content" />
+        <text>)</text>
 
-        <!-- process the XML attributes -->
+        <!-- process the children recursively -->
+        <if test="$recursive and count(child::*) != 0">
+            <text> {</text>
+            <apply-templates select="child::node()" />
+            <text>}</text>
+        </if>
+    </template>
+
+    <!-- process the XML attributes -->
+    <template name="process-args">
         <for-each select="@*">
             <value-of select="local-name()" />
             <text>: '</text>
@@ -180,8 +207,10 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
                 <text>, </text>
             </if>
         </for-each>
+    </template>
 
-        <!-- process the content in the XML element if not only spaces -->
+    <!-- process the content in the XML element if not only spaces -->
+    <template name="process-text-content">
         <if test="string-length(normalize-space(node())) != 0">
             <if test="count(@*) != 0">
                 <text>, </text>
@@ -203,15 +232,6 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
                     <text>'</text>
                 </otherwise>
             </choose>
-        </if>
-
-        <text>)</text>
-
-        <!-- process the children by recursively -->
-        <if test="count(child::*) != 0">
-            <text> {</text>
-            <apply-templates select="child::node()" />
-            <text>}</text>
         </if>
     </template>
 
