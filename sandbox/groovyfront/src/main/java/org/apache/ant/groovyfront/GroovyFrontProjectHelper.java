@@ -99,6 +99,9 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
                 buildFileName = url.toString();
                 in = url.openStream();
                 // } else if (source instanceof InputSource ) {
+            } else if (source instanceof Resource) {
+                buildFileName = ((Resource) source).getName();
+                in =  ((Resource) source).getInputStream();
             } else {
                 throw new BuildException("Source " + source.getClass().getName() + " not supported by this plugin");
             }
@@ -129,7 +132,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         GroovyShell groovyShell = new GroovyShell(getClass().getClassLoader(), binding);
         final Script script;
         try {
-            script = groovyShell.parse(new InputStreamReader(in), buildFileName);
+            script = groovyShell.parse(new InputStreamReader(in),  asGroovyClass(buildFileName));
         } catch (CompilationFailedException e) {
             throw new BuildException("Error reading groovy file " + buildFileName + ": " + e.getMessage(), e);
         }
@@ -143,4 +146,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         }.run();
     }
 
+    private String asGroovyClass(String filename) {
+        return filename.replaceAll("-", "_");
+    }
 }
