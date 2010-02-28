@@ -142,13 +142,17 @@ public class GroovyFrontScriptMetaClass extends DelegatingMetaClass {
     }
 
     private void defineTarget(Object[] args) {
-        if (args.length != 2 || !(args[0] instanceof Map) || !(args[1] instanceof Closure)) {
+        if (args.length < 1 || args.length > 2 || !(args[0] instanceof Map)
+                || (args.length == 2 && !(args[1] instanceof Closure))) {
             throw new BuildException("A target is ill formed. Expecting map, closure but was: " + Arrays.toString(args));
         }
         Map/* <String, String> */map = (Map/* <String, String> */) args[0];
-        Closure closure = (Closure) args[1];
-        closure.setDelegate(groovyFrontBuilder);
-        closure.setResolveStrategy(Closure.DELEGATE_FIRST);
+        Closure closure = null;
+        if (args.length > 1) {
+            closure = (Closure) args[1];
+            closure.setDelegate(groovyFrontBuilder);
+            closure.setResolveStrategy(Closure.DELEGATE_FIRST);
+        }
         String name = (String) map.get("name");
         String description = (String) map.get("description");
         String depends = (String) map.get("depends");

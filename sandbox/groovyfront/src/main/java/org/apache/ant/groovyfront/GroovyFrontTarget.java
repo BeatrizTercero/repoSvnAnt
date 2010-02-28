@@ -40,6 +40,9 @@ public class GroovyFrontTarget extends Target {
 
     public void execute() throws BuildException {
         groovyFrontBuilder.getAntXmlContext().setCurrentTarget(this);
+        if (closure == null) {
+            return;
+        }
         final Closure c = closure;
         // if (testIfCondition() && testUnlessCondition()) {
         new GroovyRunner() {
