@@ -81,8 +81,6 @@ def </text><value-of select="substring-before(name(), ':')" /><text> = groovyns(
             <with-param name="name" select="@property" />
             <with-param name="value" select="@value" />
         </call-template>
-        <text>
-</text>
         <if test="@else">
             <text>} else {
 </text>
