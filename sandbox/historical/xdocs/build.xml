@@ -505,7 +505,7 @@
   </target>
 
   <target name="prepare-for-docs">
-    <property name="ant.docs" value="../../docs"/>
+    <property name="ant.docs" value="../../../docs"/>
     <copy todir="${build.docs.dir}">
       <fileset dir="${ant.docs}" includes="artwork/**" />
     </copy>
