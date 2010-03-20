@@ -526,6 +526,10 @@
    depends="gen,prepare-for-docs" />
    
   <target name="docs" depends="prepare-for-docs" >
+  
+    <!-- JHM: debug output for getting Gump run -->
+    <echoproperties taskname="debug-log"/>
+  
     <!-- Copy stuff so things are in the correct relative location. -->
     <!-- Generate HTML using DVSL -->
     <ant dir="dvsl"/>
