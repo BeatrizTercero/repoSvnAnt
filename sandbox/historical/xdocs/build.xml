@@ -8,12 +8,18 @@
   <property file="${user.home}/.${ant.project.name}.properties"/>
 
   <property name="src.root"
-            location="../../src/main"/>
+            location="../../src/main"
+            description="Ants Java sources"/>
   <property name="docs.src"
-            location="../../xdocs"/>
+            location="../../xdocs"
+            description="XDocs Documentation in Ants source tree"/>
   <property name="xdocs.dir"
-            location="xdocs"/>
-            
+            location="xdocs"
+            description="Target dir for generation"/>
+  <property name="ant.docs" 
+            location="${docs.src}/../docs"
+            description="Directory of Ants manual"/>
+
   <property name="build.dir" location="build"/>
   <property name="antdoclet.src.dir" location="src"/>
   <property name="gen.dir" location="${build.dir}/gen"/>
@@ -505,7 +511,6 @@
   </target>
 
   <target name="prepare-for-docs">
-    <property name="ant.docs" value="../../../docs"/>
     <copy todir="${build.docs.dir}">
       <fileset dir="${ant.docs}" includes="artwork/**" />
     </copy>
