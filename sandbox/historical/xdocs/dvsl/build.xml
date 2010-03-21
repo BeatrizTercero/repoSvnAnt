@@ -22,6 +22,9 @@
   </path>
 
   <target name="init">
+    <!-- JHM: debug output for getting Gump run -->
+    <echoproperties taskname="debug-log"/>
+
     <taskdef name="dvsl" classname="org.apache.tools.dvsl.DVSLTask">
       <classpath>
         <path refid="classpath"/>
