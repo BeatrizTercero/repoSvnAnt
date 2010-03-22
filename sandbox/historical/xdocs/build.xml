@@ -7,18 +7,38 @@
   -->
   <property file="${user.home}/.${ant.project.name}.properties"/>
 
+  <property name="ant.svn.root"
+            location="../.."
+            description="Root directory of Ants SVN tree"/>
+
+
   <property name="src.root"
-            location="../../src/main"
+            location="${ant.svn.root}/src/main"
             description="Ants Java sources"/>
   <property name="docs.src"
-            location="../../xdocs"
+            location="${ant.svn.root}/xdocs"
             description="XDocs Documentation in Ants source tree"/>
   <property name="xdocs.dir"
             location="xdocs"
             description="Target dir for generation"/>
   <property name="ant.docs" 
-            location="${docs.src}/../docs"
+            location="${ant.svn.root}/docs"
             description="Directory of Ants manual"/>
+
+
+  <fail message="$${ant.svn.root} must point to the root directory of Ants SVN codebase. Current: ${ant.svn.root}">
+    <condition><not><available file="${ant.svn.root}/src/script/runant.pl"/></not></condition>
+  </fail>
+  <fail message="$${src.root} must point to the root directory of Ants codebase. Current: ${src.root}">
+    <condition><not><available file="${src.root}/org/apache/tools/ant/Project.java"/></not></condition>
+  </fail>
+  <fail message="$${docs.src} must point to the xdocs directory of Ants codebase. Current: ${docs.src}">
+    <condition><not><available file="${docs.src}/external.xml"/></not></condition>
+  </fail>
+  <fail message="$${ant.docs} must point to the 'docs' directory (which contains the manual) in Ants codebase. Current: ${ant.docs}">
+    <condition><not><available file="${ant.docs}/manual/projecthelper.html"/></not></condition>
+  </fail>
+
 
   <property name="build.dir" location="build"/>
   <property name="antdoclet.src.dir" location="src"/>
