@@ -50,6 +50,18 @@
     />
   </presetdef>
 
+  <macrodef name="create-tempfile">
+    <attribute name="property" />
+    <attribute name="directory" default="${testing-dir}" />
+    <attribute name="message" default="Testing VSS"/>
+    <sequential>
+      <mkdir dir="@{directory}" />
+      <tempfile property="@{property}" destdir="@{directory}"
+          suffix=".java" />
+      <echo file="${@{property}}" message="// @{message}" />
+    </sequential>
+  </macrodef>
+
   <target name="setup" depends="find-ss-server-dir, find-ss-dir">
     <fail unless="vss-ss-dir">Could not find ss.exe.
         Add to Path environment variable
@@ -60,6 +72,9 @@
         or add vss-server-dir=[path to database] to build.properties
         or add -Dvss-server-dir=[path to database] to command line.</fail>
     <sscreate
+      vsspath="$/${vss-project}"
+    />
+    <sscp
       vsspath="$/${vss-project}"
     />
   </target>
@@ -89,23 +104,19 @@
         value="C:\Program Files (x86)\Microsoft Visual Sourcesafe\ss.exe"/>
   </target>
 
+
   <target name="test-all" depends="setup, test-add, test-move,
       test-cloak, test-delete-recover, test-locate, test-status"
       description="Test all VSS tasks other than destroy (use cleanup for that)"
   />
 
   <target name="test-add" depends="setup">
-
-    <sscp
-      vsspath="$/${vss-project}"
-    />
-
+    <create-tempfile property="vss-temp-file" message="Testing Add for VSS" />
     <ssadd
       vsspath="$/${vss-project}"
-      localpath="${testcase-dir}/msvss.xml"
-      comment="adding antlib file to vss"
+      localpath="${vss-temp-file}"
+      comment="Testing Add for VSS"
     />
-
   </target>
 
   <target name="test-move" depends="setup">
@@ -192,5 +203,6 @@
       ssdir="${vss-ss-dir}"
       serverPath="${vss-server-dir}"
     />
+    <delete dir="${testing-dir}" />
   </target>
 </project>
