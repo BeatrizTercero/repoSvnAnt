@@ -105,8 +105,8 @@
   </target>
 
 
-  <target name="test-all" depends="setup, test-add, test-move,
-      test-cloak, test-delete-recover, test-locate, test-status"
+  <target name="test-all" depends="setup, test-delete-recover, test-add,
+      test-move, test-cloak, test-locate, test-status, test-checkout, test-checkin"
       description="Test all VSS tasks other than destroy (use cleanup for that)"
   />
 
@@ -170,9 +170,6 @@
     <!-- should be able to change to project as it has been 'recovered' -->
     <sscp
       vsspath="$/${vss-project}"
-      login="Guest,"
-      ssdir="${vss-ss-dir}"
-      serverPath="${vss-server-dir}"
     />
   </target>
 
@@ -192,6 +189,28 @@
       user="Guest"
       ssdir="${vss-ss-dir}"
       serverPath="${vss-server-dir}"
+    />
+  </target>
+
+  <target name="test-checkout" depends="setup, test-add">
+    <vss:checkout
+      ssdir="${vss-ss-dir}"
+      serverPath="${vss-server-dir}"
+      vsspath="$/${vss-project}"
+      localpath="${testing-dir}"
+      login="Guest,"
+    />
+  </target>
+
+  <target name="test-checkin" depends="setup, test-checkout">
+    <echo file="${vss-temp-file}" message="Testing Checkin with VSS" />
+    <vss:checkin
+      ssdir="${vss-ss-dir}"
+      serverPath="${vss-server-dir}"
+      vsspath="$/${vss-project}"
+      localpath="${testing-dir}"
+      login="Guest,"
+      comment="Testing Checkin with VSS"
     />
   </target>
 
