@@ -47,7 +47,7 @@ public class Main {
             System.out.println("");
             System.out.println("Ant 1.8.2 way:");
             System.out.println("==============");
-            for (Object s : oldStyle) {
+            for (Object s : newStyle) {
                 System.out.println(s);
             }
         }
