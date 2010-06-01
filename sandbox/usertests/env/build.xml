@@ -39,7 +39,7 @@
   </target>
 
   <target name="zip" depends="antlib">
-    <zip destfile="build.lib/${artifact.stub}.zip">
+    <zip destfile="${build.lib}/${artifact.stub}.zip">
       <zipfileset file="${jarname}" fullpath="${artifact.stub}.jar"/>
       <zipfileset prefix="bin" dir="src/script">
         <include name="*.bat"/>
