@@ -29,6 +29,14 @@ public class Main {
         System.out.println("Detected OS_NAME: " + Os.OS_NAME);
         System.out.println("Detected OS_ARCH: " + Os.OS_ARCH);
         System.out.println("Detected OS_VERSION: " + Os.OS_VERSION);
+        System.out.println("Detected Java Version: "
+                           + System.getProperty("java.version"));
+        System.out.println("Detected Java Vendor: "
+                           + System.getProperty("java.vendor"));
+        System.out.println("Detected Java VM Version: "
+                           + System.getProperty("java.vm.version"));
+        System.out.println("Detected Java VM Name: "
+                           + System.getProperty("java.vm.name"));
 
         final boolean verbose = args.length > 0 && args[0].equals("-v");
         Vector oldStyle = Execute.getProcEnvironment();
