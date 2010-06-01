@@ -15,11 +15,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project default="compile" name="usertests.env">
+<project default="zip" name="usertests.env">
 
   <property file="build.properties"/>
   <property name="javac.-source" value="5"/>
   <property name="javac.-target" value="5"/>
+  <property name="artifact.stub" value="ant-env"/>
   <import file="../common/build.xml"/>
 
   <!-- override to add main class -->
@@ -35,6 +36,18 @@
       <metainf file="NOTICE"/>
       <metainf file="${common.basedir}/LICENSE"/>
     </jar>
+  </target>
+
+  <target name="zip" depends="antlib">
+    <zip destfile="build.lib/${artifact.stub}.zip">
+      <zipfileset file="${jarname}" fullpath="${artifact.stub}.jar"/>
+      <zipfileset prefix="bin" dir="src/script">
+        <include name="*.bat"/>
+      </zipfileset>
+      <zipfileset prefix="bin" dir="src/script" filemode="755">
+        <exclude name="*.bat"/>
+      </zipfileset>
+    </zip>
   </target>
 
 </project>
