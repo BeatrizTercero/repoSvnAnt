@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache Ivy Ant Plugin
+Bundle-SymbolicName: org.apache.ivy.eclipse.ant;singleton:=true
+Bundle-Version: @VERSION@
+Bundle-Vendor: Apache Software Foundation
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ant.core,
+ org.apache.ant;bundle-version="1.7.0"
