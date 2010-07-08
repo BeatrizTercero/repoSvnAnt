@@ -37,6 +37,7 @@ body  {
   display: table;
   margin: 8px auto;
   padding: 0;
+  width: 98%;
 }
 body, p, td, li, ul, ol  {
   font-family: Verdana, Helvetica, Arial, sans-serif;
@@ -96,7 +97,6 @@ blockquote {
 pre {
   padding: 0.75em 1.5em;
   font-size: 1em;
-  overflow: auto;
 }
 .form-item {
   margin-top: 1em;
@@ -152,13 +152,16 @@ pre {
 }
 
 #sidebar-left, #sidebar-right {
-  width: 200px;
+  width: 300px;
   /* padding in px not ex because IE messes up 100% width tables otherwise */
   padding: 15px 5px 75px 10px;
   vertical-align: top;
 }
 #sidebar-left li, #sidebar-right li {
   font-size: 1em;
+}
+#content {
+  table-layout:fixed;
 }
 .block h2 {
   margin: 5px 0px 0px 0px;
