@@ -96,6 +96,8 @@
       <arg value="creating skeleton directory structure for ${antlib.fullname}"/>
       <arg value="${antlib.shortname}"/>
     </exec>
+    <!-- need to wait a few seconds to give European svn mirro time to catch up -->
+    <sleep seconds="10"/>
     <exec executable="svn">
       <arg value="up"/>
       <arg value="${antlib.shortname}"/>
