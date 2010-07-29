@@ -88,189 +88,288 @@
       </filterset>
     </copy>
     <echo 
-       file="${antlib.trunk}/version.properties"
-       message="#artifact.version=1.0alpha" 
-       />
+       file="${antlib.trunk}/version.properties">#  Licensed to the Apache Software Foundation (ASF) under one or more
+#  contributor license agreements.  See the NOTICE file distributed with
+#  this work for additional information regarding copyright ownership.
+#  The ASF licenses this file to You under the Apache License, Version 2.0
+#  (the "License"); you may not use this file except in compliance with
+#  the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+artifact.version=1.0alpha</echo>
   </target>
 
   <target name="changes" depends="make-dir-layout">
-    <echo file="${antlib.trunk}/changes.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-      &lt;!DOCTYPE document
-      [
-      &lt;!ELEMENT document (properties?, release+)&gt;
-      &lt;!ELEMENT properties (title)&gt;
-      &lt;!ELEMENT title (#PCDATA)&gt;
-      &lt;!ELEMENT release (action*)&gt;
-      &lt;!ELEMENT action (#PCDATA)&gt;
-      &lt;!ATTLIST release
-      version CDATA #REQUIRED
-      date CDATA #REQUIRED
-      description CDATA #IMPLIED&gt;
-      &lt;!ATTLIST action
-      issue CDATA #IMPLIED
-      type (add|fix|remove|update) #REQUIRED
-      breaks-bwc (true|false) #IMPLIED&gt;
-      ]
-      &gt;
-      &lt;document&gt;
-      &lt;properties&gt;
-      &lt;title&gt;Apache AntLib ${antlib.fullname}&lt;/title&gt;
-      &lt;/properties&gt;
+    <echo file="${antlib.trunk}/changes.xml"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-      &lt;release version=&quot;SVN trunk&quot; date=&quot;unpublished&quot;&gt;
-      &lt;action type=&quot;add&quot;&gt;
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;!DOCTYPE document
+[
+&lt;!ELEMENT document (properties?, release+)&gt;
+&lt;!ELEMENT properties (title)&gt;
+&lt;!ELEMENT title (#PCDATA)&gt;
+&lt;!ELEMENT release (action*)&gt;
+&lt;!ELEMENT action (#PCDATA)&gt;
+&lt;!ATTLIST release
+          version CDATA #REQUIRED
+          date CDATA #REQUIRED
+          description CDATA #IMPLIED&gt;
+&lt;!ATTLIST action
+          issue CDATA #IMPLIED
+          type (add|fix|remove|update) #REQUIRED
+          breaks-bwc (true|false) #IMPLIED&gt;
+]
+&gt;
+&lt;document&gt;
+  &lt;properties&gt;
+    &lt;title&gt;Apache AntLib ${antlib.fullname}&lt;/title&gt;
+  &lt;/properties&gt;
+
+  &lt;release version=&quot;SVN trunk&quot; date=&quot;unpublished&quot;&gt;
+    &lt;action type=&quot;add&quot;&gt;
       Initial import of ${antlib.fullname}
-      &lt;/action&gt;
-      &lt;/release&gt;
+    &lt;/action&gt;
+  &lt;/release&gt;
 
-      &lt;/document&gt;
-    </echo>
+&lt;/document&gt;
+</echo>
   </target>
 
   <target name="antlib.xml" depends="make-dir-layout">
-    <echo file="${antlib.trunk}/src/main/org/apache/ant/${antlib.shortname}/antlib.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-      &lt;!--
-      Licensed to the Apache Software Foundation (ASF) under one or more
-      contributor license agreements.  See the NOTICE file distributed with
-      this work for additional information regarding copyright ownership.
-      The ASF licenses this file to You under the Apache License, Version 2.0
-      (the &quot;License&quot;); you may not use this file except in compliance with
-      the License.  You may obtain a copy of the License at
+    <echo file="${antlib.trunk}/src/main/org/apache/ant/${antlib.shortname}/antlib.xml"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
-      --&gt;
-      &lt;antlib&gt;
-      &lt;!--
-      &lt;taskdef
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;antlib&gt;
+&lt;!--
+  &lt;taskdef
       name=&quot;&quot;
       classname=&quot;org.apache.ant.${antlib.shortname}.&quot;
-      /&gt;
-      &lt;macrodef name=&quot;&quot;&gt;
-      &lt;attribute name=&quot;&quot; default=&quot;&quot;/&gt;
-      &lt;element name=&quot;&quot; optional=&quot;yes&quot;/&gt;
-      &lt;text name=&quot;text&quot; optional=&quot;yes&quot; trim=&quot;true&quot;/&gt;
-      &lt;sequential&gt;
+  /&gt;
+  &lt;macrodef name=&quot;&quot;&gt;
+    &lt;attribute name=&quot;&quot; default=&quot;&quot;/&gt;
+    &lt;element name=&quot;&quot; optional=&quot;yes&quot;/&gt;
+    &lt;text name=&quot;text&quot; optional=&quot;yes&quot; trim=&quot;true&quot;/&gt;
+    &lt;sequential&gt;
       &lt;echo/&gt;
-      &lt;/sequential&gt;
-      &lt;/macrodef&gt;
-      &lt;presetdef name=&quot;&quot;&gt;
-      &lt;/presetdef&gt;
-      --&gt;
-      &lt;/antlib&gt;
-    </echo>
+    &lt;/sequential&gt;
+  &lt;/macrodef&gt;
+  &lt;presetdef name=&quot;&quot;&gt;
+  &lt;/presetdef&gt;
+--&gt;
+&lt;/antlib&gt;
+</echo>
   </target>
 
   <target name="contributors.xml" depends="make-dir-layout">
-    <echo file="${antlib.trunk}/changes.xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-      &lt;!DOCTYPE contributors
-      [
-      &lt;!ELEMENT name (first?, middle?, last)&gt;
-      &lt;!ELEMENT contributors (introduction, name+)&gt;
-      &lt;!ELEMENT first (#PCDATA)&gt;
-      &lt;!ELEMENT introduction (#PCDATA)&gt;
-      &lt;!ELEMENT middle (#PCDATA)&gt;
-      &lt;!ELEMENT last (#PCDATA)&gt;
-      ]
-      &gt;
-      &lt;contributors&gt;
-      &lt;introduction&gt;
-      These are some of the many people who have helped with this Ant Library.
-      &lt;/introduction&gt;
+    <echo file="${antlib.trunk}/contributors.xml"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
-      &lt;name&gt;
-      &lt;first&gt;${name.first}&lt;/first&gt;
-      &lt;last&gt;${name.last}&lt;/last&gt;
-      &lt;/name&gt;
-      &lt;/contributors&gt;
-    </echo>
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;!DOCTYPE contributors
+[
+&lt;!ELEMENT name (first?, middle?, last)&gt;
+&lt;!ELEMENT contributors (introduction, name+)&gt;
+&lt;!ELEMENT first (#PCDATA)&gt;
+&lt;!ELEMENT introduction (#PCDATA)&gt;
+&lt;!ELEMENT middle (#PCDATA)&gt;
+&lt;!ELEMENT last (#PCDATA)&gt;
+]
+&gt;
+&lt;contributors&gt;
+  &lt;introduction&gt;
+    These are some of the many people who have helped with this Ant Library.
+  &lt;/introduction&gt;
+
+  &lt;name&gt;
+    &lt;first&gt;${name.first}&lt;/first&gt;
+    &lt;last&gt;${name.last}&lt;/last&gt;
+  &lt;/name&gt;
+&lt;/contributors&gt;
+</echo>
   </target>
 
   <target name="manual" depends="make-dir-layout">
-    <copy file="${ant.home}/docs/favicon.ico" todir="${manual.dir}"/>
-    <echoxml file="${manual.dir}/index.html">
-      <html>
-        <head>
-          <meta http-equiv="Content-Language" content="en-us"/>
-          <link rel="stylesheet" type="text/css" href="style.css"/>
-          <title>User Manual - ${antlib.fullname}</title>
-        </head>
-        <frameset cols="26%,74%">
-          <frame src="toc.html" name="navFrame"/>
-          <frame src="cover.html" name="mainFrame"/>
-        </frameset>
-        <noframes>
-          <H2>User Manual - ${antlib.fullname}</H2>
-          <a href="toc.html">User Manual - ${antlib.fullname}</a>
-        </noframes>
-      </html>
-    </echoxml>
-    <echoxml file="${manual.dir}/toc.html">
-      <html>
-        <head>
-          <meta http-equiv="Content-Language" content="en-us"/>
-          <link rel="stylesheet" type="text/css" href="style.css"/>
-          <title>${antlib.fullname}</title>
-          <base target="mainFrame"/>
-        </head>
-        <body>
-          <a href="cover.html">Overview</a><br/>
-          <h2>Tasks</h2>
-          <a href="task.html">task</a><br/>
-        </body>
-      </html>
-    </echoxml>
-    <echoxml file="${manual.dir}/cover.html">
-      <html>
-        <head>
-          <meta http-equiv="Content-Language" content="en-us"/>
-          <link rel="stylesheet" type="text/css" href="style.css"/>
-          <title>${antlib.fullname}</title>
-        </head>
-        <body>
-          <h2>${antlib.fullname}</h2>
-          <p> TODO: something about this antlib </p>
-          <h3>What's this?</h3>
-          <h3>Building</h3>
-          <p>dependencies on Ant <i>version?</i>, external libs and tools</p>
-          <h3>Using</h3>
-        </body>
-      </html>
-    </echoxml>
+    <!--copy file="${ant.home}/docs/favicon.ico" todir="${manual.dir}"/-->
+    <echo file="${manual.dir}/index.html"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Language&quot; content=&quot;en-us&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
+    &lt;title&gt;User Manual - ${antlib.fullname}&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;frameset cols=&quot;26%,74%&quot;&gt;
+    &lt;frame src=&quot;toc.html&quot; name=&quot;navFrame&quot;/&gt;
+    &lt;frame src=&quot;cover.html&quot; name=&quot;mainFrame&quot;/&gt;
+  &lt;/frameset&gt;
+  &lt;noframes&gt;
+    &lt;H2&gt;User Manual - ${antlib.fullname}&lt;/H2&gt;
+    &lt;a href=&quot;toc.html&quot;&gt;User Manual - ${antlib.fullname}&lt;/a&gt;
+  &lt;/noframes&gt;
+&lt;/html&gt;
+</echo>
+    <echo file="${manual.dir}/toc.html"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Language&quot; content=&quot;en-us&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
+    &lt;title&gt;${antlib.fullname}&lt;/title&gt;
+    &lt;base target=&quot;mainFrame&quot;/&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;a href=&quot;cover.html&quot;&gt;Overview&lt;/a&gt;&lt;br/&gt;
+    &lt;h2&gt;Tasks&lt;/h2&gt;
+    &lt;a href=&quot;task.html&quot;&gt;task&lt;/a&gt;&lt;br/&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</echo>
+    <echo file="${manual.dir}/cover.html"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Language&quot; content=&quot;en-us&quot;/&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
+    &lt;title&gt;${antlib.fullname}&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;${antlib.fullname}&lt;/h2&gt;
+    &lt;p&gt; TODO: something about this antlib &lt;/p&gt;
+    &lt;h3&gt;What's this?&lt;/h3&gt;
+    &lt;h3&gt;Building&lt;/h3&gt;
+    &lt;p&gt;dependencies on Ant &lt;i&gt;version?&lt;/i&gt;, external libs and tools&lt;/p&gt;
+    &lt;h3&gt;Using&lt;/h3&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</echo>
   </target>
 
   <target name="build.xml" depends="make-dir-layout">
-    <echo file="${antlib.trunk}/build.xml">&lt;?xml version=&quot;1.0&quot;?&gt;
-      &lt;!--
-      Licensed to the Apache Software Foundation (ASF) under one or more
-      contributor license agreements.  See the NOTICE file distributed with
-      this work for additional information regarding copyright ownership.
-      The ASF licenses this file to You under the Apache License, Version 2.0
-      (the &quot;License&quot;); you may not use this file except in compliance with
-      the License.  You may obtain a copy of the License at
+    <echo file="${antlib.trunk}/build.xml"
+          encoding="UTF8">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the &quot;License&quot;); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--&gt;
+&lt;project default=&quot;compile&quot; name=&quot;${antlib.shortname}&quot;&gt;
 
-      http://www.apache.org/licenses/LICENSE-2.0
+  &lt;!-- easy way to override properties --&gt;
+  &lt;property file=&quot;build.properties&quot;/&gt;
 
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
-      --&gt;
-      &lt;project default=&quot;compile&quot; name=&quot;${antlib.shortname}&quot;&gt;
+  &lt;import file=&quot;common/build.xml&quot;/&gt;
 
-      &lt;!-- easy way to override properties --&gt;
-      &lt;property file=&quot;build.properties&quot;/&gt;
-
-      &lt;import file=&quot;common/build.xml&quot;/&gt;
-
-      &lt;/project&gt;
-    </echo>
+&lt;/project&gt;
+</echo>
   </target>
 
   <target name="manually-todo" depends="create-artifacts">
