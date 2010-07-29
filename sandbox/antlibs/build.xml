@@ -79,6 +79,29 @@
     <mkdir dir="${antlib.src.root}"/>
   </target>
 
+  <target name="add-top-to-svn" depends="make-dir-layout">
+    <exec executable="svn">
+      <arg value="add"/>
+      <arg value="${antlib.shortname}"/>
+    </exec>
+    <exec executable="svn">
+      <arg value="ps"/>
+      <arg value="svn:externals"/>
+      <arg value="common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk"/>
+      <arg value="${antlib.shortname}"/>
+    </exec>
+    <exec executable="svn">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="creating skeleton directory structure for ${antlib.fullname}"/>
+      <arg value="${antlib.shortname}"/>
+    </exec>
+    <exec executable="svn">
+      <arg value="up"/>
+      <arg value="${antlib.shortname}"/>
+    </exec>
+  </target>
+
   <target name="create-artifacts" depends="make-dir-layout,changes,antlib.xml,contributors.xml,build.xml,manual">
     <copy file="http/trunk/common/NOTICE.template"
           tofile="${antlib.trunk}/NOTICE">
