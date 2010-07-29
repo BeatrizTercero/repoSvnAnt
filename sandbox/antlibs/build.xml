@@ -18,14 +18,11 @@
   under the License.
 -->
 
-
 <project default="manually-todo">
 
     <description>
         This buildfile generates the directory layout for a new AntLib.
     </description>
-
-
 
     <target name="read-properties" unless="antlib.shortname">
         <input addproperty="antlib.shortname"
@@ -41,11 +38,22 @@
         <input addproperty="name.last"
                message="Please enter your last name"
         />
+        <input addproperty="with-trunk"
+               message="Do you want to create a trunk/tags/branches structure?"
+               validargs="y,n"
+               defaultvalue="n"
+        />
+        <condition property="with-trunk?">
+          <equals arg1="y" arg2="${with-trunk}"/>
+        </condition>
     </target>
 
-
-
     <target name="setup-properties" depends="read-properties">
+      <condition property="antlib.trunk" value="${antlib.shortname}">
+        <not>
+          <isset property="with-trunk?"/>
+        </not>
+      </condition>
         <property name="antlib.trunk" value="${antlib.shortname}/trunk"/>
         <tstamp>   
             <format property="tstamp.year" pattern="yyyy"/>
@@ -55,14 +63,15 @@
     </target>
 
 
-
-    <target name="make-dir-layout" depends="setup-properties">
+    <target name="-create-ttb" depends="setup-properties" if="with-trunk?">
         <!-- Subversion directory layout -->
         <mkdir dir="${antlib.shortname}/tags"/>
         <mkdir dir="${antlib.shortname}/branches"/>
         <mkdir dir="${antlib.trunk}"/>
+    </target>
+
+    <target name="make-dir-layout" depends="-create-ttb">
         <!-- Common AntLib directory layout -->
-        <mkdir dir="${antlib.trunk}/src/main"/>
         <mkdir dir="${antlib.trunk}/src/test/junit"/>
         <mkdir dir="${antlib.trunk}/src/test/antunit"/>
         <mkdir dir="${manual.dir}"/>
