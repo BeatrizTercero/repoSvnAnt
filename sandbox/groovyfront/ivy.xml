@@ -25,9 +25,9 @@
     	<conf name="default" />
     </configurations>
     <dependencies>
-        <dependency org="org.apache.ant"      name="ant"         rev="1.8.0"        conf="default->default,sources,javadoc" />
+        <dependency org="org.apache.ant"      name="ant"         rev="1.8.1"        conf="default->default,sources,javadoc" />
         <!--dependency org="org.apache.ant"      name="ant-antunit" rev="1.2-SNAPSHOT" conf="default->default,sources,javadoc" /-->
-        <dependency org="org.codehaus.groovy" name="groovy"      rev="1.7.0"        conf="default->default,sources,javadoc" transitive="false" />
+        <dependency org="org.codehaus.groovy" name="groovy"      rev="1.7.4"        conf="default->default,sources,javadoc" transitive="false" />
         <dependency org="asm"                 name="asm"         rev="3.2"          conf="default->default,sources,javadoc" />
         <dependency org="antlr"               name="antlr"       rev="2.7.7"        conf="default->default,sources,javadoc" />
     </dependencies>
