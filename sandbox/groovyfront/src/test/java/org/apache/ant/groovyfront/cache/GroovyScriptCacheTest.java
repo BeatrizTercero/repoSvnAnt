@@ -22,6 +22,7 @@ import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,7 +49,7 @@ public class GroovyScriptCacheTest extends TestCase {
         groovyFile = new File(tmpDir, "test.groovy");
         helloFile = new File(tmpDir, "hello.txt");
 
-        PrintWriter writer = new PrintWriter(groovyFile);
+        PrintWriter writer = new PrintWriter(new FileOutputStream(groovyFile));
         writer.println("new File(\"" + helloFile.getAbsolutePath()
                 + "\").write(\"Hello world\")");
         writer.close();

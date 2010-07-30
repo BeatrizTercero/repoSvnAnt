@@ -54,8 +54,7 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
     private static final String ANT_PRIVATEDIR = ".ant";
     private static final String GROOVYFRONT_CACHE = "groovyfront-cache";
 
-    private boolean useCache = Boolean.parseBoolean(System
-            .getProperty(SYSPROP_USECACHE));
+    private boolean useCache = Boolean.getBoolean(SYSPROP_USECACHE);
 
     private long cleanerMinPeriod;
 
