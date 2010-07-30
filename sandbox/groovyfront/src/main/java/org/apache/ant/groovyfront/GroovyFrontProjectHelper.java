@@ -18,24 +18,20 @@
 package org.apache.ant.groovyfront;
 
 import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.ant.groovyfront.cache.CachedGroovyScriptLoader;
+import org.apache.ant.groovyfront.cache.GroovyScriptCacheCleaner;
+import org.apache.ant.groovyfront.cache.GroovyScriptLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.types.Resource;
-import org.apache.tools.ant.util.FileUtils;
 import org.codehaus.groovy.control.CompilationFailedException;
 
 public class GroovyFrontProjectHelper extends ProjectHelper {
@@ -43,6 +39,48 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
     private static final String REFID_CONTEXT = "groovyfront.parsingcontext";
 
     private static final String REFID_BUILDER = "groovyfront.builder";
+
+    private static final String SYSPROP_USECACHE = "ant.groovyfront.usecache";
+
+    private static final String SYSPROP_CLEANER_MINPERIOD = "ant.groovyfront.cachecleaner.minperiod";
+
+    private static final String SYSPROP_CLEANER_TIMETOLIVE = "ant.groovyfront.cachecleaner.timetolive";
+
+    private static final String SYSPROP_CLEANER_MAXTOKEEP = "ant.groovyfront.cachecleaner.maxtokeep";
+
+    private static final String SYSPROP_CACHEDIR = "ant.groovyfront.cachedir";
+
+    private static final String USER_HOMEDIR = "user.home";
+    private static final String ANT_PRIVATEDIR = ".ant";
+    private static final String GROOVYFRONT_CACHE = "groovyfront-cache";
+
+    private boolean useCache = Boolean.parseBoolean(System
+            .getProperty(SYSPROP_USECACHE));
+
+    private long cleanerMinPeriod;
+
+    private Long cleanerTimetolive;
+
+    private Integer cleanerMaxtokeep;
+
+    public GroovyFrontProjectHelper() {
+        String cleanerMinPeriodValue = System
+                .getProperty(SYSPROP_CLEANER_MINPERIOD);
+        if (cleanerMinPeriodValue == null) {
+            // by default clean no more than every hour
+            cleanerMinPeriod = 1000 * 60 * 60;
+        } else {
+            cleanerMinPeriod = Long.parseLong(cleanerMinPeriodValue);
+        }
+        String timetoliveValue = System.getProperty(SYSPROP_CLEANER_TIMETOLIVE);
+        if (timetoliveValue != null) {
+            cleanerTimetolive = new Long(timetoliveValue);
+        }
+        String maxtokeepValue = System.getProperty(SYSPROP_CLEANER_MAXTOKEEP);
+        if (maxtokeepValue != null) {
+            cleanerMaxtokeep = new Integer(maxtokeepValue);
+        }
+    }
 
     public String getDefaultBuildFile() {
         return "build.groovy";
@@ -53,23 +91,31 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
     }
 
     public void parse(Project project, Object source) throws BuildException {
+        if (!(source instanceof Resource)) {
+            throw new BuildException(
+                    "The GroovyFrontProjectHelper is expecting a Resource as the source of the build file. Got "
+                            + source.getClass().getName() + " instead.");
+        }
+        Resource resource = (Resource) source;
         Vector/* <Object> */stack = getImportStack();
         stack.addElement(source);
         GroovyFrontParsingContext context = null;
-        context = (GroovyFrontParsingContext) project.getReference(REFID_CONTEXT);
+        context = (GroovyFrontParsingContext) project
+                .getReference(REFID_CONTEXT);
         if (context == null) {
             context = new GroovyFrontParsingContext();
             project.addReference(REFID_CONTEXT, context);
         }
 
         if (getImportStack().size() > 1) {
-            Map/* <String, Target> */currentTargets = context.getCurrentTargets();
+            Map/* <String, Target> */currentTargets = context
+                    .getCurrentTargets();
             String currentProjectName = context.getCurrentProjectName();
             boolean imported = context.isImported();
             try {
                 context.setImported(true);
                 context.setCurrentTargets(new HashMap/* <String, Target> */());
-                parse(project, source, context);
+                parse(project, resource, context);
             } finally {
                 context.setCurrentTargets(currentTargets);
                 context.setCurrentProjectName(currentProjectName);
@@ -78,67 +124,62 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         } else {
             // top level file
             context.setCurrentTargets(new HashMap/* <String, Target> */());
-            parse(project, source, context);
+            parse(project, resource, context);
         }
     }
 
-    private void parse(Project project, Object source, GroovyFrontParsingContext context) throws BuildException {
-        InputStream in;
-        String buildFileName = null;
-
-        try {
-            if (source instanceof File) {
-                File buildFile = (File) source;
-                buildFileName = buildFile.toString();
-                buildFile = FileUtils.getFileUtils().normalize(buildFile.getAbsolutePath());
-                context.setBuildFile(buildFile);
-                in = new FileInputStream(buildFile);
-                // } else if (source instanceof InputStream ) {
-            } else if (source instanceof URL) {
-                URL url = (URL) source;
-                buildFileName = url.toString();
-                in = url.openStream();
-                // } else if (source instanceof InputSource ) {
-            } else if (source instanceof Resource) {
-                buildFileName = ((Resource) source).getName();
-                in =  ((Resource) source).getInputStream();
-            } else {
-                throw new BuildException("Source " + source.getClass().getName() + " not supported by this plugin");
-            }
-        } catch (IOException e) {
-            throw new BuildException("Error reading groovy file " + buildFileName + ": " + e.getMessage(), e);
-        }
+    private void parse(Project project, Resource resource,
+            GroovyFrontParsingContext context) throws BuildException {
+        String buildFileName = resource.getName();
 
         // set explicitly before starting ?
         if (project.getProperty("basedir") != null) {
             project.setBasedir(project.getProperty("basedir"));
-            // NB: this won't be overridden as it is a user property (see GroovyFrontProject class)
+            // NB: this won't be overridden as it is a user property (see
+            // GroovyFrontProject class)
         } else {
-            // set the property even if it may be overridden within the groovy file
+            // set the property even if it may be overridden within the groovy
+            // file
             project.setBasedir(context.getBuildFileParent().getAbsolutePath());
         }
 
-        // wrap the project instance so we can be in control of the set on the properties on the project
+        // wrap the project instance so we can be in control of the set on the
+        // properties on the project
         GroovyFrontProject groovyFrontProject;
         if (project instanceof GroovyFrontProject) {
             groovyFrontProject = (GroovyFrontProject) project;
         } else {
-            groovyFrontProject = new GroovyFrontProject(project, context, buildFileName);
+            groovyFrontProject = new GroovyFrontProject(project, context,
+                    buildFileName);
         }
 
-        GroovyFrontBuilder antBuilder = new GroovyFrontBuilder(groovyFrontProject);
+        GroovyFrontBuilder antBuilder = new GroovyFrontBuilder(
+                groovyFrontProject);
         groovyFrontProject.addReference(REFID_BUILDER, antBuilder);
         Binding binding = new GroovyFrontBinding(groovyFrontProject, antBuilder);
-        GroovyShell groovyShell = new GroovyShell(getClass().getClassLoader(), binding);
+
+        GroovyScriptLoader scriptLoader;
+        if (useCache) {
+            File cacheDir = getCacheDir();
+            scriptLoader = new CachedGroovyScriptLoader(cacheDir);
+            GroovyScriptCacheCleaner.launchClean(groovyFrontProject, cacheDir,
+                    cleanerMinPeriod, cleanerTimetolive, cleanerMaxtokeep);
+        } else {
+            scriptLoader = new GroovyScriptLoader();
+        }
+
         final Script script;
         try {
-            script = groovyShell.parse(new InputStreamReader(in),  asGroovyClass(buildFileName));
+            script = scriptLoader.loadScript(resource, binding, this.getClass()
+                    .getClassLoader());
         } catch (CompilationFailedException e) {
-            throw new BuildException("Error reading groovy file " + buildFileName + ": " + e.getMessage(), e);
+            throw new BuildException("Error reading groovy file "
+                    + buildFileName + ": " + e.getMessage(), e);
         }
+
         script.setBinding(binding);
-        script.setMetaClass(new GroovyFrontScriptMetaClass(script.getMetaClass(), groovyFrontProject, antBuilder,
-                context));
+        script.setMetaClass(new GroovyFrontScriptMetaClass(script
+                .getMetaClass(), groovyFrontProject, antBuilder, context));
         new GroovyRunner() {
             protected void doRun() {
                 script.run();
@@ -146,7 +187,17 @@ public class GroovyFrontProjectHelper extends ProjectHelper {
         }.run();
     }
 
-    private String asGroovyClass(String filename) {
-        return filename.replaceAll("-", "_");
+    private File getCacheDir() {
+        String cacheDirPath = System.getProperty(SYSPROP_CACHEDIR);
+        File dir;
+        if (cacheDirPath != null) {
+            dir = new File(cacheDirPath);
+        } else {
+            String userHome = System.getProperty(USER_HOMEDIR);
+            dir = new File(userHome + File.separatorChar + ANT_PRIVATEDIR
+                    + File.separatorChar + GROOVYFRONT_CACHE);
+        }
+        return dir;
     }
+
 }
