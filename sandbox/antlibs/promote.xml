@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+
+<project default="manually-todo">
+
+  <presetdef name="svn">
+    <exec executable="svn" failonerror="true"/>
+  </presetdef>
+
+  <target name="read-properties" unless="antlib.proper.root">
+    <input addproperty="antlib.shortname"
+           message="Please enter the root directory of your AntLib"
+           />
+    <fail message="${antlib.shortname} isn't checked out">
+      <condition>
+        <not>
+          <available file="${antlib.shortname}"/>
+        </not>
+      </condition>
+    </fail>
+    <input addproperty="antlib.proper.root"
+           message="Please enter the root directory of your working copy of the proper Antlibs"
+           />
+    <fail message="${antlib.proper.root} isn't checked out">
+      <condition>
+        <not>
+          <available file="${antlib.proper.root}"/>
+        </not>
+      </condition>
+    </fail>
+  </target>
+
+  <target name="setup-properties" depends="read-properties">
+    <available property="with-trunk?"
+               file="${antlib.shortname}/trunk"/>
+    <condition property="antlib.trunk" value="${antlib.shortname}">
+      <not>
+        <isset property="with-trunk?"/>
+      </not>
+    </condition>
+    <property name="antlib.trunk" value="${antlib.shortname}/trunk"/>
+  </target>
+
+  <target name="copy-codebase" depends="-copy-no-ttb,-copy-ttb"/>
+
+  <target name="-copy-ttb" if="with-trunk?" depends="setup-properties">
+    <svn>
+      <arg value="cp"/>
+      <arg value="${antlib.shortname}"/>
+      <arg value="${antlib.proper.root}"/>
+    </svn>
+  </target>
+
+  <target name="-copy-no-ttb" unless="with-trunk?" depends="setup-properties">
+    <svn>
+      <arg value="mkdir"/>
+      <arg value="${antlib.proper.root}/${antlib.shortname}"/>
+    </svn>
+    <svn>
+      <arg value="cp"/>
+      <arg value="${antlib.shortname}"/>
+      <arg value="${antlib.proper.root}/${antlib.shortname}/trunk"/>
+    </svn>
+  </target>
+
+  <target name="-check-tags" depends="copy-codebase">
+    <available property="has-tags?"
+               file="${antlib.proper.root}/${antlib.shortname}/tags"/>
+  </target>
+
+  <target name="-create-tags-dir" unless="has-tags?" depends="-check-tags">
+    <svn>
+      <arg value="mkdir"/>
+      <arg value="${antlib.proper.root}/${antlib.shortname}/tags"/>
+    </svn>
+  </target>
+
+  <target name="tag-sandbox" depends="-create-tags-dir">
+    <svn>
+      <arg value="cp"/>
+      <arg value="${antlib.trunk}"/>
+      <arg value="${antlib.proper.root}/${antlib.shortname}/tags/PRE_PROMOTION"/>
+    </svn>
+  </target>
+
+  <target name="add-to-proper-all-trunks" depends="copy-codebase">
+    <svn output="old.externals">
+      <arg value="pg"/>
+      <arg value="svn:externals"/>
+      <arg value="${antlib.proper.root}/all-trunks"/>
+    </svn>
+    <concat dest="new.externals" fixlastline="true">
+      <file file="old.externals"/>
+      <string>${antlib.shortname} http://svn.apache.org/repos/asf/ant/antlibs/${antlib.trunk}
+</string>
+      <filterchain>
+        <linecontainsregexp>
+          <regexp pattern="."/>
+        </linecontainsregexp>
+        <sortfilter/>
+      </filterchain>
+    </concat>
+    <svn>
+      <arg value="--file"/>
+      <arg value="new.externals"/>
+      <arg value="ps"/>
+      <arg value="svn:externals"/>
+      <arg value="${antlib.proper.root}/all-trunks"/>
+    </svn>
+    <delete quiet="true">
+      <fileset dir="." includes="*.externals"/>
+    </delete>
+  </target>
+
+  <target name="remove-from-sandbox-trunks" depends="read-properties">
+    <svn output="old.externals">
+      <arg value="pg"/>
+      <arg value="svn:externals"/>
+      <arg value="all-trunks"/>
+    </svn>
+    <copy tofile="new.externals" file="old.externals">
+      <filterchain>
+        <linecontainsregexp negate="true">
+          <regexp pattern="^${antlib.shortname} "/>
+        </linecontainsregexp>
+        <linecontainsregexp>
+          <regexp pattern="."/>
+        </linecontainsregexp>
+        <sortfilter/>
+      </filterchain>
+    </copy>
+    <svn>
+      <arg value="--file"/>
+      <arg value="new.externals"/>
+      <arg value="ps"/>
+      <arg value="svn:externals"/>
+      <arg value="all-trunks"/>
+    </svn>
+    <delete quiet="true">
+      <fileset dir="." includes="*.externals"/>
+    </delete>
+  </target>
+
+  <target name="delete-sandbox" depends="setup-properties">
+    <!-- externals would require -force if still present -->
+    <delete>
+      <fileset dir="${antlib.shortname}" defaultexcludes="false">
+        <include name="common/"/>
+        <include name="trunk/common/"/>
+        <include name="tags/*/common/"/>
+        <include name="branches/*/common/"/>
+      </fileset>
+      <dirset dir="${antlib.shortname}" defaultexcludes="false">
+        <include name="common/"/>
+        <include name="trunk/common/"/>
+        <include name="tags/*/common/"/>
+        <include name="branches/*/common/"/>
+      </dirset>
+    </delete>
+    <svn>
+      <arg value="rm"/>
+      <arg value="${antlib.shortname}"/>
+    </svn>
+  </target>
+
+  <target name="manually-todo" depends="tag-sandbox,add-to-proper-all-trunks,remove-from-sandbox-trunks,delete-sandbox">
+    <echo>
+      The AntLib directory has been moved and the all-trunks externals have
+      been modified.
+      Your next steps are:
+      - check that everything looks like you want it to
+      - svn commit inside ${antlib.proper.root}
+      - svn commit inside this directory
+      - modify the site to move the sandbox antlib to proper
+    </echo>
+  </target>
+</project>
