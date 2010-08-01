@@ -99,7 +99,7 @@
     </sequential>
   </macrodef>
 
-  <target name="add-top-to-svn" depends="make-dir-layout">
+  <target name="-add-top-to-svn" depends="make-dir-layout">
     <svn>
       <arg value="add"/>
       <arg value="${antlib.shortname}"/>
@@ -125,7 +125,7 @@
     </svn>
   </target>
 
-  <target name="create-artifacts" depends="add-top-to-svn,changes,antlib.xml,contributors.xml,build.xml,manual">
+  <target name="create-artifacts" depends="-add-top-to-svn,changes,antlib.xml,contributors.xml,build.xml,manual">
     <copy file="${antlib.trunk}/common/NOTICE.template"
           tofile="${antlib.trunk}/NOTICE">
       <filterset begintoken="[" endtoken="]">
@@ -427,7 +427,33 @@ artifact.version=1.0alpha</echo>
     <add-textfile file="${antlib.trunk}/build.xml"/>
   </target>
 
-  <target name="manually-todo" depends="create-artifacts">
+  <target name="add-to-all-trunks" depends="setup-properties">
+    <svn output="old.externals">
+      <arg value="pg"/>
+      <arg value="svn:externals"/>
+      <arg value="all-trunks"/>
+    </svn>
+    <concat dest="new.externals" fixlastline="true">
+      <file file="old.externals"/>
+      <string>${antlib.shortname} http://svn.apache.org/repos/asf/ant/sandbox/antlibs/${antlib.trunk}
+</string>
+      <filterchain>
+        <sortfilter/>
+      </filterchain>
+    </concat>
+    <svn>
+      <arg value="--file"/>
+      <arg value="new.externals"/>
+      <arg value="ps"/>
+      <arg value="svn:externals"/>
+      <arg value="all-trunks"/>
+    </svn>
+    <delete quiet="true">
+      <fileset dir="." includes="*.externals"/>
+    </delete>
+  </target>
+
+  <target name="manually-todo" depends="create-artifacts,add-to-all-trunks">
     <echo>
       The AntLib directory layout and initial artifacts are created.
       Your next steps are:
@@ -435,8 +461,6 @@ artifact.version=1.0alpha</echo>
       - maybe add others to contributors.xml
       - say something in the manuals cover.html about this AntLib
       - commit the files to svn
-      - modify the svn-properties of trunk-directory and add svn:externals
-      common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk
       - implement the AntLib
       - implement testcases (hopefully using AntUnit)
       - document the AntLib
