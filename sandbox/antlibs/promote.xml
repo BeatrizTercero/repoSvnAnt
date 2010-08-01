@@ -108,7 +108,7 @@
     </svn>
     <concat dest="new.externals" fixlastline="true">
       <file file="old.externals"/>
-      <string>${antlib.shortname} http://svn.apache.org/repos/asf/ant/antlibs/${antlib.trunk}
+      <string>${antlib.shortname} http://svn.apache.org/repos/asf/ant/antlibs/${antlib.shortname}/trunk
 </string>
       <filterchain>
         <linecontainsregexp>
