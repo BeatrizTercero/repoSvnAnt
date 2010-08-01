@@ -79,39 +79,61 @@
     <mkdir dir="${antlib.src.root}"/>
   </target>
 
+  <presetdef name="svn">
+    <exec executable="svn" failonerror="true"/>
+  </presetdef>
+
+  <macrodef name="add-textfile">
+    <attribute name="file"/>
+    <sequential>
+      <svn>
+        <arg value="add"/>
+        <arg file="@{file}"/>
+      </svn>
+      <svn>
+        <arg value="ps"/>
+        <arg value="svn:eol-style"/>
+        <arg value="native"/>
+        <arg file="@{file}"/>
+      </svn>
+    </sequential>
+  </macrodef>
+
   <target name="add-top-to-svn" depends="make-dir-layout">
-    <exec executable="svn">
+    <svn>
       <arg value="add"/>
       <arg value="${antlib.shortname}"/>
-    </exec>
-    <exec executable="svn">
+    </svn>
+    <svn>
       <arg value="ps"/>
       <arg value="svn:externals"/>
       <arg value="common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk"/>
       <arg value="${antlib.shortname}"/>
-    </exec>
-    <exec executable="svn">
+    </svn>
+    <svn>
       <arg value="commit"/>
       <arg value="-m"/>
       <arg value="creating skeleton directory structure for ${antlib.fullname}"/>
       <arg value="${antlib.shortname}"/>
-    </exec>
-    <!-- need to wait a few seconds to give European svn mirro time to catch up -->
-    <sleep seconds="10"/>
-    <exec executable="svn">
+    </svn>
+    <!-- need to wait a few seconds to give European svn mirror time to
+         catch up -->
+    <sleep seconds="30"/>
+    <svn>
       <arg value="up"/>
       <arg value="${antlib.shortname}"/>
-    </exec>
+    </svn>
   </target>
 
-  <target name="create-artifacts" depends="make-dir-layout,changes,antlib.xml,contributors.xml,build.xml,manual">
-    <copy file="http/trunk/common/NOTICE.template"
+  <target name="create-artifacts" depends="add-top-to-svn,changes,antlib.xml,contributors.xml,build.xml,manual">
+    <copy file="${antlib.trunk}/common/NOTICE.template"
           tofile="${antlib.trunk}/NOTICE">
       <filterset begintoken="[" endtoken="]">
         <filter token="PRODUCT_NAME" value="${antlib.fullname}"/>
         <filter token="yyyy" value="${tstamp.year}"/>
       </filterset>
     </copy>
+    <add-textfile file="${antlib.trunk}/NOTICE"/>
     <echo 
        file="${antlib.trunk}/version.properties">#  Licensed to the Apache Software Foundation (ASF) under one or more
 #  contributor license agreements.  See the NOTICE file distributed with
@@ -128,6 +150,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 artifact.version=1.0alpha</echo>
+    <add-textfile file="${antlib.trunk}/version.properties"/>
   </target>
 
   <target name="changes" depends="make-dir-layout">
@@ -179,6 +202,7 @@ artifact.version=1.0alpha</echo>
 
 &lt;/document&gt;
 </echo>
+    <add-textfile file="${antlib.trunk}/changes.xml"/>
   </target>
 
   <target name="antlib.xml" depends="make-dir-layout">
@@ -219,6 +243,7 @@ artifact.version=1.0alpha</echo>
 --&gt;
 &lt;/antlib&gt;
 </echo>
+    <add-textfile file="${antlib.trunk}/src/main/org/apache/ant/${antlib.shortname}/antlib.xml"/>
   </target>
 
   <target name="contributors.xml" depends="make-dir-layout">
@@ -261,6 +286,7 @@ artifact.version=1.0alpha</echo>
   &lt;/name&gt;
 &lt;/contributors&gt;
 </echo>
+    <add-textfile file="${antlib.trunk}/contributors.xml"/>
   </target>
 
   <target name="manual" depends="make-dir-layout">
@@ -299,6 +325,7 @@ artifact.version=1.0alpha</echo>
   &lt;/noframes&gt;
 &lt;/html&gt;
 </echo>
+    <add-textfile file="${manual.dir}/index.html"/>
     <echo file="${manual.dir}/toc.html"
           encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!--
@@ -331,6 +358,7 @@ artifact.version=1.0alpha</echo>
   &lt;/body&gt;
 &lt;/html&gt;
 </echo>
+    <add-textfile file="${manual.dir}/toc.html"/>
     <echo file="${manual.dir}/cover.html"
           encoding="UTF8">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;!--
@@ -365,6 +393,7 @@ artifact.version=1.0alpha</echo>
   &lt;/body&gt;
 &lt;/html&gt;
 </echo>
+    <add-textfile file="${manual.dir}/cover.html"/>
   </target>
 
   <target name="build.xml" depends="make-dir-layout">
@@ -395,6 +424,7 @@ artifact.version=1.0alpha</echo>
 
 &lt;/project&gt;
 </echo>
+    <add-textfile file="${antlib.trunk}/build.xml"/>
   </target>
 
   <target name="manually-todo" depends="create-artifacts">
@@ -404,10 +434,9 @@ artifact.version=1.0alpha</echo>
       - maybe add your middle name to contributors.xml
       - maybe add others to contributors.xml
       - say something in the manuals cover.html about this AntLib
-      - add the files to svn
+      - commit the files to svn
       - modify the svn-properties of trunk-directory and add svn:externals
       common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk
-      - update from svn for getting the common directory
       - implement the AntLib
       - implement testcases (hopefully using AntUnit)
       - document the AntLib
