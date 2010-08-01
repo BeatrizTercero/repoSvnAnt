@@ -108,13 +108,13 @@
       <arg value="ps"/>
       <arg value="svn:externals"/>
       <arg value="common http://svn.apache.org/repos/asf/ant/antlibs/common/trunk"/>
-      <arg value="${antlib.shortname}"/>
+      <arg value="${antlib.trunk}"/>
     </svn>
     <svn>
       <arg value="commit"/>
       <arg value="-m"/>
       <arg value="creating skeleton directory structure for ${antlib.fullname}"/>
-      <arg value="${antlib.trunk}"/>
+      <arg value="${antlib.shortname}"/>
     </svn>
     <!-- need to wait a few seconds to give European svn mirror time to
          catch up -->
