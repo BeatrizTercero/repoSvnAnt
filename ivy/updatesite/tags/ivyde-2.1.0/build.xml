@@ -1,0 +1,601 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<project basedir=".">
+
+    <property file="local.build.properties" />
+    <property file="build.properties" />
+
+    <property name="work.dir" value="${basedir}/work" />
+    <property name="updatesite.dir" value="${basedir}/dist" />
+
+    <target name="clean">
+        <delete dir="${work.dir}" />
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+        Targets to intialize an ant run with Eclipse. Will be used to manage the updatesite
+        ===================================================================================================================    
+      -->
+    <target name="eclipse-startup-check">
+        <fail message="An Eclipse install is needed to run the build. Set your Eclipse install dir into the baseLocation property." unless="baseLocation" />
+
+        <condition property="eclipse.startup">
+            <available file="${baseLocation}/startup.jar" />
+        </condition>
+    </target>
+
+    <target name="eclipse-startup-classpath" depends="eclipse-startup-check" if="eclipse.startup">
+        <property name="eclipse.classpath" value="${baseLocation}/startup.jar" />
+    </target>
+
+    <target name="eclipse-launcher-classpath" depends="eclipse-startup-check" unless="eclipse.startup">
+        <!-- store path to newest launcher JAR in path id 'newest.equinox.launcher.path.id' -->
+        <path id="newest.equinox.launcher.path.id">
+            <first count="1">
+                <sort>
+                    <fileset dir="${baseLocation}/plugins" includes="**/org.eclipse.equinox.launcher_*.jar" />
+                    <!-- Seems the default order is oldest > newest so we must reverse it.
+                       The 'reverse' and 'date' comparators are in the internal antlib
+                       org.apache.tools.ant.types.resources.comparators.
+                    -->
+                    <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+                        <!-- 'date' inherits 'reverse's namespace -->
+                        <date />
+                    </reverse>
+                </sort>
+            </first>
+        </path>
+
+        <!-- turn the path into a property -->
+        <property name="eclipse.classpath" refid="newest.equinox.launcher.path.id" />
+    </target>
+
+    <target name="eclipse-classpath" depends="eclipse-startup-classpath,eclipse-launcher-classpath">
+        <echo message="Using equinox launcher jar: ${eclipse.classpath}" />
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+    	Targets to get the version of the installed plugins
+        ===================================================================================================================    
+      -->
+
+    <macrodef name="osgi-version">
+        <attribute name="jar" />
+        <attribute name="outputproperty" />
+        <sequential>
+            <tstamp>
+                <format property="tstamp.@{jar}" pattern="yyyyMMddhhmmss" locale="en,UK" />
+            </tstamp>
+            <property name="work.dir.@{jar}" value="${work.dir}/${tstamp.@{jar}}" />
+            <mkdir dir="${work.dir.@{jar}}/jar" />
+            <unzip overwrite="true" src="@{jar}" dest="${work.dir.@{jar}}" />
+            <loadfile property="@{outputproperty}" srcFile="${work.dir.@{jar}}/META-INF/MANIFEST.MF">
+                <filterchain>
+                    <linecontains>
+                        <contains value="Bundle-Version:" />
+                    </linecontains>
+                    <tokenfilter>
+                        <replaceregex pattern="Bundle-Version: (.*)" replace="\1" flags="gi" />
+                    </tokenfilter>
+                    <striplinebreaks />
+                </filterchain>
+            </loadfile>
+            <delete dir="${work.dir.@{jar}}" />
+        </sequential>
+    </macrodef>
+
+    <target name="get-ivyde-version">
+        <!-- get the path to the ivyde plugin -->
+        <path id="ivyde.plugin.path.id">
+            <first count="1">
+                <fileset dir="${updatesite.dir}/plugins" includes="org.apache.ivyde*.jar" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivyde.plugin.path" refid="ivyde.plugin.path.id" />
+        <!-- get the real OSGi version of the bundle -->
+        <osgi-version jar="${ivyde.plugin.path}" outputproperty="ivyde.version" />
+    </target>
+
+    <target name="get-ivy-version">
+        <!-- get the path to the ivy plugin -->
+        <path id="ivy.plugin.path.id">
+            <first count="1">
+                <fileset dir="${updatesite.dir}/plugins" includes="org.apache.ivy_*.jar" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivy.plugin.path" refid="ivy.plugin.path.id" />
+        <!-- get the real OSGi version of the bundle -->
+        <osgi-version jar="${ivy.plugin.path}" outputproperty="ivy.version" />
+    </target>
+
+
+    <!-- 
+        ===================================================================================================================
+    	Targets to install the Ivy plugins into the updatesite
+        ===================================================================================================================    
+      -->
+
+    <target name="delete-ivy-jars">
+        <delete dir="${updatesite.dir}">
+            <include name="plugins/org.apache.ivy_*" />
+            <include name="features/org.apache.ivy.feature*" />
+        </delete>
+    </target>
+
+    <target name="put-ivy-jar">
+        <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
+        <!-- get the real OSGi version of the bundle -->
+        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
+        <!-- install the plugin -->
+        <mkdir dir="${updatesite.dir}/plugins" />
+        <copy file="${ivy.jar}" tofile="${updatesite.dir}/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
+    </target>
+
+    <target name="generate-ivy-feature">
+        <!-- now take care of the generation of the Ivy feature -->
+        <!-- first generate a feature descriptor with the proper version -->
+        <delete file="${work.dir}/feature.xml" />
+        <copy file="ivy-feature-template/feature.xml" todir="${work.dir}">
+            <filterset>
+                <filter token="ivy.version" value="${ivy.version}" />
+            </filterset>
+        </copy>
+        <!-- package the feature -->
+        <mkdir dir="${updatesite.dir}/features" />
+        <jar destfile="${updatesite.dir}/features/org.apache.ivy.feature_${ivy.version}.jar">
+            <fileset dir="ivy-feature-template">
+                <include name="feature.properties" />
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+            <fileset dir="${work.dir}">
+                <include name="feature.xml" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="generate-ivy-ant-plugin">
+        <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
+        <delete dir="${work.dir}/ivy-ant-plugin" />
+        <!-- put the jar of Ivy -->
+        <copy file="${ivy.jar}" tofile="${work.dir}/ivy-ant-plugin/ivy.jar" />
+        <!-- get the antlib.xml and produce a plugin.xml with it -->
+        <mkdir dir="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <unzip src="${ivy.jar}" dest="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <style in="${work.dir}/ivy-ant-plugin/ivyjar/org/apache/ivy/ant/antlib.xml" out="${work.dir}/ivy-ant-plugin/plugin.xml" style="ivy-ant-plugin/antlib2plugin.xsl" />
+        <!-- put the manifest with the correct version -->
+        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
+        <copy file="ivy-ant-plugin/MANIFEST.MF" todir="${work.dir}/ivy-ant-plugin">
+            <filterset>
+                <filter token="VERSION" value="${ivy.version}"/>
+            </filterset>
+        </copy>
+        <!-- package the jar -->
+        <jar destfile="${updatesite.dir}/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
+            <fileset dir="${work.dir}/ivy-ant-plugin">
+                <include name="plugin.xml" />
+                <include name="ivy.jar" />
+            </fileset>
+            <fileset dir="ivy-ant-plugin">
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+        </jar>
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+    	Targets to install the IvyDE plugins into the updatesite
+        ===================================================================================================================    
+      -->
+
+    <target name="delete-ivyde-jars">
+        <delete dir="${updatesite.dir}">
+            <include name="plugins/org.apache.ivyde*" />
+            <include name="features/org.apache.ivyde*" />
+        </delete>
+    </target>
+
+    <target name="put-ivyde-jars">
+        <fail message="You have to specify the path to the zip of the IvyDE distribution via the property ivyde.zip" unless="ivyde.zip" />
+        <!-- unzip -->
+        <mkdir dir="${work.dir}/distrib" />
+        <unzip src="${ivyde.zip}" dest="${work.dir}/distrib" />
+        <!-- get the path to the ivyde folder -->
+        <path id="ivyde.distrib.path.id">
+            <first count="1">
+                <dirset dir="${work.dir}/distrib" includes="*" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivyde.distrib.path" refid="ivyde.distrib.path.id" />
+        <!-- install the new binaries -->
+        <copy todir="${updatesite.dir}">
+            <fileset dir="${ivyde.distrib.path}">
+                <include name="plugins/**" />
+                <include name="features/**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+    	Targets to generate the site.xml based on the content of the features folder
+        ===================================================================================================================    
+      -->
+
+    <!-- Note on the implementation:
+            To found out with version of the Eclipse feature is the latest, the correct sort algorithm would be to take into
+            account the OSGi version and order them properly. The current implementation is based on dates assuming that the
+            latest version is installed the latest. It should be the case on normal release process.
+    -->
+
+    <macrodef name="generate-site-latest">
+        <attribute name="pathid" />
+        <sequential>
+            <!-- Get the latest bundle -->
+            <path id="last.feature.jar.path.id">
+                <first count="1">
+                    <sort>
+                        <path refid="@{pathid}" />
+                        <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+                            <date />
+                        </reverse>
+                    </sort>
+                </first>
+            </path>
+            <property name="last.feature.jar.path.@{pathid}" refid="last.feature.jar.path.id" />
+            <basename property="last.feature.jar.@{pathid}" file="${last.feature.jar.path.@{pathid}}" />
+            <!-- extract the name and the version from the file name -->
+            <echo file="${work.dir}/feature.jar.properties">${last.feature.jar.@{pathid}}</echo>
+            <!-- get the id -->
+            <loadproperties srcFile="${work.dir}/feature.jar.properties">
+                <filterchain>
+                    <tokenfilter>
+                        <replaceregex pattern="([^_]*)_(.*).jar" replace="last.feature.jar.id.@{pathid}=\1" flags="gi" />
+                    </tokenfilter>
+                </filterchain>
+            </loadproperties>
+            <!-- get the version -->
+            <loadproperties srcFile="${work.dir}/feature.jar.properties">
+                <filterchain>
+                    <tokenfilter>
+                        <replaceregex pattern="([^_]*)_(.*).jar" replace="last.feature.jar.version.@{pathid}=\2" flags="gi" />
+                    </tokenfilter>
+                </filterchain>
+            </loadproperties>
+            <!-- finally print the result -->
+            <echoxml file="${updatesite.dir}/site.xml" append="true">
+                <feature url="features/${last.feature.jar.@{pathid}}" id="${last.feature.jar.id.@{pathid}}" version="${last.feature.jar.version.@{pathid}}">
+                    <category name="latest"/>
+                </feature>
+            </echoxml>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="generate-site-old">
+        <attribute name="pathid" />
+        <sequential>
+            <resourcecount property="count.@{pathid}">
+                <path refid="@{pathid}" />
+            </resourcecount>
+            <!-- we need count-1, do the computation via property files -->
+            <echo file="${work.dir}/count.properties">count.lessone.@{pathid}=${count.@{pathid}}</echo>
+            <propertyfile file="${work.dir}/count.properties">
+                <entry  key="count.lessone.@{pathid}" type="int" operation="-" value="1" />
+            </propertyfile>
+            <property file="${work.dir}/count.properties" />
+            <!-- get the old files -->
+            <path id="old.feature.jar.path.id">
+                <last count="${count.lessone.@{pathid}}">
+                    <sort>
+                        <path refid="@{pathid}" />
+                        <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+                            <date />
+                        </reverse>
+                    </sort>
+                </last>
+            </path>
+            <concat destfile="${updatesite.dir}/site.xml" append="true">
+                ${toString:old.feature.jar.path.id}
+                <filterchain>
+                    <!-- split file names into lines -->
+                    <tokenfilter>
+                        <replacestring from=";" to="${line.separator}"/>
+                    </tokenfilter>
+                    <!-- match the feature jar file name and generate the "feature" entry -->
+                    <tokenfilter>
+                        <replaceregex pattern="(.*)org\.apache\.(ivy|ivyde)\.feature_(.*)\.jar" replace="&lt;feature url=&quot;features/org.apache.\2.feature_\3.jar&quot; id=&quot;org.apache.\2.feature&quot; version=&quot;\3&quot;&gt; &lt;category name=&quot;old&quot;/&gt; &lt;/feature&gt;" flags="gi" />
+                    </tokenfilter>
+                </filterchain>
+            </concat>
+        </sequential>
+    </macrodef>
+
+    <target name="generate-site">
+        <mkdir dir="${updatesite.dir}" />
+        <property name="site.pack200" value="true" />
+
+        <!-- start by the header -->
+        <copy file="${basedir}/site-header.xml" tofile="${updatesite.dir}/site.xml" overwrite="true">
+            <filterchain>
+                <replacetokens>                    
+                    <token key="MIRRORS_URL" value="${mirrors.url}" />
+                    <token key="UPDATESITE_URL" value="${updatesite.url}" />
+                    <token key="SITE_PACK200" value="${site.pack200}" />
+                </replacetokens>
+            </filterchain>
+        </copy>
+
+        <!-- get the list of exiting Ivy Eclipse features -->
+        <path id="ivy.feature.jars">
+            <fileset dir="${updatesite.dir}/features">
+                <include name="org.apache.ivy.feature_*.jar" />
+            </fileset>
+        </path>
+        <!-- generate the entry for the latest -->
+        <generate-site-latest pathid="ivy.feature.jars" />
+
+        <!-- get the list of exiting IvyDE Eclipse features -->
+        <path id="ivyde.feature.jars">
+            <fileset dir="${updatesite.dir}/features">
+                <include name="org.apache.ivyde.feature_*.jar" />
+            </fileset>
+        </path>
+        <!-- generate the entry for the latest -->
+        <generate-site-latest pathid="ivyde.feature.jars" />
+
+        <!-- generate the entry for the old entries -->
+        <generate-site-old pathid="ivy.feature.jars" />
+        <generate-site-old pathid="ivyde.feature.jars" />
+
+        <!-- and finally the footer -->
+        <concat destfile="${updatesite.dir}/site.xml" append="true">
+            <filelist dir="${basedir}" files="site-footer.xml"/>
+        </concat>
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+    	End user targets to install the bundles into the updatesite
+        ===================================================================================================================    
+      -->
+
+    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
+
+    <target name="install-ivyde" depends="put-ivyde-jars,get-ivyde-version,get-ivy-version,generate-site" description="Install IvyDE into the updatesite" />
+
+    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
+
+    <!-- 
+        ===================================================================================================================
+    	Targets to manage the updatesite
+        ===================================================================================================================    
+      -->
+    <target name="optimize-ivy" depends="pack-ivy-jars,build-digest" description="Optimize the update site for an Ivy release" />
+
+    <target name="optimize-ivyde" depends="pack-ivyde-jars,build-digest" description="Optimize the update site for an IvyDE release" />
+
+    <target name="optimize" depends="pack-jars,build-digest" />
+
+    <target name="prepare-pack-ivy-jars">
+        <!-- prepare the working area, so copy plugin jars -->
+        <mkdir dir="${work.dir}/updatesite/" />
+        <copy todir="${work.dir}/updatesite">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivy_*.jar" />
+                <include name="plugins/org.apache.ivy.eclipse*.jar" />
+                <include name="features/org.apache.ivy.*jar" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="prepare-pack-ivyde-jars">
+        <!-- prepare the working area, so copy plugin jars -->
+        <mkdir dir="${work.dir}/updatesite/" />
+        <copy todir="${work.dir}/updatesite">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivyde.*.jar" />
+                <include name="features/org.apache.ivyde.*.jar" />
+            </fileset>
+        </copy>
+    </target>
+
+    <macrodef name="siteOptimizerJarPack">
+        <attribute name="directory" />
+        <sequential>
+            <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main"
+                  fork="true" failonerror="true">
+                <arg value="-consolelog" />
+                <arg line="-application org.eclipse.update.core.siteOptimizer" />
+                <arg line="-jarProcessor -verbose -processAll -pack" />
+                <arg line="-outputDir @{directory}" />
+                <arg line="@{directory}" />
+            </java>
+        </sequential>
+    </macrodef>
+
+    <target name="do-pack-jars" depends="eclipse-classpath">
+        <!-- launch the packing -->
+        <siteOptimizerJarPack directory="${work.dir}/updatesite/plugins" />
+        <siteOptimizerJarPack directory="${work.dir}/updatesite/features" />
+        <!-- put the packs back to the updatesite -->
+        <copy todir="${updatesite.dir}">
+            <fileset dir="${work.dir}/updatesite">
+                <include name="plugins/*.jar.pack.gz" />
+                <include name="features/*.jar.pack.gz" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="pack-ivy-jars" depends="prepare-pack-ivy-jars,do-pack-jars" />
+
+    <target name="pack-ivyde-jars" depends="prepare-pack-ivyde-jars,do-pack-jars" />
+
+    <target name="pack-jars" depends="prepare-pack-ivy-jars,prepare-pack-ivyde-jars,do-pack-jars" />
+
+    <target name="build-digest" depends="eclipse-classpath">
+        <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
+            <arg value="-consolelog" />
+            <arg line="-application org.eclipse.update.core.siteOptimizer" />
+            <arg line="-digestBuilder -digestOutputDir=${updatesite.dir}" />
+            <arg line="-siteXML=${updatesite.dir}/site.xml" />
+        </java>
+        <!-- make the eclipse generated digest ASF compliant -->
+        <!-- first let's add a ASL2 header -->
+        <mkdir dir="${work.dir}/digest" />
+        <unzip src="${updatesite.dir}/digest.zip" dest="${work.dir}/digest" />
+        <loadfile property="asl2-header.xml" srcfile="${basedir}/ASL2-header.xml" />
+        <move file="${work.dir}/digest/digest.xml" tofile="${work.dir}/digest-generated.xml" />
+        <copy file="${work.dir}/digest-generated.xml" tofile="${work.dir}/digest/digest.xml">
+            <filterchain>
+                <tokenfilter>
+                    <replacestring from="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;" to="${asl2-header.xml}" />
+                </tokenfilter>
+            </filterchain>
+        </copy>
+        <!-- add notice and license -->
+        <copy todir="${work.dir}/digest">
+            <fileset dir="${basedir}">
+                <include name="NOTICE" />
+                <include name="LICENSE" />
+            </fileset>
+        </copy>
+        <!-- repackage it -->
+        <zip basedir="${work.dir}/digest" destfile="${updatesite.dir}/digest.zip" />
+    </target>
+
+    <target name="checksum" description="Compute the checksum for every artifact to distribute">
+        <checksum algorithm="MD5" fileext=".md5" format="MD5SUM">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivy*.jar" />
+                <include name="plugins/org.apache.ivy*.jar.pack.gz" />
+                <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
+                <include name="digest.zip" />
+            </fileset>
+        </checksum>
+        <checksum algorithm="SHA" fileext=".sha" format="MD5SUM">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivy*.jar" />
+                <include name="plugins/org.apache.ivy*.jar.pack.gz" />
+                <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
+                <include name="digest.zip" />
+            </fileset>
+        </checksum>
+    </target>
+
+    <target name="verify-checksum" description="Verify the checksums of the artifacts to publish">
+        <checksum algorithm="MD5" fileext=".md5" format="MD5SUM" verifyproperty="checksum.md5.ok">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivy*.jar" />
+                <include name="plugins/org.apache.ivy*.jar.pack.gz" />
+                <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
+                <include name="digest.zip" />
+            </fileset>
+        </checksum>
+        <fail message="MD5 Checksum verify failed !">
+            <condition>
+                <isfalse value="${checksum.md5.ok}" />
+            </condition>
+        </fail>
+        <echo message="MD5 Checksum verify passed successfully" />
+        <checksum algorithm="SHA" fileext=".sha" format="MD5SUM" verifyproperty="checksum.sha.ok">
+            <fileset dir="${updatesite.dir}">
+                <include name="plugins/org.apache.ivy*.jar" />
+                <include name="plugins/org.apache.ivy*.jar.pack.gz" />
+                <include name="features/org.apache.ivy*.jar" />
+                <include name="features/org.apache.ivy*.jar.pack.gz" />
+                <include name="digest.zip" />
+            </fileset>
+        </checksum>
+        <fail message="SHA Checksum verify failed !">
+            <condition>
+                <isfalse value="${checksum.sha.ok}" />
+            </condition>
+        </fail>
+        <echo message="SHA Checksum verify passed successfully" />
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+        Targets dedicated to be used by Hudson
+        
+        The 'hudson-prepare' have to be launched first in its own ant call: it will setup build properties
+        Then 'hudson-build' will do build the updatesite (it has to be called in a separate ant call from 'hudson-prepare')
+        ===================================================================================================================    
+      -->
+
+    <target name="hudson-prepare" depends="hudson-prepare-eclipse">
+        <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
+        <echo file="local.build.properties">
+updatesite.dir=${basedir}/build
+mirrors.url=
+updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
+baseLocation=${basedir}/${hudson.eclipse.name}
+</echo>
+        <delete dir="${basedir}/build" />
+    </target>
+
+    <target name="hudson-prepare-eclipse" depends="hudson-get-eclipse,hudson-unzip-eclipse" />
+
+    <target name="hudson-check-download-eclipse">
+        <condition property="hudson.eclipse.downloaded">
+            <available file="${hudson.eclipse.name}.zip" />
+        </condition>
+    </target>
+
+    <target name="hudson-get-eclipse" depends="hudson-check-download-eclipse" unless="hudson.eclipse.downloaded">
+        <get src="${hudson.eclipse.url}" dest="${hudson.eclipse.name}.zip" verbose="yes" />
+    </target>
+
+    <target name="hudson-check-unzip-eclipse">
+        <condition property="hudson.eclipse.unzipped">
+            <available file="${hudson.eclipse.name}" />
+        </condition>
+    </target>
+
+    <target name="hudson-unzip-eclipse" depends="hudson-check-unzip-eclipse" unless="hudson.eclipse.unzipped">
+        <unzip src="${hudson.eclipse.name}.zip" dest="${basedir}" />
+        <move file="eclipse" tofile="${hudson.eclipse.name}" />
+    </target>
+
+    <target name="hudson-find-ivy-jar">
+        <get src="${hudson.baseUrl}/view/Ant/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/ivy-hudson.jar" verbose="yes" />
+        <property name="ivy.jar" value="${basedir}/ivy-hudson.jar" />
+    </target>
+
+    <target name="hudson-find-ivyde-zip">
+        <!-- get the last sucessful version -->
+        <get src="${hudson.baseUrl}/view/Ant/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/version.properties" dest="${basedir}/ivyde-hudson-version.properties" verbose="yes" />
+        <property file="${basedir}/ivyde-hudson-version.properties" />
+        <!-- get the actual zip -->
+        <get src="${hudson.baseUrl}/view/Ant/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/apache-ivyde-${ivyde.build.version}.zip" dest="${basedir}/apache-ivyde-hudson.zip" verbose="yes" />
+        <property name="ivyde.zip" value="${basedir}/apache-ivyde-hudson.zip" />
+    </target>
+
+    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize,checksum" />
+
+</project>
