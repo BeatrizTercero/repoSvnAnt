@@ -28,7 +28,7 @@
           ]
       },
       {
-        "title":"Documentation (2.0.0.final)",
+        "title":"Documentation (2.1.0)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
       {
@@ -49,6 +49,10 @@
                     "title":"2.0.x",
                     "isAbstract":true,
                     "children": [
+                        {
+                            "title":"2.1.0",
+                            "url":"http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html"
+                        }
                         {
                           "title":"2.0.0.final",
                           "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html"
