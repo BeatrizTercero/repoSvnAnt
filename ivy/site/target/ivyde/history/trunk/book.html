@@ -46,16 +46,16 @@
 </table>
 
 		<div id="main">
-            <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (trunk)</div><br class="xooki-br"/>IvyDE is the Eclipse plugin which intergrate Ivy into your java development enviromnent. It includes:
+            <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (trunk)</div><br class="xooki-br"/>IvyDE is the Eclipse plugin which integrates Ivy into your java development enviromnent. A summary of the features it provides follows:
 <ul>
-<li><a href="ivyeditor.html">an Ivy xml files editor</a>: creation wizard, html preview and completion for Ivy xml tag, attributes but also attributes' values.</li>
-<li><a href="settingseditor.html">an Ivy settings files editor</a>: completion for xml tag, attributes but also attributes' values.</li>
-<li><a href="cp_container.html">a classpath container</a>: automatic downloads, access "resolve" task from your IDE, and <a href="cpc/workspace.html">resolve in Eclipse's workspace</a></li>
-<li><a href="cp_container.html">an Ivy console</a>: presents every log from Ivy, really helpful to debug a failing resolve</li>
-<li><a href="revdepexplorer.html">an Reverse Dependency Explorer</a>: help you work with conflicting dependencies amongs several projects</li>
+<li><a href="cp_container.html">Managed classpath container</a>: automatic downloads, access to the Ivy "resolve" task from your IDE, and a <a href="cpc/workspace.html">feature</a> allowing you to develop interdependent multi-module applications in one workspace.</li>
+<li><a href="ivyeditor.html">Ivy XML files editor</a>: creation wizard, html preview and completion for Ivy XML tags, attributes, and attribute values.</li>
+<li><a href="settingseditor.html">Ivy settings files editor</a>: completion for XML tags, attributes, and attribute values.</li>
+<li><a href="cp_container.html">Ivy console</a>: presents every log from Ivy to assist in debugging a failing resolve.</li>
+<li><a href="revdepexplorer.html">Reverse Dependency Explorer</a>: helps you work with conflicting dependencies amongst several projects.</li>
 </ul>
 
-And IvyDE can be also used with other plugins like <a href="cpc/wtp.html">WTP</a> or <a href="ant.html">Ant</a>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Compatibility</div><br class="xooki-br"/><h2>Upgrading/Downgrading</h2>
+IvyDE can be also used with other plugins like <a href="cpc/wtp.html">WTP</a> and <a href="ant.html">Ant</a>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Compatibility</div><br class="xooki-br"/><h2>Upgrading/Downgrading</h2>
 
 This version is compatible with every earlier Apache release (since 2.0.0.alpha1). Any upgrade of IvyDE should work without any worries.<br class="xooki-br"/><br class="xooki-br"/>The reverse is not true, downgrading is not supported and may break your configuration<br class="xooki-br"/><br class="xooki-br"/><h2>Dependency on Ivy</h2>
 
@@ -90,76 +90,75 @@ Get the latest Ivy feature and bundle for the updatesite:
 
 And then just copy them respectively in the $ECLIPSE_HOME/features and the $ECLIPSE_HOME/plugins folders.<br class="xooki-br"/><br class="xooki-br"/><h2>Restart Eclipse</h2>
 
-After installing manually your plugins, you have to restart your Eclipse to have it take into account the changes. It is recommended to restart it with the -clean option on the command line.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Classpath Container</div><br class="xooki-br"/>As the Ivy's ant target to manage classpath, the IvyDE classpath container will help you manage the classpath of your Eclipse project, based on the dependencies declared in the Ivy files.<br class="xooki-br"/><br class="xooki-br"/>So you probably want to:
+After installing manually your plugins, you have to restart your Eclipse to have it take into account the changes. It is recommended to restart it with the -clean option on the command line.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Classpath Container</div><br class="xooki-br"/>The IvyDE classpath container will help you manage the classpath of your Eclipse projects, based on the dependencies declared in Ivy files found in your projects.<br class="xooki-br"/><br class="xooki-br"/>Some of the tasks that can be performed on the container include:
 <ul>
     <li><a href="cpc/create.html">Create</a> a container</li>
     <li><a href="cpc/edit.html">Edit</a> its setup</li>
-    <li>Launch the <a href="cpc/resolve.html">resolve</a> of the dependencies</li>
+    <li>Launch a <a href="cpc/resolve.html">resolve</a> of the dependencies</li>
     <li><a href="cpc/retrieve.html">Retrieve</a> the dependencies in your project</li>
     <li>Resolve dependencies within the Eclipse <a href="cpc/workspace.html">workspace</a></li>
     <li><a href="cpc/launch.html">Launch</a> software or unit tests with a classpath managed by IvyDE</li>
     <li>Use IvyDE with <a href="cpc/maven.html">maven pom.xml</a></li>
     <li>Use IvyDE in concert with <a href="cpc/wtp.html">WTP</a></li>
 </ul>
-<hr/><div class='toc-title toc-title-3'>Create a container</div><br class="xooki-br"/>First you should have somewhere an ivy.xml file or a maven pom.xml ready to be used to build a classpath, along if needed with an ivysettings.xml.<br class="xooki-br"/><br class="xooki-br"/><h1>Standard creation</h1>
+<hr/><div class='toc-title toc-title-3'>Create a container</div><br class="xooki-br"/>First, locate an ivy.xml file or a maven pom.xml ready to be used to build a classpath.  Also, if necessary, locate a supporting ivysettings.xml.<br class="xooki-br"/><br class="xooki-br"/><h1>Fast creation</h1>
+For most of the projects, the ivy.xml file (or the pom.xml) is in the java project. So you can just right click on the ivy.xml and select "Add Ivy Library..." and you can directly access the prefilled setup of the IvyDE classpath container<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/addivylibrary.jpg"></center>
+
+<h1>Standard creation</h1>
 The standard way to add the IvyDE classpath container is to manipulate the Eclipse's "Build Path":
 <ul>
-<li>Select the project in which you want to create a IvyDE classpath container and open the "Add Libraries" form of Eclipse (In package Explorer, in popup menu of your project choose : [Build Path]/[Add Libraries]).<br/><br/><center><img src="images/build_path_menu.jpg"/></center><br/><br/></li>
-<li>Select "IvyDE Managed Dependencies" item.<br/><br/><center><img src="images/add_lib.jpg"/></center><br/><br/></li>
+<li>Select the project in which you want to create an IvyDE classpath container and open the "Add Libraries" form of Eclipse (in package Explorer, in the context menu of your project choose : [Build Path]/[Add Libraries]).<br/><br/><center><img src="images/build_path_menu.jpg"/></center><br/><br/></li>
+<li>Select the "IvyDE Managed Dependencies" item.<br/><br/><center><img src="images/add_lib.jpg"/></center><br/><br/></li>
 <li>Select an ivy.xml file or a <a href="maven.html">maven pom.xml</a> and the desired configurations.<br/><br/><center><img src="images/ivy_file_def.jpg"/></center><br/><br/></li>
 </ul>
-<li><a name="localconf"></a>You then might want to use specific settings for your project, a configuration different from the <a href="../preferences.html">global one</a>. For the ivy settings, click on the "Enable project specific settings" check box. See also the documentation about <a href="../eclipsevar.html">Eclipse variables</a>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/project_specific_settings.jpg"/></center></li>
-Your class path is set and you can see all dependencies in one unique folder of the package explorer (folder name = ivy-file-name[conf1,conf2]).<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_node.jpg"></center>
+<li><a name="localconf"></a>You then might want to use specific settings for your project, a configuration different from the <a href="../preferences.html">global one</a>. Click on the "Enable project specific settings" check box. For additional configuration options, see the documentation about <a href="../eclipsevar.html">Eclipse variables</a>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/project_specific_settings.jpg"/></center></li>
+Now your classpath is set and you can see all dependencies in one unique folder of the package explorer (folder name = ivy-file-name[conf1,conf2]).<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_node.jpg"></center>
 
 
-<h1>Fast creation</h1>
-For most of the projects, the ivy.xml file (or the pom.xml) is in the java project. So you can just right click on the ivy.xml and select "Add Ivy Library..." and you will direclty access the prefilled setup of the IvyDE classpath container<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/addivylibrary.jpg"></center>
+<hr/><div class='toc-title toc-title-3'>Edit the classpath</div><br class="xooki-br"/>During the life of your project, you can change the ivy.xml file or <a href="maven.html">maven pom.xml</a> and change its configuration.<br class="xooki-br"/><br class="xooki-br"/>These properties can be accessed by he context menu of the IvyDE classpath container:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_configuration.jpg"></center>
 
-
-<hr/><div class='toc-title toc-title-3'>Edit the classpath</div><br class="xooki-br"/><br class="xooki-br"/>During life of your project you can change the ivy.xml file or <a href="maven.html">maven pom.xml</a> and change the configuration you want<br class="xooki-br"/>to use.<br class="xooki-br"/><br class="xooki-br"/>These properties can be accessed by contextual menu of the IvyDE class path container:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_configuration.jpg"></center>
-
-You can also edit it via the build path configuration. Open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container. Then you will be able to click on the button "Edit": the IvyDE classpath container configuration dialog will pop up.<br class="xooki-br"/>This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3), and then this is only way to trigger a resolve.<br class="xooki-br"/><br/><br/>
+You can also edit it via the build path configuration. Open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container. Then click on the "Edit" button: the IvyDE classpath container configuration dialog will pop up.<br class="xooki-br"/>This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3).  When the container is empty, this is the only way to trigger a resolve on this project.<br class="xooki-br"/><br/><br/>
 <center><img src="images/build_path_edit.jpg"></center>
 <br/>
-<hr/><div class='toc-title toc-title-3'>Launching resolve</div><br class="xooki-br"/>You can explicitly ask for a dependencies resolution from your class path container.<br class="xooki-br"/><br class="xooki-br"/>This command will invoke the "resolve" ivy task and update your class path container.<br class="xooki-br"/><br class="xooki-br"/>There is also a "refresh" action: this action is similar to the resolve one, it just doesn't do a full resolve if a report already exists in the cache. This is particularly useful if you work also with ant and a command line so you won't do two full resolve.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_resolve.jpg"></center><br/>
+<hr/><div class='toc-title toc-title-3'>Launching resolve</div><br class="xooki-br"/>You can explicitly ask for Ivy dependency resolution from your classpath container.<br class="xooki-br"/><br class="xooki-br"/>This command will invoke the "resolve" ivy task and update your classpath container.<br class="xooki-br"/><br class="xooki-br"/>There is also a "refresh" action: this action is similar to the resolve one, but does not perform a full resolve if a report already exists in the cache. This is particularly useful if you work with Ant and a command line so that you avoid two full resolves.  It is also the default action performed on classpath containers when the Eclipse workspace is opened (<b>Windows > Preferences > Ivy</b>), in effect restoring the classpath container to its state prior to the last closing of the workspace if no other action is performed against the ivy.xml in the meantime.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_resolve.jpg"></center><br/>
 
 You can also trigger a resolve (not a refresh!) of every IvyDE classpath container in the workspace via the button in the tool bar of Eclipse.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/resolveall.jpg"></center><br/>
 
 And to launch a resolve on a specified selection of projects:
 <ul>
-<li>select the projects you want to resolve in the package view,</li>
-<li>open the context menu with a right click</li>
+<li>Select the projects you want to resolve in the package view,</li>
+<li>Open the context menu with a right click</li>
 <li>Choose <b>Ivy > Resolve</b></li>
 </ul>
 
 <center><img src="images/resolve_contextmenu.jpg"></center><br/>
 
-<hr/><div class='toc-title toc-title-3'>Retrieve the dependencies</div><br class="xooki-br"/>It is possible to make IvyDE copy the resolved dependencies in your project: a retrieve of the dependencies can be triggered on each resolve of the classpath container.<br class="xooki-br"/><br class="xooki-br"/>To enable it, enter the classpath container configuration panel, and hit the second tab "Retrieve".<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/retrieve.jpg"/></center>
+<hr/><div class='toc-title toc-title-3'>Retrieve dependencies</div><br class="xooki-br"/>It is possible to make IvyDE copy resolved dependencies into your project: a retrieve of the dependencies can be triggered on each resolve of the classpath container.<br class="xooki-br"/><br class="xooki-br"/>To enable this behavior, enter the classpath container configuration panel, and select the second tab, "Retrieve".<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/retrieve.jpg"/></center>
 
-So you can choose to <b>do retrieve after resolve</b> the dependencies.<br class="xooki-br"/><br class="xooki-br"/>The <b>Retrieve pattern</b> specified the location where the deendencies should be copied, location raltive to the containing project.<br class="xooki-br"/><br class="xooki-br"/>The <b>Delete old retrieved artifacts</b> check box will enable the wipe out the output directory before each retrieve.<br class="xooki-br"/><br class="xooki-br"/>And finally you can select in which <b>Configurations</b> the dependencies should be resolved and you can select which <b>Types</b> of artifact should be actually retrieved. In both fields, <i>*</i> will means <i>all</i>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-3'>Clean the caches</div><br class="xooki-br"/>Within IvyDE it is possible to clean the different Ivy caches.<br class="xooki-br"/><br class="xooki-br"/>On a configured IvyDE classpath container, open the contextual menu and select the <b>Clean Ivy cache</b> entry. It will then show the list of configured caches.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cleancache.jpg"/></center>
-
+The <b>Retrieve pattern</b> specifies the location where the dependencies should be copied relative to the containing project.<br class="xooki-br"/><br class="xooki-br"/>The <b>Delete old retrieved artifacts</b> check box will cause IvyDE to clean the output directory before each retrieve.  Note that any other artifacts other than those previously retrieved by IvyDE in this container will be deleted as well if this option is selected.<br class="xooki-br"/><br class="xooki-br"/>Finally, you can select which <b>Configurations</b> should be resolved and you can select which <b>Types</b> of artifacts should actually be retrieved. In both fields, <i>*</i> means <i>all</i>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-3'>Clean the caches</div><br class="xooki-br"/>IvyDE has the ability to clean the various types of Ivy caches.<br class="xooki-br"/><br class="xooki-br"/>On a configured IvyDE classpath container, open the context menu and select the <b>Clean Ivy cache</b> entry.  A menu of configured caches will be shown.<br class="xooki-br"/>
 <ul>
-    <li><u>All:</u> it will wipe out every cache</li>
-    <li><u>Resolution cache:</u> it will wipe out only the cache of resolution report</li>
-    <li><u>Every repository cache:</u> it will wipe out every cache dedicated to the artifacts</li>
-    <li><u>Cache 'xxxxxx':</u> it will wipe out only the cache with the specified name</li>
+    <li><u>All:</u> will clean every cache</li>
+    <li><u>Resolution cache:</u> will clean only the cache of the resolution report</li>
+    <li><u>Every repository cache:</u> will clean every cache dedicated to the artifacts</li>
+    <li><u>Cache 'xxxxxx':</u> will clean only the cache with the specified name</li>
 </ul>
-<hr/><div class='toc-title toc-title-3'>Reload settings</div><br class="xooki-br"/>In case you have selected the "Reload the settings only on demand" option in the <a href="../preferences.html#settings">preferences</a>, you can manually reload the settings via the context menu on the classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/reload_settings.jpg"/></center>
+
+<center><img src="images/cleancache.jpg"/></center><hr/><div class='toc-title toc-title-3'>Reload settings</div><br class="xooki-br"/>In case you have selected the "Reload the settings only on demand" option in the <a href="../preferences.html#settings">preferences</a>, you can manually reload the settings via the context menu on the classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/reload_settings.jpg"/></center>
 
 <u>Notes:</u>
 <ul>
-    <li>reloading the settings will automatically launch a resolve</li>
-    <li>reloading the settings in a project will not make other projects reload their settings even if they use the same settings file</li>
+    <li>Reloading the settings will automatically launch a resolve</li>
+    <li>Reloading the settings in a project will not make other projects reload their settings even if they use the same settings file</li>
 </ul>
 
-<hr/><div class='toc-title toc-title-3'>Resolve in workspace</div><br class="xooki-br"/>Some projects are composed of mulpliple modules, modules having dependencies between them, dependencies managed by Ivy (of course!). Then sometimes we need to build and publish some modules before building the dependant one. Eclipse can handle classpath composed of Java project, it can handles dependencies between projects, and IvyDE can use that feature.<br class="xooki-br"/><br class="xooki-br"/>First every of your modules should be separated projects in Eclipse, and each of this project should have an IvyDE classpath container configured.<br class="xooki-br"/><br class="xooki-br"/>To enable resolution in the workspace, go into the advanced configuration panel of the classpath container and select <b>Resolve dependencies in workspace</b>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/workspace.jpg"/></center>
+<hr/><div class='toc-title toc-title-3'>Resolve in workspace</div><br class="xooki-br"/>Some projects are composed of mulpliple modules.  Often, these modules have dependencies between them, dependencies managed by Ivy (of course!). <br class="xooki-br"/><br class="xooki-br"/>Eclipse is capable of calculating the workspace's build order according to dependencies between projects.  To leverage this advantage, IvyDE has the ability to add a project reference to a dependency located in the workspace in place of downloading its published artifact(s) from the repository.  In this way, developers can develop multi-module applications, and test the interaction between these modules, before building and publishing artifacts to the repository.<br class="xooki-br"/><br class="xooki-br"/>Consider a multi-module application with a considerable amount of code in each of several projects.  Many developers have experienced the delays involved in waiting for Eclipse to build code across all of these projects even though development is only being conducted in one isolated part of the application (maybe just one or two projects).  If the latest published artifact in the Ivy repository has the same source code as a module that the developer is not currently working on, simply closing that project in the Eclipse workspace and resolving dependencies on dependent projects that would resolve that artifact speeds the compilation process considerably.<br class="xooki-br"/><br class="xooki-br"/>First, each application module should be separate a project in Eclipse, and each of these projects should have a configured IvyDE classpath container.<br class="xooki-br"/><br class="xooki-br"/>To enable resolution in the workspace, go to the advanced configuration panel of the classpath container and select <b>Resolve dependencies in workspace</b>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/workspace.jpg"/></center>
 
 <u>Important notes:</u> to make the resolve in workspace work correctly the <i>info</i> in the ivy.xml should be properly set:
 <ul>
-    <li>obviously the <i>org</i> and <i>name</i> </li>
-    <li>if there is a <i>rev</i> specified, dependencies should specify the appropriate range</li>
-    <li>if there is no <i>rev</i> specified, only dependencies with <i>lastest</i> will match</li>
-    <li>the <i>status</i> should match the required one: a dependency with <i>latest.integration</i> will only match if there is <i>status="interation"</i> in the info of the dependant module</li>
+    <li>The <i>org</i> and <i>name</i> </li>
+    <li>If there is a <i>rev</i> specified, dependencies should specify the appropriate range</li>
+    <li>If there is no <i>rev</i> specified, only dependencies with <i>lastest</i> will match</li>
+    <li>The <i>status</i> should match the required one: a dependency with <i>latest.integration</i> will only match if there is <i>status="interation"</i> in the info of the dependant module</li>
 </ul>
 
 Having two projects "A" and "B" configured to use IvyDE and the workspace resolver, here is the expected resolved dependencies:<br class="xooki-br"/>
@@ -177,13 +176,13 @@ Having two projects "A" and "B" configured to use IvyDE and the workspace resolv
 <tr><td>[1.2,1.3)</td><td>$version</td><td>no project wiring</td></tr>
 </table>
 
-<hr/><div class='toc-title toc-title-3'>Launch configuration</div><br class="xooki-br"/>The IvyDE classpath container can also be used in the launch configuration, run or debug. The container will be used because it is included in the default classpath of you project, or by adding it yourself to your launch classpath.<br class="xooki-br"/><br class="xooki-br"/><h1>In the project's classpath</h1>
+<hr/><div class='toc-title toc-title-3'>Launch configuration</div><br class="xooki-br"/>The IvyDE classpath container can also be used in the launch configuration, run or debug.<br class="xooki-br"/><br class="xooki-br"/><h1>Default behavior</h1>
 
-It is the simpler configuration, configuration that you implicetely have when you do a "Run As..." on a Java class. The container you see in the launch classpath is actually the one you have in your project in the package explorer.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_default.jpg"></img></center>
+By default, the container will be used because it is included in the default classpath of you project.  This is the configuration that you implicitly have when you do a "Run As..." on a Java class. The container you see in the launch classpath is the same as the one you have in your project in the package explorer.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_default.jpg"></img></center>
 
-It is the same when launching unit tests. Idem for the debug mode.<br class="xooki-br"/><br class="xooki-br"/>But having the compile classpath might not be appropriate for some launch configuration, so you will have to manage it yourself.<br class="xooki-br"/><br class="xooki-br"/><h1>Managing manually</h1>
+Launching with the default the compile classpath might not be appropriate for some situations.  For example, you may have additional libraries included in the container under a configuration intended to support unit testing but that may cause some instability in the runtime application.<br class="xooki-br"/><br class="xooki-br"/><h1>Managing the classpath manually</h1>
 
-You want to have more control over the classpath of your launch configuration, so you will have to edit it, and manage the IvyDE container in there.<br class="xooki-br"/><br class="xooki-br"/>Creating a launch configuration, you will get the default classpath as above. So the first step is to remove it. And you probably want to readd your project in the user entries. Then to add an IvyDE container, choose "Advanced":<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_advanced.jpg"></img></center>
+When you do need to have finer-grained control over which configurations are visible to the runtime classpath, it is possible to edit the runtime classpath manually.<br class="xooki-br"/><br class="xooki-br"/>By creating a launch configuration, you will get the default classpath as described above. So the first step is to remove it. Most likely, you will want to re-add your project in the user entries. Then to add an IvyDE container, choose "Advanced":<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_advanced.jpg"></img></center>
 
 Choose "Add Library":<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_addlib.jpg"></img></center>
 
@@ -196,30 +195,30 @@ Select the absolute path to your ivy.xml and select the proper configurations:<b
 Click "Finish" and see the result:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/launch_custom.jpg"></img></center>
 
 
-<hr/><div class='toc-title toc-title-3'>Use with maven poms</div><br class="xooki-br"/>If you want to use a maven pom.xml instead of ivy.xml file, you just have to select a pom file in the configuration form of IvyDE class path.<br class="xooki-br"/>When a maven pom is selected, the configurations list is updated with all maven scopes.<br class="xooki-br"/><br class="xooki-br"/>Both examples below are a good illustration of maven pom use simplicity :
+<hr/><div class='toc-title toc-title-3'>Use with maven poms</div><br class="xooki-br"/>If you want to use a maven pom.xml instead of an ivy.xml file, you can select a pom file in the configuration options of the IvyDE classpath.<br class="xooki-br"/><br class="xooki-br"/>When a maven pom is selected, the configurations list is updated with all maven scopes.<br class="xooki-br"/><br class="xooki-br"/>Both examples below are a good illustration of the simplicity of using maven poms in IvyDE:
 <ul>
 <li><a href="#one">Maven1 sample</a></li>
 <li><a href="#two">Maven2 sample</a></li>
 </ul>
+
 <h1><a name="one"></a>Maven1 Sample</h1>
 
-This sample presents a simple use case of maven pom for IvyDE class path container. We are going to create an eclipse project on commons-httpclient sources.<br class="xooki-br"/><br class="xooki-br"/><b> - Download the <a href="http://archive.apache.org/dist/httpcomponents/commons-httpclient/3.0/source/commons-httpclient-3.0-src.zip">commons httpclient sources</a></b><br class="xooki-br"/><br class="xooki-br"/><b> - Unzip this file (c:/tmp/commons-httpclient/)</b><br class="xooki-br"/><br class="xooki-br"/><b> - Create a new Eclipse java project based on the unzipped sources (c:/tmp/commons-httpclient/)</b><br class="xooki-br"/><br class="xooki-br"/><center>
+This sample presents a simple use case involving a maven pom and the IvyDE classpath container. We are going to create an Eclipse project on commons-httpclient sources.<br class="xooki-br"/><br class="xooki-br"/><b> - Download the <a href="http://archive.apache.org/dist/httpcomponents/commons-httpclient/3.0/source/commons-httpclient-3.0-src.zip">commons httpclient sources</a></b><br class="xooki-br"/><br class="xooki-br"/><b> - Unzip this file (c:/tmp/commons-httpclient/)</b><br class="xooki-br"/><br class="xooki-br"/><b> - Create a new Eclipse java project based on the unzipped sources (c:/tmp/commons-httpclient/)</b><br class="xooki-br"/><br class="xooki-br"/><center>
 <img src="images/httpProject_errors.jpg"><br />
-<u><b>Notes:</b></u> your project do not compile: some imports cannot be resolved.<br class="xooki-br"/><br class="xooki-br"/></center>
+<u><b>Note:</b></u> your project willnot compile: some imports cannot be resolved.<br class="xooki-br"/></center>
 
-<b> - Add a new class path container based on the "project.xml" pom and select "default" configuration (maven scope)</b><br class="xooki-br"/><br class="xooki-br"/><center>
+<b> - Add a new classpath container based on the "project.xml" pom and select "default" configuration (maven scope)</b><br class="xooki-br"/><br class="xooki-br"/><center>
 <img src="images/httpProject_pom.jpg">
 </center>
 
-
-<b> - That's all : your project compiles !</b><br class="xooki-br"/><br class="xooki-br"/><center>
+<b> - Finished.  The project compiles!</b><br class="xooki-br"/><br class="xooki-br"/><center>
 <img src="images/httpProject_clean.jpg">
 </center>
 
 
 <h1><a name="two"></a>Maven2 Sample</h1>
 
-This sample shows that IvyDE Class path container on a Maven2 pom can handle transitive dependancies.<br class="xooki-br"/><br class="xooki-br"/><b> - Create a new empty java project in eclipse.</b><br class="xooki-br"/><br class="xooki-br"/><b> - In your project, create an <tt>ivysettings.xml</tt> file: </b><br class="xooki-br"/>
+This sample demonstrates how the IvyDE classpath container on a Maven2 pom can handle transitive dependencies.<br class="xooki-br"/><br class="xooki-br"/><b> - Create a new empty java project in Eclipse.</b><br class="xooki-br"/><br class="xooki-br"/><b> - In your project, create an <tt>ivysettings.xml</tt> file: </b><br class="xooki-br"/>
 <pre>&lt;ivysettings&gt;<br class="xooki-br"/>	&lt;conf defaultResolver="ibiblio"/&gt;<br class="xooki-br"/>	&lt;resolvers&gt;<br class="xooki-br"/>		&lt;ibiblio name="ibiblio" /&gt;<br class="xooki-br"/>	&lt;/resolvers&gt;<br class="xooki-br"/>&lt;/ivysettings&gt;
 </pre>
 
@@ -228,7 +227,7 @@ Using the m2compatible attribute, you can benefit from Maven2 repository compati
 &lt;project&gt;<br class="xooki-br"/>	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>	&lt;groupId&gt;com.mycompany&lt;/groupId&gt;<br class="xooki-br"/>	&lt;artifactId&gt;myproject&lt;/artifactId&gt;<br class="xooki-br"/>	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;<br class="xooki-br"/>	&lt;dependencies&gt;<br class="xooki-br"/>		&lt;dependency&gt;<br class="xooki-br"/>			&lt;groupId&gt;commons-httpclient&lt;/groupId&gt;<br class="xooki-br"/>			&lt;artifactId&gt;commons-httpclient&lt;/artifactId&gt;<br class="xooki-br"/>			&lt;version&gt;3.0&lt;/version&gt;<br class="xooki-br"/>		&lt;/dependency&gt;<br class="xooki-br"/>	&lt;/dependencies&gt;<br class="xooki-br"/>&lt;/project&gt;
 </pre>
 
-<b> - On the pom.xml file, open the context menu and click on "Add Ivy Library...":</b><br class="xooki-br"/><br class="xooki-br"/><b> - Select the configuration <tt>compile</tt> and <tt>runtime</tt></b><br class="xooki-br"/><br class="xooki-br"/><center>
+<b> - On the pom.xml file, open the context menu and click on "Add Ivy Library...":</b><br class="xooki-br"/><br class="xooki-br"/><b> - Select the configurations <tt>compile</tt> and <tt>runtime</tt></b><br class="xooki-br"/><br class="xooki-br"/><center>
     <img src="images/maven2classpath1.jpg"/>
 </center>   
 
@@ -244,83 +243,78 @@ Using the m2compatible attribute, you can benefit from Maven2 repository compati
     <img src="images/maven2classpath1_done.jpg"/>
 </center>
 
-<b> - That's all ! Your IvyDE class path container gets all dependencies even those that were transitive to the commons-httpclient module !</b><br class="xooki-br"/><br class="xooki-br"/><center>
+<b> - That's all! Your IvyDE classpath container resolves all dependencies including those that were transitive to the commons-httpclient module!</b><br class="xooki-br"/><br class="xooki-br"/><center>
     <img src="images/maven2classpath2.jpg"/>
 </center>   
-<hr/><div class='toc-title toc-title-3'>WTP integration</div><br class="xooki-br"/>WTP is the <a href="http://www.eclipse.org/webtools/">Web Tools Platform</a> project from the Eclipse fondation which allow to easily develop, launch and debug web applications. IvyDE can be used with this framework, but only from the version 2.0 of WTP, which is supported since Eclipse 3.3.<br class="xooki-br"/><br class="xooki-br"/>In the properties of your project configured to use WTP, there is a section "Java EE Module Dependencies". There should be your configured IvyDE classpath container listed, usually with the name "ivy.xml [*]". Just select it and the Ivy dependencies will be deployed as well.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wtp.jpg"/></center>
+<hr/><div class='toc-title toc-title-3'>WTP integration</div><br class="xooki-br"/>WTP refers to the <a href="http://www.eclipse.org/webtools/">Web Tools Platform</a> project from the Eclipse foundation which allows Eclipse users to easily develop, launch and debug web applications. IvyDE works with WTP 2.0+ (Eclipse 3.3+).<br class="xooki-br"/><br class="xooki-br"/>In the properties of your project configured to use WTP, there is a section titled "Java EE Module Dependencies". In this section you will find the IvyDE classpath container listed, usually with the name "ivy.xml [*]". Select it and dependencies found in the IvyDE classpath container will be deployed as well.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wtp.jpg"/></center>
 
-This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.<br class="xooki-br"/><br class="xooki-br"/><h1>IBM Rational Application Developer (RAD) 7.5.3+</h1>
+This has been successfully tested with Eclipse 3.3/WTP 2.0, and Eclipse 3.4/WTP 3.0.<br class="xooki-br"/><br class="xooki-br"/><h1>IBM Rational Application Developer (RAD) 7.5.3+</h1>
 
-Users of RAD 7.5.3 will notice that the classpath container is not listed in the table.  RAD prevents the deployment of classpath containers by default.  To allow this behavior, selection Windows -> Preferences -> Java EE.  Check "Allow loose classpath module dependencies".  RAD will present you with a warning message.  To enable the behavior, you need to check the option again in the popup and click Yes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/rad_jee_page.jpg"/></center>
-
+Users of RAD 7.5.3 will notice that the classpath container is not listed in the table.  RAD prevents the deployment of classpath containers by default.  To allow this behavior, selection Windows > Preferences > Java EE.  Check "Allow loose classpath module dependencies".  RAD will present you with a warning message.  To enable the behavior, you need to check the option again in the popup and click Yes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/rad_jee_page.jpg"/></center>
+<br/>
 <b>Note:</b> due to a bug in RAD 7.5.3, this IBM specific property is not persisted when we close the workbench and reopen it. To work around this:
 <ul>
-<li>export RSA preferences ( File -> Export: General -> Preferences)</li>
-<li>open exported .epf file and replace<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=false<br class="xooki-br"/>with<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=true</li>
-<li>load modified epf</li>
+<li>Export RSA preferences ( File > Export > General > Preferences)</li>
+<li>Open the exported .epf file and replace<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=false<br class="xooki-br"/>with<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=true</li>
+<li>Load the modified .epf</li>
 </ul>
 
-<hr/><div class='toc-title toc-title-2'>Ivy file editor</div><br class="xooki-br"/>Edit your ivy files easily in eclipse with the <a href="index.html">IvyDE</a> Plugin editor.<br class="xooki-br"/><a href="index.html">IvyDE</a> brings creation wizard, html preview and completion for Ivy xml tag, attributes but also for attributes' values!<br class="xooki-br"/>Choose an organisation and browse thru its projects and revisions.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="wizard"></a>Wizard</h1>
+<hr/><div class='toc-title toc-title-2'>Ivy file editor</div><br class="xooki-br"/>IvyDE comes with an Ivy file editor that provides an editor that performs code completion for Ivy xml tags based on the real-time state of your repository.  It also packs with an Ivy file creation wizard and HTML preview.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="wizard"></a>Creation Wizard</h1>
 
-IvyDE comes with a wizard that allows you to create an ivy.xml file for your project.<br class="xooki-br"/>To open the wizard choose File->New->Other in the Eclipse menu (Ctrl+N by default)<br class="xooki-br"/>The Ivy wizard is accessible in the category Other. Select it then click Next<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wizard1.jpg"/></center>
-
+To use the creation wizard, choose File > New > Other > IvyDE > Ivy file in the Eclipse menu (Ctrl+N by default). Select it and click Next.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wizard1.jpg"/></center>
 
 The wizard contains only one page, and is very simple.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/wizard2.jpg"/></center>
 
-
-<ol><b>Wizard fields:</b><br class="xooki-br"/>	<li> Container: you have to select the targeted project. (This is already set if you access the wizard thanks right click menu on your project root folder)</li>
-	<li> File name: the ivy file name. (ivy.xml by default and its better to keep it in most of case)</li>
-	<li> Organisation: the component owner name. (your company name or the company that provides the component if you are writing ivy.xml file for 3rd party jars). Note this value can be set in the <a href="preferences.html">Ivy preference page</a></li>
+<ol><b>Wizard fields:</b><br class="xooki-br"/>	<li> Container: you must select a target project. (This is already set if you access the wizard through the context menu on your project root folder).</li>
+	<li> File name: the Ivy file name (ivy.xml by default).</li>
+	<li> Organisation: the component owner name. (your company name or the company that provides the component if you are writing an ivy.xml file for 3rd party jars). Note that this value can be set in the <a href="preferences.html">Ivy preference page.</a></li>
 	<li> Module name: the component name.</li>
-	<li> Status: the status of the project. (integration by default since we have just created its ivy file :-). Please refer to <a href="../../../history/latest-milestone/index.html">Ivy documentation for more details</a>)</li>
+	<li> Status: the status of the project. (integration by default since we have just created its ivy file. Please refer to the <a href="../../../history/latest-milestone/index.html">Ivy documentation for more details</a>).</li>
 </ol>
-When the form is correctly filled you can press Finish button. Eclipse will automatically open the Ivy <a href="#editor">editor</a>.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><h1><a name="editor"></a>Ivy Editor</h1>
+
+<h1><a name="editor"></a>Ivy Editor</h1>
 
 <center><img src="images/editor1.jpg"/></center>
 
-
-The Ivy's eclipse editor provides xml syntax coloration, tag completion, tag's attribute names completion, and for dependency and configuration tag value completion.<br class="xooki-br"/><br class="xooki-br"/>Completion comes with contextual help. The completion popup is displayed when hitting simultaneously the CTRL and the SPACE keys.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><b>Available completions:</b><ul>
-	<li><b>Xml structure</b>: allows you quickly to insert the good tag at its right place. If the tag can have nested children both notations, simple tag and open tag, are proposed<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/completion1.jpg"/></center>
+IvyDE's Eclipse editor provides XML syntax coloration, tag completion, tag attribute name completion, and dependency and configuration tag value completion.<br class="xooki-br"/><br class="xooki-br"/>Completion comes with contextual help. The completion popup is displayed when through the CTRL + SPACE shortcut.<br class="xooki-br"/><br class="xooki-br"/><b>Available completions:</b><ul>
+	<li><b>XML structure</b>: Allows you quickly to insert valid tags at the right place. If the tag can have nested children, both notations, simple tag and open tag, are proposed.<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/completion1.jpg"/></center>
 	    
 	</li>
-	<li><b>Tag attributes</b>: when your cursor is placed in a tag bracket the completion show available attributes for the enclosing tag.<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/completion2.jpg"/></center>
+	<li><b>Tag attributes</b>: When your cursor is placed in a tag bracket, the completion shows available attributes for the enclosing tag.<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/completion2.jpg"/></center>
 	    
 	</li>
-	<li><b>Attributes values</b>: when your cursor is placed in the quote of an attribute value the completion shows available values for the matching attribute.<br class="xooki-br"/>		<br/>
-		<ul>Available value completion<br class="xooki-br"/>			<li> <i>info:</i> organisation (pref based), module (eclipse project name),  </li>
-			<li> <i>info/ivyauthor: </i>name (pref based), url (pref based)</li>
+	<li><b>Attributes values</b>: When your cursor is placed inside the quotes of an attribute value, the completion shows available values for the matching attribute.<br class="xooki-br"/>		<br/>
+		<ul>Available value completion<br class="xooki-br"/>			<li> <i>info:</i> organisation (preference based), module (Eclipse project name),  </li>
+			<li> <i>info/ivyauthor: </i>name (preference based), url (pref based)</li>
 			<li> <i>info/description: </i>homepage (pref based)</li>
-			<li> <i>info/license: </i>name </li>
-			<li> <i>info/repository: </i> name (the other attributes depend on it), url, ivys, pattern, artifacts</li>
-			<li> <i>configurations/conf: </i> visibility,  deprecated, extends </li>
+			<li> <i>info/license: </i>name</li>
+			<li> <i>info/repository: </i>name (the other attributes depend on it), url, ivys, pattern, artifacts</li>
+			<li> <i>configurations/conf: </i> visibility,  deprecated, extends</li>
 			<li> <i>publications/artifact: </i>type, conf, ext</li>
-			<li> <i>dependencies/dependency: </i>org, name, rev are resolved thanks to Ivy using the ivyconf set in the <a href="cpc/edit.html">project Ivy preference page</a>. If not set to "default" Ivy uses its defaults resolvers configuration (ie ivyrep + ibiblio), and if not set Ivy uses the ivyconf set in the <a href="preferences.html">Eclipse Ivy preference page</a>. conf values are computed from current ivy.xml file and the dependency ivy.xml file if any.<br class="xooki-br"/>			    <br class="xooki-br"/>			    <center><img src="images/completion4.jpg"/></center>
+			<li> <i>dependencies/dependency: </i>org, name, rev are resolved thanks to Ivy using the ivyconf set in the <a href="cpc/edit.html">project Ivy preference page</a>. If not set to "default" Ivy uses its defaults resolvers configuration (ie Ivyrep + ibiblio), and if these are not set Ivy uses the ivyconf set in the <a href="preferences.html">Eclipse Ivy preference page</a>. conf values are computed from the current ivy.xml file and the dependency ivy.xml file if any.<br class="xooki-br"/><br class="xooki-br"/>			    <center><img src="images/completion4.jpg"/></center>
 			
 			</li>
 		</ul>
 	</li>
 </ul>
 
-<hr/><div class='toc-title toc-title-2'>Ivy settings editor</div><br class="xooki-br"/>IvyDE provides an editor of ivysettings.xml files which make the edition of such files simple. It provides completion on every tags and attribute names.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/settings.jpg"/></center>
+<hr/><div class='toc-title toc-title-2'>Ivy settings editor</div><br class="xooki-br"/>IvyDE provides an editor of ivysettings.xml files. It provides completion on all tag and attribute names.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/settings.jpg"/></center>
 
-Completion comes with contextual help. The completion popup is displayed when hitting simultaneously the CTRL and the SPACE keys.<br class="xooki-br"/><br class="xooki-br"/><b>Available completions:</b><ul>
-	<li><b>Xml structure</b>: allows you quickly to insert the good tag at its right place. If the tag can have nested children both notations, simple tag and open tag, are proposed<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/settings_completion_struct.jpg"/></center>
-	    
-	</li>
-	<li><b>Tag attributes</b>: when your cursor is placed in a tag bracket the completion show available attributes for the enclosing tag.<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/settings_completion_att.jpg"/></center>
-
+Completion comes with contextual help. The completion popup is displayed through the CTRL + SPACE shortcut.<br class="xooki-br"/><br class="xooki-br"/><b>Available completions:</b><ul>
+	<li><b>XML structure</b>: Allows you to quickly to insert valid tags in the right place. If the tag can have nested childrenm, both notations, simple tag and open tag, are proposed.<br class="xooki-br"/>	    <br class="xooki-br"/>	    <center><img src="images/settings_completion_struct.jpg"/></center>		</li>
+	<li><b>Tag attributes</b>: When your cursor is placed inside a tag bracket, the completion shows available attributes for the enclosing tag.<br class="xooki-br"/>    <br class="xooki-br"/>	    <center><img src="images/settings_completion_att.jpg"/></center>
 	</li>
 </ul>
 
-<hr/><div class='toc-title toc-title-2'>Eclipse global preferences</div><br class="xooki-br"/>IvyDE maintain a global configuration, which control the behaviour of every Ivy instance in every project in the workspace. Though this global configuration can be overided in each <a href="cpc/edit.html">project</a>.<br class="xooki-br"/><br class="xooki-br"/>The global configuration can be found in the preferences of Eclipse (menu Window>Preferences for Windows and Linux users, Eclipse>Preferences for mac users), and select the item Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="global"></a>Global Ivy preferences</h1>
+<hr/><div class='toc-title toc-title-2'>Eclipse global preferences</div><br class="xooki-br"/>IvyDE maintains a global configuration, which controls the behaviour of every Ivy instance in every project in the workspace. This global configuration can be overrided in each <a href="cpc/edit.html">project</a>.<br class="xooki-br"/><br class="xooki-br"/>The global configuration can be found in the preferences of Eclipse (menu Window > Preferences for Windows and Linux users, Eclipse > Preferences for mac users), and select the item Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="global"></a>Global Ivy preferences</h1>
 
 <center><img src="images/pref.jpg"/></center>
 
 <ul>
-     <li><u>On Eclipse startup:</u> it specifies what IvyDE should do in every project when Eclipse is starting up</li>
-     <li><u>On Ivy file change:</u> each time Eclipse detects a change on an ivy.xml file configured in an IvyDE container, via a save in the editor, a refresh, or a team/update, IvyDE can trigger resolve, or not.</li>
-	<li><u>Organisation:</u> your company name for ivy editor completion </li>
-	<li><u>Organisation URL:</u> your company web site url for ivy editor completion </li>
+     <li><u>On Eclipse startup:</u> Specifies what IvyDE should do in every project containing an IvyDE managed classpath container when Eclipse is starting up.</li>
+     <li><u>On Ivy file change:</u> Controls whether a resolve is performed each time Eclipse detects a change on an ivy.xml file configured by an IvyDE container via a save in the editor, a refresh, or a team/update.</li>
+	<li><u>Organisation:</u> Your company name for Ivy editor completion. </li>
+	<li><u>Organisation URL:</u> Your company web site url for Ivy editor completion.</li>
 </ul>
 
 <h1><a name="classpath"></a>Classpath configuration</h1>
@@ -328,11 +322,11 @@ Completion comes with contextual help. The completion popup is displayed when hi
 <center><img src="images/pref_classpath.jpg"/></center>
 
 <ul>
-	<li><u>Resolve dependencies in workpace:</u> IvyDE can try to make dependencies between project more than to jars into a repository. See the <a href="cpc/workspace.html">documentation</a> for further info.</li>
-        <li><u>Resolve before launch:</u> an IvyDE container can be used in the classpath of a launch configuration; and the container can be resolved on each launch. See also the documentation about <a href="cpc/launch.html">launch configurations</a></li>
-	<li><u>Order of the classpath entries:</u> by default in the classpath container the entries are ordered by order of declaration in the ivy.xml. When there are many entries, it could be useful to have them ordered alphabetically so that you can find them faster.</li>
-	<li><u>Accepted types:</u> a comma separated list of extensions which will make IvyDE add the artifact to the classpath</li>
-	<li><u>Sources types:</u> a comma separated list of Ivy "type" which will make IvyDE consider them as sources</li>
+	<li><u>Resolve dependencies in workpace:</u> IvyDE allows Ivy dependencies between projects in the workspace to be realized through project references rather than jars from the repository.  See the <a href="cpc/workspace.html">documentation</a> for further information on this feature.</li>
+        <li><u>Resolve before launch:</u> an IvyDE container can be used in the classpath of a launch configuration, and the container can be resolved on each launch. See the documentation about <a href="cpc/launch.html">launch configurations</a> for further information on this feature.</li>
+	<li><u>Order of the classpath entries:</u> By default, the classpath container entries are ordered by order of declaration in the ivy.xml. When there are many entries, it can be useful to have them ordered lexically for enhanced readability.</li>
+	<li><u>Accepted types:</u> A comma separated list of extensions which will make IvyDE add the artifact to the classpath</li>
+	<li><u>Sources types:</u> A comma separated list of Ivy "type" names which should be considered sources.</li>
 	<li><u>Sources suffixes:</u> a comma separated list of suffixes which will make IvyDE attach as source the artifact with the suffix to the artifact without the suffix. For instance, "commons-lang-sources.jar" will be attached as source to "commons-lang.jar" with the default value.</li>
 	<li><u>Javadoc types:</u> same as sources types but for javadocs</li>
 	<li><u>Javadoc suffixes:</u> same as sources suffixes but for javadocs</li>
@@ -343,11 +337,11 @@ Completion comes with contextual help. The completion popup is displayed when hi
 <center><img src="images/pref_retrieve.jpg"/></center>
 
 <ul>
-    If checked, some retrieve job will be triggered after each the resolve.<br/>
-	<li><u>Retrieve pattern:</u> the pattern to use for the retrieve. Check <a href="../../../history/latest-milestone/use/retrieve.html">Ivy documentation</a> for pattern explanation.</li>
-        <li><u>Delete old retrieve artifacts:</u> on each retrieve, the previously retrieved libraries will be removed (similar to the sync argument in the ant task)</li>
-        <li><u>Retrieve configurations:</u> the configurations to retrieve (a comma separated list)</li>
-        <li><u>Retrieve types:</u> the types of artifact to retrieve (a comma separated list)</li>
+    If checked, a retrieve job will be triggered after each the resolve.<br/>
+	<li><u>Retrieve pattern:</u> The pattern to use for the retrieve. Check <a href="../../../history/latest-milestone/use/retrieve.html">Ivy documentation</a> for pattern explanation.</li>
+        <li><u>Delete old retrieve artifacts:</u> On each retrieve, the previously retrieved libraries will be removed (similar to the sync argument in the Ant task).</li>
+        <li><u>Retrieve configurations:</u> The configurations to retrieve (a comma separated list)</li>
+        <li><u>Retrieve types:</u> The types of artifact to retrieve (a comma separated list)</li>
 </ul>
 
 <h1><a name="settings"></a>Ivy settings</h1>
@@ -355,9 +349,9 @@ Completion comes with contextual help. The completion popup is displayed when hi
 <center><img src="images/pref_settings.jpg"/></center>
 
 <ul>
-	<li><u>Reload the settings only on demand:</u> by default IvyDE will parse the ivysettings each times it needs it (each resolve, refresh, clean cache or completion in the ivy editor). For remote ivysettings this can slow down dramatically the UI, so it is possible to make IvyDE keep the settings in cache and only reload it via the context menu on the container)</li>
-	<li><u>Ivy settings path:</u> specify here the path to your ivy settings file. Leave it blank to use Ivy default resolvers.<br class="xooki-br"/>See also the documentation about <a href="eclipsevar.html">Eclipse variables</a></li>
-	<li><u>Property files:</u> this is a comma separated ist if java properties files which are loaded along with the settings.</li>
+	<li><u>Reload the settings only on demand:</u> By default, IvyDE will parse the ivy settings file each times it is needed (each resolve, refresh, clean cache or completion in the ivy editor). For remote ivysettings this can slow the UI dramatically, so it is possible to make IvyDE keep the settings in a cache and only reload them via the context menu on the container).</li>
+	<li><u>Ivy settings path:</u> The path to your ivy settings file. Leave it blank to use Ivy default resolvers.  See also the documentation about <a href="eclipsevar.html">Eclipse variables</a>.</li>
+	<li><u>Property files:</u> This is a comma separated list of Java properties files to be loaded along with the settings.</li>
 </ul>
 
 <h1><a name="workspace"></a>Workspace resolver</h1>
@@ -365,20 +359,21 @@ Completion comes with contextual help. The completion popup is displayed when hi
 <center><img src="images/pref_workspace.jpg"/></center>
 
 <ul>
-	<li><u>closing trigger resolve:</u> closing a project which has the workspace resolver enabled will trigger a resolve on every project that depends on it.</li>
-	<li><u>opening trigger resolve:</u> when a project is opened IvyDE will trigger the resolve of every other project which has the workspace resolver enabled</li>
-        <li><u>Ignore version when resolving workspace projects:</u> in you are sure of what you are doing, this option will make the workspace resolver not taking into account the version specified in the ivy.xml.</li>
+	<li><u>Closing trigger resolve:</u> Closing a project which has the workspace resolver enabled will trigger a resolve on every project that depends on it.</li>
+	<li><u>Opening trigger resolve:</u> When a project is opened, IvyDE will trigger the resolve of every other project which has the workspace resolver enabled.</li>
+        <li><u>Ignore version when resolving workspace projects:</u> This option forces the workspace resolver to ignore the version of a module specified in an ivy.xml if a project containing an Ivy file with that module organization and name is found in the workspace, instead substituting a project reference.  This may have unintended consequences.</li>
 </ul>
 
 
-<hr/><div class='toc-title toc-title-2'>Eclipse variables</div><br class="xooki-br"/>In Eclipse there is a <a href="http://help.eclipse.org/galileo/index.jsp?topic=/org.eclipse.jdt.doc.user/reference/preferences/run-debug/ref-string_substitution.htm">string substitution mecanism</a>. This feature allows you to specify a path location that can be shared between developpers.<br class="xooki-br"/><br class="xooki-br"/>IvyDE use it to find the ivysettings.xml and properties files in both the <a href="preferences.html#settings">glogal preference page</a> and the <a href="cpc/create.html#localconf">project specific one</a>.<br class="xooki-br"/><br class="xooki-br"/>Using the "Workspace..." button will open a windows to choose a file in the workspace. Then IvyDE will automatically fill the field with the proper variable.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_workspace.jpg" /></center>
+<hr/><div class='toc-title toc-title-2'>Eclipse variables</div><br class="xooki-br"/>Eclipse contains a <a href="http://help.eclipse.org/galileo/index.jsp?topic=/org.eclipse.jdt.doc.user/reference/preferences/run-debug/ref-string_substitution.htm">string substitution mecanism</a>. This feature allows you to specify a path location that can be shared between developers.<br class="xooki-br"/><br class="xooki-br"/>IvyDE uses it to find the ivysettings.xml and properties files in both the <a href="preferences.html#settings">glogal preference page</a> and the <a href="cpc/create.html#localconf">project specific preference page</a>.<br class="xooki-br"/><br class="xooki-br"/>Using the "Workspace..." button will open a window to choose a file in the workspace. IvyDE will automatically fill the field with the proper variable.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_workspace.jpg" /></center>
 
-Using the "File System..." button will allow you to choose a file in the file system. But then this path will not be portable.<br class="xooki-br"/><br class="xooki-br"/>And you can choose to depend on the Eclipse variable system by clicking on "Variable...".<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_variables.jpg" /></center>
+Using the "File System..." button will allow you to choose a file in the file system. This path will not be portable.<br class="xooki-br"/><br class="xooki-br"/>Finally, you can choose to depend on the Eclipse variable system by clicking on "Variable...".<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_variables.jpg" /></center>
 
-<b>Backward compatibility</b><br class="xooki-br"/><br class="xooki-br"/>IvyDE used to support the <tt>project://projectName/path/to/file.ext</tt> protocol. It sill does but it will be automatically changed in the saved settings to the Eclipse variable way of defining this path: <tt>${workspace_loc:projectName/path/to/file.ext}</tt>
+<b>Backwards compatibility</b><br class="xooki-br"/><br class="xooki-br"/>Previously, IvyDE supported the <tt>project://projectName/path/to/file.ext</tt> protocol. It sill does, but references of this style will be automatically converted in the saved settings to the Eclipse variable way of defining this path: <tt>${workspace_loc:projectName/path/to/file.ext}.</tt>
 
-<hr/><div class='toc-title toc-title-2'>Ivy Console</div><br class="xooki-br"/>The Ivy console provide you all the Ivy working traces that you were used to see in your command console. This view will be really useful to understand what Ivy and IvyDE are performing for you.<br/>
-The Ivy Console can be accessed within your eclipse Console view, selecting the "Ivy Console" item.<br/>
+<hr/><div class='toc-title toc-title-2'>Ivy Console</div><br class="xooki-br"/>The Ivy console provides the Ivy working traces that are visible in the command console. This view can be useful for understanding what Ivy and IvyDE are doing under the covers.<br/>
+
+The Ivy Console can be accessed within your Eclipse Console view, by selecting the "Ivy Console" item.<br/>
 <br/>
 <center><img src="images/ivy_console.jpg"></center><br/>
 <br/>
@@ -393,31 +388,31 @@ The colors in the console correspond to the different log levels. Here is the de
 
 To change the level of logging in the console, use the button in the view:<br class="xooki-br"/><br/>
 <center><img src="images/ivy_console_debug.jpg"></center><br/>
-<hr/><div class='toc-title toc-title-2'>Eclipse's Ant interation</div><br class="xooki-br"/>Most Eclipse distribution includes a plugin to launch ant build files. The provided Ant is a standard distribution of Ant and so it doesn't include Ivy. But you probably want to use Ivy targets within the Eclipse's Ant.<br class="xooki-br"/><br class="xooki-br"/><h1>Configure Ant classpath</h1>
-For now IvyDE doesn't contribute to the Ant classpath of the Eclipse plugin, so you will have to do it manually.<br class="xooki-br"/><br class="xooki-br"/>In the global preference page of the Ant runtime, click on <b>Add External JARs...</b><br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antpref.jpg" /></center>
+<hr/><div class='toc-title toc-title-2'>Eclipse's Ant integration</div><br class="xooki-br"/>Most Eclipse distributions include a plugin to launch Ant build files. The provided Ant distribution is a standard distribution of Ant that doesn't include Ivy.  You may wish to run Ivy targets against Eclipse's Ant distribution.<br class="xooki-br"/><br class="xooki-br"/><h1>Configure Ant classpath</h1>
+For now, IvyDE doesn't contribute to the Ant classpath of the Eclipse plugin, so you will have to do it manually.<br class="xooki-br"/><br class="xooki-br"/>In the global preference page of the Ant runtime, click on <b>Add External JARs...</b><br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antpref.jpg" /></center>
 
-Then browse your filesystem into the <tt>plugins</tt> directory of your Eclipse install, and select the Ivy jar named <tt>org.apache.ivy_2.X.X.XXXXXXXXX.jar</tt>. And that's it, Ivy has been added to the classpath of Ant embedded in Eclipse.<br class="xooki-br"/><br class="xooki-br"/><h1>Run Ivy targets</h1>
+Then browse your filesystem to the <tt>plugins</tt> directory of your Eclipse installation and select the Ivy jar named <tt>org.apache.ivy_2.X.X.XXXXXXXXX.jar</tt>. Now Ivy has been added to the classpath of the Ant distribution embedded in Eclipse.<br class="xooki-br"/><br class="xooki-br"/><h1>Run Ivy targets</h1>
 
-Create an Ant build file and just declare the Ivy targets with:
+Create an Ant build file and declare the Ivy targets with:
 <pre>
     &lt;taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" /&gt;
 </pre>
-And don't forgot to declare the namespace <tt>xmlns:ivy="antlib:org.apache.ivy.ant"</tt>.<br class="xooki-br"/><br class="xooki-br"/>Then you will be able to have completion on Ivy tasks:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antedit.jpg" /></center>
+And don't forgot to declare the namespace <tt>xmlns:ivy="antlib:org.apache.ivy.ant"</tt>.<br class="xooki-br"/><br class="xooki-br"/>After the taskdefs have been added, you will have code completion on Ivy tasks:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antedit.jpg" /></center>
 
-And run successul build:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antrun.jpg" /></center>
+The build will now be successful:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/antrun.jpg" /></center>
 
 <hr/><div class='toc-title toc-title-2'>Reverse Dependency Explorer</div><br class="xooki-br"/><h1>Introduction</h1>
 
-When working with multiple projects in a workspace that represent the whole or part of a larger application, you may want to simultaneously change the revisions of dependencies in several ivy files to a single new revision all at the same time (notwithstanding the eviction mechanism inherent to Ivy). <br class="xooki-br"/><br class="xooki-br"/>At other times it is instructive just to see what dependencies are being utilized by projects in the workspace by revision without having to dig into each project and look at each individual module descriptor.<br class="xooki-br"/><br class="xooki-br"/>The Reverse Dependency Explorer turns the dependency tree upside-down, exploring the workspace by organization, module, and revision and providing a mechanism to synchronize revisions across projects/classpath containers.<br class="xooki-br"/><br class="xooki-br"/>Consider the following workspace, with three projects, all of which have an ivy.xml file at their project root.  Each of these ivy files has an associated IvyDE managed classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_project.jpg"></center><br/>
+When working with multiple projects in a workspace that represent the whole or part of a larger application, you may want to simultaneously change the revisions of dependencies in several Ivy files to a single new revision all at the same time (notwithstanding the eviction mechanism inherent to Ivy). <br class="xooki-br"/><br class="xooki-br"/>At other times it is instructive just to see what dependencies are being utilized by projects in the workspace by revision without having to dig into each project and look at each individual module descriptor.<br class="xooki-br"/><br class="xooki-br"/>The Reverse Dependency Explorer turns the dependency tree upside-down, exploring the workspace by organization, module, and revision and providing a mechanism to synchronize revisions across projects/classpath containers.<br class="xooki-br"/><br class="xooki-br"/>Consider the following workspace, with three projects, all of which have an ivy.xml file at their project root.  Each of these Ivy files has an associated IvyDE managed classpath container.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_project.jpg"></center><br/>
 
-Right clicking on any (or all) of the projects and selecting Ivy -> Reverse Dependency Explorer opens the view.  The explorer displays a tree structure with an item for each organization/module pair.  The third column lists all of the revisions of this pair for the selected projects.  Expanding a tree item, you can see the module revision that a given ivy classpath container depends on (if at all).  Note that the view only shows direct dependencies and no transitive dependencies.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_view.jpg"></center><br/>
+Right clicking on any (or all) of the projects and selecting Ivy > Reverse Dependency Explorer opens the view.  The explorer displays a tree structure with an item for each organization/module pair.  The third column lists all of the revisions of this pair for the selected projects.  Expanding a tree item, you can see the module revision that a given Ivy classpath container depends on (if at all).  Note that the view only shows direct dependencies and <i>no transitive dependencies</i>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_view.jpg"></center><br/>
 
-Organization/module pairs that have conflicting revisions are highlighted in red (junit in the above example).  Note that in the above example, though the revisions do not match, these two revision attributes may actually resolve to the same artifact, depending on the what is available in the repository.  The view does not attempt to perform a resolve and match the resolved artifacts.  It simply compares the text of the attributes.<br class="xooki-br"/><br class="xooki-br"/><h1>Synchronizing revisions</h1>
+Organization/module pairs that have conflicting revisions are highlighted in red (junit in the above example).  Note that in the above example, though the revisions do not match, these two revision attributes may actually resolve to the same artifact, depending on what is available in the repository.  The view does not attempt to perform a resolve and match the resolved artifacts.  It simply compares the text of the attributes.<br class="xooki-br"/><br class="xooki-br"/><h1>Synchronizing revisions</h1>
 
-To synchronize revisions, click in column and row of the item you want to change and type in the new revision.  The item should be highlighted green to indicate that it is tagged for synchronization.  Click the synchronize button as shown to make your changes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_sync.jpg"></center><br/>
+To synchronize revisions, click in the column and row of the item you want to change and type in the new revision.  The item should be highlighted green to indicate that it is tagged for synchronization.  Click the synchronize button as shown to save your changes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/revexplorer_sync.jpg"></center><br/>
 
 
-<hr/><div class='toc-title toc-title-2'>Developer doc</div><br class="xooki-br"/>Adding features or fixing bugs needs a little more involvement.<br class="xooki-br"/>You will find here the basics to get into it:
+<hr/><div class='toc-title toc-title-2'>Developer doc</div><br class="xooki-br"/>Adding new features or fixing bugs needs community involvement.<br class="xooki-br"/>Here you will find the basics for how to get involved:
 <ul>
 <li>How to <a href="dev/build.html">build</a> IvyDE from the sources</li>
 <li>and the process to de a <a href="dev/release.html">release</a> of IvyDE</li>
@@ -565,14 +560,7 @@ Then we need to edit svn/site/ivyde/toc.json:
 
 Then svn update your working copy (to retrieve the new history branch).<br class="xooki-br"/><br class="xooki-br"/><h2>Update the download page</h2>
 
-In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Update the build script</h2>
-
-In the build script which generate the website (svn/site/build.xml), add the fix for the history import of the new release.<br class="xooki-br"/>In the target <tt>init-imported-history-ivyde</tt>, add a line with:
-<pre>
-&lt;init-imported-version basepath="ivyde" version="$VERSION" /&gt;
-</pre>
-
-<h2>Deploy</h2>
+In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy</h2>
 
 All site editing being done, commit your changes.<br class="xooki-br"/><br class="xooki-br"/>And now let's generate the site and deploy it:<br class="xooki-br"/><ol>
     <li>generate the part of the site for the new version:</li>
