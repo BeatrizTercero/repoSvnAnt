@@ -58,15 +58,23 @@ Note: this document is based on Ant core's ReleaseInstructions file
     https://svn.apache.org/repos/asf/ant/antlibs/dotnet/tags/1_0B1 \
     -m "Tagging version 1.0beta1 of .NET Antlib"
 
-8.  Choose the correct tagged version of common as your svn:externals
-    property, if necessary tag common first.
+8.  Choose the correct revision number of common as your svn:externals
+    property.
 
 9.  Next build and run the tests.  Then build the distribution.  It is
     important that this be a clean build.
 
+    To build the distribution run the distribution target.
+    To build the mvn artifacts run the prepare-upload target.
+
 10. Sign the distribution files using the following simple script
     #!/bin/sh
     for i in `/usr/bin/find distribution \( -name "*.bz2" -o -name  "*.zip" -o -name "*.gz" \)`
+    do
+         echo "Signing " $i
+         gpg -a -b --force-v3-sigs $i
+    done
+    for i in `/usr/bin/find build/java-repository -type f`
     do
          echo "Signing " $i
          gpg -a -b --force-v3-sigs $i
@@ -82,8 +90,8 @@ Note: this document is based on Ant core's ReleaseInstructions file
     Also make sure you have sent the key that you use to a public
     keyserver.
 
-11. The beta distribution is now ready to go. Bundle it up into a tar.gz file
-    and scp to your apache account.
+11. The beta distribution is now ready to go. Bundle the distribution
+    directory into a tar.gz file and scp to your apache account.
 
 12. This step may become meaningful once you do a second release ;-)
 
