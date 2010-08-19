@@ -93,7 +93,7 @@ Note: this document is based on Ant core's ReleaseInstructions file
 11. The beta distribution is now ready to go. Bundle the distribution
     directory into a tar.gz file and scp to your apache account.
 
-    To upload mvn artifatcs to the Nexus repository manager run
+    To upload mvn artifacts to the Nexus repository manager run
 
     ant upload -Dupload.user=YOUR-ASF-ID -Dupload.password=SVN-PASSWORD
 
