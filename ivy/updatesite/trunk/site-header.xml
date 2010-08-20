@@ -20,7 +20,11 @@
 <site pack200="@SITE_PACK200@"
       mirrorsURL="@MIRRORS_URL@"
       digestURL="./">
-   <description url="@UPDATESITE_URL@">
-      Eclipse update site for Apache Ivy and Apache IvyDE.
-   </description>
+    <description url="@UPDATESITE_URL@">
+        Eclipse update site for Apache Ivy and Apache IvyDE.
+    </description>
+
+    <category-def name="ivy" label="Apache Ivy library" />
+
+    <category-def name="ivyde" label="Apache IvyDE Eclipse plugin" />
 

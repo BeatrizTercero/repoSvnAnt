@@ -244,80 +244,14 @@
         ===================================================================================================================    
       -->
 
-    <!-- Note on the implementation:
-            To found out with version of the Eclipse feature is the latest, the correct sort algorithm would be to take into
-            account the OSGi version and order them properly. The current implementation is based on dates assuming that the
-            latest version is installed the latest. It should be the case on normal release process.
-    -->
-
-    <macrodef name="generate-site-latest">
-        <attribute name="pathid" />
+    <macrodef name="generate-site-entries">
+        <attribute name="filesetid" />
+        <attribute name="category" />
         <sequential>
-            <!-- Get the latest bundle -->
-            <path id="last.feature.jar.path.id">
-                <first count="1">
-                    <sort>
-                        <path refid="@{pathid}" />
-                        <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
-                            <date />
-                        </reverse>
-                    </sort>
-                </first>
-            </path>
-            <property name="last.feature.jar.path.@{pathid}" refid="last.feature.jar.path.id" />
-            <basename property="last.feature.jar.@{pathid}" file="${last.feature.jar.path.@{pathid}}" />
-            <!-- extract the name and the version from the file name -->
-            <echo file="${work.dir}/feature.jar.properties">${last.feature.jar.@{pathid}}</echo>
-            <!-- get the id -->
-            <loadproperties srcFile="${work.dir}/feature.jar.properties">
-                <filterchain>
-                    <tokenfilter>
-                        <replaceregex pattern="([^_]*)_(.*).jar" replace="last.feature.jar.id.@{pathid}=\1" flags="gi" />
-                    </tokenfilter>
-                </filterchain>
-            </loadproperties>
-            <!-- get the version -->
-            <loadproperties srcFile="${work.dir}/feature.jar.properties">
-                <filterchain>
-                    <tokenfilter>
-                        <replaceregex pattern="([^_]*)_(.*).jar" replace="last.feature.jar.version.@{pathid}=\2" flags="gi" />
-                    </tokenfilter>
-                </filterchain>
-            </loadproperties>
-            <!-- finally print the result -->
-            <echoxml file="${updatesite.dir}/site.xml" append="true">
-                <feature url="features/${last.feature.jar.@{pathid}}" id="${last.feature.jar.id.@{pathid}}" version="${last.feature.jar.version.@{pathid}}">
-                    <category name="latest"/>
-                </feature>
-            </echoxml>
-        </sequential>
-    </macrodef>
-
-    <macrodef name="generate-site-old">
-        <attribute name="pathid" />
-        <sequential>
-            <resourcecount property="count.@{pathid}">
-                <path refid="@{pathid}" />
-            </resourcecount>
-            <!-- we need count-1, do the computation via property files -->
-            <echo file="${work.dir}/count.properties">count.lessone.@{pathid}=${count.@{pathid}}</echo>
-            <propertyfile file="${work.dir}/count.properties">
-                <entry  key="count.lessone.@{pathid}" type="int" operation="-" value="1" />
-            </propertyfile>
-            <property file="${work.dir}/count.properties" />
-            <!-- get the old files -->
-            <path id="old.feature.jar.path.id">
-                <last count="${count.lessone.@{pathid}}">
-                    <sort>
-                        <path refid="@{pathid}" />
-                        <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
-                            <date />
-                        </reverse>
-                    </sort>
-                </last>
-            </path>
             <concat destfile="${updatesite.dir}/site.xml" append="true">
-                ${toString:old.feature.jar.path.id}
+                <string>${toString:@{filesetid}}
+
+</string>
                 <filterchain>
                     <!-- split file names into lines -->
                     <tokenfilter>
@@ -325,7 +259,7 @@
                     </tokenfilter>
                     <!-- match the feature jar file name and generate the "feature" entry -->
                     <tokenfilter>
-                        <replaceregex pattern="(.*)org\.apache\.(ivy|ivyde)\.feature_(.*)\.jar" replace="&lt;feature url=&quot;features/org.apache.\2.feature_\3.jar&quot; id=&quot;org.apache.\2.feature&quot; version=&quot;\3&quot;&gt; &lt;category name=&quot;old&quot;/&gt; &lt;/feature&gt;" flags="gi" />
+                        <replaceregex pattern="^([^_]*)_(.*)\.jar$$" replace="    &lt;feature url=&quot;features/\1_\2.jar&quot; id=&quot;\1&quot; version=&quot;\2&quot;&gt; ${line.separator}        &lt;category name=&quot;@{category}&quot;/&gt;${line.separator}    &lt;/feature&gt;" flags="gi" />
                     </tokenfilter>
                 </filterchain>
             </concat>
@@ -348,26 +282,18 @@
         </copy>
 
         <!-- get the list of exiting Ivy Eclipse features -->
-        <path id="ivy.feature.jars">
-            <fileset dir="${updatesite.dir}/features">
-                <include name="org.apache.ivy.feature_*.jar" />
-            </fileset>
-        </path>
-        <!-- generate the entry for the latest -->
-        <generate-site-latest pathid="ivy.feature.jars" />
+        <fileset id="ivy.feature.jars" dir="${updatesite.dir}/features">
+            <include name="org.apache.ivy.feature_*.jar" />
+        </fileset>
+        <!-- generate the entry for Ivy -->
+        <generate-site-entries filesetid="ivy.feature.jars" category="ivy" />
 
         <!-- get the list of exiting IvyDE Eclipse features -->
-        <path id="ivyde.feature.jars">
-            <fileset dir="${updatesite.dir}/features">
-                <include name="org.apache.ivyde.feature_*.jar" />
-            </fileset>
-        </path>
-        <!-- generate the entry for the latest -->
-        <generate-site-latest pathid="ivyde.feature.jars" />
-
-        <!-- generate the entry for the old entries -->
-        <generate-site-old pathid="ivy.feature.jars" />
-        <generate-site-old pathid="ivyde.feature.jars" />
+        <fileset id="ivyde.feature.jars" dir="${updatesite.dir}/features">
+            <include name="org.apache.ivyde.feature_*.jar" />
+        </fileset>
+        <!-- generate the entry for IvyDE -->
+        <generate-site-entries filesetid="ivyde.feature.jars" category="ivyde" />
 
         <!-- and finally the footer -->
         <concat destfile="${updatesite.dir}/site.xml" append="true">
@@ -553,7 +479,7 @@
         <echo file="local.build.properties">
 updatesite.dir=${basedir}/build
 mirrors.url=
-updatesite.url=http://hudson.zones.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
+updatesite.url=http://hudson.apache.org/hudson/view/Ant/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
 baseLocation=${basedir}/${hudson.eclipse.name}
 </echo>
         <delete dir="${basedir}/build" />
@@ -588,7 +514,7 @@ baseLocation=${basedir}/${hudson.eclipse.name}
     </target>
 
     <target name="hudson-find-ivyde-zip">
-        <!-- get the last sucessful version -->
+        <!-- get the last successful version -->
         <get src="${hudson.baseUrl}/view/Ant/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/version.properties" dest="${basedir}/ivyde-hudson-version.properties" verbose="yes" />
         <property file="${basedir}/ivyde-hudson-version.properties" />
         <!-- get the actual zip -->
@@ -596,6 +522,6 @@ baseLocation=${basedir}/${hudson.eclipse.name}
         <property name="ivyde.zip" value="${basedir}/apache-ivyde-hudson.zip" />
     </target>
 
-    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize,checksum" />
+    <target name="hudson-build" depends="clean,hudson-find-ivy-jar,hudson-find-ivyde-zip,install-ivy-and-ivyde,optimize" />
 
 </project>
