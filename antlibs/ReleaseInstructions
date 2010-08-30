@@ -54,8 +54,8 @@ Note: this document is based on Ant core's ReleaseInstructions file
 
 7.  Tag the version
 
-    > svn cp https://svn.apache.org/repos/asf/ant/antlibs/dotent/trunk \
-    https://svn.apache.org/repos/asf/ant/antlibs/dotnet/tags/1_0B1 \
+    > svn cp https://svn.apache.org/repos/asf/ant/antlibs/ANTLIB-NAME/trunk \
+    https://svn.apache.org/repos/asf/ant/antlibs/ANTLIB-NAME/tags/1_0B1 \
     -m "Tagging version 1.0beta1 of .NET Antlib"
 
 8.  Choose the correct revision number of common as your svn:externals
@@ -181,7 +181,7 @@ Note: this document is based on Ant core's ReleaseInstructions file
     * upload the new release files to
 
       from distribution
-      to   /www/www.apache.org/dist/ant/antlibs/dotnet/[source|binaries].
+      to   /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME/[source|binaries].
       
       and 
 
@@ -193,15 +193,26 @@ Note: this document is based on Ant core's ReleaseInstructions file
       this can be done using the target upload of the build.xml
 
     * remove the symbolic links from
-      /www/www.apache.org/dist/ant/antlibs/dotnet.
+      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME.
 
     * Create proper -current symlinks in
-      /www/www.apache.org/dist/ant/antlibs/dotnet.
+      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME.
 
     * remove the beta release files
 
     * Make sure that the symbolic link README.html points to the new
       RELEASE-NOTES.
+
+    Publish the Maven artifacts to the central repository: 
+
+    * Log in to
+      https://repository.apache.org/index.html#stagingRepositories
+      using your ASF credentials.
+
+    * select the staging repository holding your artifacts.
+
+    * Promote it
+      <http://www.apache.org/dev/publishing-maven-artifacts.html#promote>
 
     (**)
 
@@ -216,7 +227,7 @@ Note: this document is based on Ant core's ReleaseInstructions file
 22. Clean up.
 
     * remove the remaining files of the previous release from
-      /www/www.apache.org/dist/ant/antlibs/dotnet/[source|binaries].
+      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME/[source|binaries].
       This includes the old release notes.
 
 23. If you've created a branch, now and perhaps during previous betas
