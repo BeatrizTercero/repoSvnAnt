@@ -18,7 +18,7 @@
   under the License.
 -->
 
-<project default="manually-todo">
+<project default="help">
 
   <presetdef name="svn">
     <exec executable="svn" failonerror="true"/>
@@ -180,7 +180,26 @@
     </svn>
   </target>
 
-  <target name="manually-todo" depends="tag-sandbox,add-to-proper-all-trunks,remove-from-sandbox-trunks,delete-sandbox">
+  <target name="instructions">
+    <echo>
+      promote.xml is used to automatically move an antlib from sandbox to proper.
+      To do this you must have the following setup:
+      - antlibs working copy (from the base directory *NOT all-trunks*)
+      - antlibs sandbox working copy (again from the base directory)
+      - the 'to be promoted' antlib should have the proper svn structure:
+        &lt;to-be-promoted&gt;
+          - trunk
+          - tags
+          - branches (optionally)
+      When you have the correct setup, run:
+        ant -f promote.xml manually-todo
+      from within your antlib sandbox dir and follow the instructions. 
+    </echo>
+  </target>
+
+  <target name="help" depends="instructions"/>
+
+  <target name="manually-todo" depends="instructions,tag-sandbox,add-to-proper-all-trunks,remove-from-sandbox-trunks,delete-sandbox">
     <echo>
       The AntLib directory has been moved and the all-trunks externals have
       been modified.
