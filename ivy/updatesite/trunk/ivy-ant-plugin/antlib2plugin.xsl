@@ -52,13 +52,13 @@
 
     <xsl:template match="taskdef">
         <extension point="org.eclipse.ant.core.antTasks">
-            <antTask name="{@name}" class="{@classname}" eclipseRuntime="false" headless="true" library="ivy.jar" />
+            <antTask name="{@name}" uri="antlib:org.apache.ivy.ant" class="{@classname}" eclipseRuntime="false" headless="true" library="ivy.jar" />
         </extension>
     </xsl:template>
 
     <xsl:template match="typedef">
         <extension point="org.eclipse.ant.core.antTypes">
-            <antType name="{@name}" class="{@classname}" eclipseRuntime="false" headless="true" library="ivy.jar" />
+            <antType name="{@name}" uri="antlib:org.apache.ivy.ant" class="{@classname}" eclipseRuntime="false" headless="true" library="ivy.jar" />
         </extension> 
     </xsl:template>
 
