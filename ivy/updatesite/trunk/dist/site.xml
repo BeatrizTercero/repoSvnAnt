@@ -34,7 +34,7 @@
     <feature url="features/org.apache.ivy.feature_2.1.0.final_20090925235825.jar" id="org.apache.ivy.feature" version="2.1.0.final_20090925235825"> 
         <category name="ivy"/>
     </feature>
-    <feature url="features/org.apache.ivy.feature_2.2.0.cr1_20100629224905.jar" id="org.apache.ivy.feature" version="2.2.0.cr1_20100629224905"> 
+    <feature url="features/org.apache.ivy.feature_2.2.0.final_20100923230623.jar" id="org.apache.ivy.feature" version="2.2.0.final_20100923230623"> 
         <category name="ivy"/>
     </feature>
 
