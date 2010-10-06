@@ -75,7 +75,7 @@
           ]
       },
       {
-        "title":"Documentation (2.2.0-rc1)",
+        "title":"Documentation (2.2.0)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
       {
@@ -95,6 +95,10 @@
                     "id":"history/2.2",
                     "title":"2.2.x",
                     "children": [
+                        {
+                          "title":"2.2.0",
+                          "url":"http://ant.apache.org/ivy/history/2.2.0/index.html"
+                        },
                         {
                           "title":"2.2.0-rc1",
                           "url":"http://ant.apache.org/ivy/history/2.2.0-rc1/index.html"
