@@ -55,10 +55,17 @@
   	    <include name="*.css"/>
   	  </fileset>
   	</minify:yui.css>
+
+    <!-- rename to .min.js -->
+    <minify:yui.compressor verbose="false" outputPath="${outputPath}" linebreak="80" addMin="true" type="js">
+      <fileset dir="${testscript.dir}">
+  	  	<include name="*.js"/>
+  	  </fileset>
+    </minify:yui.compressor>
+
   </target>
 
   <target name="cleanup">
-    <delete file="${output}"/>
   	<delete dir="${outputPath}"/>
   </target>
 </project>

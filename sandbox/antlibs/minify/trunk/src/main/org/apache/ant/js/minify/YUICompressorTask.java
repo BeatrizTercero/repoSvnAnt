@@ -55,6 +55,7 @@ public class YUICompressorTask extends Task {
 	private String lineBreak;
 	private boolean preserveSemi;
 	private boolean disableOptimization;
+    private boolean addMin;
 	private String charset;
 	private String outputPath;
 	private List inputResources = new ArrayList();
@@ -79,6 +80,9 @@ public class YUICompressorTask extends Task {
 		if(null == type || "".equals(type)) {
 			throw new BuildException("Type property must be specified <js|css>");
 		}
+        if(!"js".equals(type) && !"css".equals(type)) {
+            throw new BuildException("Type property must be specified <js|css>");            
+        }
 		if(null == charset || "".equals(charset)) {
 			setCharset("UTF-8");
 			log("Charset not set; using [UTF-8]");
@@ -131,11 +135,23 @@ public class YUICompressorTask extends Task {
 
 	private Writer getWriter(FileResource f) throws IOException {
 		Writer out;
+        String outputName = f.getName();
+        // convert filename from file.js to file.min.js or file.css to file.min.css
+        if(addMin) {
+            int fileExtensionPos = outputName.lastIndexOf(".");
+            String name = outputName.substring(0,fileExtensionPos);
+            String extension = outputName.substring(fileExtensionPos, outputName.length());
+            outputName = name + ".min" + extension;
+            log("\naddMin set, renaming to : " + outputName);
+        }
+
+        // set outputPath to be the same as the input path for f
+        if(null == getOutputPath() || "".equals(getOutputPath().trim())) {
+            this.outputPath = f.getBaseDir().getAbsolutePath();
+        }
 		out = new OutputStreamWriter(
-				null != getOutputPath() && getOutputPath().trim() != "" ?
-						new FileOutputStream(getOutputPath() + File.separator + f.getFile().getName()) :
-						f.getOutputStream()
-				);
+		    new FileOutputStream(getOutputPath() + File.separator + outputName)
+		);
 		return out;
 	}
 	
@@ -190,6 +206,14 @@ public class YUICompressorTask extends Task {
 	public void setNomunge(boolean nomunge) {
 		this.nomunge = nomunge;
 	}
+
+    public boolean isAddMin() {
+        return addMin;
+    }
+
+    public void setAddMin(boolean min) {
+        this.addMin = min;
+    }
 
 	public String getType() {
 		return type;
