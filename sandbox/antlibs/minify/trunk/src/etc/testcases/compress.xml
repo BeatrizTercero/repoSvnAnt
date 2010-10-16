@@ -17,7 +17,7 @@
 -->
 
 <project name="compress-test" basedir="." 
-         default="all" xmlns:compress="antlib:org.apache.ant.js.compressor">
+         default="all" xmlns:minify="antlib:org.apache.ant.js.minify">
 
   <property name="outputPath" value="${basedir}/min"/>
   <property name="testscript.dir" value="${basedir}/testscripts"/>
@@ -27,7 +27,7 @@
   </target>
 	
   <target name="all" depends="init">
-  	<compress:yui.compressor 
+  	<minify:yui.compressor
   		verbose="true" 
   		outputPath="${outputPath}"
   		linebreak="80"
@@ -35,26 +35,26 @@
   	  <fileset dir="${testscript.dir}">
   	  	<include name="*.js"/>
   	  </fileset>
-  	</compress:yui.compressor>
+  	</minify:yui.compressor>
   	
-	<compress:yui.compressor verbose="true" outputPath="${outputPath}" type="css">
+	<minify:yui.compressor verbose="true" outputPath="${outputPath}" type="css">
 	  <fileset dir="${testscript.dir}">
 	    <include name="*.css"/>
 	  </fileset>
-	</compress:yui.compressor>
+	</minify:yui.compressor>
 
   	<!-- specialised tasks -->
-  	<compress:yui.js verbose="false" outputPath="${outputPath}" linebreak="80">
+  	<minify:yui.js verbose="false" outputPath="${outputPath}" linebreak="80">
   		<fileset dir="${testscript.dir}">
           <include name="*.js"/>
         </fileset>
-    </compress:yui.js>
+    </minify:yui.js>
   	
-  	<compress:yui.css verbose="false" outputPath="${outputPath}" linebreak="80">
+  	<minify:yui.css verbose="false" outputPath="${outputPath}" linebreak="80">
   	  <fileset dir="${testscript.dir}">
   	    <include name="*.css"/>
   	  </fileset>
-  	</compress:yui.css>
+  	</minify:yui.css>
   </target>
 
   <target name="cleanup">
