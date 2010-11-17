@@ -42,13 +42,6 @@
                 ]
             },
             {
-              "id":"demo",
-              "title":"Demo",
-              "children": [
-
-                ]
-            },
-            {
               "id":"faq",
               "title":"FAQ",
               "children": [
