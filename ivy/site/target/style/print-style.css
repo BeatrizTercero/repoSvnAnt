@@ -222,6 +222,13 @@ pre {
   margin-bottom: .5em;
 }
 
+.footer {
+  text-align: center;
+  margin-top: 3pt;
+  margin-bottom: 3pt;
+  font-size: 85%;
+}
+
 #footer-menu td {
   padding-top: 3px;
 }
