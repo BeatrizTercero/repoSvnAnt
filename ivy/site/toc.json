@@ -47,7 +47,7 @@
               "children": [
                   {
                     "id":"m2comparison",
-                    "title":"Apache Ivy / Apache Maven Comparison",
+                    "title":"Apache Ivy&#153 / Apache Maven&#153 Comparison",
                     "children": [
 
                       ]
@@ -469,7 +469,7 @@
       },
       {
         "id":"ivyde",
-        "title":"IvyDE",
+        "title":"Apache IvyDE&#153",
         "url":"http://ant.apache.org/ivy/ivyde/index.html",
         "children": [
 

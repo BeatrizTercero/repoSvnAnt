@@ -73,7 +73,7 @@ What you can get here at the ASF is the latest sources from the Subversion repos
 <code>
 svn co https://svn.apache.org/repos/asf/ant/ivy/core/trunk ivy
 </code>
-Then to build Apache Ivy from source, assuming you have ant 1.6.2+ and a jdk 1.4+ installed, then you only need to run the following command:
+Then to build Apache Ivy from source, assuming you have Apache Ant&#153; 1.6.2+ and a jdk 1.4+ installed, then you only need to run the following command:
 <code>
 ant jar
 </code>
@@ -82,12 +82,12 @@ Then you will find ivy.jar in <b>build/artifact</b>.
 <h2>Snapshot build</h2>
 The Apache Software Foundation hosts an installation of the Hudson CI-system where a continuous build of Ivy is available. Note that these are not official builds and they are not endorsed or even supported by the Apache Ivy team. But if you have problems with testing the latest (successful) build, you are welcome to post that on the mailinglist. 
 
-The project page of Ivy on this Hudson installation is: http://hudson.zones.apache.org/hudson/view/Ant/job/Ivy. Here you can find links to the latest version of the jars.
+The project page of Apache Ivy on this Hudson installation is: http://hudson.zones.apache.org/hudson/view/Ant/job/Ivy. Here you can find links to the latest version of the jars.
 
 <h2><a name="VerifyReleases">Verify Releases</a></h2>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.
 
-The PGP signatures can be verified using PGP or GPG.  First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivy/">main distribution directory</a>, rather than from a mirror. Then verify the signatures using
+The PGP signatures can be verified using PGP or GPG. First download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a> as well as the asc signature file for the particular distribution.  Make sure you get these files from the <a href="http://www.apache.org/dist/ant/ivy/">main distribution directory</a>, rather than from a mirror. Then verify the signatures using
 
 <code>
 % pgpk -a KEYS
