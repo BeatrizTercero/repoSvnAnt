@@ -27,24 +27,24 @@
 	<textarea id="xooki-source">
 <ol>
    <li><a href="#duplicate-entries">What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means ?</a>
-   <li><a href="#logs">Something goes wrong with IvyDE, where could I found more logs ?</a>
+   <li><a href="#logs">Something goes wrong with Apache IvyDE, where could I found more logs ?</a>
    <li><a href="#empty-container">The IvyDE classpath container disappear when it becomes empty</a>
    <li><a href="#wtp">How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</a>
-   <li><a href="#xerces">Parsing ivy file fails in IvyDE while it succeeds in Ant</a>
-   <li><a href="#norepo">Updating IvyDE fails with "no repository found containing [...]"</a>
-   <li><a href="#vfs">Using the common-vfs capability of Ivy inside Eclipse</a>
+   <li><a href="#xerces">Parsing ivy file fails in Apache IvyDE while it succeeds in Ant</a>
+   <li><a href="#norepo">Updating Apache IvyDE fails with "no repository found containing [...]"</a>
+   <li><a href="#vfs">Using the common-vfs capability of Apache Ivy inside Eclipse</a>
 </ol>
 
 <br/>
 	    
 <h2><a name="duplicate-entries"></a>What does the warning "There are some duplicates entries due to conflicts between the resolved configurations" means ?</h2>
 
-The warning you get is about a module which you are trying to get in two different configurations. Ivy does the resolve and evict conflicts for only one configuration at a time. The resolve process is one by one configuration. If you have a use case where you have to build a classpath with a lot of different configuration, then you should consider having a new configuration that extends the other ones. Although in most case I think the configurations themselves should be fixed.
+The warning you get is about a module which you are trying to get in two different configurations. Apache Ivy does the resolve and evict conflicts for only one configuration at a time. The resolve process is one by one configuration. If you have a use case where you have to build a classpath with a lot of different configuration, then you should consider having a new configuration that extends the other ones. Although in most case I think the configurations themselves should be fixed.
 For instance in Eclipse you might want to resolve 3 kinds of configuration: compile, test, and runtime. And then you get the warning, because test and runtime conflicts on one dependency. So this means that the ant target that will run the tests (after doing a resolve only on the test configuration) will actually use a different version of a dependency from the one used at runtime, from the one use by the ant target which build the jar. So tests are not running in the same environment as the runtime one. Then you should fix the dependencies by having a direct dependency on the module that generated the conflict. Actually you might want to introduce a private "core" configuration, which will resolve the problematic dependency, and then make "runtime" and "test" extends that "core" configuration.
 
 The topic has been also discussed on the <a href="http://mail-archives.apache.org/mod_mbox/ant-dev/200801.mbox/%3c5D017C51-ED7A-4A43-BBCA-08F291F4D92C@anyware-tech.com%3e">ant-dev mailing list</a>.
 
-<h2><a name="logs"></a>Something goes wrong with IvyDE, where could I found more logs ?</h2>
+<h2><a name="logs"></a>Something goes wrong with Apache IvyDE, where could I found more logs ?</h2>
 
 You can first look into the <a href="history/latest-milestone/console.html">IvyConsole</a>
 
@@ -64,35 +64,35 @@ Then as soon as you save the configuration of your IvyDE container (by clicking 
 <li>since Eclipse 3.4 you can configure that filter: enter the configuration panel of the filters of the package explorer and deselect the entry "Empty library containers".</li>
 </ul>
 
-<h2><a name="wtp"></a>How can I make IvyDE contribute to the classpath used by WTP when launching my web application ?</h2>
+<h2><a name="wtp"></a>How can I make Apache IvyDE contribute to the classpath used by WTP when launching my web application ?</h2>
 
-WTP is the <a href="http://www.eclipse.org/webtools/">Web Tools Plateform</a> project from the Eclipse fondation which allow to easily develop, launch and debug web applications. IvyDE can be used with this framework, but only from the version 2.0 of WTP, which is supported since Eclipse 3.3.
+WTP is the <a href="http://www.eclipse.org/webtools/">Web Tools Plateform</a> project from the Eclipse fondation which allow to easily develop, launch and debug web applications. Apache IvyDE can be used with this framework, but only from the version 2.0 of WTP, which is supported since Eclipse 3.3.
 
 In the properties of your project configured to use WTP, there is a section "Java EE Module Dependencies". There should be your configured IvyDE classpath container listed, usually with the name "ivy.xml [*]". Just select it and the Ivy dependencies will be deployed as well.
 
 This has been successfully tested with Eclipse 3.3 and WTP 2.0, Eclipse 3.4 and WTP 3.0.
 
-<h2><a name="xerces"></a>Parsing ivy file fails in IvyDE while it succeeds in Ant</h2>
+<h2><a name="xerces"></a>Parsing ivy file fails in Apache IvyDE while it succeeds in Ant</h2>
 
-The xml parser used in Ant (Apache Xerces) might be different from the one used by IvyDE, which by default is using the one provided by the JRE. The XML parser provided by the JRE is usually Xerces, but for instance the Sun's JRE 1.4 xml parser is Apache Crimson. And the latter doesn't support BOM markers. So you probably want to force IvyDE to use Apache Xerces in Eclipse.
+The xml parser used in Apache Ant (Apache Xerces) might be different from the one used by Apache IvyDE, which by default is using the one provided by the JRE. The XML parser provided by the JRE is usually Apache Xerces, but for instance the Sun's JRE 1.4 xml parser is Apache Crimson. And the latter doesn't support BOM markers. So you probably want to force IvyDE to use Apache Xerces in Eclipse.
 
-Xerces is an optional dependency of IvyDE, so as soon as it is installed in Eclipse, IvyDE will use it. To install it, use the Eclipse update manager, search for xerces (you should find it under Ganymede/Uncategorized/Apache Xerces), and ask Eclipse to install it.
+Apache Xerces is an optional dependency of IvyDE, so as soon as it is installed in Eclipse, IvyDE will use it. To install it, use the Eclipse update manager, search for xerces (you should find it under Ganymede/Uncategorized/Apache Xerces), and ask Eclipse to install it.
 
-<h2><a name="norepo"></a>Updating IvyDE fails with "no repository found containing [...]"</h2>
+<h2><a name="norepo"></a>Updating Apache IvyDE fails with "no repository found containing [...]"</h2>
 
 With Eclipse 3.4, the new update manager introduced a bug: https://bugs.eclipse.org/bugs/show_bug.cgi?id=236437
 
-The symptoms: you are willing to update IvyDE or the Ivy plugin. The Update Manager find a new version. But it finally fails complaining that it cannot find the Ivy or IvyDE artifacts.
+The symptoms: you are willing to update Apache IvyDE or the Apache Ivy plugin. The Update Manager find a new version. But it finally fails complaining that it cannot find the Ivy or IvyDE artifacts.
 
 The bug will be fixed for Eclipse 3.5.
 
 The workaround is to remove the failing updatesite from the list of sites in the Update Manager. Then add it again (no need to restart Eclipse). You can now update Ivy or IvyDE successfully.
 
-<h2><a name="vfs"></a>Using some extra capability of Ivy (like common-vfs) inside Eclipse</h2>
+<h2><a name="vfs"></a>Using some extra capability of Apache Ivy (like common-vfs) inside Eclipse</h2>
 
-If you are using some common-vfs capability of Ivy, some setup is needed.
+If you are using some common-vfs capability of Apache Ivy, some setup is needed.
 
-When working with ant, basically you just install the common-vfs jar into the lib directory of ant. It is quite similar under Eclipse, but this jar needs to be OSGI capable. So here is a list of jar of the Ivy dependencies which have been repackaged to be deployed in an OSGi environment:
+When working with ant, basically you just install the common-vfs jar into the lib directory of Ant. It is quite similar under Eclipse, but this jar needs to be OSGi capable. So here is a list of jar of the Ivy dependencies which have been repackaged to be deployed in an OSGi environment:
 <ul>
     <li>Apache Common VFS 1.0: http://repo1.maven.org/maven2/org/apache/servicemix/bundles/org.apache.servicemix.bundles.commons-vfs/1.0_1/org.apache.servicemix.bundles.commons-vfs-1.0_1.jar </li>
     <li>Apache Commons Httpclient 3.1: http://download.eclipse.org/tools/orbit/downloads/drops/S20090529135407/bundles/org.apache.commons.httpclient_3.1.0.v20080605-1935.jar </li>
