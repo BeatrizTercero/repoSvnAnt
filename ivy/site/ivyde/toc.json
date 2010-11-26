@@ -28,6 +28,10 @@
           ]
       },
       {
+          "title":"License",
+          "url":"http://www.apache.org/licenses/"
+      },
+      {
         "title":"Documentation (2.1.0)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
@@ -92,6 +96,21 @@
               "children": [
 
                 ]
+            }
+          ]
+      },
+      {
+          "id":"sponsorship",
+          "title":"Sponsorship",
+          "isAbstract":true,
+          "children": [
+            {
+              "title":"Thanks",
+              "url":"http://www.apache.org/foundation/thanks.html"
+            },
+            {
+              "title":"Sponsorship",
+              "url":"http://www.apache.org/foundation/sponsorship.html"
             }
           ]
       }
