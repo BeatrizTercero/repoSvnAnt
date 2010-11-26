@@ -100,19 +100,12 @@
           ]
       },
       {
-          "id":"sponsorship",
+          "title":"Thanks",
+          "url":"http://www.apache.org/foundation/thanks.html"
+      },
+      {
           "title":"Sponsorship",
-          "isAbstract":true,
-          "children": [
-            {
-              "title":"Thanks",
-              "url":"http://www.apache.org/foundation/thanks.html"
-            },
-            {
-              "title":"Sponsorship",
-              "url":"http://www.apache.org/foundation/sponsorship.html"
-            }
-          ]
+          "url":"http://www.apache.org/foundation/sponsorship.html"
       }
     ]
 }
