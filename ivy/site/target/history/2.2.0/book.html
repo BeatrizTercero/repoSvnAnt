@@ -24,7 +24,7 @@
 	
 
 	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
-<title>Documentation (2.2.0) | Ivy @version@</title>
+<title>Documentation (2.2.0) | Apache Ivy&#153; @version@</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="style/print-style.css" />
 
@@ -123,104 +123,11 @@ The corresponding build file contains a set of targets, allowing you to resolve 
 As you can see, it's very easy to call Ivy to resolve and retrieve dependencies: all you need if Ivy is properly <a href="install.html">installed</a> is to define an XML namespace in your Ant file (xmlns:ivy="antlib:org.apache.ivy.ant"). Then all the <a href="ant.html">Ivy ant tasks</a> will be available in this namespace.<br class="xooki-br"/><br class="xooki-br"/>Here we use only one task: the <a href="use/retrieve.html">retrieve</a> task. With no attributes, it will use default settings and look for a file named <tt>ivy.xml</tt> for the dependency definitions. That's exactly what we want, so we need nothing more than that.<br class="xooki-br"/><br class="xooki-br"/>Note that in this case we define a <tt>resolve</tt> target and call the <tt><a href="use/retrieve.html">retrieve</a></tt> task. This may sound confusing, actually the retrieve task performs a <a href="use/resolve.html">resolve</a> (which resolves dependencies and downloads them to a cache) followed by a retrieve (a copy of those file to a local project directory). Check the <a href="principle.html">How does it work ?</a> page for details about that.<br class="xooki-br"/><h1>Running the project</h1>
 OK, now that we have seen the files involved, let's run the sample to see what happens. Open a shell (or command line) window, and enter the <tt>hello-ivy</tt> example directory.<br class="xooki-br"/>Then, at the command prompt, run <tt>ant</tt>:
 <div class="shell"><pre>
-[ivy@apache:/ivy/hello-ivy]$ ant 
-Buildfile: /ivy/hello-ivy/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
-[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-javadoc.jar ...
-[ivy:retrieve] ...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:retrieve] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................. (467kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(javadoc) (3697ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ............................................................................................................................................................................................................................................................................................................................................... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (1997ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-sources.jar ...
-[ivy:retrieve] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................ (245kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(source) (3495ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar ...
-[ivy:retrieve] ........................................................................................................................................................................................... (92kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(javadoc) (2137ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar ...
-[ivy:retrieve] ......................................................... (29kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar (1404ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar ...
-[ivy:retrieve] ...................................................................................................... (48kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(source) (1529ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar ...
-[ivy:retrieve] ........................................... (21kB)
-[ivy:retrieve] ... (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0!commons-logging.jar (2199ms)
-[ivy:retrieve] :: resolution report :: resolve 9095ms :: artifacts dl 16520ms
-[ivy:retrieve] 	:: evicted modules:
-[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   4   |   3   |   3   |   1   ||   7   |   7   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	7 artifacts copied, 0 already retrieved (1069kB/78ms)
-
-run:
-    [mkdir] Created dir: /ivy/hello-ivy/build
-    [javac] /ivy/hello-ivy/build.xml:53: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/hello-ivy/build
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-
-BUILD SUCCESSFUL
-Total time: 28 seconds
 
 </pre></div>
 <h1>What happened ?</h1>
 Without any settings, Ivy retrieves files from the maven 2 repository. That's what happened here. <br class="xooki-br"/>The resolve task has found the commons-lang and commons-cli modules in the maven 2 repository, identified that commons-cli depends on commons-logging and so resolved it as a transitive dependency. Then Ivy has downloaded all corresponding artifacts in its cache (by default in your user home, in a .ivy2/cache directory). Finally, the retrieve task copies the resolved jars from the ivy cache to the default library directory of the project: the lib dir (you can change this easily by setting the pattern attribute on the <a href="use/retrieve.html">retrieve</a> task).<br class="xooki-br"/><br class="xooki-br"/>You might say that the task took a long time just to write out a "Hello Ivy!" message. But remember that a lot of time was spent downloading the required files from the web. Let's try to run it again:
 <div class="shell"><pre>
-[ivy@apache:/ivy/hello-ivy]$ ant 
-Buildfile: /ivy/hello-ivy/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
-[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
-[ivy:retrieve] :: resolution report :: resolve 343ms :: artifacts dl 16ms
-[ivy:retrieve] 	:: evicted modules:
-[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   4   |   0   |   0   |   1   ||   7   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 7 already retrieved (0kB/15ms)
-
-run:
-    [javac] /ivy/hello-ivy/build.xml:53: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 Great! The cache was used, so no download was needed and the build was instantaneous.<br class="xooki-br"/><br class="xooki-br"/>And now, if you want to generate a report detailing all the dependencies of your module, you can call the report target, and check the generated file in the build directory. You should obtain something looking like <a href="../samples/apache-hello-ivy-default.html">this</a>.<br class="xooki-br"/><br class="xooki-br"/>As you can see, using Ivy to resolve dependencies stored in the maven 2 repository is extremely easy. Now you can go on with the next tutorials to learn more about <a href="tutorial/conf.html">how to use module configurations</a> which is a very powerful Ivy specific feature. Other tutorials are also available where you will learn how to use Ivy settings to leverage a possibly complex enterprise repository. It may also be a good time to start reading the <a href="reference.html">reference documentation</a>, and especially the introduction material which gives a good overview of Ivy. The <a href="bestpractices.html">best practices</a> page is also a must read to start thinking about how to use Ant+Ivy to build a clean and robust build system.<hr/><div class='toc-title toc-title-3'>Adjusting default settings</div><br class="xooki-br"/>Ivy comes bundled with some default settings which makes it pretty simple to use in a typical environment. This tutorial, which is close to a reference document, explains what those default settings are and how they can be adjusted to your needs. <br class="xooki-br"/><br class="xooki-br"/>To fully understand the concept of settings and what you can do with them, we suggest reading other tutorials related to settings (like <a href="tutorial/multiple.html">Multiple Resolvers</a> and <a href="tutorial/dual.html">Dual Resolver</a>) or the <a href="settings.html">Settings Files</a> reference documentation.<br class="xooki-br"/><br class="xooki-br"/><h1>Concept</h1>
@@ -345,44 +252,6 @@ In almost all examples, we provide a clean target as default target. Since most 
 <h2>step 3: run the project</h2>
 Go to <tt>chained-resolvers</tt> project directory. And simply run <tt>ant</tt>.<br class="xooki-br"/>
 <div class="shell"><pre>
-[ivy@apache:/ivy/chained-resolvers/chainedresolvers-project]$ ant 
-Buildfile: /ivy/chained-resolvers/chainedresolvers-project/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/chained-resolvers/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#chained-resolvers;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in ibiblio
-[ivy:retrieve] 	found org.apache#test;1.0 in libraries
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ........................................................................................................................................................................................................................................................................................................................................... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (2745ms)
-[ivy:retrieve] downloading /ivy/chained-resolvers/settings/repository/test-1.0.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#test;1.0!test.jar (16ms)
-[ivy:retrieve] :: resolution report :: resolve 4836ms :: artifacts dl 2761ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   2   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#chained-resolvers
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (166kB/62ms)
-
-run:
-    [mkdir] Created dir: /ivy/chained-resolvers/chainedresolvers-project/build
-    [javac] /ivy/chained-resolvers/chainedresolvers-project/build.xml:58: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/chained-resolvers/chainedresolvers-project/build
-     [java] standard message :example world !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Example World !
-     [java] upperCased by test.StringUtils : EXAMPLE WORLD !
-
-BUILD SUCCESSFUL
-Total time: 10 seconds
 
 </pre></div></div>
 
@@ -436,52 +305,6 @@ This will clean up the entire project directory tree (compiled classes and retri
 <h2>step 3 : run the project</h2>
 Go to the project directory. And simply run <tt>ant</tt>.
 <div class="shell"><pre>
-[ivy@apache:/ivy/dual/project]$ ant 
-Buildfile: /ivy/dual/project/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dual/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-httpclient#commons-httpclient;2.0.2 in ivys
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0.4 in ibiblio
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in ibiblio
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-httpclient/commons-httpclient/2.0.2/commons-httpclient-2.0.2.jar ...
-[ivy:retrieve] .................................................................................................................................................................................................................................................................................................................................................................................................................................................... (220kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-httpclient#commons-httpclient;2.0.2!commons-httpclient.jar (3853ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ................................................................................................................................................................................................................................................................................................................................................ (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (1826ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar ...
-[ivy:retrieve] .......................................................................... (37kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.4!commons-logging.jar (1341ms)
-[ivy:retrieve] :: resolution report :: resolve 1076ms :: artifacts dl 7036ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   3   |   3   |   1   |   0   ||   3   |   3   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (423kB/47ms)
-
-run:
-    [mkdir] Created dir: /ivy/dual/project/build
-    [javac] /ivy/dual/project/build.xml:58: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/dual/project/build
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-     [java] head status code with httpclient: 200
-     [java] now check if httpclient dependency on commons-logging has been realized
-     [java] found logging class in classpath: interface org.apache.commons.logging.Log
-
-BUILD SUCCESSFUL
-Total time: 10 seconds
 
 </pre></div></div>
 <br/>
@@ -553,51 +376,6 @@ This will clean up the entire project directory tree. You can do this each time 
 <h2>step 3: publication of dependee project</h2>
 Go to <tt>dependee</tt> directory  and publish the project
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/dependence/settings/ivysettings.xml)
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ...................................................................................................................................................................................................................................................................................................................................
-[ivy:retrieve]  (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (3260ms)
-[ivy:retrieve] :: resolution report :: resolve 530ms :: artifacts dl 3260ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   0   |   0   ||   1   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (165kB/31ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/dependee/build/classes
-    [javac] /ivy/dependence/dependee/build.xml:60: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/dependence/dependee/build/classes
-
-jar:
-[propertyfile] Creating new property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 1 :: release :: Thu Sep 23 23:15:49 CEST 2010
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-1.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-1.xml
-     [echo] project dependee released with version 1
-
-BUILD SUCCESSFUL
-Total time: 6 seconds
 
 </pre></div>
 What we see here:
@@ -619,48 +397,6 @@ Both are just copies of the files found in the current project, or more precisel
 <h2>step 4: running the depender project</h2>
 Go to directory depender and run <tt>ant</tt>
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/dependence/settings/ivysettings.xml)
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;1 in projects
-[ivy:retrieve] 	[1] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-1.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;1!dependee.jar (16ms)
-[ivy:retrieve] :: resolution report :: resolve 343ms :: artifacts dl 47ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   1   |   1   |   0   ||   2   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/47ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] /ivy/dependence/depender/build.xml:71: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 1 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 3 seconds
 
 </pre></div>
 What we see here:
@@ -675,45 +411,6 @@ What we see here:
 <h2>step 5: new version of dependee project</h2>
 Like we did before in step 3, publish the dependee project again. This will result in a new version of the project being published.
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/dependence/settings/ivysettings.xml)
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] :: resolution report :: resolve 109ms :: artifacts dl 0ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 1 already retrieved (0kB/0ms)
-
-compile:
-    [javac] /ivy/dependence/dependee/build.xml:60: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-
-jar:
-[propertyfile] Updating property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-   [delete] Deleting: /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 2 :: release :: Thu Sep 23 23:15:56 CEST 2010
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-2.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-2.xml
-     [echo] project dependee released with version 2
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 Now if you look in your repository folder, you will find 2 versions of the dependee project.<br class="xooki-br"/>Let's look at it:
@@ -729,44 +426,6 @@ What should we expect if we run the depender project again? It should:
 </ul>
 Let's try it!!
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/dependence/settings/ivysettings.xml)
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;1 in projects
-[ivy:retrieve] 	[1] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] :: resolution report :: resolve 94ms :: artifacts dl 15ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   0   |   0   |   0   ||   2   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/31ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] /ivy/dependence/depender/build.xml:71: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 1 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 OK, we got what we expected as the <tt>run</tt> target shows that we are using version 2 of the main class of the dependee project. If we take a look at the resolve target results, we see that one artifact has been downloaded to the ivy cache. In fact, this file is the same version 2 of the dependee project that is in the repository, but now all future retrievals will pull it from your ivy-cache directory.
@@ -845,36 +504,11 @@ This target is used when you don't want to use your local version of a module an
 Generates both an html report and a graphml report.<br class="xooki-br"/><br class="xooki-br"/>For example, to generate a graph like the one shown at the beginning of this tutorial, you just have to follow the instructions given <a href="yed.html">here</a> with the graphml file you will find in <pre>projects/console/build/</pre> after having called report in the console project, and that's it, you have a clear overview of all your app dependencies!<br class="xooki-br"/><br class="xooki-br"/><h1>Playing with the projects</h1>
 You can play with this tutorial by using regular Ant commands. Begin in the base directory of the tutorial (src/example/multi-project), and run ant -p:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project]$ ant -p
-Buildfile: /ivy/multi-project/build.xml
-
-Main targets:
-
- clean        clean tutorial: delete repository, ivy cache, and all projects
- clean-all    clean all projects
- publish-all  compile, jar and publish all projects in the right order
 
 </pre></div>
 
 This gives you an idea of what you can do here. To make sure you have at least one version of all your modules published in your repository (required to build modules having dependencies on the others), you can run <tt>ant publish-all</tt> (example log <a href="log/multi-project-general-publishall.txt">here</a>).<br class="xooki-br"/><br class="xooki-br"/>You will see that Ivy calls the publish target on all the modules, following the order of the dependencies, so that a dependee is always built and published before its depender. Feel free to make changes in the source code of a module (changing a method name for instance) and in the module using the method, then call publish-all to see how the change in the dependee is compiled first, published, and then available to the depender which can compile successfully.<br class="xooki-br"/><br class="xooki-br"/>Then you can go in one of the example project directories (like projects/find for instance), and run <tt>ant -p</tt>:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project/projects/find]$ ant -p
-Buildfile: /ivy/multi-project/projects/find/build.xml
-
-Main targets:
-
- clean          --> clean the project
- clean-build    --> clean the project built files
- clean-lib      --> clean the project libraries directory (dependencies)
- clean-local    --> cleans the local repository for the current module
- compile        --> compile the project
- jar            --> make a jar file for this project
- publish        --> publish this project in the ivy repository
- publish-local  --> publish this project in the local ivy repository
- report         --> generates a report of dependencies
- resolve        --> resolve and retrieve dependencies with ivy
- run            --> compile and run the project
-Default target: compile
 
 </pre></div>
 
@@ -891,76 +525,6 @@ The first project we'll look at in this tutorial is filter-framework. In order t
 As you can see, we defined 4 configurations, with 3 being public and 1 private. (the  junit dependency for testing).<br class="xooki-br"/>The 2 implementation configurations, <b>homemade-impl</b> and <b>cc-impl</b> extend the <b>api</b> configuration so that all artifacts defined in <b>api</b> will also be part of the extending configuration.<br class="xooki-br"/><br class="xooki-br"/>In the publications tag, we defined the artifacts we produce (jars in this case) and we assign them to a configuration. When others use our library they will have a flexible way to ask for what they need.<br class="xooki-br"/><br class="xooki-br"/><h2>See it in action</h2>
 The filter-framework project is built using Ant. Open a shell in the root directory of the project and type <tt>ant</tt>.
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/filter-framework]$ ant 
-Buildfile: /ivy/configurations/multi-projects/filter-framework/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#filter-framework;working@apache
-[ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] 	found junit#junit;3.8 in public
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar ...
-[ivy:retrieve] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:retrieve] ...................................................................................................................................................................................................................................................................................................................................................................................... (546kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-collections#commons-collections;3.1!commons-collections.jar (3432ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit/3.8/junit-3.8.jar ...
-[ivy:retrieve] .......................................................................................................................................................................................................................................... (118kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] junit#junit;3.8!junit.jar (2013ms)
-[ivy:retrieve] :: resolution report :: resolve 7286ms :: artifacts dl 5460ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|        api       |   0   |   0   |   0   |   0   ||   0   |   0   |
-	|   homemade-impl  |   0   |   0   |   0   |   0   ||   0   |   0   |
-	|      cc-impl     |   1   |   1   |   1   |   0   ||   1   |   1   |
-	|       test       |   2   |   2   |   2   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#filter-framework
-[ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
-[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (1211kB/63ms)
-
-build:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/distrib
-    [javac] /ivy/configurations/multi-projects/filter-framework/build.xml:57: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 4 source files to /ivy/configurations/multi-projects/filter-framework/build
-    [javac] Note: Some input files use unchecked or unsafe operations.
-    [javac] Note: Recompile with -Xlint:unchecked for details.
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-api.jar
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-hmimpl.jar
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-ccimpl.jar
-
-test:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build/test-report
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build/test-classes
-    [javac] /ivy/configurations/multi-projects/filter-framework/build.xml:82: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 3 source files to /ivy/configurations/multi-projects/filter-framework/build/test-classes
-    [junit] Running filter.ccimpl.CCFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,109 sec
-    [junit] Running filter.hmimpl.HMFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,093 sec
-
-publish:
-[ivy:publish] :: delivering :: org.apache#filter-framework;working@apache :: 1.3 :: release :: Thu Sep 23 23:16:19 CEST 2010
-[ivy:publish] 	delivering ivy file to /ivy/configurations/multi-projects/filter-framework/distrib/ivy.xml
-[ivy:publish] :: publishing :: org.apache#filter-framework
-[ivy:publish] 	published filter-api to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-api.jar
-[ivy:publish] 	published filter-hmimpl to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-hmimpl.jar
-[ivy:publish] 	published filter-ccimpl to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-ccimpl.jar
-[ivy:publish] 	published ivy to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/ivys/ivy.xml
-[ivy:publish] 	publish commited: moved /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part 
-[ivy:publish] 		to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3
-     [echo] project filter-framework released with version 1.3
-
-BUILD SUCCESSFUL
-Total time: 18 seconds
 
 </pre></div>
 The Ant default target is publish. This target uses Ivy to publish our library binaries to a local repository. Since we do not specify any repository path, the default one is used. (<tt>${home.dir}/.ivy2/local/org.apache/filter-framework/</tt>) At this point, we are ready to use our library.<br class="xooki-br"/><br class="xooki-br"/><h1>The application project</h1>
@@ -990,91 +554,11 @@ When we call this target, Ivy will do a resolve using our <tt>ivy.xml</tt> file 
 As you can see, for each configuration we have now a set of jars.<br class="xooki-br"/><br class="xooki-br"/>Let's try to launch our app.<br class="xooki-br"/><br class="xooki-br"/><h2>See it in action</h2>
 Use Ant to run the application. The default Ant target is <i>run-cc</i> and will launch the application using the Apache commons-collections implementation.
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/myapp]$ ant 
-Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	found org.apache#filter-framework;1.3 in local
-[ivy:retrieve] 	[1.3] org.apache#filter-framework;latest.integration
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-ccimpl.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-ccimpl.jar (16ms)
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-hmimpl.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-hmimpl.jar (15ms)
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-api.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-api.jar (31ms)
-[ivy:retrieve] :: resolution report :: resolve 156ms :: artifacts dl 62ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|       build      |   1   |   1   |   1   |   0   ||   1   |   1   |
-	|   noexternaljar  |   1   |   1   |   1   |   0   ||   2   |   2   |
-	|  withexternaljar |   2   |   1   |   1   |   0   ||   3   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#myapp
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	6 artifacts copied, 0 already retrieved (552kB/94ms)
-
-build:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/myapp/build
-    [javac] /ivy/configurations/multi-projects/myapp/build.xml:56: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/configurations/multi-projects/myapp/build
-
-run-cc:
-     [java] Filtering with:class filter.ccimpl.CCFilter
-     [java] Result :[two, tree]
-
-BUILD SUCCESSFUL
-Total time: 3 seconds
 
 </pre></div>
 Launching the application using the homemade implementation is also straightforward.<br class="xooki-br"/>type <tt>ant run-hm</tt>
 
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/myapp]$ ant run-hm
-Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
-
-resolve:
-[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	found org.apache#filter-framework;1.3 in local
-[ivy:retrieve] 	[1.3] org.apache#filter-framework;latest.integration
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] :: resolution report :: resolve 156ms :: artifacts dl 0ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|       build      |   1   |   0   |   0   |   0   ||   1   |   0   |
-	|   noexternaljar  |   1   |   0   |   0   |   0   ||   2   |   0   |
-	|  withexternaljar |   2   |   0   |   0   |   0   ||   3   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#myapp
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	0 artifacts copied, 6 already retrieved (0kB/31ms)
-
-build:
-    [javac] /ivy/configurations/multi-projects/myapp/build.xml:56: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-
-run-hm:
-     [java] Filtering with:class filter.hmimpl.HMFilter
-     [java] Result :[two, tree]
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 </pre></div>
 Nice! We got the same result, but we can see that the implementation classes are different.<br class="xooki-br"/><br class="xooki-br"/><h1>Conclusion</h1>
 <b>You should use configurations as often as possible.</b> Configurations are a very important concept in Ivy. They allow you to group artifacts and give the group a meaning. When you write ivy files for projects that are intended for use by others, use configurations to allow people to get only what they need, without having to specify them one by one in their own dependency list. <br class="xooki-br"/><hr/><div class='toc-title toc-title-3'>Building a repository</div><br class="xooki-br"/>The <a href="use/install.html">install</a> Ant task lets you copy a module or a set of modules from one repository to another. This is very useful to build and maintain an enterprise or team repository. If you don't want to give access to the public maven 2 repository to the developers on your team (to keep control over which modules are in use in your company or your team for instance), it can sometimes become tiresome to answer the developers request to add new modules or new versions by hand.<br class="xooki-br"/><br class="xooki-br"/>Fortunately the <a href="use/install.html">install</a> task is here to help: you can use specific settings for your repository maintenance build which will be used to maintain your target enterprise repository. These settings will point to another repository (for instance the maven 2 public repository) so that you will just have to ask Ivy to install the modules you want with a simple command line.<br class="xooki-br"/><br class="xooki-br"/>To demonstrate this, we will first use a basic ivy settings file to show how it works, and then we will use the advanced <a href="settings/namespaces.html">namespaces</a> features to demonstrate how to deal with naming mismatches between the source and target repository.<br class="xooki-br"/><br class="xooki-br"/><h1>The project used</h1>
@@ -1096,58 +580,10 @@ Let's have a look at the <em>maven2</em> target.
 </pre>
 Pretty simple, we call the [[ant:install] task with the settings we have loaded using <a href="use/settings.html">ivy:settings</a> as usual. We then set the source and destination repositories using the <i>from</i> and <i>to</i> attributes. We used Ant properties for these values here, which helps ease the maintenance of the script, but it's basically the name of our resolvers: 'libraries' for the source and 'my-repository' for the destination.<br class="xooki-br"/><br class="xooki-br"/>Here is the Ant call output :
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2:
-[ivy:install] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-basic.xml
-[ivy:install] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/build-a-ivy-repository/settings/ivysettings-basic.xml)
-[ivy:install] :: installing commons-lang#commons-lang;1.0 ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found commons-lang#commons-lang;1.0 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar ...
-[ivy:install] .............................................................................................................................................................................................................................................................................................................................................................. (170kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-lang#commons-lang;1.0!commons-lang.jar(javadoc) (4134ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar ...
-[ivy:install] .......................................................................................................................... (62kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-lang#commons-lang;1.0!commons-lang.jar (1576ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 5725ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-
-BUILD SUCCESSFUL
-Total time: 10 seconds
 
 </pre></div>
 The trace tells us that the module definition was found using the "libraries" resolver and that the corresponding artifact was downloaded from the maven 2 repository. Then both were published to the filesystem repository (my-repository).<br class="xooki-br"/><br class="xooki-br"/>Let's have a look at our repository :
 <div class="shell"><pre>
-[ivy@apache:/]$ find /ivy/build-a-ivy-repository/myrepository/no-namespace -type f -print
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar.sha1
 
 </div>
 We can see that we now have the commons-lang module version 1.0 in our repository, with a generated ivy.xml file, its jar, and all the md5 and sha1 checksums for future consistency checks when developers use this repository to resolve modules.<br class="xooki-br"/><br class="xooki-br"/><h1>install a module with dependencies</h1>
@@ -1158,299 +594,12 @@ Now let's say that we want to be sure all the dependencies of the module we inst
 
 If you call this target, you will see that Ivy installs not only the hibernate module but also its dependencies:
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2-deps
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2-deps:
-[ivy:install] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-basic.xml
-[ivy:install] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/build-a-ivy-repository/settings/ivysettings-basic.xml)
-[ivy:install] :: installing org.hibernate#hibernate;3.2.5.ga ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found org.hibernate#hibernate;3.2.5.ga in libraries
-[ivy:install] 	found net.sf.ehcache#ehcache;1.2.3 in libraries
-[ivy:install] 	found commons-logging#commons-logging;1.0.4 in libraries
-[ivy:install] 	found commons-collections#commons-collections;2.1 in libraries
-[ivy:install] 	found javax.transaction#jta;1.0.1B in libraries
-[ivy:install] 	found asm#asm-attrs;1.5.3 in libraries
-[ivy:install] 	found dom4j#dom4j;1.6.1 in libraries
-[ivy:install] 	found antlr#antlr;2.7.6 in libraries
-[ivy:install] 	found cglib#cglib;2.1_3 in libraries
-[ivy:install] 	found asm#asm;1.5.3 in libraries
-[ivy:install] 	found commons-collections#commons-collections;2.1.1 in libraries
-[ivy:install] 	found ant#ant;1.6.5 in libraries
-[ivy:install] 	found swarmcache#swarmcache;1.0RC2 in libraries
-[ivy:install] 	found commons-logging#commons-logging;1.0.2 in libraries
-[ivy:install] 	found jgroups#jgroups-all;2.2.8 in libraries
-[ivy:install] 	found jboss#jboss-cache;1.2.2 in libraries
-[ivy:install] 	found jboss#jboss-system;4.0.2 in libraries
-[ivy:install] 	found jboss#jboss-common;4.0.2 in libraries
-[ivy:install] 	found slide#webdavlib;2.0 in libraries
-[ivy:install] 	found xerces#xercesImpl;2.6.2 in libraries
-[ivy:install] 	found jboss#jboss-minimal;4.0.2 in libraries
-[ivy:install] 	found jboss#jboss-j2se;200504122039 in libraries
-[ivy:install] 	found concurrent#concurrent;1.3.4 in libraries
-[ivy:install] 	found jgroups#jgroups-all;2.2.7 in libraries
-[ivy:install] 	found c3p0#c3p0;0.9.1 in libraries
-[ivy:install] 	found javax.security#jacc;1.0 in libraries
-[ivy:install] 	found opensymphony#oscache;2.1 in libraries
-[ivy:install] 	found proxool#proxool;0.8.3 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga-sources.jar ...
-[ivy:install] .........................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .................................................................................................................................................................................................................................................................................................................................. (1470kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar(source) (6427ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga-javadoc.jar ...
-[ivy:install] .............................................................................................................................................................................................................................................................
-[ivy:install] ...............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (7352kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar(javadoc) (22511ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga.jar ...
-[ivy:install] ...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (2202kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar (7300ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar ...
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................ (203kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] net.sf.ehcache#ehcache;1.2.3!ehcache.jar (2746ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar ...
-[ivy:install] .......................................................................... (37kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.4!commons-logging.jar (1825ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar ...
-[ivy:install] .............................. (16kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] asm#asm-attrs;1.5.3!asm-attrs.jar (1857ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar ...
-[ivy:install] ......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .................................................................................................................................................. (306kB)
-[ivy:install] ... (0kB)
-[ivy:install] 	[SUCCESSFUL ] dom4j#dom4j;1.6.1!dom4j.jar (3463ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/antlr/antlr/2.7.6/antlr-2.7.6.jar ...
-[ivy:install] .......................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................. (433kB)
-[ivy:install] ... (0kB)
-[ivy:install] 	[SUCCESSFUL ] antlr#antlr;2.7.6!antlr.jar (4711ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/cglib/cglib/2.1_3/cglib-2.1_3.jar ...
-[ivy:install] .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................. (275kB)
-[ivy:install] ... (0kB)
-[ivy:install] 	[SUCCESSFUL ] cglib#cglib;2.1_3!cglib.jar (2449ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/asm/asm/1.5.3/asm-1.5.3.jar ...
-[ivy:install] ..................................................... (25kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] asm#asm;1.5.3!asm.jar (9157ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar ...
-[ivy:install] .......................................................................................................................................................................................................................................................................................................................... (171kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-collections#commons-collections;2.1.1!commons-collections.jar (2356ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/2.1/commons-collections-2.1.jar ...
-[ivy:install] .................................................................................................................................................................................................................................................................................................. (161kB)
-[ivy:install] ... (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-collections#commons-collections;2.1!commons-collections.jar (1638ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/ant/ant/1.6.5/ant-1.6.5.jar ...
-[ivy:install] ..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ........................................................................................................................................................................................................................................................................................................................................................................................................................................................................ (1009kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] ant#ant;1.6.5!ant.jar (5304ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/swarmcache/swarmcache/1.0RC2/swarmcache-1.0RC2.jar ...
-[ivy:install] ......................................................... (29kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] swarmcache#swarmcache;1.0RC2!swarmcache.jar (1670ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-cache/1.2.2/jboss-cache-1.2.2.jar ...
-[ivy:install] ......................................................................................................
-[ivy:install] .................................................................................................
-[ivy:install] ................................................................................................................................................................................................................................
-[ivy:install] ...................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ..... (365kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-cache;1.2.2!jboss-cache.jar (8470ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jgroups/jgroups-all/2.2.8/jgroups-all-2.2.8.jar ...
-[ivy:install] ........................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ...........................................................................................................................................................................................................................................................................................................................
-[ivy:install] .........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (1573kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jgroups#jgroups-all;2.2.8!jgroups-all.jar (8954ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1/c3p0-0.9.1.jar ...
-[ivy:install] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (594kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] c3p0#c3p0;0.9.1!c3p0.jar (4836ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/opensymphony/oscache/2.1/oscache-2.1.jar ...
-[ivy:install] ............................................................................................................................................................................................................................. (111kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] opensymphony#oscache;2.1!oscache.jar (1856ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/proxool/proxool/0.8.3/proxool-0.8.3.jar ...
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (464kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] proxool#proxool;0.8.3!proxool.jar (7238ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.2/commons-logging-1.0.2.jar ...
-[ivy:install] .................................................. (25kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.2!commons-logging.jar (4790ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-system/4.0.2/jboss-system-4.0.2.jar ...
-[ivy:install] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................. (227kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-system;4.0.2!jboss-system.jar (2917ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-common/4.0.2/jboss-common-4.0.2.jar ...
-[ivy:install] ..................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (457kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-common;4.0.2!jboss-common.jar (3666ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-minimal/4.0.2/jboss-minimal-4.0.2.jar ...
-[ivy:install] .......................................................................................................................................................................................................................................................................................................................... (163kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-minimal;4.0.2!jboss-minimal.jar (2215ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-j2se/200504122039/jboss-j2se-200504122039.jar ...
-[ivy:install] .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................. (350kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-j2se;200504122039!jboss-j2se.jar (2714ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar ...
-[ivy:install] ........................................................................................................................................................................................................................................................................................................................................... (184kB)
-[ivy:install] ... (0kB)
-[ivy:install] 	[SUCCESSFUL ] concurrent#concurrent;1.3.4!concurrent.jar (2574ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jgroups/jgroups-all/2.2.7/jgroups-all-2.2.7.jar ...
-[ivy:install] .......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] .....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ................................................................................................................................................................................... (1613kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jgroups#jgroups-all;2.2.7!jgroups-all.jar (7052ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/slide/webdavlib/2.0/webdavlib-2.0.jar ...
-[ivy:install] ......................................................................................................................................................................................................................................................................... (128kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] slide#webdavlib;2.0!webdavlib.jar (2792ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar ...
-[ivy:install] .............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
-[ivy:install] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................ (986kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] xerces#xercesImpl;2.6.2!xercesImpl.jar (4087ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml
-[ivy:install] 	published ehcache to /ivy/build-a-ivy-repository/myrepository/no-namespace/net.sf.ehcache/ehcache/jars/ehcache-1.2.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/net.sf.ehcache/ehcache/ivys/ivy-1.2.3.xml
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/javax.transaction/jta/ivys/ivy-1.0.1B.xml
-[ivy:install] 	published commons-logging to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/jars/commons-logging-1.0.4.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/ivys/ivy-1.0.4.xml
-[ivy:install] 	published asm-attrs to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm-attrs/jars/asm-attrs-1.5.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm-attrs/ivys/ivy-1.5.3.xml
-[ivy:install] 	published dom4j to /ivy/build-a-ivy-repository/myrepository/no-namespace/dom4j/dom4j/jars/dom4j-1.6.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/dom4j/dom4j/ivys/ivy-1.6.1.xml
-[ivy:install] 	published antlr to /ivy/build-a-ivy-repository/myrepository/no-namespace/antlr/antlr/jars/antlr-2.7.6.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/antlr/antlr/ivys/ivy-2.7.6.xml
-[ivy:install] 	published cglib to /ivy/build-a-ivy-repository/myrepository/no-namespace/cglib/cglib/jars/cglib-2.1_3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/cglib/cglib/ivys/ivy-2.1_3.xml
-[ivy:install] 	published asm to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm/jars/asm-1.5.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm/ivys/ivy-1.5.3.xml
-[ivy:install] 	published commons-collections to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/jars/commons-collections-2.1.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/ivys/ivy-2.1.1.xml
-[ivy:install] 	published commons-collections to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/jars/commons-collections-2.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/ivys/ivy-2.1.xml
-[ivy:install] 	published ant to /ivy/build-a-ivy-repository/myrepository/no-namespace/ant/ant/jars/ant-1.6.5.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/ant/ant/ivys/ivy-1.6.5.xml
-[ivy:install] 	published swarmcache to /ivy/build-a-ivy-repository/myrepository/no-namespace/swarmcache/swarmcache/jars/swarmcache-1.0RC2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/swarmcache/swarmcache/ivys/ivy-1.0RC2.xml
-[ivy:install] 	published jboss-cache to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-cache/jars/jboss-cache-1.2.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-cache/ivys/ivy-1.2.2.xml
-[ivy:install] 	published jgroups-all to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/jars/jgroups-all-2.2.8.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/ivys/ivy-2.2.8.xml
-[ivy:install] 	published c3p0 to /ivy/build-a-ivy-repository/myrepository/no-namespace/c3p0/c3p0/jars/c3p0-0.9.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/c3p0/c3p0/ivys/ivy-0.9.1.xml
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/javax.security/jacc/ivys/ivy-1.0.xml
-[ivy:install] 	published oscache to /ivy/build-a-ivy-repository/myrepository/no-namespace/opensymphony/oscache/jars/oscache-2.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/opensymphony/oscache/ivys/ivy-2.1.xml
-[ivy:install] 	published proxool to /ivy/build-a-ivy-repository/myrepository/no-namespace/proxool/proxool/jars/proxool-0.8.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/proxool/proxool/ivys/ivy-0.8.3.xml
-[ivy:install] 	published commons-logging to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/jars/commons-logging-1.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/ivys/ivy-1.0.2.xml
-[ivy:install] 	published jboss-system to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-system/jars/jboss-system-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-system/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-common to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-common/jars/jboss-common-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-common/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-minimal to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-minimal/jars/jboss-minimal-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-minimal/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-j2se to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-j2se/jars/jboss-j2se-200504122039.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-j2se/ivys/ivy-200504122039.xml
-[ivy:install] 	published concurrent to /ivy/build-a-ivy-repository/myrepository/no-namespace/concurrent/concurrent/jars/concurrent-1.3.4.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/concurrent/concurrent/ivys/ivy-1.3.4.xml
-[ivy:install] 	published jgroups-all to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/jars/jgroups-all-2.2.7.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/ivys/ivy-2.2.7.xml
-[ivy:install] 	published webdavlib to /ivy/build-a-ivy-repository/myrepository/no-namespace/slide/webdavlib/jars/webdavlib-2.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/slide/webdavlib/ivys/ivy-2.0.xml
-[ivy:install] 	published xercesImpl to /ivy/build-a-ivy-repository/myrepository/no-namespace/xerces/xercesImpl/jars/xercesImpl-2.6.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/xerces/xercesImpl/ivys/ivy-2.6.2.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 137701ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   28  |   28  |   28  |   0   ||   30  |   28  |
-	---------------------------------------------------------------------
-[ivy:install] 
-[ivy:install] :: problems summary ::
-[ivy:install] :::: WARNINGS
-[ivy:install] 		[NOT FOUND  ] javax.transaction#jta;1.0.1B!jta.jar (0ms)
-[ivy:install] 	==== libraries: tried
-[ivy:install] 	  http://repo1.maven.org/maven2/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar
-[ivy:install] 		[NOT FOUND  ] javax.security#jacc;1.0!jacc.jar (0ms)
-[ivy:install] 	==== libraries: tried
-[ivy:install] 	  http://repo1.maven.org/maven2/javax/security/jacc/1.0/jacc-1.0.jar
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 		::              FAILED DOWNLOADS            ::
-[ivy:install] 		:: ^ see resolution messages for details  ^ ::
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 		:: javax.transaction#jta;1.0.1B!jta.jar
-[ivy:install] 		:: javax.security#jacc;1.0!jacc.jar
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 
-[ivy:install] 
-[ivy:install] :: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
 
 </pre>
 </div>
 
 As you can see the installation has failed, if you look at the log you will see that there are missing artifacts on the source repository. This means that you will need to download those artifacts manually, and copy them to your destination repository to complete the installation. Fortunately Ivy uses a best effort algorithm during install, so that everything gets installed except the missing artifacts. (Note: these missing artifacts are not in the public maven repository due to licensing issues)<br class="xooki-br"/><br class="xooki-br"/>You may also have noticed that Ivy installed 2 different revisions of commons-logging (1.0.2, 1.0.4). This is due to the fact that we used the "no conflict" <a href="settings/conflict-managers.html">conflict manager</a> in the ivysettings file.<br class="xooki-br"/><br class="xooki-br"/>We do not want to evict any modules because we are building our own repository. Indeed if we get both commons-logging 1.0.2 and 1.0.4 it's because some modules among the transitive dependencies of hibernate depend on 1.0.2 and others on 1.0.4. If we got only 1.0.4, the module depending on 1.0.2 would be inconsistent in your own repository (depending on a version you don't have installed). Thus developers using this module directly would run into a problem.<br class="xooki-br"/><br class="xooki-br"/>If you now have a closer look at your repository, you will probably notice that it isn't an exact replication of the original one. Let's have a look at the directory of one module:
 <div class="shell"><pre>
-[ivy@apache:/]$ find /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate -type f -print
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar.sha1
 
 </pre>
 </div>
@@ -1459,59 +608,11 @@ As you can see there is no pom here (pom is the module metadata format used by m
 In this section, you will learn how to build a <strong>professional</strong> repository. What is a <strong>professional</strong> repository? Our vision is to say that a good quality repository must follow clear rules about projects naming and must offer correct, useable, configurations and verified project descriptors. In order to achieve those goals, we think that you have to build your own repository.<br class="xooki-br"/>We have seen in the previous example, that we could use some public repositories to begin to build our own repository. Nevertheless, the result is not always the expected one, especially concerning the naming rules used.<br class="xooki-br"/><br class="xooki-br"/>This problem is pretty normal when you have an existing repository, and want to benefit from large public repositories which do not follow the same naming conventions. It also shows up because many public repositories do not use a  consistent naming scheme. For example, why don't all the apache commons modules use the org.apache.commons organization? Well.. for historical reasons. But if you setup your own repository, you may not want to suffer from the mistakes of history.<br class="xooki-br"/><br class="xooki-br"/>Fortunately, Ivy has a very powerful answer to this problem: <a href="settings/namespaces.html">namespaces</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Using namespaces</h1>
 If you look at the repository built with the <a href="tutorial/build-repository/basic.html">previous tutorial</a>, you will see exactly what we were talking about: all apache commons modules use their own name as their organization.<br class="xooki-br"/><br class="xooki-br"/>So let's see what Ivy can do using namespaces (we will dig into details later):
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2-namespace
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2-namespace:
-[ivy:install] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-advanced.xml
-[ivy:install] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/build-a-ivy-repository/settings/ivysettings-advanced.xml)
-[ivy:install] :: installing apache#commons-lang;1.0 ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found apache#commons-lang;1.0 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar ...
-[ivy:install] ....................................................................................................................... (62kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar (3151ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar ...
-[ivy:install] ..................................................................................................................................................................................................................................................................................................................................................................... (170kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar(javadoc) (3104ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 6255ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-
-BUILD SUCCESSFUL
-Total time: 10 seconds
 
 </pre></div>
 
 Now if we look at our repository, it seems to look fine.
 <div class="shell"><pre>
-$ find /ivy/build-a-ivy-repository/myrepository/advanced -type f -print
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.sha1
 
 </pre></div>
 We can even have a look at the commons-lang ivy file in our repository:
@@ -5924,6 +5025,13 @@ cd /www/www.apache.org/dist/ant/ivyde/<br class="xooki-br"/>mv updatesite ~/upda
 
 
  		</div><!-- main -->
+
+<div id="footer-message" class="footer">
+    <hr />
+    <i>Copyright &#169; 2010 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
+    <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
+</div>
 
 </div><!-- body -->
 </body>
