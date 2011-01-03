@@ -114,11 +114,104 @@ The corresponding build file contains a set of targets, allowing to resolve depe
 As you can see, it's very easy to call Ivy to resolve and retrieve dependencies: all you need if Ivy is properly <a href="../install.html">installed</a> is to define an XML namespace in your Ant file (xmlns:ivy="antlib:org.apache.ivy.ant"). Then all the <a href="../ant.html">Ivy ant tasks</a> will be available in this namespace.<br class="xooki-br"/><br class="xooki-br"/>Here we use only one task: the <a href="../use/retrieve.html">retrieve</a> task. With no attributes, it will use default settings and look for a file named ivy.xml for dependency definition. That's exactly what we want, so we need nothing more than that.<br class="xooki-br"/><br class="xooki-br"/>Note that in this case we define a "resolve" target and call the <a href="../use/retrieve.html">retrieve</a> task. This may sound confusing, actually the retrieve task performs a <a href="../use/resolve.html">resolve</a> (which resolves dependencies and downloads them to a cache) followed by a retrieve (a copy of those file in a local project directory). Check the <a href="../principle.html">How does it work ?</a> page for details about that.<br class="xooki-br"/><h1>Running the project</h1>
 Ok, now that we have seen the files involved, let's run the sample to see what happens. Open a shell (or command line) window, and enter the hello-ivy example directory.<br class="xooki-br"/>Then, at the command prompt, run 'ant':
 <div class="shell"><pre>
+[ivy@apache:/ivy/hello-ivy]$ ant 
+Buildfile: /ivy/hello-ivy/build.xml
+
+resolve:
+[ivy:retrieve] :: Ivy 2.2.0-rc1 - 20100629224905 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
+[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
+[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-javadoc.jar ...
+[ivy:retrieve] .......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+[ivy:retrieve] ................................................................................................................................................................................................................................................................................................................................................................................................................................................................................ (467kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(javadoc) (4056ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-sources.jar ...
+[ivy:retrieve] ............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................ (245kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(source) (2621ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
+[ivy:retrieve] ........................................................................................................................................................................................................................................................................................................................................... (165kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (1809ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar ...
+[ivy:retrieve] ........................................................ (29kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar (1638ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar ...
+[ivy:retrieve] ............................................................................................................................................................................................. (92kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(javadoc) (2403ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar ...
+[ivy:retrieve] ...................................................................................................... (48kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(source) (2106ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar ...
+[ivy:retrieve] ........................................... (21kB)
+[ivy:retrieve] ... (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0!commons-logging.jar (1825ms)
+[ivy:retrieve] :: resolution report :: resolve 9314ms :: artifacts dl 16520ms
+[ivy:retrieve] 	:: evicted modules:
+[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   4   |   3   |   3   |   1   ||   7   |   7   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	7 artifacts copied, 0 already retrieved (1069kB/62ms)
+
+run:
+    [mkdir] Created dir: /ivy/hello-ivy/build
+    [javac] /ivy/hello-ivy/build.xml:53: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 1 source file to /ivy/hello-ivy/build
+     [java] standard message : hello ivy !
+     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
+
+BUILD SUCCESSFUL
+Total time: 28 seconds
 
 </pre></div>
 <h1>What happened ?</h1>
 Without any settings, Ivy retrieves files from the maven 2 repository. That's what happened here. <br class="xooki-br"/>The resolve task has found the commons-lang and commons-cli modules in the maven 2 repository, identified that commons-cli depends on commons-logging and so resolved it as a transitive dependency. Then Ivy has downloaded all corresponding artifacts in its cache (by default in your user home, in a .ivy2/cache directory). Finally, the retrieve task copies the resolved jars from the ivy cache to the default library directory of the project: the lib dir (you can change this easily by setting the pattern attribute on the <a href="../use/retrieve.html">retrieve</a> task).<br class="xooki-br"/><br class="xooki-br"/>You might say that the task took a long time just to write out a "Hello Ivy !" message. But remember that a lot of time was spent downloading the required files from the web. Let's try to run it again:
 <div class="shell"><pre>
+[ivy@apache:/ivy/hello-ivy]$ ant 
+Buildfile: /ivy/hello-ivy/build.xml
+
+resolve:
+[ivy:retrieve] :: Ivy 2.2.0-rc1 - 20100629224905 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
+[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
+[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
+[ivy:retrieve] :: resolution report :: resolve 203ms :: artifacts dl 16ms
+[ivy:retrieve] 	:: evicted modules:
+[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   4   |   0   |   0   |   1   ||   7   |   0   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	0 artifacts copied, 7 already retrieved (0kB/0ms)
+
+run:
+    [javac] /ivy/hello-ivy/build.xml:53: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+     [java] standard message : hello ivy !
+     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
+
+BUILD SUCCESSFUL
+Total time: 1 second
 
 </pre></div>
 Great! the cache was used, no download was needed and the build was instantaneous.<br class="xooki-br"/><br class="xooki-br"/>And now, if you want to generate a report detailing all the dependencies of your module, you can call the report target, and check the generated file in the build directory. You should obtain something looking like <a href="../samples/apache-hello-ivy-default.html">this</a>.<br class="xooki-br"/><br class="xooki-br"/>As you can see, using Ivy to resolve dependencies stored in the maven 2 repository is extremely easy. Now you can go on with the next tutorials to learn more about <a href="../tutorial/conf.html">how to use module configurations</a> which is a very powerful Ivy specific feature. Other tutorials are also available where you will learn how to use Ivy settings to leverage a possibly complex enterprise repository. It may also be a good time to start reading the <a href="../reference.html">reference documentation</a>, and especially the introduction material which gives a good overview of Ivy. The <a href="../bestpractices.html">best practices</a> page is also a must read to start thinking about how to use Ant+Ivy to build a clean and robust build system.
@@ -144,7 +237,7 @@ Great! the cache was used, no download was needed and the build was instantaneou
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2010 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

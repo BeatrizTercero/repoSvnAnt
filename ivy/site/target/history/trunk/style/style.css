@@ -233,13 +233,6 @@ pre {
   font-size: 85%;
 }
 
-.footer {
-  text-align: center;
-  margin-top: 3pt;
-  margin-bottom: 3pt;
-  font-size: 85%;
-}
-
 .comparison td, .comparison th {
     text-align: center;
 }
@@ -283,6 +276,13 @@ pre {
   width:400px;
 }
 
+.tip {
+  margin:10px 10px 10px 50px;
+  padding:10px;
+  font-style:italic;
+  -moz-border-radius:10px;
+}
+
 table.home {
     text-align:center;
     color:#6e9244;
@@ -304,9 +304,3 @@ tr.homeitems a:hover {
 }
 .home img { border-width:0; }
 
-.notice {
-    padding: 5px;
-    border: 1px;
-    background-color: #FFFFCE;
-    margin: 10px;
-}

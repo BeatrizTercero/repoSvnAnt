@@ -100,11 +100,59 @@
 We will study in this section how to build a <strong>professionnal</strong> repository. What is a <strong>professionnal</strong> repository? Our vision is to say that a good quality repository must follow clear rules about projects naming and must offer corrects, usuables, configurables and verified project descriptors. In order to achieve those goals, we think that you have to build your own repository.<br class="xooki-br"/>We have seen in the previous example, that we could use some public repositories to begin to build our own repository. <br class="xooki-br"/>Nevertheless, the result is not always the expected one, especially concerning the naming rules used. <br class="xooki-br"/><br class="xooki-br"/>This problem is pretty usual when you have an existing repository, and want to benefit from a large public repositories which do not follow the same naming conventions. Or simply because you find the public repository you use as a basis is not consistent enough - why all apache commons module aren't don't use the org.apache.commons organization? For historical reasons. But if you setup your own repository you may not want to suffer from history.<br class="xooki-br"/><br class="xooki-br"/>Fortunately Ivy has a very powerful answer to this kind of problem: <a href="../../settings/namespaces.html">namespaces</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Using namespaces</h1>
 If you look at the repository built with the <a href="../../tutorial/build-repository/basic.html">previous tutorial</a>, you will see exactly what we were talking about: all apache commons module use their own name as organization.<br class="xooki-br"/><br class="xooki-br"/>So let's see what Ivy can do using namespaces (we will dig into details later):
 <div class="shell"><pre>
+[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2-namespace
+Buildfile: /ivy/build-a-ivy-repository/build.xml
+
+load-ivy:
+
+init-ivy:
+
+maven2-namespace:
+[ivy:install] :: Ivy 2.2.0-rc1 - 20100629224905 :: http://ant.apache.org/ivy/ ::
+[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-advanced.xml
+[ivy:install] DEPRECATED: 'defaultCache' is deprecated, use 'caches[@defaultCacheDir]' instead (file://ivy/build-a-ivy-repository/settings/ivysettings-advanced.xml)
+[ivy:install] :: installing apache#commons-lang;1.0 ::
+[ivy:install] :: resolving dependencies ::
+[ivy:install] 	found apache#commons-lang;1.0 in libraries
+[ivy:install] :: downloading artifacts to cache ::
+[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar ...
+[ivy:install] ....................................................................................................................... (62kB)
+[ivy:install] .. (0kB)
+[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar (1919ms)
+[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar ...
+[ivy:install] .................................................................................................................................................................................................................................................................................................................................................................... (170kB)
+[ivy:install] .. (0kB)
+[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar(javadoc) (3478ms)
+[ivy:install] :: installing in my-repository ::
+[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
+[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
+[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
+[ivy:install] :: install resolution report ::
+[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 5428ms
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   1   |   1   |   1   |   0   ||   2   |   2   |
+	---------------------------------------------------------------------
+
+BUILD SUCCESSFUL
+Total time: 9 seconds
 
 </pre></div>
 
 Now if we look at our repository, it seems to look fine.
 <div class="shell"><pre>
+$ find /ivy/build-a-ivy-repository/myrepository/advanced -type f -print
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.md5
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.sha1
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.md5
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.sha1
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.md5
+/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.sha1
 
 </pre></div>
 We can even have a look at the commons-lang ivy file in our repo:
@@ -151,7 +199,7 @@ Ok, you should now get the idea behind namespace, you can now check the whole na
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2010 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>
