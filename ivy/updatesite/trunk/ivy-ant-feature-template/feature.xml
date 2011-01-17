@@ -18,7 +18,7 @@
    under the License.    
 -->
 <feature
-      id="org.apache.ivy.feature"
+      id="org.apache.ivy.eclipse.ant.feature"
       label="%featureName"
       version="@ivy.version@"
       provider-name="%providerName">
@@ -36,11 +36,15 @@
       <discovery label="%updateSiteName" url="http://www.apache.org/dist/ant/ivyde/updatesite"/>
    </url>
 
+   <requires>
+       <import feature="org.apache.ivy.feature" version="@ivy.version@"/>
+   </requires>
+
    <plugin
-         id="org.apache.ivy"
+         id="org.apache.ivy.eclipse.ant"
          download-size="0"
          install-size="0"
          version="@ivy.version@"
-         unpack="false"/>
+         unpack="true"/>
 
 </feature>

@@ -17,30 +17,19 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<feature
-      id="org.apache.ivy.feature"
-      label="%featureName"
-      version="@ivy.version@"
-      provider-name="%providerName">
-
-   <description url="http://ant.apache.org/ivy">
-      %description
-   </description>
-
-   <license url="http://www.apache.org/licenses/LICENSE-2.0">
-      %license
-   </license>
-
-   <url>
-      <update label="%updateSiteName" url="http://www.apache.org/dist/ant/ivyde/updatesite"/>
-      <discovery label="%updateSiteName" url="http://www.apache.org/dist/ant/ivyde/updatesite"/>
-   </url>
-
-   <plugin
-         id="org.apache.ivy"
-         download-size="0"
-         install-size="0"
-         version="@ivy.version@"
-         unpack="false"/>
-
-</feature>
+<projectDescription>
+	<name>org.apache.ivy.eclipse.ant.feature</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.pde.FeatureBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.pde.FeatureNature</nature>
+	</natures>
+</projectDescription>

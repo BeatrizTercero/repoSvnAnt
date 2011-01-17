@@ -174,6 +174,29 @@
         </jar>
     </target>
 
+    <target name="generate-ivy-ant-feature">
+        <!-- now take care of the generation of the Ivy Ant feature -->
+        <!-- first generate a feature descriptor with the proper version -->
+        <delete file="${work.dir}/feature.xml" />
+        <copy file="ivy-ant-feature-template/feature.xml" todir="${work.dir}">
+            <filterset>
+                <filter token="ivy.version" value="${ivy.version}" />
+            </filterset>
+        </copy>
+        <!-- package the feature -->
+        <mkdir dir="${updatesite.dir}/features" />
+        <jar destfile="${updatesite.dir}/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
+            <fileset dir="ivy-ant-feature-template">
+                <include name="feature.properties" />
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+            <fileset dir="${work.dir}">
+                <include name="feature.xml" />
+            </fileset>
+        </jar>
+    </target>
+
     <target name="generate-ivy-ant-plugin">
         <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
         <delete dir="${work.dir}/ivy-ant-plugin" />
@@ -284,6 +307,7 @@
         <!-- get the list of exiting Ivy Eclipse features -->
         <fileset id="ivy.feature.jars" dir="${updatesite.dir}/features">
             <include name="org.apache.ivy.feature_*.jar" />
+            <include name="org.apache.ivy.eclipse.ant.feature_*.jar" />
         </fileset>
         <!-- generate the entry for Ivy -->
         <generate-site-entries filesetid="ivy.feature.jars" category="ivy" />
@@ -307,11 +331,11 @@
         ===================================================================================================================    
       -->
 
-    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
+    <target name="install-ivy" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,get-ivyde-version,generate-site" description="Install an Ivy bundle into the updatesite" />
 
     <target name="install-ivyde" depends="put-ivyde-jars,get-ivyde-version,get-ivy-version,generate-site" description="Install IvyDE into the updatesite" />
 
-    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-plugin,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
+    <target name="install-ivy-and-ivyde" depends="put-ivy-jar,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,put-ivyde-jars,get-ivyde-version,generate-site" description="Install Ivy and IvyDE into the updatesite" />
 
     <!-- 
         ===================================================================================================================
