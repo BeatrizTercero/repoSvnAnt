@@ -1,0 +1,141 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Importtypelib Task</title>
+  </head>
+
+<body>
+
+    <h2>Importtypelib Task</h2>
+
+    <h3><a name="description">Description</a></h3>
+
+    <p>Import a COM type library into the .NET framework.</p>
+
+    <p> This task is a wrapper to .NET's tlbimport; it imports a tlb
+    file to a NET assembly by generating a binary assembly (.dll) that
+    contains all the binding metadata. It uses date timestamps to
+    minimise rebuilds.</p>
+
+    <h3><a name="attributes">Parameters</a></h3>
+
+    <table>
+      <tr>
+        <td valign="top" align="left">
+          <b>Attribute</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Description</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Type</b>
+        </td>
+        <td valign="top" align="left">
+          <b>Requirement</b>
+        </td>
+      </tr>
+    
+      <tr>
+        <td valign="top" align="left">
+          destfile
+        </td>
+        <td valign="top" align="left">
+          name the output file. required
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+        <td valign="top" align="left" rowspan="6">
+          Optional
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          extraoptions
+        </td>
+        <td valign="top" align="left">
+          set any extra options that are not yet supported by this task.
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          namespace
+        </td>
+        <td valign="top" align="left">
+          what namespace is the typelib to be in. required
+        </td>
+        <td valign="top" align="left">
+          String
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          srcfile
+        </td>
+        <td valign="top" align="left">
+          what is the source .tlb file? required.
+        </td>
+        <td valign="top" align="left">
+          File
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          unsafe
+        </td>
+        <td valign="top" align="left">
+          do you want unsafe code.
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+
+      <tr>
+        <td valign="top" align="left">
+          usesysarray
+        </td>
+        <td valign="top" align="left">
+          set this to map a COM SafeArray to the System.Array class
+        </td>
+        <td valign="top" align="left">
+          boolean
+        </td>
+      </tr>
+    </table>
+
+    <h3>Examples</h3>
+
+    <pre>
+&lt;importtypelib srcfile="xerces.tlb" destfile="xerces.dll"
+    namespace="Apache.Xerces"/&gt;
+    </pre>
+
+</body>
+</html>

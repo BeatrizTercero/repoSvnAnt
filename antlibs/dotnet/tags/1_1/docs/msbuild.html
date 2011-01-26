@@ -1,0 +1,138 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<html>
+  <head>
+    <meta http-equiv="Content-Language" content="en-us"></meta>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>MSBuild Task</title>
+  </head>
+
+  <body>
+    <h2><a name="msbuild">MSBuild</a></h2>
+
+    <h3>Description</h3>
+
+    <p>Runs the MSBuild build tool of Microsoft's .NET framework
+    2.0.</p>
+
+    <p>You can either use an existing build file or nest a build file
+    (snippet) as a child into the task.  If you don't specify either,
+    MSBuild's default build file search algorithm will apply.</p>
+
+    <h3>Parameters</h3>
+    <table border="1" cellpadding="2" cellspacing="0">
+      <tr>
+        <td valign="top"><b>Attribute</b></td>
+        <td valign="top"><b>Description</b></td>
+        <td align="center" valign="top"><b>Required</b></td>
+      </tr>
+      <tr>
+        <td valign="top">buildfile</td>
+        <td valign="top">External build file to invoke MSBuild on.</td>
+        <td align="center">No.</td>
+      </tr>
+      <tr>
+        <td valign="top">vm</td>
+        <td valign="top">Same as <a
+            href="dotnetexec.html">dotnetexec</a>'s vm attribute.
+          Specify the framework to use.</td>
+        <td align="center">No.</td>
+      </tr>
+      <tr>
+        <td valign="top">failOnError</td>
+        <td valign="top">Stops the build if MSBuild returns with a code
+        indicating an error.</td>
+        <td align="center">No - defaults to true.</td>
+      </tr>
+      <tr>
+        <td valign="top">errorProperty</td>
+        <td valign="top">Name of the Ant property to set if MSBuild
+        indicated an error.  Only useful if the failOnError attribute
+        is set to false.</td>
+        <td align="center">No.</td>
+      </tr>
+    </table>
+
+    <h3>Parameters specified as nested elements</h3>
+    <h4>target</h4>
+
+    <p><code>target</code> has a single required attribute name -
+    specifies a target to be run.</p>
+
+    <h4>property</h4>
+
+    <p><code>property</code> has two required attributes.  name and
+    value that specify name and value of a property that is to be
+    defined in the MSBuild invocation.</p>
+
+    <h4>build</h4>
+
+    <p>This element allows no attributes.  You can nest a MSBuild build
+    file into it and MSBuild will be executed on that.  You can also nest
+    a build file snippet instead and Ant will wrap the necessary MSBuild
+    <code>&lt;Project&gt; around it.</code></p>
+
+    <h3>Examples</h3>
+
+    <p>Let MSBuild search for a *.proj file in the (Ant) project's base
+    directory and execute the default target in it:</p>
+
+    <pre>&lt;msbuild/&gt;</pre>
+    
+    <p>Let MSBuild execute the targets named foo and bar in the build
+    file msbuild.proj in Ant's basedir and pass the property
+    <code>/property:test=testvalue</code> to it:</p>
+
+    <pre>
+      &lt;msbuild buildfile="msbuild.proj"&gt;
+        &lt;target name="foo"/&gt;
+        &lt;target name="bar"/&gt;
+        &lt;property name="test" value="testvalue"/&gt;
+      &lt;/msbuild&gt;
+    </pre>
+
+    <p>Define a build file embeded into the task, let MSBuild execute the
+    echo target of that build file.</p>
+
+    <pre>
+      &lt;msbuild&gt;
+        &lt;target name="echo"&gt;
+        &lt;build&gt;
+          &lt;Project DefaultTargets="empty" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"&gt;
+            &lt;Target Name="empty"/&gt;
+            &lt;Target Name="echo"&gt;
+              &lt;Message Text="This is MSBuild"/&gt;
+            &lt;/Target&gt;
+          &lt;/Project&gt;
+        &lt;/build&gt;
+      &lt;/msbuild&gt;
+    </pre>
+
+    <p>Run MSBuild's Message task:</p>
+
+    <pre>
+      &lt;msbuild&gt;
+        &lt;build&gt;
+          &lt;Message Text="This is MSBuild"
+             xmlns="http://schemas.microsoft.com/developer/msbuild/2003"/&gt;
+        &lt;/build&gt;
+      &lt;/msbuild&gt;
+    </pre>
+  </body>
+</html>
