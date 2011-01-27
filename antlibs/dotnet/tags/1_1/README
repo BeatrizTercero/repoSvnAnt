@@ -1,0 +1,36 @@
+What's this?
+============
+
+This library doesn't strive to replace NAnt or MSBuild, its main
+purpose is to help those of us who work on projects crossing platform
+boundaries. With this library you can use Ant to build and test the
+Java as well as the .NET parts of your project.
+
+Learn more
+==========
+
+The documentation is included in the docs subdirectory of this
+distribution.  The home of this library is
+<http://ant.apache.org/antlibs/dotnet/index.html>.
+
+Building
+========
+
+This Ant Library requires Ant 1.7.0 to build, the tests use the sister
+Antlib AntUnit (see
+<http://ant.apache.org/antlibs/antunit/index.html>).
+
+It should work with any Java(TM) Runtime (and compile with any Java(TM)
+Developer Kit) starting with version 1.2.
+
+It should support the Microsoft .NET framework in versions 1.1 and 2.0
+and Mono in various versions on various platforms.
+
+Using
+=====
+
+You use this Ant library like any other Ant library 8-)
+
+In short you can make it available to Ant in a variety of ways, please
+see the Ant manual or the index.html file in the docs subdirectory of
+this distribtion for details.
