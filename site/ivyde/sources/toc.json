@@ -1,0 +1,127 @@
+{
+  "children": [
+      {
+        "id":"index",
+        "title":"Home",
+        "children": [
+            {
+              "id":"faq",
+              "title":"FAQ",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"screenshots",
+        "title":"Screenshots",
+        "children": [
+
+          ]
+      },
+      {
+        "id":"download",
+        "title":"Download",
+        "children": [
+
+          ]
+      },
+      {
+          "title":"License",
+          "url":"http://www.apache.org/licenses/"
+      },
+      {
+        "title":"Documentation (2.1.0)",
+        "importRoot":"history/latest-milestone",
+        "importNode":"index"      },
+      {
+        "id":"history",
+        "title":"History",
+        "children": [
+            {
+              "title":"trunk",
+              "url":"http://ant.apache.org/ivy/ivyde/history/trunk/index.html"
+            },
+            {
+              "id":"2.x",
+              "title":"2.x",
+              "isAbstract":true,
+              "children": [
+                  {
+                      "title":"2.1.0",
+                      "url":"http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html"
+                  },
+                  {
+                    "id":"history/2.0",
+                    "title":"2.0.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "title":"2.0.0.final",
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html"
+                        },
+                        {
+                          "title":"2.0.0.beta1",
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.beta1/index.html"
+                        },
+                        {
+                          "title":"2.0.0.alpha1",
+                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.alpha1/index.html"
+                        }
+                      ]
+                  }
+                ]
+            },
+            {
+              "title":"1.2.0",
+              "url":"http://ant.apache.org/ivy/ivyde/history/1.2.0/index.html"
+            }
+          ]
+      },
+      {
+        "id":"get-involved",
+        "title":"Get Involved",
+        "children": [
+            {
+              "id":"mailing-lists",
+              "title":"Mailing Lists",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"issues",
+              "title":"Issue Tracking",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"foundation",
+        "title":"Foundation",
+        "children": [
+            {
+              "title":"ASF",
+              "url":"http://www.apache.org",
+              "children": [
+                ]
+            },
+            {
+              "title":"Sponsorship",
+              "url":"http://www.apache.org/foundation/sponsorship.html",
+              "children": [
+                ]
+            },
+            {
+              "title":"Thanks",
+              "url":"http://www.apache.org/foundation/thanks.html",
+              "children": [
+                ]
+            }
+          ]
+      }
+    ]
+}
