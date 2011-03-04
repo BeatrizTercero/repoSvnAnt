@@ -18,11 +18,9 @@
 <project name="build-site" default="docs" basedir=".">
 
     <description>
-        Build documentation - XDocs and Javadoc.
+        Build Ant webiste
         
         For building XDocs, edit sources/**/*.xml first.
-        If ../jakarta-site2 does not exist, set -Dsite.dir=... for it,
-        or just use -Dvelocity.dir=.../velocity-1.4.x if you have downloaded Velocity somewhere.
 
         XXX for no apparent reason, your CWD must be the main Ant source dir, or this will fail:
         .../docs.xml:64: org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource './site.vsl'
@@ -88,31 +86,6 @@
     </target>
 
     <target name="docs" if="AnakiaTask.present" depends="anakia,fixcrlf" description="Create XDocs.">
-    </target>
-    <target name="javadocs" description="Create Javadoc.">
-      <ant antfile="build.xml" target="dist_javadocs">
-        <property name="dist.javadocs" value="${docs.dest}/manual/api" />
-      </ant>
-    </target>
-
-    <target name="all" depends="docs,javadocs" description="Create both XDocs and Javadoc."/>
-    
-    
-    <available property="jdk1.5+" classname="java.net.Proxy"/>
-    <target name="txt2html">
-        <fail unless="jdk1.5+" message="Tomcat BuildUtils requires Java5+"/>
-        <property name="build.dir" value="build"/>
-        <tempfile property="temp.dir"/>
-        <mkdir dir="${temp.dir}/org/apache/tomcat/buildutil"/>
-        <get src="http://svn.apache.org/repos/asf/tomcat/trunk/java/org/apache/tomcat/buildutil/Txt2Html.java"
-             dest="${temp.dir}/org/apache/tomcat/buildutil/Txt2Html.java"/>
-        <javac srcdir="${temp.dir}" destdir="${temp.dir}" includeAntRuntime="true"/>
-        <taskdef name="txt2html" classname="org.apache.tomcat.buildutil.Txt2Html" classpath="${temp.dir}"/>
-        <mkdir dir="${build.dir}/html"/>
-        <txt2html todir="${build.dir}/html">
-            <fileset file="WHATSNEW"/>
-        </txt2html>
-        <delete dir="${temp.dir}"/>
     </target>
 
 </project>
