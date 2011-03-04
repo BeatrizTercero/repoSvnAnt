@@ -1,0 +1,479 @@
+{
+  "children": [
+      {
+        "id":"index",
+        "title":"Home",
+        "children": [
+            {
+              "id":"features",
+              "title":"Features",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"testimonials",
+              "title":"Testimonials",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"license",
+              "title":"License",
+              "url":"http://www.apache.org/licenses/",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"security",
+              "title":"Security",
+              "url":"http://www.apache.org/security/",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"CryptoNotice",
+              "title":"Crypto Notice",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"faq",
+              "title":"FAQ",
+              "children": [
+                  {
+                    "id":"m2comparison",
+                    "title":"Apache Ivy&#153 / Apache Maven&#153 Comparison",
+                    "children": [
+
+                      ]
+                  }
+                ]
+            },
+            {
+              "id":"links",
+              "title":"Links",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"download",
+        "title":"Download",
+        "children": [
+            {
+              "id":"choose-distrib",
+              "title":"Choose distribution",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "title":"Documentation (2.2.0)",
+        "importRoot":"history/latest-milestone",
+        "importNode":"index"      },
+      {
+        "id":"history",
+        "title":"History",
+        "children": [
+            {
+              "title":"Trunk",
+              "url":"http://ant.apache.org/ivy/history/trunk/index.html",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"2.x",
+              "title":"2.x",
+              "isAbstract":true,
+              "children": [
+                  {
+                    "id":"history/2.2",
+                    "title":"2.2.x",
+                    "children": [
+                        {
+                          "title":"2.2.0",
+                          "url":"http://ant.apache.org/ivy/history/2.2.0/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.2.0-rc1",
+                          "url":"http://ant.apache.org/ivy/history/2.2.0-rc1/index.html",
+                          "children": [
+
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"history/2.1",
+                    "title":"2.1.x",
+                    "children": [
+                        {
+                          "title":"2.1.0",
+                          "url":"http://ant.apache.org/ivy/history/2.1.0/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.1.0-rc2",
+                          "url":"http://ant.apache.org/ivy/history/2.1.0-rc2/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.1.0-rc1",
+                          "url":"http://ant.apache.org/ivy/history/2.1.0-rc1/index.html",
+                          "children": [
+
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"history/2.0",
+                    "title":"2.0.x",
+                    "children": [
+                        {
+                          "title":"2.0.0",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.0.0-rc2",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0-rc2/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.0.0-rc1",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0-rc1/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.0.0-beta2",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0-beta2/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.0.0-beta1",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0-beta1/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "title":"2.0.0-alpha2",
+                          "url":"http://ant.apache.org/ivy/history/2.0.0-alpha2/index.html",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "id":"history/2.0.0-alpha-1",
+                          "title":"2.0.0-alpha-1",
+                          "children": [
+
+                            ]
+                        }
+                      ]
+                  }
+                ]
+            },
+            {
+              "id":"1.x",
+              "title":"1.x",
+              "isAbstract":true,
+              "children": [
+                  {
+                    "id":"1.4.x",
+                    "title":"1.4.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "id":"history/1.4.1",
+                          "title":"1.4.1",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "id":"history/1.4",
+                          "title":"1.4",
+                          "children": [
+                              {
+                                "id":"history/1.4-RC1",
+                                "title":"1.4-RC1",
+                                "children": [
+
+                                  ]
+                              },
+                              {
+                                "id":"history/1.4-RC2",
+                                "title":"1.4-RC2",
+                                "children": [
+
+                                  ]
+                              }
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"1.3.x",
+                    "title":"1.3.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "id":"history/1.3.1",
+                          "title":"1.3.1",
+                          "children": [
+
+                            ]
+                        },
+                        {
+                          "id":"history/1.3",
+                          "title":"1.3",
+                          "children": [
+                              {
+                                "id":"history/1.3-rc1",
+                                "title":"1.3-RC1",
+                                "children": [
+
+                                  ]
+                              },
+                              {
+                                "id":"history/1.3-rc2",
+                                "title":"1.3-RC2",
+                                "children": [
+
+                                  ]
+                              },
+                              {
+                                "id":"history/1.3-rc3",
+                                "title":"1.3-RC3",
+                                "children": [
+
+                                  ]
+                              }
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"1.2.x",
+                    "title":"1.2.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "id":"history/1.2a",
+                          "title":"1.2a",
+                          "children": [
+
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"1.1.x",
+                    "title":"1.1.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "id":"history/1.1",
+                          "title":"1.1",
+                          "children": [
+
+                            ]
+                        }
+                      ]
+                  },
+                  {
+                    "id":"1.0.x",
+                    "title":"1.0.x",
+                    "isAbstract":true,
+                    "children": [
+                        {
+                          "id":"history/1.0",
+                          "title":"1.0",
+                          "children": [
+                              {
+                                "id":"history/1.0-rc1",
+                                "title":"1.0-rc1",
+                                "children": [
+
+                                  ]
+                              },
+                              {
+                                "id":"history/1.0-rc2",
+                                "title":"1.0-rc2",
+                                "children": [
+
+                                  ]
+                              },
+                              {
+                                "id":"history/1.0-rc3",
+                                "title":"1.0-rc3",
+                                "children": [
+
+                                  ]
+                              }
+                            ]
+                        }
+                      ]
+                  }
+                ]
+            },
+            {
+              "id":"0.x",
+              "title":"0.x",
+              "isAbstract":true,
+              "children": [
+                  {
+                    "id":"history/0.9",
+                    "title":"0.9",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.8",
+                    "title":"0.8",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.7",
+                    "title":"0.7",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.6.1",
+                    "title":"0.6.1",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.6",
+                    "title":"0.6",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.5.1",
+                    "title":"0.5.1",
+                    "children": [
+
+                      ]
+                  },
+                  {
+                    "id":"history/0.5",
+                    "title":"0.5",
+                    "children": [
+
+                      ]
+                  }
+                ]
+            }
+          ]
+      },
+      {
+        "id":"get-involved",
+        "title":"Get Involved",
+        "children": [
+            {
+              "id":"mailing-lists",
+              "title":"Mailing lists",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"issues",
+              "title":"Issue Tracking",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"wiki",
+              "title":"Wiki",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"write-doc",
+              "title":"Contribute documentation",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"foundation",
+        "title":"Foundation",
+        "children": [
+            {
+              "title":"ASF",
+              "url":"http://www.apache.org",
+              "children": [
+                ]
+            },
+            {
+              "title":"Sponsorship",
+              "url":"http://www.apache.org/foundation/sponsorship.html",
+              "children": [
+                ]
+            },
+            {
+              "title":"Thanks",
+              "url":"http://www.apache.org/foundation/thanks.html",
+              "children": [
+                ]
+            }
+          ]
+      },
+      {
+        "id":"search",
+        "title":"Search",
+        "children": [
+
+          ]
+      },
+      {
+        "id":"ivyde",
+        "title":"Apache IvyDE&#153",
+        "url":"http://ant.apache.org/ivy/ivyde/index.html",
+        "children": [
+
+          ]
+      }
+    ]
+}

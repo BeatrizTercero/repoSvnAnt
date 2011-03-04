@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<script type="text/javascript">var xookiConfig = {level: 0};</script>	
+	
+
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<title>Documentation (2.0.0.beta1) | IvyDE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="style/print-style.css" />
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant"><img src="images/ant-group-logo.gif" alt="Apache Ant"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="images/logo.png" alt="ivy" border="0" /></td>
+	</tr>
+</table>
+
+		<div id="main">
+            <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (2.0.0.beta1)</div><br class="xooki-br"/>IvyDE can be considered as the merge of two tools:
+<ul>
+<li><a href="editor.html">Ivy xml files Editor</a>: creation wizard, html preview and completion for Ivy xml tag, attributes but also attributes' values.</li>
+<li><a href="cp_container.html">Class path container</a>: Automatic downloads, access "resolve" task from your IDE</li>
+</ul>
+
+Then you are probably interested by the <a href="console.html">Ivy console</a> which contains every log from Ivy. So it is really helpful when trying to find why a resolve failed.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="install"></a>Plugin installation</h1>
+
+Before trying to use it, let's install it!<br class="xooki-br"/><br class="xooki-br"/>The trunk version has not been release yet, so you should install it by building it yourself.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="pref"></a>Eclipse Preference Page</h1>
+
+There is a global configuration page, which control the behaviour of every Ivy instance in every project. You can also configure it <a href="cp_container.html#localconf">by project</a>.<br class="xooki-br"/><br class="xooki-br"/>The global configuration can be found in the global configuration panel of Eclipse (menu Window>Preferences for Windows and Linux users, Eclipse>Preferences for mac users), and select the item Ivy.<br class="xooki-br"/><br class="xooki-br"/><img src="images/pref.jpg"/><br/>
+<ul><b>Global settings:</b><br class="xooki-br"/>	<li><u>Ivy settings URL:</u> specify here the path to your ivy settings file. Leave it blank to use Ivy default resolvers</li>
+</ul>
+<ul><b>Retrieve configuration:</b><br/>
+    If checked, some retrieve job will be triggered after each the resolve.<br/>
+	<li><u>Retrieve pattern:</u> the pattern to use for the retrieve. Check <a href="../../../history/latest-milestone/use/retrieve.html">Ivy documentation</a> for pattern explanation.</li>
+        <li><u>Delete old retrieve artifacts:</u> on each retrieve, the previously retrieved libraries will be removed (similar to the sync argument in the ant task)</li>
+        <li><u>Retrieve configurations:</u> the configurations to retrieve (a comma separated list)</li>
+        <li><u>Retrieve types:</u> the types of artifact to retrieve (a comma separated list)</li>
+</ul>
+<ul><b>Classpath container configuration:</b><br class="xooki-br"/>	<li><u>Project dependencies:</u> IvyDE can try to make dependencies between project more than to jars into a repository.<br class="xooki-br"/>	    <u><i>Important note:</i></u> this feature is quite limited for now, it just tries to replace jar dependencies with project dependencies, based on the module id of the jar, and the projects configured to use IvyDE; the version is not taken into consideration, and even if a project match a dependency, the jar of the dependency have to be resolved from a repository.</li>
+	<li><u>Order alphabetically:</u> by default in the classpath container the entries are ordered by order of declaration. When there are many entries, it could be useful to have them ordered alphabetically so that you can find them faster.</li>
+	<li><u>Accepted types:</u> a comma separated list of extensions which will make IvyDE add the artifact to the classpath</li>
+	<li><u>Sources types:</u> a comma separated list of ivy "type" which will make IvyDE consider them as sources</li>
+	<li><u>Sources suffixes:</u> a comma separated list of suffixes which will make IvyDE attach as source the artifact with the suffix to the artifact without the suffix. For instance, "commons-lang-sources.jar" will be attached as source to "commons-lang.jar" with the default value.</li>
+	<li><u>Javadoc types:</u> same as sources types but for javadocs</li>
+	<li><u>Javadoc suffixes:</u> same as sources suffixes but for javadocs</li>
+</ul>
+<ul><b>Editor information:</b><br class="xooki-br"/>	<li><u>Organisation:</u> your company name for ivy editor completion </li>
+	<li><u>Organisation URL:</u> your company web site url for ivy editor completion </li>
+</ul>
+
+<hr/><div class='toc-title toc-title-2'>Editor</div><br class="xooki-br"/>Edit your ivy files easily in eclipse with the <a href="index.html">IvyDE</a> Plugin editor.<br/> <a href="index.html">IvyDE</a> brings creation wizard, html preview and completion for Ivy xml tag, attributes but also for attributes' values!<br/>
+Choose an organisation and browse thru its projects and revisions.<br/>
+
+<h1>Content</h1>
+<ul>
+<li><a href="#wizard">Wizard</a></li>
+<li><a href="#editor">Editor</a></li>
+</ul>
+
+
+<h1><a name="wizard"></a>Wizard</h1>
+IvyDE comes with a wizard that allows you to create an ivy.xml file for your project.<br/>
+To open the wizard choose File->New->Other in the Eclipse menu (Ctrl+N by default)<br/>
+The Ivy wizard is accessible in the category Other. Select it then click Next<br/><br/>
+<img src="images/wizard1.jpg"/><br/><br/>
+The wizard contains only one page, and is very simple.<br/><br/>
+<img src="images/wizard2.jpg"/><br/>
+<ol><b>Wizard fields:</b><br class="xooki-br"/>	<li> Container: you have to select the targeted project. (This is already set if you access the wizard thanks right click menu on your project root folder)</li>
+	<li> File name: the ivy file name. (ivy.xml by default and its better to keep it in most of case)</li>
+	<li> Organisation: the component owner name. (your company name or the company that provides the component if you are writing ivy.xml file for 3rd party jars). Note this value can be set in the <a href="index.html#pref">Ivy preference page</a></li>
+	<li> Module name: the component name.</li>
+	<li> Status: the status of the project. (integration by default since we have just created its ivy file :-). Please refer to <a href="../../../history/latest-milestone/index.html">Ivy documentation for more details</a>)</li>
+</ol>
+When the form is correctly filled you can press Finish button. Eclipse will automatically open the Ivy <a href="#editor">editor</a>.<br/>
+
+<h1><a name="editor"></a>Ivy Editor</h1>
+
+<img src="images/editor1.jpg"/><br/><br/>
+The Ivy's eclipse editor provides xml syntax coloration, tag completion, tag's attribute names completion, and for dependency and configuration tag value completion.<br/>
+Completion comes with contextual help. The completion popup is displayed when hitting simultaneously the CTRL and the SPACE keys.<br/><br/>
+<b>Available completions:</b><ul>
+	<li><b>Xml structure</b>: allows you quickly to insert the good tag at its right place. If the tag can have nested children both notations, simple tag and open tag, are proposed<br/><br/><img src="images/completion1.jpg"/></li>
+	<li><b>Tag attributes</b>: when your cursor is placed in a tag bracket the completion show available attributes for the enclosing tag.<br/><br/><img src="images/completion2.jpg"/></li>
+	<li><b>Attributes values</b>: when your cursor is placed in the quote of an attribute value the completion shows available values for the matching attribute.<br class="xooki-br"/>		<br/>
+		<ul>Available value completion<br class="xooki-br"/>			<li> <i>info:</i> organisation (pref based), module (eclipse project name),  </li>
+			<li> <i>info/ivyauthor: </i>name (pref based), url (pref based)</li>
+			<li> <i>info/description: </i>homepage (pref based)</li>
+			<li> <i>info/license: </i>name </li>
+			<li> <i>info/repository: </i> name (the other attributes depend on it), url, ivys, pattern, artifacts</li>
+			<li> <i>configurations/conf: </i> visibility,  deprecated, extends </li>
+			<li> <i>publications/artifact: </i>type, conf, ext</li>
+			<li> <i>dependencies/dependency: </i>org, name, rev are resolved thanks to Ivy using the ivyconf set in the <a href="index.html#project_pref">project Ivy preference page</a>. If not set to "default" Ivy uses its defaults resolvers configuration (ie ivyrep + ibiblio), and if not set Ivy uses the ivyconf set in the <a href="index.html#pref">Eclipse Ivy preference page</a>. conf values are computed from current ivy.xml file and the dependency ivy.xml file if any.<br/>
+					<br/><img src="images/completion4.jpg"/></li>
+		</ul>
+	</li>
+</ul>
+
+<hr/><div class='toc-title toc-title-2'>Classpath Container</div><br class="xooki-br"/>You are fed up with updating the class path of all your projects each time you add or remove one dependency! <a href="index.html">IvyDE</a> will help you ! Better ... it will work for you!<br/>
+Indeed, <a href="index.html">IvyDE</a> can manage for you all your dependencies, based on a dependencies descriptor file (like ivy.xml file) it will provide a class path container for your IDE.<br/>
+<div style="padding:20px;">
+<table>
+<tr>
+<td><a href="maven.html"><img src="images/genial.jpg"></a></td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td>Obviously IvyDE class path container can be based on a <b>ivy.xml</b> file, but it also manages <a href="maven.html">Maven pom.xml file!</a></td>
+</tr>
+</table>
+</div>
+
+<h1><a name="start"></a>Create the container</h1>
+
+You've just installed the IvyDE plugin from our <a href="../../download.html">updatesite</a>, and now you want to enjoy it quickly!<br/>
+Nothing easier, just follow these steps:
+<ul>
+<li>Ensure the ivy.xml file or <a href="maven.html">maven pom.xml</a> can be accessed under the project folder of your eclipse "Navigator" view.<br/><br/></li>
+<li>Open the "Add Library" form of Eclipse (In package Explorer, in popup menu of your project choose : [Build Path]/[Add Libraries]).<br/><br/><center><img src="images/build_path_menu.jpg"/></center><br/><br/></li>
+<li>Select "IvyDE Managed Dependencies" item.<br/><br/><center><img src="images/add_lib.jpg"/></center><br/><br/></li>
+<li>Select an ivy.xml file or a <a href="maven.html">maven pom.xml</a> and the desired configurations.<br/><br/><center><img src="images/ivy_file_def.jpg"/></center><br/><br/></li>
+<li><a name="localconf"></a>You then might want to have a special configuration for your project, a configuration different from the <a href="index.html#pref">global one</a>. For the ivy settings, click on the "Enable project specific settings" check box.<br/><br/><center><img src="images/project_specific_settings.jpg"/></center></li>
+<li><a name="retrieve"></a>On the next panel's tab, you can specify a retrieve job that will be launched on each resolve.<br/><br/><center><img src="images/retrieve.jpg"/></center></li>
+<li><a name="advanced"></a>You can also customize some advanced configuration of the classpath container: see the "Advanced" panel and click on "Enable project specific settings". Every configuration entry behaves exactly is the same way as the <a href="index.html#pref">global ones</a>.<br/><br/><center><img src="images/cp_advanced_conf.jpg"/></center></li>
+</ul><br/>
+Your class path is set and you can see all dependencies in one unique folder of the package explorer (folder name = &amp;amp;lt;ivy file name&amp;amp;gt;[&amp;amp;lt;configuration&amp;amp;gt;]).<br/><br/>
+<center> 
+<img src="images/cp_node.jpg">
+</center>
+
+<h1><a name="inlife"></a>Edit the container configuration</h1>
+
+<h2>Configure Ivy file and configuration</h2>
+During life of your project you can change the ivy.xml file or <a href="maven.html">maven pom.xml</a> and change the configuration you want<br class="xooki-br"/>to use.<br/>
+These properties can be accessed by contextual menu of the IvyDE class path container.<br class="xooki-br"/><br/><br/>
+<center><img src="images/cp_configuration.jpg"></center>
+<br/>
+You can also edit it via the build path configuration. Open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container. Then you will be able to click on the button "Edit": the IvyDE classpath container configuration dialog will pop up.<br class="xooki-br"/>This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3), and then this is only way to trigger a resolve.<br class="xooki-br"/><br/><br/>
+<center><img src="images/build_path_edit.jpg"></center>
+<br/>
+<h2>Resolve dependencies</h2>
+You can explicitly ask for a dependencies resolution from your class path container.<br class="xooki-br"/><br class="xooki-br"/>This command will invoke the "resolve" ivy task and update your class path container.<br class="xooki-br"/><br class="xooki-br"/>There is also a "refresh" action: this action is similar to the resolve one, it just doesn't do a full resolve if a report already exists in the cache. This is particularly useful if you work also with ant and a command line so you won't do two full resolve.<br class="xooki-br"/><br/><br/>
+<center><img src="images/cp_resolve.jpg"></center><br/>
+<hr/><div class='toc-title toc-title-2'>Use with maven poms</div><br class="xooki-br"/><h1>General</h1>
+<p>If you want to use a maven pom.xml instead of ivy.xml file, you just have to select a pom file in the configuration form of IvyDE class path.<br/>When a maven pom is selected, the configurations list is updated with all maven scopes.</p>
+<p>Both examples below are a good illustration of maven pom use simplicity :</p>
+<ul>
+<li><a href="#one">Maven1 sample</a></li>
+<li><a href="#two">Maven2 sample</a></li>
+</ul>
+<h1><a name="one"></a>Maven1 Sample</h1>
+<p>This sample presents a simple use case of maven pom for IvyDE class path container. We are going to create an eclipse project on commons-httpclient sources.</p>
+<p><b> - Download the <a href="http://archive.apache.org/dist/httpcomponents/commons-httpclient/3.0/source/commons-httpclient-3.0-src.zip">commons httpclient sources</a></b></p>
+<p><b> - Unzip this file (c:/tmp/commons-httpclient/)</b></p>
+<p><b> - Create a new Eclipse java project based on the unzipped sources (c:/tmp/commons-httpclient/)</b><br />
+<center><img src="images/httpProject_errors.jpg"><br/><br />
+<u><b>Notes:</b></u> your project do not compile: some imports cannot be resolved.<br />
+</center><br />
+<b> - Add a new class path container based on the "project.xml" pom and select "default" configuration (maven scope)</b><br />
+<center><br />
+<img src="images/httpProject_pom.jpg"><br />
+</center><br />
+<b> - That's all : your project compiles !</b><br />
+<center><br />
+<img src="images/httpProject_clean.jpg"><br />
+</center></p>
+<h1><a name="two"></a>Maven2 Sample</h1>
+<p>This sample shows that IvyDE Class path container on a Maven2 pom can handle transitive dependancies.</p>
+<p><b> - Create a new empty java project in eclipse.</b></p>
+<p><b> - In your Ivy project configuration, set the ivy settings file below (Project/Properties/Ivy):</b></p>
+<pre>&lt;ivysettings&gt;<br class="xooki-br"/>	&lt;conf defaultResolver="ibiblio"/&gt;<br class="xooki-br"/>	&lt;resolvers&gt;<br class="xooki-br"/>		&lt;ibiblio name="ibiblio" /&gt;<br class="xooki-br"/>	&lt;/resolvers&gt;<br class="xooki-br"/>&lt;/ivysettings&gt;
+</pre>
+<p>Using the m2compatible attribute, you can benefit from Maven2 repository compatibility.<br/><br />
+<b> - Add the pom below in your project and select it for an IvyDE class path container choosing "compile" and "runtime" configurations.</b><br/></p>
+<pre>
+&lt;project&gt;<br class="xooki-br"/>	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>	&lt;groupId&gt;com.mycompany&lt;/groupId&gt;<br class="xooki-br"/>	&lt;artifactId&gt;myproject&lt;/artifactId&gt;<br class="xooki-br"/>	&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;<br class="xooki-br"/>	&lt;dependencies&gt;<br class="xooki-br"/>		&lt;dependency&gt;<br class="xooki-br"/>			&lt;groupId&gt;commons-httpclient&lt;/groupId&gt;<br class="xooki-br"/>			&lt;artifactId&gt;commons-httpclient&lt;/artifactId&gt;<br class="xooki-br"/>			&lt;version&gt;3.0&lt;/version&gt;<br class="xooki-br"/>		&lt;/dependency&gt;<br class="xooki-br"/>	&lt;/dependencies&gt;<br class="xooki-br"/>&lt;/project&gt;
+</pre>
+
+<p><b> - That's all ! Your IvyDE class path container gets all dependencies even those that were transitive to the commons-httpclient module !</b><br />
+<br/><br />
+<img src="images/maven2classpath.jpg"/></p>
+<hr/><div class='toc-title toc-title-2'>Ivy Console</div><br class="xooki-br"/>The Ivy console provide you all the Ivy working traces that you were used to see in your command console. This view will be really useful to understand what Ivy and IvyDE are performing for you.<br/>
+The Ivy Console can be accessed within your eclipse Console view, selecting the "Ivy Console" item.<br/>
+<br/>
+<center><img src="images/ivy_console.jpg"></center><br/>
+<br/>
+The colors in the console correspond to the different log levels. Here is the default mapping:
+<ul>
+<li>Debug: light blue</li>
+<li>Verbose: green</li>
+<li>Info: black</li>
+<li>Warn: orange</li>
+<li>Error: red</li>
+</ul>
+<hr/><div class='toc-title toc-title-2'>Developer doc</div><br class="xooki-br"/>Adding features or fixing bugs needs a little more involvement.<br class="xooki-br"/>You will find here the basics to get into it.<hr/><div class='toc-title toc-title-3'>Building</div><br class="xooki-br"/>This page describes how to build the IvyDE plugin from the source. The build is based on the Eclipse build system so it requires an Eclipse install. You also need to have an Ivy bundle installed.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="setup"></a>Setup of the build</h1>
+
+<h2><a name="eclipse-install"></a>Eclipse installation</h2>
+
+You need first an Eclipse install which contains the PDE plugins (by default included in the "SDK" and "Classic" versions). We will refer to the eclipse installation path in the documentation as <tt>$ECLIPSE_HOME</tt>. In that <tt>$ECLIPSE_HOME</tt> folder you should have the plugins and features folders.<br class="xooki-br"/><br class="xooki-br"/>It is <u>recommended</u> to have an eclipse installation dedicated to the build. So you will be able to have better control over the Ivy bundle installed there. And as the build clean the internal cache of Eclipse, running an eclipse and building with the same instance might raise some troubleshootings in the IDE.<br class="xooki-br"/><br class="xooki-br"/>Lots of ant target depends on that Eclipse installation, so they need a <tt>baseLocation</tt> property to be defined. Note that you can avoid specifying that property in each command line by having a <tt>local.build.properties</tt> file which contains somethink like:
+<pre>
+baseLocation=/home/me/tools/eclipse-3.4
+</pre>
+
+<h2><a name="install-ivy"></a>The Ivy bundle</h2>
+
+The IvyDE plugins depends on the Ivy 2.0 OSGi bundle. So the Ivy bundle have to be installed in the Eclipse installation before starting the build. An ant target will accomplished that task quite automatically. Inline help will be displayed when no property is specified:
+<pre>ant install-ivy</pre>
+
+<u>Note</u>: due to <a href="https://issues.apache.org/jira/browse/IVY-802">an old bug in the build script of Ivy</a>, the OSGi version of Ivy is "0.0.0" for every version older than the 2.0.0-RC1. So older version than 2.0.0-RC1 is not supported.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="build"></a>Building</h1>
+
+First somehow you got some sources, for instance from the ASF subversion repository:
+<pre>
+svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk">https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk</a> ivyde-trunk
+</pre>
+or get directly the released sources from the <a href="../../download.cgi#sources">distribution</a>.<br class="xooki-br"/><br class="xooki-br"/>And go into the root folder of the sources. In that folder you should see the builder, org.apache.ivyde.eclipse and org.apache.ivyde.feature folders.<br class="xooki-br"/><br class="xooki-br"/>And run the build:
+<pre>ant build -DbaseLocation=$ECLIPSE_HOME</pre>
+
+Then in the created directory "work" you will find a directory (something like 2.0.0.alpha1-200804171513) in which you will find the zip archive ready to be unzipped in an Eclipse install.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="install"></a>Install</h1>
+
+After a successful build you should have a zip file at <tt>dist/org.apache.ivyde.feature-$VERSION.zip</tt>. The zip file contains the "plugins" and "features" folders ready to be unzipped in an Eclipse install. So here is the process:
+<pre>
+cd $ECLIPSE_HOME<br class="xooki-br"/>unzip ...../dist/org.apache.ivyde.feature-$VERSION.zip
+</pre>
+
+Then start your Eclipse and enjoy !<br class="xooki-br"/><hr/><div class='toc-title toc-title-3'>Releasing</div><br class="xooki-br"/>This documentation is defining every steps that needs to be accomplished when releasing IvyDE.<br class="xooki-br"/>In this doc, the released version is denoted as $VERSION, so it HAVE to be replaced in the command line argument accordingly. There is also some $LOGIN which is referencing your login on the Apache machines.<br class="xooki-br"/><br class="xooki-br"/><h1>Prepare</h1>
+
+<h2>Jira</h2>
+
+First in <a href="https://issues.apache.org/jira/browse/IVYDE">Jira</a> make sure that no more issues are opened for the target release.<br class="xooki-br"/><br class="xooki-br"/><h2>Release branch</h2>
+
+Some modifications of the branch are need to do the release. So a new branch is needed:
+<pre>
+svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk">https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> \<br class="xooki-br"/>      -m "Creating a release branch for IvyDE $VERSION"
+</pre>
+
+and then checkout it:
+<pre>
+svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> ivyde-$VERSION
+</pre>
+
+<h2>Documentation release</h2>
+
+The documentation have to specify the correct version number:<br class="xooki-br"/>In the files:
+<ul>
+<li>doc/template.html</li>
+</ul>
+The header should look like this
+<pre>
+&lt;title&gt;${title} | IvyDE $VERSION Documentation&lt;/title&gt;
+</pre>
+
+<h2>Release notes</h2>
+
+TODO: some release notes exists in ivyde/trunk/org.apache.ivyde.eclipse/CHANGE.txt. Some work need to be done before they can be published on the website.<br class="xooki-br"/><br class="xooki-br"/><h2>Commit your change</h2>
+
+Don't forget to commit the changes you've done into the release branch.<br class="xooki-br"/><br class="xooki-br"/><h1>Building</h1>
+
+Make sure you have a proper working copy with a <tt>svn status</tt>. You should have no modification.<br class="xooki-br"/><br class="xooki-br"/>Then launch the build:
+<pre>ant /release clean dist</pre>
+And sign the artifacts:
+<pre>./signArtifacts.sh</pre>
+
+<h1>Prepare the updatesite</h1>
+
+The instructions to build the updatesite are there:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/history/latest-milestone/updatesite.html">http://ant.apache.org/ivy/history/latest-milestone/updatesite.html</a><br class="xooki-br"/><br class="xooki-br"/><h1>Vote for the released artifacts</h1>
+
+It is recommended to publish the distribution artifacts and the updatesite in your public_html on people.apache.org directory so not only committers can test it.<br class="xooki-br"/><br class="xooki-br"/>On people.apache.org, create your "staging" directory:
+<pre>mkdir ~/public_html/ivyde-$VERSION/</pre>
+And then the copy:
+<pre>scp dist/* $LOGIN@people.apache.org:/home/$LOGIN/public_html/ivyde-$VERSION/</pre>
+It is recommended to also deploy a staging updatesite there. See <a href="http://ant.apache.org/ivy/history/latest-milestone/dev/updatesite.html">that page</a> to know how to proceed.<br class="xooki-br"/><br class="xooki-br"/>And launch the vote on the ant-dev mailing list:
+<pre>
+Subject: [VOTE] IvyDE $VERSION Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for IvyDE $VERSION<br class="xooki-br"/><br class="xooki-br"/>You can download the distribution from this URL: <a href="http://people.apache.org/~$LOGIN/ivyde-$VERSION/">http://people.apache.org/~$LOGIN/ivyde-$VERSION/</a><br class="xooki-br"/><br class="xooki-br"/>And a staging update site has been setup there: <a href="http://people.apache.org/~$LOGIN/staging/updatesite">http://people.apache.org/~$LOGIN/staging/updatesite</a><br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>$ME, IvyDE $VERSION release manager
+</pre>
+
+Note: this <a href="http://ant.apache.org/bylaws.html">page</a> is defining when and how a release can be accepted.<br class="xooki-br"/><br class="xooki-br"/><h1>The release has been accepted</h1>
+
+Then it is time to tag the release:
+<pre>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION</a> \<br class="xooki-br"/>      -m "Tag IvyDE release $VERSION"
+</pre>
+
+<h1>Deployment</h1>
+
+<h2>Publish the artifacts</h2>
+
+The binaries have to be pushed with their signatures and checksums in the apache dist directory. On people.apache.org:
+<pre>
+mkdir /www/www.apache.org/dist/ant/ivyde/$VERSION<br class="xooki-br"/>cp /home/$LOGIN/public_html/ivyde-$VERSION/* $LOGIN@people.apache.org:/www/www.apache.org/dist/ant/ivyde/$VERSION
+</pre>
+
+<h2>Deploy the updatesite</h2>
+
+Follow the instructions of that page: <a href="http://ant.apache.org/ivy/history/latest-milestone/updatesite.html">http://ant.apache.org/ivy/history/latest-milestone/updatesite.html</a><br class="xooki-br"/><br class="xooki-br"/><h1>Update the documentation</h1>
+
+The table of content needs to be updated so that the last documentation point to that new release.<br class="xooki-br"/><br class="xooki-br"/>First we need to update the external links. In svn/site/ivyde/history:
+<pre>svn pe svn:externals .</pre>
+And: <ul><li>update latest-milestone:
+<pre>
+latest-milestone <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre>
+</li>
+<li>add an entry:
+<pre>$VERSION <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre></li>
+</ul>
+
+Then we need to edit svn/site/ivyde/toc.json:
+<ul>
+<li>add the following data to the correct abstract node:
+<pre>
+            {<br class="xooki-br"/>                "title":"$VERSION",<br class="xooki-br"/>                "importRoot":"history/$VERSION",<br class="xooki-br"/>                "importNode":"index"<br class="xooki-br"/>            }
+</pre>
+</li>
+<li>update the title of the latest-milestone history entry:
+<pre>
+            "title":"Documentation ($VERSION)"
+</pre>
+</li></ul>
+
+<h1>Post release tasks</h1>
+
+<h2>Jira</h2>
+
+Update the <a href="https://issues.apache.org/jira/secure/project/ManageVersions.jspa?pid=12310640">IvyDE Jira project</a>: mark the version as released.<br class="xooki-br"/><br class="xooki-br"/><h2>Bump the version</h2>
+
+Update the versions needs to be updated in the following files:
+<ul>
+<li>build.properties (edit the qualifier)</li>
+<li>org.apache.ivyde.eclipse/META-INF/MANIFEST.MF</li>
+<li>org.apache.ivyde.feature/feature.xml</li>
+</ul>
+
+ 		</div><!-- main -->
+
+</div><!-- body -->
+</body>
+</html>
