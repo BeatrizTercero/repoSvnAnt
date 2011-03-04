@@ -16,14 +16,12 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<project name="ivy-ivyde-site" xmlns:xooki="antlib:xooki">
+<project name="ivy-site" xmlns:xooki="antlib:xooki">
 
-    <taskdef uri="antlib:xooki" file="${basedir}/xooki/antlib.xml" />
-    <property name="target.dir" value="${basedir}/target" />
+    <property name="sources.dir" value="${basedir}/sources" />
+    <property name="target.dir" value="${basedir}/staging" />
 
-    <target name="/all" description="force whole site generation, disabling incremental mode">
-        <property name="checkUpToDate" value="false" />
-    </target>
+    <import file="../common-xooki-build.xml" />
 
     <!--
         ======================================================================================
@@ -31,14 +29,14 @@
         ======================================================================================
     -->
 
-    <target name="generate-site-ivy" description="Generates site of Ivy for publication">
+    <target name="generate-site" description="Generates site for publication in the staging area">
         <!-- by default we use incremental mode, which checks if files require generation -->
         <property name="checkUpToDate" value="true" />
         <condition property="overwrite">
              <isfalse value="${checkUpToDate}"/>
         </condition>
         <copy todir="${target.dir}" overwrite="${overwrite}" >
-            <fileset dir="${basedir}">
+            <fileset dir="${sources.dir}">
                 <include name="*.cgi" />
                 <include name="images/**" />
                 <include name="style/**" />
@@ -54,7 +52,7 @@
         <init-imported-history version="latest-milestone" />
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <xooki:generate destDir="${target.dir}" checkUpToDate="${checkUpToDate}">
-            <fileset dir="${basedir}">
+            <fileset dir="${sources.dir}">
                 <include name="history/latest-milestone/**/*.html"/>
                 <exclude name="history/latest-milestone/**/template.html"/>
                 <exclude name="history/latest-milestone/**/*Template.html"/>
@@ -64,7 +62,7 @@
                 <!-- Some old version contains only one html page, and there are also the 2.x and 2.1.x pages there -->
                 <include name="history/*.html"/>
             </fileset>
-            <fileset dir="${basedir}">
+            <fileset dir="${sources.dir}">
                 <include name="**/*.html"/>
                 <exclude name="history/**"/>
                 <exclude name="**/template.html"/>
@@ -79,11 +77,11 @@
     	<generate-printdoc version="latest-milestone" />
     </target>
 
-    <target name="generate-history-ivy" description="Generate the part of the Ivy website of a specific history version">
+    <target name="generate-history" description="Generate the part of the website of a specific history version">
         <init-external-history version="${history.version}" />
         <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
         <copy todir="${target.dir}/history/${history.version}" overwrite="true" >
-            <fileset dir="${basedir}/history/${history.version}">
+            <fileset dir="${sources.dir}/history/${history.version}">
                 <include name="images/**" />
                 <include name="style/**" />
                 <include name="js/**" />
@@ -95,7 +93,7 @@
         </copy>
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
         <xooki:generate destDir="${target.dir}/history/${history.version}" checkUpToDate="false">
-            <fileset dir="${basedir}/history/${history.version}">
+            <fileset dir="${sources.dir}/history/${history.version}">
                 <include name="**/*.html"/>
                 <exclude name="**/template.html"/>
                 <exclude name="**/*Template.html"/>
@@ -106,117 +104,6 @@
         </xooki:generate>
         <generate-printdoc version="${history.version}" />
     </target>
-
-    <!--
-        ======================================================================================
-        Targets related to the IvyDE web site
-        ======================================================================================
-    -->
-
-    <target name="generate-site-ivyde" description="Generates site of IvyDE for publication">
-        <!-- by default we use incremental mode, which checks if files require generation -->
-        <property name="checkUpToDate" value="true" />
-        <condition property="overwrite">
-             <isfalse value="${checkUpToDate}"/>
-        </condition>
-        <copy todir="${target.dir}/ivyde" overwrite="${overwrite}">
-            <fileset dir="${basedir}/ivyde">
-                <include name="*.cgi" />
-                <include name="images/**" />
-                <include name="style/**" />
-                <include name="js/**" />
-                <include name="updatesite/**" />
-                <include name="history/latest-milestone/images/**" />
-            </fileset>
-        </copy>
-        <init-imported-history basepath="ivyde" version="latest-milestone" />
-        <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
-        <xooki:generate destDir="${target.dir}/ivyde" checkUpToDate="${checkUpToDate}">
-            <fileset dir="${basedir}/ivyde">
-                <include name="history/latest-milestone/**/*.html"/>
-                <exclude name="history/latest-milestone/**/template.html"/>
-                <exclude name="history/latest-milestone/**/*Template.html"/>
-                <exclude name="history/latest-milestone/**/xooki/**"/>
-            </fileset>
-            <fileset dir="${basedir}/ivyde">
-                <include name="**/*.html"/>
-                <exclude name="history/**"/>
-                <exclude name="**/template*.html"/>
-                <exclude name="**/*Template.html"/>
-                <exclude name="**/xooki/**"/>
-            </fileset>
-        </xooki:generate>
-    </target>
-
-    <target name="generate-history-ivyde" description="Generate the part of the IvyDE website of a specific history version">
-        <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
-        <init-external-history basepath="ivyde" version="${history.version}" />
-        <copy todir="${target.dir}/ivyde/history/${history.version}" overwrite="true" >
-            <fileset dir="${basedir}/ivyde/history/${history.version}">
-                <include name="images/**" />
-                <include name="style/**" />
-                <include name="js/**" />
-            </fileset>
-        </copy>
-        <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
-        <xooki:generate destDir="${target.dir}/ivyde/history/${history.version}" checkUpToDate="false">
-            <fileset dir="${basedir}/ivyde/history/${history.version}">
-                <include name="**/*.html"/>
-                <exclude name="**/template*.html"/>
-                <exclude name="**/*Template.html"/>
-                <exclude name="**/xooki/**"/>
-            </fileset>
-        </xooki:generate>
-        <generate-printdoc basepath="${basedir}/ivyde" destpath="${target.dir}/ivyde" version="${history.version}" />
-    </target>
-
-    <!--
-        ======================================================================================
-        Generic targets and macros
-        ======================================================================================
-    -->
-
-    <!-- 
-    INITIALIZE IMPORTED DOCUMENTATION OF HISTORY VERSIONS
-    Imported documentations need to have a special configuration javascript
-    in their home, so that they know they are imported and properly
-    display the whole TOC, and not only their own one.
-    The targets below are used to initialize those imported versions
-    with ad hoc configuration file. It should only be called once 
-    per imported documentation version.
-    -->
-    <macrodef name="init-imported-history">
-        <attribute name="version" />
-        <attribute name="basepath" default="." />
-        <sequential>
-            <echo file="@{basepath}/history/@{version}/config.extra.js"> 
-xooki.c.setImportLevel(2);
-            </echo>
-        </sequential>
-    </macrodef>
-
-    <macrodef name="init-external-history">
-        <attribute name="version" />
-        <attribute name="basepath" default="." />
-        <sequential>
-            <echo file="@{basepath}/history/@{version}/config.extra.js">
-xooki.c.path = { template : "../../historyTemplate.html" };
-            </echo>
-            <replace file="@{basepath}/history/@{version}/toc.json" token="&quot;title&quot;:&quot;Documentation&quot;"
-                value="&quot;title&quot;:&quot;Documentation (@{version})&quot;" />
-        </sequential>
-    </macrodef>
-
-    <macrodef name="generate-printdoc">
-        <attribute name="version" />
-        <attribute name="basepath" default="${basedir}" />
-        <attribute name="destpath" default="${target.dir}" />
-        <sequential>
-            <xooki:print 
-                src="@{basepath}/history/@{version}/index.html" 
-                dest="@{destpath}/history/@{version}/book.html" />
-        </sequential>
-    </macrodef>
 
     <target name="tagsdoc" 
             description="--> Generates tagsdoc.properties file which can be used in IvyDE for code completion documentation">
@@ -280,7 +167,7 @@ xooki.c.path = { template : "../../historyTemplate.html" };
                 out.close();
             ]]>
         </scriptdef>
-        <property name="ivydoc" value="${basedir}/target/history/trunk/" />
+        <property name="ivydoc" value="${target.dir}/history/trunk/" />
         <generate-tagsdoc destFile="tagsdoc.properties">
             <fileset dir="${ivydoc}" includes="settings/**/*.html,resolver/**/*.html" />
         </generate-tagsdoc>

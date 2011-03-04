@@ -1,0 +1,76 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<project name="common-xooki-build" xmlns:xooki="antlib:xooki">
+
+    <dirname property="site.root.dir" file="${ant.file.common-xooki-build}" />
+    <taskdef uri="antlib:xooki" file="${site.root.dir}/xooki/antlib.xml" />
+
+    <target name="/all" description="force whole site generation, disabling incremental mode">
+        <property name="checkUpToDate" value="false" />
+    </target>
+
+    <!--
+        ======================================================================================
+        Generic targets and macros
+        ======================================================================================
+    -->
+
+    <!-- 
+    INITIALIZE IMPORTED DOCUMENTATION OF HISTORY VERSIONS
+    Imported documentations need to have a special configuration javascript
+    in their home, so that they know they are imported and properly
+    display the whole TOC, and not only their own one.
+    The targets below are used to initialize those imported versions
+    with ad hoc configuration file. It should only be called once 
+    per imported documentation version.
+    -->
+    <macrodef name="init-imported-history">
+        <attribute name="version" />
+        <attribute name="basepath" default="${sources.dir}" />
+        <sequential>
+            <echo file="@{basepath}/history/@{version}/config.extra.js"> 
+xooki.c.setImportLevel(2);
+            </echo>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="init-external-history">
+        <attribute name="version" />
+        <attribute name="basepath" default="${sources.dir}" />
+        <sequential>
+            <echo file="@{basepath}/history/@{version}/config.extra.js">
+xooki.c.path = { template : "../../historyTemplate.html" };
+            </echo>
+            <replace file="@{basepath}/history/@{version}/toc.json" token="&quot;title&quot;:&quot;Documentation&quot;"
+                value="&quot;title&quot;:&quot;Documentation (@{version})&quot;" />
+        </sequential>
+    </macrodef>
+
+    <macrodef name="generate-printdoc">
+        <attribute name="version" />
+        <attribute name="basepath" default="${sources.dir}" />
+        <attribute name="destpath" default="${target.dir}" />
+        <sequential>
+            <xooki:print xookidir="${site.root.dir}/xooki"
+                src="@{basepath}/history/@{version}/index.html" 
+                dest="@{destpath}/history/@{version}/book.html" />
+        </sequential>
+    </macrodef>
+
+</project>
