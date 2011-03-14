@@ -19,7 +19,7 @@
 <project name="ivyde-site" xmlns:xooki="antlib:xooki">
 
     <property name="sources.dir" value="${basedir}/sources" />
-    <property name="target.dir" value="${basedir}/staging" />
+    <property name="target.dir" value="${basedir}/production" />
 
     <import file="../common-xooki-build.xml" />
 
@@ -29,7 +29,7 @@
         ======================================================================================
     -->
 
-    <target name="generate-site" description="Generates site for publication in the staging area">
+    <target name="generate-site" description="Generates site for publication in the production area">
         <!-- by default we use incremental mode, which checks if files require generation -->
         <property name="checkUpToDate" value="true" />
         <condition property="overwrite">
