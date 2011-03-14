@@ -53,23 +53,8 @@
                       "url":"http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html"
                   },
                   {
-                    "id":"history/2.0",
-                    "title":"2.0.x",
-                    "isAbstract":true,
-                    "children": [
-                        {
-                          "title":"2.0.0.final",
-                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html"
-                        },
-                        {
-                          "title":"2.0.0.beta1",
-                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.beta1/index.html"
-                        },
-                        {
-                          "title":"2.0.0.alpha1",
-                          "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.alpha1/index.html"
-                        }
-                      ]
+                      "title":"2.0.0.final",
+                      "url":"http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html"
                   }
                 ]
             },
