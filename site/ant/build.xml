@@ -25,15 +25,14 @@
         XXX for no apparent reason, your CWD must be the main Ant source dir, or this will fail:
         .../docs.xml:64: org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource './site.vsl'
         
-        After this generation the pages in staging/ should be up-to-date and need to be committed.
-
-        staging.ant.apache.org will then pickup your changes shortly after your commit.
+        After this generation the pages in production/ should be up-to-date and need to be committed.
+        http://ant.apache.org will then pickup your changes shortly after your commit via svnpubsub.
     </description>
 
     <!-- Initialization properties -->
     <property name="project.name" value="ant"/>
     <property name="docs.src"     location="sources"/>
-    <property name="docs.dest"    location="staging"/>
+    <property name="docs.dest"    location="production"/>
     <property name="project.file" value="stylesheets/project.xml" />
     <property name="templ.path"   location="sources/stylesheets" />
     <property name="velocity.props"   location="${docs.src}/velocity.properties" />
