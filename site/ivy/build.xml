@@ -51,7 +51,7 @@
         </copy>
         <init-imported-history version="latest-milestone" />
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
-        <xooki:generate destDir="${target.dir}" checkUpToDate="${checkUpToDate}">
+        <xooki:generate destDir="${target.dir}" checkUpToDate="${checkUpToDate}" xookidir="${site.root.dir}/xooki">
             <fileset dir="${sources.dir}">
                 <include name="history/latest-milestone/**/*.html"/>
                 <exclude name="history/latest-milestone/**/template.html"/>
@@ -74,7 +74,7 @@
                 <exclude name="ivyde/**"/>
             </fileset>
         </xooki:generate>
-    	<generate-printdoc version="latest-milestone" />
+        <generate-printdoc version="latest-milestone" />
     </target>
 
     <target name="generate-history" description="Generate the part of the website of a specific history version">
@@ -92,7 +92,7 @@
             </fileset>
         </copy>
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
-        <xooki:generate destDir="${target.dir}/history/${history.version}" checkUpToDate="false">
+        <xooki:generate destDir="${target.dir}/history/${history.version}" checkUpToDate="false" xookidir="${site.root.dir}/xooki">
             <fileset dir="${sources.dir}/history/${history.version}">
                 <include name="**/*.html"/>
                 <exclude name="**/template.html"/>
