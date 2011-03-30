@@ -2497,7 +2497,61 @@ The child tag used for the parser must be equal to a name of a report outputter 
 </tbody>
 </table>
 
-	<hr/><div class='toc-title toc-title-4'>statuses</div><br class="xooki-br"/><b>Tag:</b> statuses<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.statuses">Defines the list of available statuses.</span> <span class="since">since 1.4</span>
+	<hr/><div class='toc-title toc-title-4'>signers</div><br class="xooki-br"/><b>Tag:</b> signers<br class="xooki-br"/><span class="since">since 2.2</span>
+
+<span class="tagdoc" id="ivysettings.signers">Defines a list of detached signature generators usable in ivy. Each generator is identified by its name, given as an attribute.<br class="xooki-br"/>The child tags used to configure the signature generator must be equal to the name of a signature generator type (either built-in or added with the typedef tag).</span>
+
+Ivy supports the following signature generator out of the box: 
+<ul>
+<li>pgp</li> generates an OpenPGP compatible ASCII armored detached signature.
+</ul>
+
+
+<h1>Child elements</h1>
+<table class="ivy-children">
+<thead>
+    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
+</thead>
+<tbody>
+    <tr><td>any signature generator</td><td>adds a signature generator to the list of registered generators</td>
+        <td>1..n</td></tr>
+</tbody>
+</table>
+
+<h1>Built-in Generators</h1>
+
+<h2>PGP</h2>
+
+This generator is capable of generating an OpenPGP compatible ASCII armored detached signature.<br class="xooki-br"/><br class="xooki-br"/><b>Remark:</b> This generator uses the <a href="http://www.bouncycastle.org/java.html">BouncyCastle OpenPGP</a> library. Before this generator can be used, these libraries must be available on Ivy's classpath.<br class="xooki-br"/><br class="xooki-br"/>
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>name</td><td>The name of the signature generator.</td>
+        <td>Yes</td>
+    </tr>
+    <tr><td>secring</td><td>The location of the secret keyring.</td>
+        <td>No, defaults to ${user.home}/.gnupg/secring.gpg</td>
+    </tr>
+    <tr><td>keyId</td><td>The identifier of the key to use. The keyword 'auto' can be used to indicate a key will be selected automatically.</td>
+        <td>No, defaults to 'auto'.</td>
+    </tr>
+    <tr><td>password</td><td>The password of the private key.</td>
+        <td>Yes</td>
+    </tr>
+</tbody>
+</table>
+
+<h1>Examples</h1>
+<pre>
+&lt;signers&gt;<br class="xooki-br"/>    &lt;pgp name="mypgp" password="my-password" /&gt;<br class="xooki-br"/>&lt;/signers&gt;
+</pre>
+Defines a detached signature generator with name 'mypgp' which uses the secret key ring on the default location and automatically selects a private key.<br class="xooki-br"/><hr/>
+<pre>
+&lt;signers&gt;<br class="xooki-br"/>    &lt;pgp name="mypgp" password="my-password" keyId="123ABC45"/&gt;<br class="xooki-br"/>&lt;/signers&gt;
+</pre>
+Same as before, but this time the key '123ABC45' is used to generate the detached signature.<br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>statuses</div><br class="xooki-br"/><b>Tag:</b> statuses<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.statuses">Defines the list of available statuses.</span> <span class="since">since 1.4</span>
 
 By default, ivy has 3 statuses: release, milestone and integration. By adding a statuses section to your ivysettings file, you define the statuses you want to use. Note that in this case if you still want to have ivy default statuses you will have to declare them.<br class="xooki-br"/><br class="xooki-br"/>The integration property on each status is only used for recursive delivery, an integration dependency being delivered if the caller is not in integration state itself.<br class="xooki-br"/><br class="xooki-br"/>The default status is the one used when none is defined in a module descriptor. If not specified, it defaults to the last defined status.<br class="xooki-br"/><br class="xooki-br"/>The statuses order is important, the first is considered the more mature, the last the less mature. This is used to know if a status is compatible with a latest.<em>&lt;status&gt;</em> version matcher.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
@@ -4284,7 +4338,7 @@ ${ivy.pom.license}<br class="xooki-br"/>${ivy.pom.header}<br class="xooki-br"/>&
         <td>describes the mapping from an Ivy module configuration to a Maven POM scope.<br/>These elements takes two attributes: <ul><li>conf</li> the configuration to map<li>scope</li>the scope to which it should be mapped</ul></td>
         <td>0..n</td></tr>
     <tr><td>dependency</td>
-        <td>describes extra dependencies that should be added to the generated Maven POM file.<br/>These elements takes the following attributes: <ul><li>group</li> the groupId. Default <i>organisation</i> as defined in <i>info</i><li>artifact</li> the name of the artifact<li>version</li> the version. Default <i>revision</i> as defined in <i>info</i><li>scope</li> the scope<li>optional</li> is the artifact optional. Default <i>false</i></ul></td>
+        <td>describes extra dependencies that should be added to the generated Maven POM file.<br/>These elements takes the following attributes: <ul><li>group</li> the groupId. Default <i>organisation</i> as defined in <i>info</i><li>artifact</li> the name of the artifact<li>version</li> the version. Default <i>revision</i> as defined in <i>info</i><li>type <span class="since">(since 2.3)</span></li> the type<li>classifier <span class="since">(since 2.3)</span></li> the classifier<li>scope</li> the scope<li>optional</li> is the artifact optional. Default <i>false</i></ul></td>
         <td>0..n</td></tr>
 </tbody>
 </table>
@@ -4700,7 +4754,7 @@ Build a resource collection of every artifacts of both commons lang and commons 
 <pre>
 &lt;ivy:resources&gt;<br class="xooki-br"/>    &lt;dependency org="org.slf4j" module="slf4j" rev="1.6" conf="api,log4j" /&gt;<br class="xooki-br"/>&lt;/ivy:resources&gt;
 </pre>
-Build a resource collection of every artifacts of the configurations "api" and "log4j" of "slf4j".<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>retrieve</div><br class="xooki-br"/>The retrieve task copies resolved dependencies anywhere you want in your file system.<br class="xooki-br"/><br class="xooki-br"/>This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This task can even be used to synchronize the destination directory with what should actually be in according to the dependency resolution. This means that by setting sync="true", Ivy will not only copy the necessary files, but it will also remove the files which do not need to be there.<br class="xooki-br"/><br class="xooki-br"/>The synchronisation actually consists in deleting all filles and directories in the root destination directory which are not required by the retrieve.<br class="xooki-br"/><br class="xooki-br"/>The root destination directory is the the directory denoted by the first level up the first token in the destination pattern.<br class="xooki-br"/>Example:<br class="xooki-br"/>pattern: lib/[conf]/[artifact].[ext]<br class="xooki-br"/>root: lib<br class="xooki-br"/><br class="xooki-br"/>
+Build a resource collection of every artifacts of the configurations "api" and "log4j" of "slf4j".<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>retrieve</div><br class="xooki-br"/>The retrieve task copies resolved dependencies anywhere you want in your file system.<br class="xooki-br"/><br class="xooki-br"/>This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This task can even be used to synchronize the destination directory with what should actually be in according to the dependency resolution. This means that by setting sync="true", Ivy will not only copy the necessary files, but it will also remove the files which do not need to be there.<br class="xooki-br"/><br class="xooki-br"/>The synchronisation actually consists in deleting all filles and directories in the root destination directory which are not required by the retrieve.<br class="xooki-br"/><br class="xooki-br"/>The root destination directory is the the directory denoted by the first level up the first token in the destination pattern.<br class="xooki-br"/>Example:<br class="xooki-br"/>pattern: lib/[conf]/[artifact].[ext]<br class="xooki-br"/>root: lib<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.3</span> A nested <a href="http://ant.apache.org/manual/Types/mapper.html">mapper</a> element can be used to specify more complex filename transformations of the retrieved files. See the examples below.<br class="xooki-br"/>
 <table class="ant">
 <thead>
     <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
@@ -4716,12 +4770,16 @@ Build a resource collection of every artifacts of the configurations "api" and "
         <td>No. Defaults to false</td></tr>
     <tr><td>type</td><td>comma separated list of accepted artifact types <span class="since">since 1.4</span></td>
         <td>No. All artifact types are accepted by default.</td></tr>
-    <tr><td>overwriteMode</td><td>option to configure when the destination file should be overwritten if it exist <span class="since">(since 2.2.0)</span>. Possible values are:
+    <tr><td>overwriteMode</td><td>option to configure when the destination file should be overwritten if it exist <span class="since">(since 2.2.0)</span>.<br class="xooki-br"/>Possible values are:
 <ul><li><b>newer</b> (default)</li> overwrite the destination file if a more recent one is available (based on timestamp)
 <li><b>different</b></li> overwrite the destination file if the timestamp is different
 <li><b>always</b></li> always overwrite the destination file
 <li><b>never</b></li> never overwrite the destination file
 </ul></td><td>No. Defaults to 'newer'.</td></tr>
+    <tr><td>dirMode</td><td>option to configure how the [organisation] token in the patterns will be replaced <span class="since">(since 2.3)</span>.<br class="xooki-br"/>Possible values are:
+<ul><li><b>flat</b> (default)</li> don't convert the organisation name, the token will get exactly the same value as the organisation
+<li><b>tree</b></li> replace the '.' within the organisation name with '/'
+</ul>See the examples below.</td><td>No. Defaults to 'flat'.</td></tr>
     <tr><td>symlink</td><td>true to create symbolic links, false to copy the artifacts. The destination of the symbolic links depends on the value of the useOrigin attribute <span class="since">(since 2.0)</span></td><td>No. Defaults to false</td></tr>
     <tr><td>settingsRef</td><td>A reference to the ivy settings that must be used by this task <span class="since">(since 2.0)</span></td><td>No, 'ivy.instance' is taken by default.</td></tr></tbody>
     <tr><td>log</td><td>the log setting to use during the resolve and retrieve process. <span class="since">(since 2.0)</span><br/>
@@ -4729,6 +4787,10 @@ Available options are the same as for <a href="use/resolve.html">resolve</a> whe
 <ul><li><b>default</b></li> the default log settings, where all usual messages are output to the console
 <li><b>quiet</b></li> disable all usual messages, making the whole retrieve process quiet unless errors occur
 </ul></td><td>No, defaults to 'default'.</td></tr>
+    <tr><td>pathId</td><td>the id of the path to create containing the retrieved artifacts. <span class="since">since 2.3</span></td>
+        <td>No. No path is created by default.</td></tr>
+    <tr><td>setId</td><td>the id of the fileset to create containing the retrieved artifacts. <span class="since">since 2.3</span></td>
+        <td>No. No fileset is created by default.</td></tr>
 </table>
 <h1>Examples</h1>
 <pre>
@@ -4763,12 +4825,32 @@ Retrieves only the dependencies of the <pre>runtime</pre> configuration in direc
 lib<br class="xooki-br"/>  jar<br class="xooki-br"/>    commons-lang-1.0.jar<br class="xooki-br"/>    looks-1.1.jar<br class="xooki-br"/>  source<br class="xooki-br"/>    looks-1.1.zip
 </pre>
 
+<hr/>
+<pre>
+&lt;ivy:retrieve pattern="${lib.dir}/[organisation]/[artifact]-[revision].[ext]" dirMode="flat"/&gt;
+</pre>
+Retrieves all dependencies of the last resolve call to a lib directory. The [organisation] token will get the unmodified organisation value. The resulting lib dir could look like this:
+<pre>
+lib<br class="xooki-br"/>  org.apache<br class="xooki-br"/>    commons-lang-1.0.jar<br class="xooki-br"/>  org.junit<br class="xooki-br"/>    junit-4.1.jar<br class="xooki-br"/>    junit-4.1.zip
+</pre>
+
+<pre>
+&lt;ivy:retrieve pattern="${lib.dir}/[organisation]/[artifact]-[revision].[ext]" dirMode="tree"/&gt;
+</pre>
+Retrieves all dependencies of the last resolve call to a lib directory. The [organisation] token will get a tree structure. The resulting lib dir could look like this:
+<pre>
+lib<br class="xooki-br"/>  org<br class="xooki-br"/>    apache<br class="xooki-br"/>      commons-lang-1.0.jar<br class="xooki-br"/>    junit<br class="xooki-br"/>      junit-4.1.jar<br class="xooki-br"/>      junit-4.1.zip
+</pre>
 
 <hr/>
 <pre>
 &lt;ivy:retrieve organisation="foo" module="bar" inline="true" pattern="${my.install.dir}/[artifact].[ext]"/&gt;
 </pre>
-Resolves and retrieve the latest version of the module bar and its dependencies in the directory pointed by ${my.install.dir}.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>report</div><br class="xooki-br"/>Generates reports of dependency resolving. One report per configuration is generated, but all reports generated together are hyperlinked one to each other.<br class="xooki-br"/><br class="xooki-br"/>This task should be used only after a call to resolve, even if the call was not done during the same ant build.<br class="xooki-br"/>In fact, this task uses xml report generated by resolve in cache. So if you call resolve on a module for a given configuration, you can call report safely on this module and this configuration as long as you do not clean your ivy cache.<br class="xooki-br"/><br class="xooki-br"/>If you want to have an idea of what reports look like, check this very simple <a href="../samples/jayasoft-ivyrep-example-default.html">example</a>.<br class="xooki-br"/>The task also generates a graphml file which can be loaded with the free <a href="http://www.yworks.com/en/products_yed_about.htm">yEd</a> graph editor.<br class="xooki-br"/>Then following a few <a href="../yed.html">simple steps</a> you can obtain a graph like this <a href="../samples/jayasoft-ivyrep-example-default.jpg">one</a>.<br class="xooki-br"/>
+Resolves and retrieve the latest version of the module bar and its dependencies in the directory pointed by ${my.install.dir}.<br class="xooki-br"/><hr/>
+<pre>
+&lt;ivy:retrieve pattern="lib/[artifact]-[revision].[ext]"&gt;<br class="xooki-br"/>    &lt;firstmatchmapper&gt;<br class="xooki-br"/>        &lt;globmapper from="lib/*-SNAPSHOT.jar" to="lib/snapshots/*-SNAPSHOT.jar" /&gt;<br class="xooki-br"/>        &lt;globmapper from="lib/*" to="lib/releases/*"/&gt;<br class="xooki-br"/>    &lt;/firstmatchmapper&gt;<br class="xooki-br"/>&lt;/ivy:retrieve&gt;
+</pre>
+Retrieves all dependencies of the last resolve call to a lib directory. The jar files with a version equal to 'SNAPSHOT' are retrieved in a 'snapshots' directory. The other ones are retrieved in a 'releases' directory.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>report</div><br class="xooki-br"/>Generates reports of dependency resolving. One report per configuration is generated, but all reports generated together are hyperlinked one to each other.<br class="xooki-br"/><br class="xooki-br"/>This task should be used only after a call to resolve, even if the call was not done during the same ant build.<br class="xooki-br"/>In fact, this task uses xml report generated by resolve in cache. So if you call resolve on a module for a given configuration, you can call report safely on this module and this configuration as long as you do not clean your ivy cache.<br class="xooki-br"/><br class="xooki-br"/>If you want to have an idea of what reports look like, check this very simple <a href="../samples/jayasoft-ivyrep-example-default.html">example</a>.<br class="xooki-br"/>The task also generates a graphml file which can be loaded with the free <a href="http://www.yworks.com/en/products_yed_about.htm">yEd</a> graph editor.<br class="xooki-br"/>Then following a few <a href="../yed.html">simple steps</a> you can obtain a graph like this <a href="../samples/jayasoft-ivyrep-example-default.jpg">one</a>.<br class="xooki-br"/>
 <div class="since">since 1.4</div> If a custom XSL is specified, it's possible to specify additional parameters to the stylesheet.<br class="xooki-br"/>
 <table class="ant">
 <thead>

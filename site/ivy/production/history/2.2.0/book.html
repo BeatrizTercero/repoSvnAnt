@@ -3373,7 +3373,61 @@ The child tag used for the parser must be equal to a name of a report outputter 
 </tbody>
 </table>
 
-	<hr/><div class='toc-title toc-title-4'>statuses</div><br class="xooki-br"/><b>Tag:</b> statuses<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.statuses">Defines the list of available statuses.</span> <span class="since">since 1.4</span>
+	<hr/><div class='toc-title toc-title-4'>signers</div><br class="xooki-br"/><b>Tag:</b> signers<br class="xooki-br"/><span class="since">since 2.2</span>
+
+<span class="tagdoc" id="ivysettings.signers">Defines a list of detached signature generators usable in ivy. Each generator is identified by its name, given as an attribute.<br class="xooki-br"/>The child tags used to configure the signature generator must be equal to the name of a signature generator type (either built-in or added with the typedef tag).</span>
+
+Ivy supports the following signature generator out of the box: 
+<ul>
+<li>pgp</li> generates an OpenPGP compatible ASCII armored detached signature.
+</ul>
+
+
+<h1>Child elements</h1>
+<table class="ivy-children">
+<thead>
+    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
+</thead>
+<tbody>
+    <tr><td>any signature generator</td><td>adds a signature generator to the list of registered generators</td>
+        <td>1..n</td></tr>
+</tbody>
+</table>
+
+<h1>Built-in Generators</h1>
+
+<h2>PGP</h2>
+
+This generator is capable of generating an OpenPGP compatible ASCII armored detached signature.<br class="xooki-br"/><br class="xooki-br"/><b>Remark:</b> This generator uses the <a href="http://www.bouncycastle.org/java.html">BouncyCastle OpenPGP</a> library. Before this generator can be used, these libraries must be available on Ivy's classpath.<br class="xooki-br"/><br class="xooki-br"/>
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>name</td><td>The name of the signature generator.</td>
+        <td>Yes</td>
+    </tr>
+    <tr><td>secring</td><td>The location of the secret keyring.</td>
+        <td>No, defaults to ${user.home}/.gnupg/secring.gpg</td>
+    </tr>
+    <tr><td>keyId</td><td>The identifier of the key to use. The keyword 'auto' can be used to indicate a key will be selected automatically.</td>
+        <td>No, defaults to 'auto'.</td>
+    </tr>
+    <tr><td>password</td><td>The password of the private key.</td>
+        <td>Yes</td>
+    </tr>
+</tbody>
+</table>
+
+<h1>Examples</h1>
+<pre>
+&lt;signers&gt;<br class="xooki-br"/>    &lt;pgp name="mypgp" password="my-password" /&gt;<br class="xooki-br"/>&lt;/signers&gt;
+</pre>
+Defines a detached signature generator with name 'mypgp' which uses the secret key ring on the default location and automatically selects a private key.<br class="xooki-br"/><hr/>
+<pre>
+&lt;signers&gt;<br class="xooki-br"/>    &lt;pgp name="mypgp" password="my-password" keyId="123ABC45"/&gt;<br class="xooki-br"/>&lt;/signers&gt;
+</pre>
+Same as before, but this time the key '123ABC45' is used to generate the detached signature.<br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>statuses</div><br class="xooki-br"/><b>Tag:</b> statuses<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.statuses">Defines the list of available statuses.</span> <span class="since">since 1.4</span>
 
 By default, ivy has 3 statuses: release, milestone and integration. By adding a statuses section to your ivysettings file, you define the statuses you want to use. Note that in this case if you still want to have ivy default statuses you will have to declare them.<br class="xooki-br"/><br class="xooki-br"/>The integration property on each status is only used for recursive delivery, an integration dependency being delivered if the caller is not in integration state itself.<br class="xooki-br"/><br class="xooki-br"/>The default status is the one used when none is defined in a module descriptor. If not specified, it defaults to the last defined status.<br class="xooki-br"/><br class="xooki-br"/>The statuses order is important, the first is considered the more mature, the last the less mature. This is used to know if a status is compatible with a latest.<em>&lt;status&gt;</em> version matcher.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
