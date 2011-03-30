@@ -455,7 +455,7 @@
       How can I contribute to this FAQ?
     </p>
                   <p>The page you are looking it is generated from
-          <a href="http://svn.apache.org/repos/asf/ant/core/trunk/xdocs/faq.xml">this</a>
+          <a href="http://svn.apache.org/repos/asf/ant/site/ant/sources/faq.xml">this</a>
           document.  If you want to add a new question, please submit
           a patch against this document to one of Ant's mailing lists;
           hopefully, the structure is self-explanatory.</p>
@@ -468,18 +468,13 @@
         FAQ?
     </p>
                   <p>We use
-        <a href="http://jakarta.apache.org/velocity/anakia.html">Anakia</a>
+        <a href="http://velocity.apache.org/anakia/releases/anakia-1.0/">Anakia</a>
         to render the HTML version from the original XML file.</p>
                         <p>The Velocity stylesheets used to process the XML files can
-        be found in the <code>xdocs/stylesheets</code> subdirectory of
-        Ant's SVN repository - the build file
-        <code>docs.xml</code> at the top level of the ant SVN
-        module (trunk) is used to drive Anakia.</p>
-                        <p>To transform the xml into html, one needs velocity 1.4.
-        The command to run is :</p>
-                        <p>
-        <code>ant -Dvelocity.dir=[installation path of velocity] -f docs.xml</code>
-        </p>
+        be found in the <code>sources/stylesheets</code> subdirectory of
+        Ant's site SVN repository - the build file
+        <code>build.xml</code> at the top level of the ant site SVN
+        module is used to drive Anakia.</p>
                                 <p class="faq">
       <a name="what-is-ant"></a>
       What is Apache Ant?
@@ -901,11 +896,11 @@ Apache Ant version 1.6.2 compiled on July 16 2004
           <li>a License: entry containing the type of license for the
           tool/task</li>
         </ul>
-                        <p>The preferred format for this information is a patch to <a href="http://svn.apache.org/repos/asf/ant/core/trunk/xdocs/external.xml">this</a>
+                        <p>The preferred format for this information is a patch to <a href="http://svn.apache.org/repos/asf/ant/site/ant/sources/external.xml">this</a>
         document.</p>
                         <p>If you have written something bigger than a 'simple plugin' to Ant it
         may be better to add the link to <a href="projects.html">projects.html</a>.
-        The procedure to add it is the same. The file to patch is <a href="http://svn.apache.org/repos/asf/ant/core/trunk/xdocs/projects.xml">this</a>
+        The procedure to add it is the same. The file to patch is <a href="http://svn.apache.org/repos/asf/ant/site/ant/sources/projects.xml">this</a>
         document. The syntax of that file is the same.</p>
                     <p class="faq">
       <a name="create-extensions"></a>
