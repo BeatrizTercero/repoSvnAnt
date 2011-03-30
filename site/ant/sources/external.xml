@@ -121,6 +121,26 @@
         </table>
       </subsection>
 
+      <subsection name="ANT4DOCBOOK">
+        <p>These are tasks that allow users to generate html and pdf
+        files from docbook sources within Ant build scripts.</p>
+
+        <table class="externals">
+          <tr>
+            <th>Compatibility:</th>
+            <td>Ant 1.7 and later</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://ant4docbook.sourceforge.net/">http://ant4docbook.sourceforge.net/</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Apache License V2.0</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="ant4eclipse">
 
         <p>ant4eclipse provides a set of Ant tasks to make several
