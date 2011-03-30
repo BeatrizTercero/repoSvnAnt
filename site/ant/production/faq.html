@@ -1246,6 +1246,23 @@ shell-prompt&gt; m4 foo.m4 &gt; foo
 &lt;property name=&quot;foo&quot; value=&quot;foo.value&quot; /&gt;
 &lt;property name=&quot;var&quot; value=&quot;foo&quot; /&gt;
 &lt;echo&gt; ${${var}} = foo.value &lt;/echo&gt;</pre>
+                        <p>With <a href="http://code.google.com/p/flaka/">Flaka</a>
+         (external Ant Plugin) you could do the dereferencing with
+         <code>#{${anotherprop}}</code> - not just in flaka tasks, but
+         all tasks after installing flaka's property handler.</p>
+                        <pre class="code">
+&lt;project xmlns:fl=&quot;antlib:it.haefelinger.flaka&quot;&gt;
+  &lt;fl:install-property-handler/&gt;
+  &lt;property name=&quot;foo&quot; value=&quot;foo.value&quot;/&gt;
+  &lt;property name=&quot;var&quot; value=&quot;foo&quot; /&gt;
+  &lt;property name=&quot;buildtype&quot; value=&quot;test&quot;/&gt;
+  &lt;property name=&quot;appserv_test&quot; value=&quot;//testserver&quot;/&gt;
+  &lt;echo&gt;
+    #{${var}} = foo.value
+    &lt;!-- nested property --&gt;
+    #{appserv_${buildtype}}
+  &lt;/echo&gt;
+&lt;/project&gt;</pre>
                     <p class="faq">
       <a name="delete-directory-children-only"></a>
       How can I delete everything beneath a particular directory,

@@ -762,6 +762,25 @@ shell-prompt> m4 foo.m4 > foo
 <property name="foo" value="foo.value" />
 <property name="var" value="foo" />
 <echo> ${${var}} = foo.value </echo>]]></source>
+
+         <p>With <a href="http://code.google.com/p/flaka/">Flaka</a>
+         (external Ant Plugin) you could do the dereferencing with
+         <code>#{${anotherprop}}</code> - not just in flaka tasks, but
+         all tasks after installing flaka's property handler.</p>
+
+         <source><![CDATA[
+<project xmlns:fl="antlib:it.haefelinger.flaka">
+  <fl:install-property-handler/>
+  <property name="foo" value="foo.value"/>
+  <property name="var" value="foo" />
+  <property name="buildtype" value="test"/>
+  <property name="appserv_test" value="//testserver"/>
+  <echo>
+    #{${var}} = foo.value
+    <!-- nested property -->
+    #{appserv_${buildtype}}
+  </echo>
+</project>]]></source>
       </answer>
     </faq>
 
