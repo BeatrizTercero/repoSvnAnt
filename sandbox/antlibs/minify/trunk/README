@@ -17,3 +17,14 @@ Example Usage
     <include name="*.js"/>
   </fileset>
 </minify:yui.compressor>
+
+# Compressing css
+<minify:yui.compressor
+        verbose="false"
+        outputPath="${outputPath}"
+        linebreak="80"
+        type="css">
+  <fileset dir="${testscript.dir}">
+    <include name="*.css"/>
+  </fileset>
+</minify:yui.compressor>
