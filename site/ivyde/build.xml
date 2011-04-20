@@ -66,6 +66,10 @@
 
     <target name="generate-history" description="Generate the part of the website of a specific history version">
         <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
+
+        <!-- by default we use incremental mode, which checks if files require generation -->
+        <property name="checkUpToDate" value="true" />
+
         <init-external-history version="${history.version}" />
         <copy todir="${target.dir}/history/${history.version}" overwrite="true" >
             <fileset dir="${sources.dir}/history/${history.version}">
@@ -75,7 +79,7 @@
             </fileset>
         </copy>
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
-        <xooki:generate destDir="${target.dir}/history/${history.version}" checkUpToDate="false" xookidir="${site.root.dir}/xooki">
+        <xooki:generate destDir="${target.dir}/history/${history.version}" checkUpToDate="${checkUpToDate}" xookidir="${site.root.dir}/xooki">
             <fileset dir="${sources.dir}/history/${history.version}">
                 <include name="**/*.html"/>
                 <exclude name="**/template*.html"/>
