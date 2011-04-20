@@ -2380,7 +2380,59 @@ A simple repository configured to use the Felix OBR.<br class="xooki-br"/><hr />
 <pre>
 &lt;obr name="my-osgi-repo" repoXmlFile="${ivy.settings.dir}/obr/obr.xml" requirementStrategy="first" /&gt;
 </pre>
-A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>conflict-managers</div><br class="xooki-br"/><b>Tag:</b> conflict-managers<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.conflict-managers">Defines a list of <a href="../concept.html#conflict">conflicts managers</a> usable in Ivy.</span> Each conflict manager is identified by its name, given as an attribute.<br class="xooki-br"/>The child tag used for the conflict manager must be equal to a name of a conflict manager type (either built-in or added with the typedef tag).<br class="xooki-br"/><br class="xooki-br"/>Here is a list of built-in conflicts managers (which do not require anything in the configuration file):
+A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Mirrored Resolver</div>
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">mirroredurl</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes with http urls (and apache server) and with file urls, no with other urls</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
+
+<span class="since">since 2.3</span>
+
+<br/>
+<span class="tagdoc" id="ivysettings.resolvers.mirroredurl">This resolver can resolve dependencies against sevrail mirror of the same repository. From a list of mirror urls, it will iteratively try to resolve the dependencies against each one.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of standard resolvers.
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>m2compatible</td><td>True if this resolver should be maven2 compatible, false otherwise</td>
+        <td>No, defaults to false</td></tr>
+    <tr><td>mirrorListUrl</td><td>The url where to retrive the list of mirror urls.</td>
+        <td>Yes</td></tr>
+</tbody>
+</table>
+<h1>Child elements</h1>
+<table class="ivy-children">
+<thead>
+    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
+</thead>
+<tbody>
+    <tr><td>ivy</td><td>defines a pattern for ivy files, using the pattern attribute</td>
+        <td>0..n</td></tr>
+    <tr><td>artifact</td><td>defines a pattern for artifacts, using the pattern attribute</td>
+        <td>1..n</td></tr>
+</tbody>
+</table>
+
+<h1>Example</h1>
+
+Having the file mavenrepolist.txt content:
+<pre>
+<a href="http://repo1.maven.org/maven2/">http://repo1.maven.org/maven2/</a><br class="xooki-br"/><a href="http://repo2.maven.org/maven2/">http://repo2.maven.org/maven2/</a>
+</pre>
+And the piece of settings:
+<pre>
+&lt;mirroredurl name="mirrored-maven" m2compatible="true" mirrorListUrl="<a href="file:///Users/me/dev/repo/mavenrepolist.txt">file:///Users/me/dev/repo/mavenrepolist.txt</a>"&gt;<br class="xooki-br"/>      &lt;artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>&lt;/mirroredurl&gt;
+</pre>
+It will resolve first on the repo1 and if failing it will fall back on repo2.<br class="xooki-br"/><br class="xooki-br"/><hr />
+
+The mirror list can be retrieved from a geo-location aware url:
+<pre>
+&lt;mirroredurl name="mirrored-asf" mirrorListUrl="<a href="http://www.apache.org/dyn/closer.cgi">http://www.apache.org/dyn/closer.cgi</a>"&gt;<br class="xooki-br"/>  &lt;ivy pattern="repo/[organisation]/[module]/[revision]/ivy.xml" /&gt;<br class="xooki-br"/>  &lt;artifact pattern="repo/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>&lt;/mirroredurl&gt;
+</pre>
+<hr/><div class='toc-title toc-title-4'>conflict-managers</div><br class="xooki-br"/><b>Tag:</b> conflict-managers<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.conflict-managers">Defines a list of <a href="../concept.html#conflict">conflicts managers</a> usable in Ivy.</span> Each conflict manager is identified by its name, given as an attribute.<br class="xooki-br"/>The child tag used for the conflict manager must be equal to a name of a conflict manager type (either built-in or added with the typedef tag).<br class="xooki-br"/><br class="xooki-br"/>Here is a list of built-in conflicts managers (which do not require anything in the configuration file):
 <ul>
 <li>all</li> this conflicts manager resolve conflicts by selecting all revisions. Also called the NoConflictManager, it doesn't evict any modules.
 <li>latest-time</li> this conflict manager selects only the 'latest' revision, latest being defined as the latest in time. Note that latest in time is costly to compute, so prefer latest-revision if you can.

@@ -19,10 +19,11 @@
 -->
 <html>
 <head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
 	
 
-<title>File System resolver | Apache Ivy&#153;</title>
+<title>Mirrored Resolver | Apache Ivy&#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../style/style.css" />
   <script src="../js/jquery.pack.js" type="text/javascript"></script>
@@ -66,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/filesystem.html" class="current">File System resolver</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/mirrored.html" class="current">Mirrored Resolver</a></span>
 		</div>
 		</td>
 	</tr>
@@ -125,7 +126,7 @@
 <li id="xooki-settings/resolvers" class="submenu"><a href="../settings/resolvers.html" >resolvers</a><ul class="open"><li id="xooki-resolver/ivyrep"><a href="../resolver/ivyrep.html" >IvyRep Resolver</a></li>
 <li id="xooki-resolver/ibiblio"><a href="../resolver/ibiblio.html" >IBiblio Resolver</a></li>
 <li id="xooki-resolver/packager"><a href="../resolver/packager.html" >Packager resolver</a></li>
-<li id="xooki-resolver/filesystem"><a href="../resolver/filesystem.html" class="current">File System resolver</a></li>
+<li id="xooki-resolver/filesystem"><a href="../resolver/filesystem.html" >File System resolver</a></li>
 <li id="xooki-resolver/url"><a href="../resolver/url.html" >Url Resolver</a></li>
 <li id="xooki-resolver/chain"><a href="../resolver/chain.html" >Chain Resolver</a></li>
 <li id="xooki-resolver/dual"><a href="../resolver/dual.html" >Dual resolver</a></li>
@@ -133,7 +134,7 @@
 <li id="xooki-resolver/ssh"><a href="../resolver/ssh.html" >ssh resolver</a></li>
 <li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" >vfs</a></li>
 <li id="xooki-resolver/obr"><a href="../resolver/obr.html" >OSGi Bundle Repository</a></li>
-<li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" class="current">Mirrored Resolver</a></li>
 </ul></li>
 <li id="xooki-settings/conflict-managers"><a href="../settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-settings/modules" class="submenu"><a href="../settings/modules.html" >modules</a><ul class="closed"><li id="xooki-settings/module"><a href="../settings/module.html" >module</a></li>
@@ -229,44 +230,28 @@
 		<td valign="top">
 		<div id="main">
 
-		<h1 class="title">File System resolver</h1>
+		<h1 class="title">Mirrored Resolver</h1>
             
 <table class="resolver">
-<tr><td class="title">Tag</td><td class="value">filesystem</td></tr>
-<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
-<tr><td class="title">Handle publish</td><td class="value">yes</td></tr>
-</table><br/>
+<tr><td class="title">Tag</td><td class="value">mirroredurl</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes with http urls (and apache server) and with file urls, no with other urls</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
 
-<span class="tagdoc" id="ivysettings.resolvers.filesystem">This resolver uses the file system to resolve ivy files and artifacts.</span> An advantage of this resolver is that it usually provides very good performance. Moreover, it is easy to setup using basic OS file sharing mechanisms.<br class="xooki-br"/><br class="xooki-br"/>The configuration of such a resolver is mainly done through ivy and artifact patterns, indicating where ivy files and artifacts can be found in the file system. These patterns must be absolute paths (<span class="since">since 2.0</span>). You can indicate a list of patterns which will be checked one after the other.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.3</span> Using the m2compatible attribute, this resolver will convert dots found in organisation into slashes like maven2 does for groupId. For instance, it will transform the organisation from 'com.company' into 'com/company' when replacing the token [organisation] in your pattern.<br class="xooki-br"/><strong>Limitation</strong>: in m2compatible mode, this resolver is not able list available organizations. It means some features like <a href="../use/repreport.html">repreport</a> are not available.<br class="xooki-br"/><br class="xooki-br"/><h2>Atomic publish support</h2>
-<span class="since">since 2.0</span> This resolver supports atomic publish, which is useful for environments with a lot of concurrent publish and resolve actions. The atomic publish relies on the atomicity of the rename operation in the underlying filesystem (which includes NTFS and POSIX based filesystems).<br class="xooki-br"/>In this case the resolver starts by publishing the module according to the pattern, but where a '.part' suffix is appended to the revision. Then the publish is committed with a rename to the final location. <br class="xooki-br"/><br class="xooki-br"/><b>Limitations</b><br class="xooki-br"/>Atomic publish is currently limited in several ways:
-<ul>
-<li>you need to use a pattern for both the artifact and the ivy files which uses the revision as a directory. For instance "${repository.dir}/[module]/[revision]/[artifact].[ext]" works, "${repository.dir}/[module]/[artifact]-[revision].[ext]" doesn't</li>
-<li>both the artifact and ivy pattern should have the same prefix until the [revision] token.</li>
-<li>overwrite during publish is not supported</li>
-<li>you should not use revision names ending with '.part'</li>
-</ul>
+<span class="since">since 2.3</span>
 
-The <b>transactional</b> attribute can be used to configure the atomicity behavior:
-<ul>
-<li>auto</li> use transaction if possible (according to limitation), otherwise don't
-<li>true</li> always use transaction, fail the build if a limitation is not fulfilled
-<li>false</li> don't use transaction at all
-</ul>
-
-
-<h1>Attributes</h1>
+<br/>
+<span class="tagdoc" id="ivysettings.resolvers.mirroredurl">This resolver can resolve dependencies against sevrail mirror of the same repository. From a list of mirror urls, it will iteratively try to resolve the dependencies against each one.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of standard resolvers.
 <table class="ivy-attributes">
 <thead>
     <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
 </thead>
 <tbody>
-    <tr><td>m2compatible</td><td>True if this resolver should be maven2 compatible, false otherwise <span class="since">since 1.3</span></td>
+    <tr><td>m2compatible</td><td>True if this resolver should be maven2 compatible, false otherwise</td>
         <td>No, defaults to false</td></tr>
-    <tr><td>local</td><td>True if this resolver should be considered local, false otherwise <span class="since">since 1.4</span>. See useOrigin attribute on the <a href="../settings/caches.html">caches</a> element for details.</td>
-        <td>No, defaults to true</td></tr>
-    <tr><td>transactional</td><td>true to force the use of transaction, false to prevent the use of transaction, auto to get transaction when possible <span class="since">since 2.0</span>. See above for details.</td>
-        <td>No, defaults to auto</td></tr>
+    <tr><td>mirrorListUrl</td><td>The url where to retrive the list of mirror urls.</td>
+        <td>Yes</td></tr>
 </tbody>
 </table>
 <h1>Child elements</h1>
@@ -282,7 +267,23 @@ This resolver shares the <a href="../settings/resolvers.html#common">common attr
 </tbody>
 </table>
 
-	
+<h1>Example</h1>
+
+Having the file mavenrepolist.txt content:
+<pre>
+<a href="http://repo1.maven.org/maven2/">http://repo1.maven.org/maven2/</a><br class="xooki-br"/><a href="http://repo2.maven.org/maven2/">http://repo2.maven.org/maven2/</a>
+</pre>
+And the piece of settings:
+<pre>
+&lt;mirroredurl name="mirrored-maven" m2compatible="true" mirrorListUrl="<a href="file:///Users/me/dev/repo/mavenrepolist.txt">file:///Users/me/dev/repo/mavenrepolist.txt</a>"&gt;<br class="xooki-br"/>      &lt;artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>&lt;/mirroredurl&gt;
+</pre>
+It will resolve first on the repo1 and if failing it will fall back on repo2.<br class="xooki-br"/><br class="xooki-br"/><hr />
+
+The mirror list can be retrieved from a geo-location aware url:
+<pre>
+&lt;mirroredurl name="mirrored-asf" mirrorListUrl="<a href="http://www.apache.org/dyn/closer.cgi">http://www.apache.org/dyn/closer.cgi</a>"&gt;<br class="xooki-br"/>  &lt;ivy pattern="repo/[organisation]/[module]/[revision]/ivy.xml" /&gt;<br class="xooki-br"/>  &lt;artifact pattern="repo/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>&lt;/mirroredurl&gt;
+</pre>
+
  		</div><!-- main -->
 		</td>
 	</tr>
