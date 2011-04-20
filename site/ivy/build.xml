@@ -78,6 +78,7 @@
     </target>
 
     <target name="generate-history" description="Generate the part of the website of a specific history version">
+        <fail unless="history.version" message="missing property history.version" />
         <init-external-history version="${history.version}" />
         <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
         <copy todir="${target.dir}/history/${history.version}" overwrite="true" >
