@@ -315,6 +315,7 @@
         <!-- get the list of exiting IvyDE Eclipse features -->
         <fileset id="ivyde.feature.jars" dir="${updatesite.dir}/features">
             <include name="org.apache.ivyde.feature_*.jar" />
+            <include name="org.apache.ivyde.eclipse.resolvevisualizer.feature_*.jar" />
         </fileset>
         <!-- generate the entry for IvyDE -->
         <generate-site-entries filesetid="ivyde.feature.jars" category="ivyde" />
