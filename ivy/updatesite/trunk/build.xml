@@ -23,6 +23,7 @@
 
     <property name="work.dir" value="${basedir}/work" />
     <property name="updatesite.dir" value="${basedir}/dist" />
+    <property name="p2repository.dir" value="${work.dir}/p2repo" />
 
     <target name="clean">
         <delete dir="${work.dir}" />
@@ -488,6 +489,25 @@
             </condition>
         </fail>
         <echo message="SHA Checksum verify passed successfully" />
+    </target>
+
+    <!-- 
+        ===================================================================================================================
+        Targets to build a P2 repository
+        ===================================================================================================================    
+      -->
+
+    <target name="build-p2" depends="eclipse-classpath">
+        <java jar="${eclipse.classpath}" fork="true" failonerror="true">
+            <arg value="-consolelog" />
+            <arg line="-application org.eclipse.equinox.p2.publisher.UpdateSitePublisher" />
+            <arg line="-source" />
+            <arg path="${updatesite.dir}" />
+            <arg line="-metadataRepository" />
+            <arg line="file://${p2repository.dir}" />
+            <arg line="-artifactRepository" />
+            <arg line="file://${p2repository.dir}" />
+        </java>
     </target>
 
     <!-- 
