@@ -586,24 +586,6 @@
         </table>
       </subsection>
 
-      <subsection name="Short tutorial in Cactus&apos; (formerly J2EEUnit)
-      documentation">
-        <p>There is a short tutorial on how to use Ant in Cactus&apos;
-        documentation.  It has a slant towards build files that will be used
-        with Cactus.</p>
-
-        <table class="externals">
-          <tr>
-            <th>Author:</th>
-            <td>Cactus development team</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://jakarta.apache.org/cactus/howto_ant_primer.html">http://jakarta.apache.org/cactus/howto_ant_primer.html</a></td>
-          </tr>
-        </table>
-      </subsection>
-
       <subsection name="Developing custom Ant tasks with VisualAge for Java">
         <p>This article outlines how to integrate Ant into VisualAge for Java,
         and how to write and debug custom tasks using the IDE and the
