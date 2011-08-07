@@ -363,6 +363,10 @@
           program "...":CreateProcess error=2"</code> on
         Windows.
       </a></li>
+                <li><a href="#filtertrace-more">
+  My <code>&lt;junit&gt;</code> reports are missing the first line
+        containing the failure message.
+      </a></li>
             </ul>
                 <h4 class="toc">Apache Ant and IDEs/Editors</h4>
         <ul>
@@ -1527,6 +1531,22 @@ shell-prompt&gt; m4 foo.m4 &gt; foo
           (<code>set PATH=%PATH%;dirOfProgram</code>) or specify the
           absolute path in the <code>executable</code> attribute in
           your buildfile.</p>
+                    <p class="faq">
+      <a name="filtertrace-more"></a>
+      My <code>&lt;junit&gt;</code> reports are missing the first line
+        containing the failure message.
+    </p>
+                  <p>Starting with Ant 1.8.0 the text " more" has been added to
+          the set of lines that will be filtered out from stacktraces
+          if the <code>filtertrace</code> attribute has been set.  The
+          intention is to suppress the "24 more ..." line at the
+          bottom of the trace.</p>
+                        <p>If the failure message contains the word "more" the line
+          containing the message will be removed as well.  This is
+          supposed to be fixed in Ant 1.8.3 once it is released.</p>
+                        <p>The only existing work-arounds are to
+          disable <code>filtertrace</code> or change the failure
+          message to not contain the word "more".</p>
                                 <p class="faq">
       <a name="integration"></a>
       Is Apache Ant supported by my IDE/Editor?

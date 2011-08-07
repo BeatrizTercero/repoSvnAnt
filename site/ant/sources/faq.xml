@@ -1108,6 +1108,27 @@ shell-prompt> m4 foo.m4 > foo
           your buildfile.</p>
       </answer>
     </faq>
+
+    <faq id="filtertrace-more">
+      <question>My <code>&lt;junit&gt;</code> reports are missing the first line
+        containing the failure message.</question>
+      <answer>
+
+        <p>Starting with Ant 1.8.0 the text " more" has been added to
+          the set of lines that will be filtered out from stacktraces
+          if the <code>filtertrace</code> attribute has been set.  The
+          intention is to suppress the "24 more ..." line at the
+          bottom of the trace.</p>
+
+        <p>If the failure message contains the word "more" the line
+          containing the message will be removed as well.  This is
+          supposed to be fixed in Ant 1.8.3 once it is released.</p>
+
+        <p>The only existing work-arounds are to
+          disable <code>filtertrace</code> or change the failure
+          message to not contain the word "more".</p>
+      </answer>
+    </faq>
   </faqsection>
 
   <faqsection title="Apache Ant and IDEs/Editors">
