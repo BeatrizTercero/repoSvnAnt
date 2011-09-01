@@ -22,7 +22,7 @@
 	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
 	
 
-<title>modules | Apache Ivy&#153;</title>
+<title>Eclipse updatesite | Apache Ivy&#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../style/style.css" />
   <script src="../js/jquery.pack.js" type="text/javascript"></script>
@@ -66,7 +66,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/modules.html" class="current">modules</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/updatesite.html" class="current">Eclipse updatesite</a></span>
 		</div>
 		</td>
 	</tr>
@@ -122,7 +122,7 @@
 </ul></li>
 <li id="xooki-settings/macrodef" class="submenu"><a href="../settings/macrodef.html" >macrodef</a><ul class="closed"><li id="xooki-settings/macrodef/attribute"><a href="../settings/macrodef/attribute.html" >attribute</a></li>
 </ul></li>
-<li id="xooki-settings/resolvers" class="submenu"><a href="../settings/resolvers.html" >resolvers</a><ul class="closed"><li id="xooki-resolver/ivyrep"><a href="../resolver/ivyrep.html" >IvyRep Resolver</a></li>
+<li id="xooki-settings/resolvers" class="submenu"><a href="../settings/resolvers.html" >resolvers</a><ul class="open"><li id="xooki-resolver/ivyrep"><a href="../resolver/ivyrep.html" >IvyRep Resolver</a></li>
 <li id="xooki-resolver/ibiblio"><a href="../resolver/ibiblio.html" >IBiblio Resolver</a></li>
 <li id="xooki-resolver/packager"><a href="../resolver/packager.html" >Packager resolver</a></li>
 <li id="xooki-resolver/filesystem"><a href="../resolver/filesystem.html" >File System resolver</a></li>
@@ -133,11 +133,11 @@
 <li id="xooki-resolver/ssh"><a href="../resolver/ssh.html" >ssh resolver</a></li>
 <li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" >vfs</a></li>
 <li id="xooki-resolver/obr"><a href="../resolver/obr.html" >OSGi Bundle Repository</a></li>
-<li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" >Eclipse updatesite</a></li>
+<li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" class="current">Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
 </ul></li>
 <li id="xooki-settings/conflict-managers"><a href="../settings/conflict-managers.html" >conflict-managers</a></li>
-<li id="xooki-settings/modules" class="submenu"><a href="../settings/modules.html" class="current">modules</a><ul class="open"><li id="xooki-settings/module"><a href="../settings/module.html" >module</a></li>
+<li id="xooki-settings/modules" class="submenu"><a href="../settings/modules.html" >modules</a><ul class="closed"><li id="xooki-settings/module"><a href="../settings/module.html" >module</a></li>
 </ul></li>
 <li id="xooki-settings/outputters"><a href="../settings/outputters.html" >outputters</a></li>
 <li id="xooki-settings/signers"><a href="../settings/signers.html" >signers</a></li>
@@ -230,21 +230,45 @@
 		<td valign="top">
 		<div id="main">
 
-		<h1 class="title">modules</h1>
-            <br class="xooki-br"/><b>Tag:</b> modules<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.modules">Defines per module or module set settings.</span>
+		<h1 class="title">Eclipse updatesite</h1>
+            
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">updatesite</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
 
-The rules are given by defining a module set, using a pattern for module organisation and name, and giving some settings for the set, like the name of the corresponding resolver to use.<br class="xooki-br"/><br class="xooki-br"/>If no rules match a given module, the default setting will be used.<br class="xooki-br"/><br class="xooki-br"/>Note: You can greatly improve the performance of dependency resolution by configuring multiple smaller resolvers instead of one large resolver (i.e. chain). For instance, if you have a local repository for your modules and a remote repository for third party libraries, it is a good idea to have two separate resolvers, one for all of your modules and another for the rest (the default one).<br class="xooki-br"/><br class="xooki-br"/><h1>Child elements</h1>
-<table class="ivy-children">
+<span class="since">since 2.3</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.updatesite">This resolver is one of the resolver which supports <a href="../osgi.html">OSGi&#153;</a> dependencies.<br class="xooki-br"/>It resolves modules (OSGi bundles) which are hosted in an Eclipse&#153; update site.<br class="xooki-br"/><br class="xooki-br"/>This resolver supports old style Eclipse updatesite, based on simply a site.xml. It also supports Eclipse P2 repositories.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of composite resolvers.
+<table class="ivy-attributes">
 <thead>
-    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
 </thead>
 <tbody>
-    <tr><td><a href="../settings/module.html">module</a></td><td>defines a module set rule</td>
-        <td>1..n</td></tr>
+    <tr><td>url</td><td>the URL of the Eclipse updatesite</td>
+        <td>Yes</td></tr>
+    <tr><td>requirementStrategy</td><td>defines how strict should be the OSGi resolution. Can be one of <tt>first</tt> or <tt>noambiguity</tt></td>
+        <td>No, default to <tt>noambiguity</tt></td></tr>
+    <tr><td>metadataTtl</td><td>the time in milliseconds the updatesite metadata are considered up to date</td>
+        <td>No, default to 3600000 (1 hour)</td></tr>
+    <tr><td>forceMetadataUpdate</td><td>force the update of the updatesite metadata without checking their freshness</td>
+        <td>No, default to false</td></tr>
 </tbody>
 </table>
 
-	
+The requirement strategy is defining how the resolver should behave in front of several choices. In the OSGi dependency model, an <tt>Import-Package</tt> requirement can be satisfied by several different bundles. So when resolving such requirement, Ivy will first look into the already resolved bundles if one provides that package. If it fails to find one, then two behaviours can occur:
+<ul>
+<li>if the requirement strategy is <tt>first</tt>, among the bundles statifying the requirement, it will shoose the first one. A warn will be logged ahout the choice Ivy has to arbitrarily do.</li>
+<li>if the requirement strategy is <tt>noambiguity</tt>, Ivy will make the resolution fail.</li>
+</ul>
+
+<h1>Examples</h1>
+<pre>
+&lt;updatesite name="ivyde-updatesite" url="<a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a>" /&gt;
+</pre>
+A simple repository configured to load the Apache IvyDE Eclipse update site.<br class="xooki-br"/>	
  		</div><!-- main -->
 		</td>
 	</tr>

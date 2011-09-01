@@ -133,6 +133,7 @@
 <li id="xooki-resolver/ssh"><a href="../resolver/ssh.html" >ssh resolver</a></li>
 <li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" >vfs</a></li>
 <li id="xooki-resolver/obr"><a href="../resolver/obr.html" class="current">OSGi Bundle Repository</a></li>
+<li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
 </ul></li>
 <li id="xooki-settings/conflict-managers"><a href="../settings/conflict-managers.html" >conflict-managers</a></li>
@@ -252,6 +253,10 @@ This resolver shares the <a href="../settings/resolvers.html#common">common attr
         <td>Yes</td></tr>
     <tr><td>requirementStrategy</td><td>defines how strict should be the OSGi resolution. Can be one of <tt>first</tt> or <tt>noambiguity</tt></td>
         <td>No, default to <tt>noambiguity</tt></td></tr>
+    <tr><td>metadataTtl</td><td>the time in milliseconds the obr.xml is considered up to date</td>
+        <td>No, default to 3600000 (1 hour)</td></tr>
+    <tr><td>forceMetadataUpdate</td><td>force the update of the obr.xml without checking its freshness</td>
+        <td>No, default to false</td></tr>
 </tbody>
 </table>
 

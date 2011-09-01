@@ -695,7 +695,7 @@ A dependency resolver is a pluggable class in ivy which is used to:
 <li>find dependencies' ivy files</li>
 <li>download dependencies' artifacts</li>
 </ul>
-The notion of artifact "downloading" is large: an artifact can be on a web site, or on the local file system of your machine. The download is thus the act of bring a file from a repository to the ivy cache.<br class="xooki-br"/><br class="xooki-br"/>Moreover, the fact that it is the responsibility of the resolver to find ivy files and download artifacts helps to implement various resolving strategies.<br class="xooki-br"/><br class="xooki-br"/>As you see, a dependency resolver can be thought of as a class responsible for describing a repository.<br class="xooki-br"/><br class="xooki-br"/>If you want to see which resolvers are available in ivy, you can go to the corresponding <a href="configuration/resolvers.html">configuration section</a>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="configurations">Module configurations explained</a></h1>
+The notion of artifact "downloading" is large: an artifact can be on a web site, or on the local file system of your machine. The download is thus the act of bring a file from a repository to the ivy cache.<br class="xooki-br"/><br class="xooki-br"/>Moreover, the fact that it is the responsibility of the resolver to find ivy files and download artifacts helps to implement various resolving strategies.<br class="xooki-br"/><br class="xooki-br"/>As you see, a dependency resolver can be thought of as a class responsible for describing a repository.<br class="xooki-br"/><br class="xooki-br"/>If you want to see which resolvers are available in ivy, you can go to the <a href="settings/resolvers.html">resolvers configuration page</a>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="configurations">Module configurations explained</a></h1>
 Module configurations are described in the terminology page as <em>a way to use or construct a module</em>. Configurations being a central part of Ivy, they need more explanations as a concept.<br class="xooki-br"/><br/>
 When you define a way to use or construct a module, you are able to define which artifacts are published by this module in this configuration, and you are also able to define which dependencies are needed in this configuration.<br class="xooki-br"/><br class="xooki-br"/>Moreover, because dependencies in ivy are expressed on modules and not on artifacts, it is important to be able to define which configurations of the dependency are required in the configuration you define of your module. That's what is called <strong>configuration mapping</strong>.<br class="xooki-br"/><br class="xooki-br"/>If you use only simple modules and do not want to worry about configurations, you don't have to worry about them. They're still there under the hood because ivy can't work without configurations. But most of the time if you declare nothing, ivy assumes that the artifacts of your module are published in all configurations, and that all the dependencies' configurations are required in all configurations. And it works in simple cases. But whenever you want to separate things within a module, or get more control over things published and get better dependencies resolution, configurations will meet most of your needs.<br class="xooki-br"/><br class="xooki-br"/>For details on how to declare your module configurations, how to declare in which configuration your artifacts are published, and how to declare configuration mapping, please refer to <a href="ivyfile.html">ivy file documentation</a>. The <a href="tutorial/conf.html">configurations tutorial</a> is also a good place to go to learn more about this concept.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="variables"></a>Variables</h1>
 During configuration, ivy allows you to define what are called ivy variables. Ivy variables can be seen as ant properties, and are used in a very similar way. In particular, you use a properties tag in the configuration file to load a properties file containing ivy variables and their values.<br class="xooki-br"/><br class="xooki-br"/>But the main differences between ant properties and ivy variables are that ivy variables can be overridden, whereas ant <br class="xooki-br"/>properties can't, and that they are defined in separate environments.<br class="xooki-br"/><br class="xooki-br"/>Actually all ant properties are imported into ivy variables when the configuration is done (if you call ivy from ant). <br class="xooki-br"/>This means that if you define an ant property after the call to configure, it will not be available as an ivy variable.<br class="xooki-br"/>On the other hand, ivy variables are NOT exported to ant, thus if you define ivy variables in ivy, do not try to use them as ant properties.<br class="xooki-br"/><br class="xooki-br"/>To use ivy variables, you just have to follow the same syntax as for ant properties:<br class="xooki-br"/>${<i>variablename</i>}<br class="xooki-br"/>where <i>variablename</i> is the name of the variable.<br class="xooki-br"/><br class="xooki-br"/>Finally, it's also important to be aware of the time of substitution of variables. This substitution is done as soon as possible. This means that when ivy encounters a reference to a variable, it tries to substitute it if such a variable is defined. Consequently, <strong>any later modification of the variable will not alter the value already substituted</strong>.<br class="xooki-br"/><br class="xooki-br"/>Moreover, in an ant environment, a bunch of variables are going to be set by default via the ant property file loading mechanism (actually they are first loaded as ant properties and then imported as ivy variables, see <a href="ant.html">Ant Tasks</a>), and even in the ant properties themselves there is going to be eager substitution on loading, effectively making it impossible to override some variable purely via the ivysettings.properties file. Some variables will really only be able to be overridden via ant properties because of this.<br class="xooki-br"/><br class="xooki-br"/>Moreover, it's also important to understand the difference between ivy variables and ivy pattern tokens. <br class="xooki-br"/>See the Patterns chapter below for what pattern tokens are.<br class="xooki-br"/><h1><a name="patterns"></a>Patterns</h1>
@@ -723,8 +723,8 @@ Ivy often needs to know which revision between two is considered the "latest". T
 <li>latest-lexico</li> This compares the revisions as strings, using lexicographic order (the one used by the Java string comparison).
 </ul>
 
-See also how to configure new latest strategies <a href="configuration/latest-strategies.html">here</a>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="conflict">Conflict Manager</a></h1>
-A conflict manager is able to select, among a list of module revisions in conflict, a list of revisions to keep.<br class="xooki-br"/>Yes, it can select a list of revisions, even if most conflict managers select only one revision.<br class="xooki-br"/>But in some cases you will need to keep several revisions, and load in separate class loaders, for example.<br class="xooki-br"/><br class="xooki-br"/>A list of revisions is said to be in conflict if they correspond to the same module, i.e. the same organisation/module name couple.<br class="xooki-br"/><br class="xooki-br"/>The list of available conflict managers is available on the <a href="configuration/conflict-managers.html">conflict manager configuration page</a>.<br class="xooki-br"/><br class="xooki-br"/>For more details on how to setup your conflict managers by module, see the <a href="ivyfile/conflicts.html">conflicts</a> section in the ivy file reference.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="matcher">Pattern matcher</a></h1>
+See also how to configure new latest strategies <a href="settings/latest-strategies.html">here</a>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="conflict">Conflict Manager</a></h1>
+A conflict manager is able to select, among a list of module revisions in conflict, a list of revisions to keep.<br class="xooki-br"/>Yes, it can select a list of revisions, even if most conflict managers select only one revision.<br class="xooki-br"/>But in some cases you will need to keep several revisions, and load in separate class loaders, for example.<br class="xooki-br"/><br class="xooki-br"/>A list of revisions is said to be in conflict if they correspond to the same module, i.e. the same organisation/module name couple.<br class="xooki-br"/><br class="xooki-br"/>The list of available conflict managers is available on the <a href="settings/conflict-managers.html">conflict manager configuration page</a>.<br class="xooki-br"/><br class="xooki-br"/>For more details on how to setup your conflict managers by module, see the <a href="ivyfile/conflicts.html">conflicts</a> section in the ivy file reference.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="matcher">Pattern matcher</a></h1>
 <span class="since">since 1.3</span>
 In several places Ivy uses a pattern to match a set of objects. For instance, you can exclude several modules at once when declaring a dependency by using a pattern matching all the modules to exclude.<br class="xooki-br"/><br class="xooki-br"/>Ivy uses a pluggable pattern matcher to match those object names. 3 are defined by default:
 <ul>
@@ -748,11 +748,11 @@ And you can define your repository pattern as:
 ${repository.dir}/[organisation]/[module]/[color]/[revision]/[artifact].[ext]
 </pre>
 
-Note that in patterns you must use the unqualified attribute name (no namespace prefix).<br class="xooki-br"/><br class="xooki-br"/>If you don't want to use xml namespaces, it's possible but you will need to disable ivy file validation, since your files won't fulffill anymore the official ivy xsd. See the <a href="configuration/conf.html">settings documentation</a> to see how to disable validation.<br class="xooki-br"/><h1><a name="checksum">Checksums</a></h1>
+Note that in patterns you must use the unqualified attribute name (no namespace prefix).<br class="xooki-br"/><br class="xooki-br"/>If you don't want to use xml namespaces, it's possible but you will need to disable ivy file validation, since your files won't fulffill anymore the official ivy xsd. See the <a href="settings/settings.html">settings documentation</a> to see how to disable validation.<br class="xooki-br"/><h1><a name="checksum">Checksums</a></h1>
 <span class="since">since 1.4</span>
 Ivy allows the use of checksums, also known as digests, to verify the correctness of a downloaded file.<br class="xooki-br"/><br class="xooki-br"/>For the moment Ivy supports the md5 and sha1 algorithms.<br class="xooki-br"/><br class="xooki-br"/>The configuration of using md5 and/or sha1 can be done globally or by dependency resolver.<br class="xooki-br"/>Globally, use the ivy.checksums variable to list the check to be done (only md5 and sha1 are supported).<br class="xooki-br"/>On each resolver you can use the checksums attribute to override the global setting.<br class="xooki-br"/><br class="xooki-br"/>The setting is a comma separated list of checksum algorithms to use.<br class="xooki-br"/>During checking (at download time), the first checksum found is checked, and that's all. This means that if you have a "sha1, md5" setting, then if ivy finds a sha1 file, it will compare the downloaded file sha1 against this sha1, and if the comparison is ok, it will assume the file is ok. If no sha1 file is found, it will look for an md5 file. If none is found no checking is done.<br class="xooki-br"/>During publish, all listed checksum algorithms are computed and uploaded.<br class="xooki-br"/><br class="xooki-br"/>By default checksum algorithms are "sha1, md5".<br class="xooki-br"/><br class="xooki-br"/>If you want to change this default, you can set the variable ivy.checksums. Hence, to disable checksum validation you just have to set ivy.checksums to "".<br class="xooki-br"/><br class="xooki-br"/><h1><a name="event">Events and Triggers</a></h1>
 <span class="since">since 1.4</span>
-When Ivy performs the dependency resolution and some other tasks, it fires events before and after the most important steps. You can listen to these events using Ivy API, or you can even register a trigger to perform a particular action when a particular event occur.<br class="xooki-br"/><br class="xooki-br"/>This is a particularly powerful and flexible feature which allows, for example, you to perform a build of a dependency just before it is resolved, or follow what's happening during the dependency resolution process accuratly, and so on.<br class="xooki-br"/><br class="xooki-br"/>For more details about events and triggers, see the <a href="configuration/triggers.html">triggers</a> documentation page in the configuration section of this documentation.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="circular">Circular Dependencies</a></h1>
+When Ivy performs the dependency resolution and some other tasks, it fires events before and after the most important steps. You can listen to these events using Ivy API, or you can even register a trigger to perform a particular action when a particular event occur.<br class="xooki-br"/><br class="xooki-br"/>This is a particularly powerful and flexible feature which allows, for example, you to perform a build of a dependency just before it is resolved, or follow what's happening during the dependency resolution process accuratly, and so on.<br class="xooki-br"/><br class="xooki-br"/>For more details about events and triggers, see the <a href="settings/triggers.html">triggers</a> documentation page in the configuration section of this documentation.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="circular">Circular Dependencies</a></h1>
 <span class="since">since 1.4</span>
 Circular dependencies can be either direct or indirect. For instance, if A depends on A, it's a circular dependency, and if A depends on B which itself depends on A, this is also a circular dependency.<br class="xooki-br"/><br class="xooki-br"/>Prior to Ivy 1.4 circular dependencies where causing a failure in Ivy. As of Ivy 1.4, the behaviour of Ivy when it finds a circular dependency is configurable through a circular dependency strategy.<br class="xooki-br"/><br class="xooki-br"/>3 built-in strategies are available:
 <ul>
@@ -761,7 +761,7 @@ Circular dependencies can be either direct or indirect. For instance, if A depen
 <li>error</li> halt the dependency resolution when a circular dependency is found
 </ul>
 
-See the <a href="configuration/conf.html">configuration page</a> to see how to configure the circular dependency strategy you want to use.<br class="xooki-br"/><br class="xooki-br"/><h1>Cache and Change Management</h1>
+See the <a href="settings/settings.html">configuration page</a> to see how to configure the circular dependency strategy you want to use.<br class="xooki-br"/><br class="xooki-br"/><h1>Cache and Change Management</h1>
 Ivy heavily relies on local caching to avoid accessing remote repositories too often, thus saving a lot of network bandwidth and time. <br class="xooki-br"/><br class="xooki-br"/><h2><a name="cache">Cache types</a></h2>
 An Ivy cache is composed of two different parts:
 <ul>
@@ -852,7 +852,7 @@ As you can see, using text conventions is much more concise. <br class="xooki-br
 <hr/><div class='toc-title toc-title-4'>How does it work ?</div><br class="xooki-br"/>Now that you have been introduced to the main ivy terminology and concepts, it is time to give some explanation of how ivy works.<br class="xooki-br"/><br class="xooki-br"/><h1>Usual cycle of modules between different locations</h1>
 <center><img src="images/main-tasks.png" /></center>
 More details on ant tasks <a href="ant.html">here</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Configure</h1>
-Ivy needs to be configured to be able to resolve your dependencies. This configuration is usually done with a settings file, which defines a set of dependency resolvers. Each resolver is able to find ivy files and/or artifacts, given simple information such as organisation, module, revision, artifact name, artifact type and artifact extension. <br class="xooki-br"/><br class="xooki-br"/>The configuration is also responsible for indicating which resolver should be used to resolve which module. This configuration is dependent only on your environment, i.e. where the modules and artifacts can be found. <br class="xooki-br"/><br class="xooki-br"/>A default configuration is used by ivy when none is given. This configuration uses ivyrep to resolve all modules.<br class="xooki-br"/><h1>Resolve</h1>
+Ivy needs to be configured to be able to resolve your dependencies. This configuration is usually done with a settings file, which defines a set of dependency resolvers. Each resolver is able to find ivy files and/or artifacts, given simple information such as organisation, module, revision, artifact name, artifact type and artifact extension. <br class="xooki-br"/><br class="xooki-br"/>The configuration is also responsible for indicating which resolver should be used to resolve which module. This configuration is dependent only on your environment, i.e. where the modules and artifacts can be found. <br class="xooki-br"/><br class="xooki-br"/>A default configuration is used by ivy when none is given. This configuration uses an <a href="resolver/ibiblio.html">ibiblio resolver</a> pointing to <a href="http://repo1.maven.org/maven2/">http://repo1.maven.org/maven2/</a> to resolve all modules.<br class="xooki-br"/><h1>Resolve</h1>
 The resolve time is the moment when ivy actually resolves the dependencies of one module. It first needs to access the ivy file of the module for which it resolves the dependencies. <br class="xooki-br"/><br class="xooki-br"/>Then, for each dependency declared in this file, it asks the appropriate resolver (according to settings) to find the module (i.e. either an ivy file for it, or its artifacts if no ivy file can be found). It also uses a filesystem based cache to avoid asking for a dependency if it is already in cache (at least if possible, which is not the case with latest revisions).<br class="xooki-br"/><br class="xooki-br"/>If the resolver is a composite one (i.e. a chain or a dual resolver), several resolvers may actually be called to find the module.<br class="xooki-br"/><br class="xooki-br"/>When the dependency module has been found, its ivy file is downloaded to the ivy cache. Then ivy checks if the dependency module has dependencies, in which case it recursilvely traverses the graph of dependencies. <br class="xooki-br"/><br class="xooki-br"/>All over this traversal, conflict management is done to prevent access to a module as soon as possible.<br class="xooki-br"/><br class="xooki-br"/>When ivy has traversed the whole graph, it asks the resolvers to download the artifacts corresponding to each of the dependencies which are not already in the cache and which have not been evicted by conflict managers. All downloads are made to the ivy cache.<br class="xooki-br"/><br class="xooki-br"/>Finally, an xml report is generated in the cache, which allows ivy to easily know what are all the dependencies of a module, without traversing the graph again.<br class="xooki-br"/><br class="xooki-br"/>After this resolve step, two main steps are possible: either build a path with artifacts in the cache, or copy them to another directory structure.<br class="xooki-br"/><br class="xooki-br"/><h1>Retrieve</h1>
 What is called retrieve in ivy is the act of copying artifacts from the cache to another directory structure. This is done using a pattern, which indicates to ivy where the files should be copied.<br class="xooki-br"/><br class="xooki-br"/>For this, ivy uses the xml report in the cache corresponding to the module it should retrieve to know which artifacts should be copied.<br class="xooki-br"/><br class="xooki-br"/>It also checks if the files are not already copied to maximize performances.<br class="xooki-br"/><h1>Building a path from the cache</h1>
 In some cases, it is preferable to use artifacts directly from the cache. Ivy is able to use the xml report generated at resolve time to build a path of all artifacts required.<br class="xooki-br"/><br class="xooki-br"/>This can be particularly useful when building plug-ins for IDEs.<br class="xooki-br"/><br class="xooki-br"/><h1>Reports</h1>
@@ -1576,6 +1576,8 @@ Ivy comes with a set of built-in dependency resolvers that handle most common ne
 <tr><td><a href="../resolver/sftp.html">sftp</a></td><td>Standard</td><td>Finds ivy files and artifacts in any repository accessible with sftp.</td></tr>
 <tr><td><a href="../resolver/chain.html">Chain</a></td><td>Composite</td><td>Delegates the finding to a chain of sub resolvers.</td></tr>
 <tr><td><a href="../resolver/dual.html">Dual</a></td><td>Composite</td><td>Delegates the finding of ivy files to one resolver and of artifacts to another.</td></tr>
+<tr><td><a href="../resolver/obr.html">OBR</a></td><td>Standard</td><td>Resolve modules as OSGi bundles listed by an OSGi obr.xml.</td></tr>
+<tr><td><a href="../resolver/updatesite.html">Eclipse updatesite</a></td><td>Standard</td><td>Resolve modules as OSGi bundles which are hosted on an Eclipse update site.</td></tr>
 </tbody>
 </table>
 
@@ -2363,6 +2365,10 @@ This resolver shares the <a href="../settings/resolvers.html#common">common attr
         <td>Yes</td></tr>
     <tr><td>requirementStrategy</td><td>defines how strict should be the OSGi resolution. Can be one of <tt>first</tt> or <tt>noambiguity</tt></td>
         <td>No, default to <tt>noambiguity</tt></td></tr>
+    <tr><td>metadataTtl</td><td>the time in milliseconds the obr.xml is considered up to date</td>
+        <td>No, default to 3600000 (1 hour)</td></tr>
+    <tr><td>forceMetadataUpdate</td><td>force the update of the obr.xml without checking its freshness</td>
+        <td>No, default to false</td></tr>
 </tbody>
 </table>
 
@@ -2380,7 +2386,44 @@ A simple repository configured to use the Felix OBR.<br class="xooki-br"/><hr />
 <pre>
 &lt;obr name="my-osgi-repo" repoXmlFile="${ivy.settings.dir}/obr/obr.xml" requirementStrategy="first" /&gt;
 </pre>
-A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Mirrored Resolver</div>
+A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Eclipse updatesite</div>
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">updatesite</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
+
+<span class="since">since 2.3</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.updatesite">This resolver is one of the resolver which supports <a href="../osgi.html">OSGi&#153;</a> dependencies.<br class="xooki-br"/>It resolves modules (OSGi bundles) which are hosted in an Eclipse&#153; update site.<br class="xooki-br"/><br class="xooki-br"/>This resolver supports old style Eclipse updatesite, based on simply a site.xml. It also supports Eclipse P2 repositories.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of composite resolvers.
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>url</td><td>the URL of the Eclipse updatesite</td>
+        <td>Yes</td></tr>
+    <tr><td>requirementStrategy</td><td>defines how strict should be the OSGi resolution. Can be one of <tt>first</tt> or <tt>noambiguity</tt></td>
+        <td>No, default to <tt>noambiguity</tt></td></tr>
+    <tr><td>metadataTtl</td><td>the time in milliseconds the updatesite metadata are considered up to date</td>
+        <td>No, default to 3600000 (1 hour)</td></tr>
+    <tr><td>forceMetadataUpdate</td><td>force the update of the updatesite metadata without checking their freshness</td>
+        <td>No, default to false</td></tr>
+</tbody>
+</table>
+
+The requirement strategy is defining how the resolver should behave in front of several choices. In the OSGi dependency model, an <tt>Import-Package</tt> requirement can be satisfied by several different bundles. So when resolving such requirement, Ivy will first look into the already resolved bundles if one provides that package. If it fails to find one, then two behaviours can occur:
+<ul>
+<li>if the requirement strategy is <tt>first</tt>, among the bundles statifying the requirement, it will shoose the first one. A warn will be logged ahout the choice Ivy has to arbitrarily do.</li>
+<li>if the requirement strategy is <tt>noambiguity</tt>, Ivy will make the resolution fail.</li>
+</ul>
+
+<h1>Examples</h1>
+<pre>
+&lt;updatesite name="ivyde-updatesite" url="<a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a>" /&gt;
+</pre>
+A simple repository configured to load the Apache IvyDE Eclipse update site.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Mirrored Resolver</div>
 <table class="resolver">
 <tr><td class="title">Tag</td><td class="value">mirroredurl</td></tr>
 <tr><td class="title">Handle latest</td><td class="value">yes with http urls (and apache server) and with file urls, no with other urls</td></tr>
@@ -2390,7 +2433,7 @@ A local repository which is trusted to always provide correct dependency for the
 <span class="since">since 2.3</span>
 
 <br/>
-<span class="tagdoc" id="ivysettings.resolvers.mirroredurl">This resolver can resolve dependencies against sevrail mirror of the same repository. From a list of mirror urls, it will iteratively try to resolve the dependencies against each one.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+<span class="tagdoc" id="ivysettings.resolvers.mirroredurl">This resolver can resolve dependencies against several mirrors of the same repository. From a list of mirror urls, it will iteratively try to resolve the dependencies against each one.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of standard resolvers.
 <table class="ivy-attributes">
 <thead>
@@ -2830,7 +2873,19 @@ Triggers an ant call of the target unzip just after downloading a zip artifact, 
 </pre>
 Logs any successful artifact download, with information on the source and destination, and details on download size and duration.<br class="xooki-br"/><br class="xooki-br"/>The file attribute is optional, the log trigger will output messages to console if it isn't provided.<hr/><div class='toc-title toc-title-4'>version-matchers</div><br class="xooki-br"/><b>Tag:</b> version-matchers<br class="xooki-br"/><br class="xooki-br"/><span class="tagdoc" id="ivysettings.version-matchers">Defines a list of version matchers.</span> <span class="since">since 1.4</span> 
 
-The child tag used for the version matcher must be equal to a name of a report outputter type (added with the typedef tag).<br class="xooki-br"/><br class="xooki-br"/>A version matcher is used to evaluate if a dependency version constraint matches a dependency version.<br class="xooki-br"/><br class="xooki-br"/><h1>Child elements</h1>
+The child tag used for the version matcher must be equal to a name of a report outputter type (added with the typedef tag).<br class="xooki-br"/><br class="xooki-br"/>A version matcher is used to evaluate if a dependency version constraint matches a dependency version.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+<table class="ivy-attributes">
+<thead>
+    <tr><th class"ivy-att">Attribute</th><th class="ivy-att-desc">Descrition</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>usedefaults</td>
+        <td>when set to true, includes the built-in version matchers (Latest, Sub Revision, and Version Ranger Matcher). Exact Revision Matcher is always included</td>
+        <td>No, defaults to false</td>
+    </tr>
+</tbody>
+</table>
+<h1>Child elements</h1>
 <table class="ivy-children">
 <thead>
     <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
@@ -3008,7 +3063,8 @@ After the description, you can also place your own tags in your own namespace.  
     <tr><td>description</td><td>The content of the <a href="../ivyfile/description.html">info/description</a> element is inherited from the parent.</td></tr>
     <tr><td>configurations</td><td><a href="../ivyfile/conf.html">Configurations</a> defined in the parent descriptor are added to any configurations defined in the child descriptor.</td></tr>
     <tr><td>dependencies</td><td><a href="../ivyfile/dependency.html">Dependencies</a> defined in the parent descriptor are added to any dependencies defined in the child descriptor.</td></tr>
-    <tr><td>all</td><td>info, description, configurations, and dependencies from the parent descriptor are merged into the child descriptor.</td></tr>
+    <tr><td>licenses</td><td><a href="../ivyfile/license.html">Licenses</a> defined in the parent descriptor are added to any licenses defined in the child descriptor.</td></tr>
+    <tr><td>all</td><td>info, description, configurations, licenses and dependencies from the parent descriptor are merged into the child descriptor.</td></tr>
 </tbody>
 </table>
 
@@ -4722,6 +4778,7 @@ Available options are:
 
      <tr><td>checkIfChanged</td><td>When set to true, the resolve will compare the result with the last resolution done on this module, with those configurations in order to define the property ivy.deps.changed.  Put it to false may provides slightly better performance. <span class="since">(since 2.0)</span></td><td>No, default to 'true'</td></tr>
 
+     <tr><td>useCacheOnly</td><td>When set to true, it forces the resolvers to only use their caches and not their actual contents.<span class="since">(since 2.0)</span></td><td>No, default to 'false'</td></tr>
 
 </tbody>
 </table>
