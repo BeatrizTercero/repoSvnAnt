@@ -1574,6 +1574,7 @@ Ivy comes with a set of built-in dependency resolvers that handle most common ne
 <tr><td><a href="../resolver/vfs.html">Vfs</a></td><td>Standard</td><td>Finds ivy files and artifacts in any repository accessible with <a href="http://jakarta.apache.org/commons/vfs/">apache commons vfs</a>.</td></tr>
 <tr><td><a href="../resolver/ssh.html">ssh</a></td><td>Standard</td><td>Finds ivy files and artifacts in any repository accessible with ssh.</td></tr>
 <tr><td><a href="../resolver/sftp.html">sftp</a></td><td>Standard</td><td>Finds ivy files and artifacts in any repository accessible with sftp.</td></tr>
+<tr><td><a href="../resolver/jar.html">Jar</a></td><td>Standard</td><td>Finds ivy files and artifacts within a specified jar.</td></tr>
 <tr><td><a href="../resolver/chain.html">Chain</a></td><td>Composite</td><td>Delegates the finding to a chain of sub resolvers.</td></tr>
 <tr><td><a href="../resolver/dual.html">Dual</a></td><td>Composite</td><td>Delegates the finding of ivy files to one resolver and of artifacts to another.</td></tr>
 <tr><td><a href="../resolver/obr.html">OBR</a></td><td>Standard</td><td>Resolve modules as OSGi bundles listed by an OSGi obr.xml.</td></tr>
@@ -2316,7 +2317,7 @@ Will connect to myhost.com using myuser and prompt for the password.<br class="x
 <pre>
 &lt;ssh keyFile="path/to/key/file" keyFilePassword="${password}"&gt;<br class="xooki-br"/>  &lt;ivy pattern="ssh://user:geheim@yourserver.com:8022/path/to/repos/[module]/[revision]/ivy.xml"/&gt;<br class="xooki-br"/>  &lt;artifact pattern="ssh://user:geheim@myserver.com:8022/path/to/my/repos/[artifact].[ext]"/&gt;<br class="xooki-br"/>&lt;/ssh&gt;
 </pre>
-Will connect to yourserver.com on port 8022 with user geheim and use keyFile path/to/key/file for keyFile and the value of password variable for keyFilePassword authentication for ivy files, and to myserver.com on port 8022 using user geheim with the same keyFile/keyFilePassword pair for the artifacts.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>vfs</div>
+Will connect to yourserver.com on port 8022 with user geheim and use keyFile path/to/key/file for keyFile and the value of password variable for keyFilePassword authentication for ivy files, and to myserver.com on port 8022 using user geheim with the same keyFile/keyFilePassword pair for the artifacts.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>vfs resolver</div>
 <table class="resolver">
 <tr><td class="title">Tag</td><td class="value">vfs</td></tr>
 <tr><td class="title">Handle latest</td><td class="value">depend on vfs capacity, usually yes</td></tr>
@@ -2343,7 +2344,52 @@ This resolver shares the <a href="../settings/resolvers.html#common">common attr
 <pre>
 &lt;vfs name="vfs-resolver"&gt;<br class="xooki-br"/>  &lt;ivy pattern="s<a href="ftp://username:password@host/[organisation]/[module]/[revision]/ivy.xml">ftp://username:password@host/[organisation]/[module]/[revision]/ivy.xml</a>" /&gt;<br class="xooki-br"/>  &lt;artifact pattern="s<a href="ftp://username:password@host/[organisation]/[module]/[revision]/[artifact].[ext">ftp://username:password@host/[organisation]/[module]/[revision]/[artifact].[ext</a>]" /&gt;<br class="xooki-br"/>&lt;/vfs&gt; 
 </pre>
-Access ivy and artifacts files using sftp.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>OSGi Bundle Repository</div>
+Access ivy and artifacts files using sftp.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Jar resolver</div>
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">jar</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table><br/>
+
+<span class="since">since 2.3</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.jar">This resolver uses a specified jar resolve ivy files and artifacts.</span>
+
+This kind of resolver helps the packaging of an entire repository. Since the entire "repository" jar is expected to be local at some point, the size of a such repository should be considered to be not too large if it is expected to be remote; hence the artifacts in a such repo should be little in size.<br class="xooki-br"/><br class="xooki-br"/>The configuration of such a resolver is done via specifying the location of the jar, and through ivy and artifact patterns, indicating where ivy files and artifacts can be found in the jar. You can indicate a list of patterns which will be checked one after the other. Note that the patterns MUST NOT start with a slash.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of standard resolvers.
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>file</td><td>the absolute path of the jar</td>
+        <td>One of 'file' or 'url' is required</td></tr>
+    <tr><td>url</td><td>the url of the jar</td>
+        <td>One of 'file' or 'url' is required</td></tr>
+</tbody>
+</table>
+<h1>Child elements</h1>
+<table class="ivy-children">
+<thead>
+    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
+</thead>
+<tbody>
+    <tr><td>ivy</td><td>defines a pattern for ivy files, using the pattern attribute</td>
+        <td>0..n</td></tr>
+    <tr><td>artifact</td><td>defines a pattern for artifacts, using the pattern attribute</td>
+        <td>1..n</td></tr>
+</tbody>
+</table>
+
+<h1>Examples</h1>
+<pre>
+&lt;jar name="my-local-jar-resolver" file="/home/me/myrepo.jar"&gt;<br class="xooki-br"/>    &lt;ivy pattern="[organisation]/[module]/ivys/ivy-[revision].xml" /&gt;<br class="xooki-br"/>    &lt;artifact pattern="[organisation]/[module]/[type]s/[artifact]-[revision].[type]" /&gt;<br class="xooki-br"/>&lt;/jar&gt;
+</pre>
+A simple local jar repository.<br class="xooki-br"/><hr />
+<pre>
+&lt;jar name="my-remote-jar-resolver" url="<a href="http://www.mywebsite.com/dist/myrepo.jar">http://www.mywebsite.com/dist/myrepo.jar</a>"&gt;<br class="xooki-br"/>    &lt;ivy pattern="dir_in_jar/subdir_in_jar/[organisation]/[module]/ivys/ivy-[revision].xml" /&gt;<br class="xooki-br"/>    &lt;ivy pattern="dir_in_jar/another_subdir_in_jar/[organisation]/[module]/ivys/ivy-[revision].xml" /&gt;<br class="xooki-br"/>    &lt;artifact pattern="dir_in_jar/subdir_in_jar/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" /&gt;<br class="xooki-br"/>    &lt;artifact pattern="dir_in_jar/another_subdir_in_jar/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" /&gt;<br class="xooki-br"/>    &lt;artifact pattern="dir_in_jar/yet_another_subdir_in_jar/[organisation]/[module]/[type]s/[artifact]-[revision].[type]" /&gt;<br class="xooki-br"/>&lt;/jar&gt;
+</pre>
+A remote jar repository with multiple ivy and artifact patterns, patterns pointing in some sub directories in the jar.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>OSGi Bundle Repository</div>
 <table class="resolver">
 <tr><td class="title">Tag</td><td class="value">obr</td></tr>
 <tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
