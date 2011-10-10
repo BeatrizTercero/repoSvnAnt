@@ -1,0 +1,286 @@
+<project name="apache-ivyde-updatesite">
+
+    <property file="local.build.properties" />
+    <property file="build.properties" />
+    <property environment="env" />
+
+    <property name="work.dir" value="${basedir}/work" />
+    <property name="dist.dir" value="${basedir}/dist" />
+
+    <target name="clean" description="Clean the folders generated during the build">
+        <delete dir="${work.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+
+    <!-- ==================================================================================
+        Targets to intialize an ant run with Eclipse. Will be used to manage the updatesite
+        ===================================================================================
+      -->
+
+    <target name="eclipse-startup-check">
+        <fail message="An Eclipse install is needed to run the build. Set your Eclipse install dir into the baseLocation property." unless="baseLocation" />
+
+        <condition property="eclipse.startup">
+            <available file="${baseLocation}/startup.jar" />
+        </condition>
+    </target>
+
+    <target name="eclipse-startup-classpath" depends="eclipse-startup-check" if="eclipse.startup">
+        <property name="eclipse.classpath" value="${baseLocation}/startup.jar" />
+    </target>
+
+    <target name="eclipse-launcher-classpath" depends="eclipse-startup-check" unless="eclipse.startup">
+        <!-- store path to newest launcher JAR in path id 'newest.equinox.launcher.path.id' -->
+        <path id="newest.equinox.launcher.path.id">
+            <first count="1">
+                <sort>
+                    <fileset dir="${baseLocation}/plugins" includes="**/org.eclipse.equinox.launcher_*.jar" />
+                    <!-- Seems the default order is oldest > newest so we must reverse it.
+                       The 'reverse' and 'date' comparators are in the internal antlib
+                       org.apache.tools.ant.types.resources.comparators.
+                    -->
+                    <reverse xmlns="antlib:org.apache.tools.ant.types.resources.comparators">
+                        <!-- 'date' inherits 'reverse's namespace -->
+                        <date />
+                    </reverse>
+                </sort>
+            </first>
+        </path>
+
+        <!-- turn the path into a property -->
+        <property name="eclipse.classpath" refid="newest.equinox.launcher.path.id" />
+    </target>
+
+    <target name="eclipse-classpath" depends="eclipse-startup-classpath,eclipse-launcher-classpath">
+        <echo message="Using equinox launcher jar: ${eclipse.classpath}" />
+    </target>
+
+    <macrodef name="osgi-version">
+        <attribute name="jar" />
+        <attribute name="outputproperty" />
+        <sequential>
+            <tstamp>
+                <format property="tstamp.@{jar}" pattern="yyyyMMddhhmmss" locale="en,UK" />
+            </tstamp>
+            <property name="work.dir.@{jar}" value="${work.dir}/${tstamp.@{jar}}" />
+            <mkdir dir="${work.dir.@{jar}}/jar" />
+            <unzip overwrite="true" src="@{jar}" dest="${work.dir.@{jar}}" />
+            <loadfile property="@{outputproperty}" srcFile="${work.dir.@{jar}}/META-INF/MANIFEST.MF">
+                <filterchain>
+                    <linecontains>
+                        <contains value="Bundle-Version:" />
+                    </linecontains>
+                    <tokenfilter>
+                        <replaceregex pattern="Bundle-Version: (.*)" replace="\1" flags="gi" />
+                    </tokenfilter>
+                    <striplinebreaks />
+                </filterchain>
+            </loadfile>
+            <delete dir="${work.dir.@{jar}}" />
+        </sequential>
+    </macrodef>
+
+    <target name="build-main-p2-repo">
+        <mkdir dir="${dist.dir}/main" />
+        <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
+        <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
+
+        <echo file="${dist.dir}/main/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+${ASL2-header}
+<repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+]]></echo>
+        <concat append="true" destfile="${dist.dir}/main/compositeArtifacts.xml">
+            <fileset dir="${basedir}" includes="versions.xml" />
+        </concat>
+        <echo append="true" file="${dist.dir}/main/compositeArtifacts.xml"><![CDATA[</repository>
+]]></echo>
+
+        <echo file="${dist.dir}/main/compositeContent.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+${ASL2-header}
+<repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+]]></echo>
+        <concat append="true" destfile="${dist.dir}/main/compositeContent.xml">
+            <fileset dir="${basedir}" includes="versions.xml" />
+        </concat>
+        <echo append="true" file="${dist.dir}/main/compositeContent.xml"><![CDATA[</repository>
+]]></echo>
+    </target>
+
+    <!-- ========================================
+        Targets related to the P2 repo for IvyDE
+        ========================================
+    -->
+
+    <target name="build-ivyde-p2-repo" description="Build a P2 repository from an IvyDE distribution">
+        <fail message="You have to specify the path to the zip of the IvyDE distribution via the property ivyde.zip" unless="ivyde.zip" />
+        <!-- unzip -->
+        <delete dir="${work.dir}/ivyde" />
+        <mkdir dir="${work.dir}/ivyde" />
+        <unzip src="${ivyde.zip}" dest="${work.dir}/ivyde" />
+        <!-- get the path to the ivyde folder -->
+        <path id="ivyde.distrib.path.id">
+            <first count="1">
+                <dirset dir="${work.dir}/ivyde" includes="*" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivyde.distrib.path" refid="ivyde.distrib.path.id" />
+        <!-- install the new binaries -->
+        <delete dir="${dist.dir}/ivyde" />
+        <mkdir dir="${dist.dir}/ivyde" />
+        <copy todir="${dist.dir}/ivyde">
+            <fileset dir="${ivyde.distrib.path}">
+                <include name="plugins/**" />
+                <include name="features/**" />
+                <include name="*.xml" />
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- ======================================
+        Targets related to the P2 repo for Ivy
+        ======================================
+    -->
+
+    <target name="build-ivy-p2-repo" depends="get-ivy-plugin,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,generate-ivy-p2-repo,generate-ivy-p2-category" description="Build a P2 repository from an Ivy distribution">
+    </target>
+
+    <target name="get-ivy-plugin">
+        <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
+        <!-- get the real OSGi version of the bundle -->
+        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
+        <!-- install the plugin -->
+        <delete dir="${dist.dir}/ivy/plugins" />
+        <mkdir dir="${dist.dir}/ivy/plugins" />
+        <copy file="${ivy.jar}" tofile="${dist.dir}/ivy/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
+    </target>
+
+    <target name="generate-ivy-feature">
+        <!-- now take care of the generation of the Ivy feature -->
+        <!-- first generate a feature descriptor with the proper version -->
+        <delete file="${work.dir}/feature.xml" />
+        <copy file="ivy-feature-template/feature.xml" todir="${work.dir}">
+            <filterset>
+                <filter token="ivy.version" value="${ivy.version}" />
+            </filterset>
+        </copy>
+        <!-- package the feature -->
+        <mkdir dir="${dist.dir}/ivy/features" />
+        <jar destfile="${dist.dir}/ivy/features/org.apache.ivy.feature_${ivy.version}.jar">
+            <fileset dir="${basedir}/ivy-feature-template">
+                <include name="feature.properties" />
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+            <fileset dir="${work.dir}">
+                <include name="feature.xml" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="generate-ivy-ant-feature">
+        <!-- now take care of the generation of the Ivy Ant feature -->
+        <!-- first generate a feature descriptor with the proper version -->
+        <delete file="${work.dir}/feature.xml" />
+        <copy file="${basedir}/ivy-ant-feature-template/feature.xml" todir="${work.dir}">
+            <filterset>
+                <filter token="ivy.version" value="${ivy.version}" />
+            </filterset>
+        </copy>
+        <!-- package the feature -->
+        <mkdir dir="${dist.dir}/ivy/features" />
+        <jar destfile="${dist.dir}/ivy/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
+            <fileset dir="${basedir}/ivy-ant-feature-template">
+                <include name="feature.properties" />
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+            <fileset dir="${work.dir}">
+                <include name="feature.xml" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="generate-ivy-ant-plugin">
+        <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
+        <delete dir="${work.dir}/ivy-ant-plugin" />
+        <!-- put the jar of Ivy -->
+        <copy file="${ivy.jar}" tofile="${work.dir}/ivy-ant-plugin/ivy.jar" />
+        <!-- get the antlib.xml and produce a plugin.xml with it -->
+        <mkdir dir="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <unzip src="${ivy.jar}" dest="${work.dir}/ivy-ant-plugin/ivyjar" />
+        <style in="${work.dir}/ivy-ant-plugin/ivyjar/org/apache/ivy/ant/antlib.xml" out="${work.dir}/ivy-ant-plugin/plugin.xml" style="ivy-ant-plugin/antlib2plugin.xsl" />
+        <!-- put the manifest with the correct version -->
+        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
+        <copy file="${basedir}/ivy-ant-plugin/MANIFEST.MF" todir="${work.dir}/ivy-ant-plugin">
+            <filterset>
+                <filter token="VERSION" value="${ivy.version}"/>
+            </filterset>
+        </copy>
+        <!-- package the jar -->
+        <jar destfile="${dist.dir}/ivy/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
+            <fileset dir="${work.dir}/ivy-ant-plugin">
+                <include name="plugin.xml" />
+                <include name="ivy.jar" />
+            </fileset>
+            <fileset dir="ivy-ant-plugin">
+                <include name="LICENSE" />
+                <include name="NOTICE" />
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="generate-ivy-p2-repo" depends="eclipse-classpath">
+        <makeurl file="${dist.dir}/ivy" property="p2repo.url"/>
+        <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
+            <arg line="-clean" />
+            <arg line="-application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher" />
+            <arg line="-metadataRepository ${p2repo.url}" />
+            <arg line="-artifactRepository ${p2repo.url}" />
+            <arg line="-metadataRepositoryName 'Apache Ivy P2 Eclipse repository'" />
+            <arg line="-artifactRepositoryName 'Apache Ivy P2 Eclipse repository'" />
+            <arg line="-source ${dist.dir}/ivy" />
+            <sysproperty key="eclipse.consoleLog" value="${eclipse.consoleLog}" />
+        </java>        
+    </target>
+
+    <target name="generate-ivy-p2-category" depends="eclipse-classpath">
+        <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
+        <echo file="${work.dir}/category.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<site>
+    <category-def name="org.apache.ivy.category" label="Apache Ivy library" />
+    <feature url="features/org.apache.ivy.feature_${ivy.version}.jar" id="org.apache.ivy.feature" version="${ivy.version}">
+        <category name="org.apache.ivy.category"/>
+    </feature>
+    <feature url="features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar" id="org.apache.ivy.eclipse.ant.feature" version="${ivy.version}">
+        <category name="org.apache.ivy.category"/>
+    </feature>
+</site>
+]]></echo>
+        <makeurl file="${dist.dir}/ivy" property="p2repo.url"/>
+        <makeurl file="${work.dir}/category.xml" property="p2repo.category.url"/>
+        <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
+            <arg line="-clean" />
+            <arg line="-application org.eclipse.equinox.p2.publisher.CategoryPublisher" />
+            <arg line="-metadataRepository ${p2repo.url}" />
+            <arg line="-categoryDefinition ${p2repo.category.url}" />
+            <arg line="-categoryQualifier" />
+            <sysproperty key="eclipse.consoleLog" value="${eclipse.consoleLog}" />
+        </java>
+        <!-- as we're at it, let's put the ASL header -->
+        <replaceregexp match="&lt;repository name='" replace="${ASL2-header}&lt;repository name='" flags="g">
+            <fileset dir="${dist.dir}/ivy" includes="*.xml" />
+        </replaceregexp>
+    </target>
+
+</project>

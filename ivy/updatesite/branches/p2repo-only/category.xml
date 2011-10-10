@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+    <category-def name="ivy" label="Apache Ivy library" />
+    <category-def name="ivyde" label="Apache IvyDE Eclipse plugin" />
+
+   <feature url="features/org.apache.ivy.feature_2.2.1.alpha_20110727161442.jar" id="org.apache.ivy.feature" version="2.2.1.alpha_20110727161442">
+      <category name="org.apache.ivy.category"/>
+   </feature>
+   <feature url="features/org.apache.ivyde.eclipse.resolvevisualizer.feature_2.2.0.201107271627-hudson-187.jar" id="org.apache.ivyde.eclipse.resolvevisualizer.feature" version="2.2.0.201107271627-hudson-187">
+      <category name="org.apache.ivyde.category"/>
+   </feature>
+   <feature url="features/org.apache.ivyde.feature_2.2.0.201107271627-hudson-187.jar" id="org.apache.ivyde.feature" version="2.2.0.201107271627-hudson-187">
+      <category name="org.apache.ivyde.category"/>
+   </feature>
+</site>
