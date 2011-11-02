@@ -64,7 +64,9 @@ Note: this document is based on Ant core's ReleaseInstructions file
 9.  Next build and run the tests.  Then build the distribution.  It is
     important that this be a clean build.
 
-    To build the distribution run the distribution target.
+    To build the distribution run the distribution target or the
+    fat-distribution target if you intend to create a binary
+    distribution that also contains all dependencies.
     To build the mvn artifacts run the prepare-upload target.
 
 10. Sign the distribution files using the following simple script
