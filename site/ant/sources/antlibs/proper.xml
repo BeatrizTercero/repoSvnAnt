@@ -69,7 +69,7 @@
       <a name="compress"/>
       <subsection name="Apache Compress Antlib&amp;#x2122;">
         <p>The Apache Compress Antlib offers tasks and types for additional
-        archive formats like CPIO and AR supported
+        archive formats like CPIO, Pack200 and AR supported
         by <a href="http://commons.apache.org/compress/">Apache
         Commons Compress</a>.</p>
         <table>
@@ -99,7 +99,7 @@
           </tr>
           <tr>
             <th>Latest Release:</th>
-            <td>1.0 released on August 30, 2010</td>
+            <td>1.1 released on November 5, 2011</td>
           </tr>
         </table>
       </subsection>
