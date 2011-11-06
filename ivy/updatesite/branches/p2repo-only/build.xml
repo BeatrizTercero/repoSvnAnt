@@ -1,3 +1,21 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
 <project name="apache-ivyde-updatesite">
 
     <property file="local.build.properties" />
@@ -135,16 +153,29 @@ ${ASL2-header}
         </path>
         <!-- turn the path into a property -->
         <property name="ivyde.distrib.path" refid="ivyde.distrib.path.id" />
+        <!-- get the path to the ivyde jar -->
+        <path id="ivyde.jar.path.id">
+            <first count="1">
+                <fileset dir="${ivyde.distrib.path}/plugins" includes="org.apache.ivyde.eclipse_*.jar" />
+            </first>
+        </path>
+        <!-- turn the path into a property -->
+        <property name="ivyde.jar.path" refid="ivyde.jar.path.id" />
+        <!-- get the version of ivyde -->
+        <osgi-version jar="${ivyde.jar.path}" outputproperty="ivyde.version" />
         <!-- install the new binaries -->
-        <delete dir="${dist.dir}/ivyde" />
-        <mkdir dir="${dist.dir}/ivyde" />
-        <copy todir="${dist.dir}/ivyde">
+        <delete dir="${dist.dir}/ivyde-${ivyde.version}" />
+        <mkdir dir="${dist.dir}/ivyde-${ivyde.version}" />
+        <copy todir="${dist.dir}/ivyde-${ivyde.version}">
             <fileset dir="${ivyde.distrib.path}">
                 <include name="plugins/**" />
                 <include name="features/**" />
                 <include name="*.xml" />
             </fileset>
         </copy>
+        <xslt in="${ivyde.distrib.path}/artifacts.xml" out="${dist.dir}/ivyde-${ivyde.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
+          <param name="path" expression="ivyde-${ivyde.version}" />
+        </xslt>
     </target>
 
     <!-- ======================================
@@ -152,7 +183,7 @@ ${ASL2-header}
         ======================================
     -->
 
-    <target name="build-ivy-p2-repo" depends="get-ivy-plugin,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,generate-ivy-p2-repo,generate-ivy-p2-category" description="Build a P2 repository from an Ivy distribution">
+    <target name="build-ivy-p2-repo" depends="get-ivy-plugin,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,generate-ivy-p2-repo,generate-ivy-p2-category,add-ivy-p2-mirrors" description="Build a P2 repository from an Ivy distribution">
     </target>
 
     <target name="get-ivy-plugin">
@@ -160,12 +191,12 @@ ${ASL2-header}
         <!-- get the real OSGi version of the bundle -->
         <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
         <!-- install the plugin -->
-        <delete dir="${dist.dir}/ivy/plugins" />
-        <mkdir dir="${dist.dir}/ivy/plugins" />
-        <copy file="${ivy.jar}" tofile="${dist.dir}/ivy/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
+        <delete dir="${dist.dir}/ivy-${ivy.version}/plugins" />
+        <mkdir dir="${dist.dir}/ivy-${ivy.version}/plugins" />
+        <copy file="${ivy.jar}" tofile="${dist.dir}/ivy-${ivy.version}/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
     </target>
 
-    <target name="generate-ivy-feature">
+    <target name="generate-ivy-feature" depends="get-ivy-plugin">
         <!-- now take care of the generation of the Ivy feature -->
         <!-- first generate a feature descriptor with the proper version -->
         <delete file="${work.dir}/feature.xml" />
@@ -175,8 +206,8 @@ ${ASL2-header}
             </filterset>
         </copy>
         <!-- package the feature -->
-        <mkdir dir="${dist.dir}/ivy/features" />
-        <jar destfile="${dist.dir}/ivy/features/org.apache.ivy.feature_${ivy.version}.jar">
+        <mkdir dir="${dist.dir}/ivy-${ivy.version}/features" />
+        <jar destfile="${dist.dir}/ivy-${ivy.version}/features/org.apache.ivy.feature_${ivy.version}.jar">
             <fileset dir="${basedir}/ivy-feature-template">
                 <include name="feature.properties" />
                 <include name="LICENSE" />
@@ -188,7 +219,7 @@ ${ASL2-header}
         </jar>
     </target>
 
-    <target name="generate-ivy-ant-feature">
+    <target name="generate-ivy-ant-feature" depends="get-ivy-plugin">
         <!-- now take care of the generation of the Ivy Ant feature -->
         <!-- first generate a feature descriptor with the proper version -->
         <delete file="${work.dir}/feature.xml" />
@@ -198,8 +229,8 @@ ${ASL2-header}
             </filterset>
         </copy>
         <!-- package the feature -->
-        <mkdir dir="${dist.dir}/ivy/features" />
-        <jar destfile="${dist.dir}/ivy/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
+        <mkdir dir="${dist.dir}/ivy-${ivy.version}/features" />
+        <jar destfile="${dist.dir}/ivy-${ivy.version}/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
             <fileset dir="${basedir}/ivy-ant-feature-template">
                 <include name="feature.properties" />
                 <include name="LICENSE" />
@@ -211,7 +242,7 @@ ${ASL2-header}
         </jar>
     </target>
 
-    <target name="generate-ivy-ant-plugin">
+    <target name="generate-ivy-ant-plugin" depends="get-ivy-plugin">
         <fail message="You have to specify the path to the jar via the property ivy.jar" unless="ivy.jar" />
         <delete dir="${work.dir}/ivy-ant-plugin" />
         <!-- put the jar of Ivy -->
@@ -221,14 +252,13 @@ ${ASL2-header}
         <unzip src="${ivy.jar}" dest="${work.dir}/ivy-ant-plugin/ivyjar" />
         <style in="${work.dir}/ivy-ant-plugin/ivyjar/org/apache/ivy/ant/antlib.xml" out="${work.dir}/ivy-ant-plugin/plugin.xml" style="ivy-ant-plugin/antlib2plugin.xsl" />
         <!-- put the manifest with the correct version -->
-        <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
         <copy file="${basedir}/ivy-ant-plugin/MANIFEST.MF" todir="${work.dir}/ivy-ant-plugin">
             <filterset>
                 <filter token="VERSION" value="${ivy.version}"/>
             </filterset>
         </copy>
         <!-- package the jar -->
-        <jar destfile="${dist.dir}/ivy/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
+        <jar destfile="${dist.dir}/ivy-${ivy.version}/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
             <fileset dir="${work.dir}/ivy-ant-plugin">
                 <include name="plugin.xml" />
                 <include name="ivy.jar" />
@@ -240,8 +270,8 @@ ${ASL2-header}
         </jar>
     </target>
 
-    <target name="generate-ivy-p2-repo" depends="eclipse-classpath">
-        <makeurl file="${dist.dir}/ivy" property="p2repo.url"/>
+    <target name="generate-ivy-p2-repo" depends="eclipse-classpath,get-ivy-plugin">
+        <makeurl file="${dist.dir}/ivy-${ivy.version}" property="p2repo.url"/>
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
             <arg line="-clean" />
             <arg line="-application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher" />
@@ -249,12 +279,12 @@ ${ASL2-header}
             <arg line="-artifactRepository ${p2repo.url}" />
             <arg line="-metadataRepositoryName 'Apache Ivy P2 Eclipse repository'" />
             <arg line="-artifactRepositoryName 'Apache Ivy P2 Eclipse repository'" />
-            <arg line="-source ${dist.dir}/ivy" />
+            <arg line="-source ${dist.dir}/ivy-${ivy.version}" />
             <sysproperty key="eclipse.consoleLog" value="${eclipse.consoleLog}" />
         </java>        
     </target>
 
-    <target name="generate-ivy-p2-category" depends="eclipse-classpath">
+    <target name="generate-ivy-p2-category" depends="eclipse-classpath,get-ivy-plugin">
         <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
         <echo file="${work.dir}/category.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <site>
@@ -267,7 +297,7 @@ ${ASL2-header}
     </feature>
 </site>
 ]]></echo>
-        <makeurl file="${dist.dir}/ivy" property="p2repo.url"/>
+        <makeurl file="${dist.dir}/ivy-${ivy.version}" property="p2repo.url"/>
         <makeurl file="${work.dir}/category.xml" property="p2repo.category.url"/>
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
             <arg line="-clean" />
@@ -279,8 +309,15 @@ ${ASL2-header}
         </java>
         <!-- as we're at it, let's put the ASL header -->
         <replaceregexp match="&lt;repository name='" replace="${ASL2-header}&lt;repository name='" flags="g">
-            <fileset dir="${dist.dir}/ivy" includes="*.xml" />
+            <fileset dir="${dist.dir}/ivy-${ivy.version}" includes="*.xml" />
         </replaceregexp>
+    </target>
+
+    <target name="add-ivy-p2-mirrors" depends="generate-ivy-p2-repo">
+        <copy file="${dist.dir}/ivy-${ivy.version}/artifacts.xml" todir="${work.dir}" />
+        <xslt in="${work.dir}/artifacts.xml" out="${dist.dir}/ivy-${ivy.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
+          <param name="path" expression="ivy-${ivy.version}" />
+        </xslt>
     </target>
 
 </project>
