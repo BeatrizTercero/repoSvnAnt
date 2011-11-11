@@ -98,7 +98,7 @@
         </sequential>
     </macrodef>
 
-    <target name="build-main-p2-repo">
+    <target name="build-main-p2-repo" description="Build the main P2 repository">
         <mkdir dir="${dist.dir}/main" />
         <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
         <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
