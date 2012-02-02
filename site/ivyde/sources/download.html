@@ -121,12 +121,12 @@ The IvyDE sources can be also found on the ASF Subversion repository. You can ch
 svn co https://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk ivyde-trunk
 </code>
 
-<h1><a name="hudson"></a>Trunk builds</h1>
+<h1><a name="hudson"></a><a name="jenkins"></a>Trunk builds</h1>
 
-The trunk version of IvyDE is build by a continuous integration server (<a href="https://hudson.apache.org/hudson/view/A-F/view/Ant/job/IvyDE/">a Hudson instance hosted by the ASF</a>).
+The trunk version of IvyDE is build by a continuous integration server (<a href="https://builds.apache.org/view/A-F/view/Ant/job/IvyDE/">a Jenkins instance hosted by the ASF</a>).
 
 It is automatically publishing the last build into an updatesite. So you can configure your Eclipse to use it:
-https://hudson.apache.org/hudson/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
+https://builds.apache.org/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build/
 
 <b>Important note</b>: these are only test snapshots that is not be considered ready for users or even something like an official release. They are dedicated to people willing to understand and contribute to Ivy and IvyDE code. And then any issue you can have with that kind of snaphot should be reported to the <a href="mailing-lists.html">ant-dev@ mailing-list</a> and not the ivy-user@ one.
 
