@@ -29,7 +29,7 @@
         ======================================================================================
     -->
 
-    <target name="generate-site" description="Generates site for publication in the production area">
+    <target name="generate-site" depends="generate-sample-zip" description="Generates site for publication in the production area">
         <!-- by default we use incremental mode, which checks if files require generation -->
         <property name="checkUpToDate" value="true" />
         <condition property="overwrite">
@@ -43,6 +43,7 @@
                 <include name="js/**" />
                 <include name="updatesite/**" />
                 <include name="history/latest-milestone/images/**" />
+                <include name="history/latest-milestone/sample/*.zip" />
             </fileset>
         </copy>
         <init-imported-history version="latest-milestone" />
@@ -64,9 +65,19 @@
         </xooki:generate>
     </target>
 
-    <target name="generate-history" description="Generate the part of the website of a specific history version">
-        <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
+    <target name="check-sample">
+        <available file="${sources.dir}/history/latest-milestone/sample/webapp-js-repo" property="doc.sample.present"/>
+    </target>
 
+    <target name="generate-sample-zip" depends="check-sample" if="doc.sample.present">
+        <zip destfile="${sources.dir}/history/latest-milestone/sample/webapp-js-repo.zip" basedir="${sources.dir}/history/latest-milestone/sample/webapp-js-repo" />
+    </target>
+
+    <target name="check-history-version-property">
+        <fail unless="history.version" message="Set the history.version property to specified which history version you want to update" />
+    </target>
+
+    <target name="generate-history" depends="check-history-version-property,generate-history-sample-zip" description="Generate the part of the website of a specific history version">
         <!-- by default we use incremental mode, which checks if files require generation -->
         <property name="checkUpToDate" value="true" />
 
@@ -76,6 +87,7 @@
                 <include name="images/**" />
                 <include name="style/**" />
                 <include name="js/**" />
+                <include name="sample/*.zip" />
             </fileset>
         </copy>
         <!-- xooki:generate requires sun java 6 jdk (with jrunscript) in path and Apache Ant 1.7 -->
@@ -88,6 +100,14 @@
             </fileset>
         </xooki:generate>
         <generate-printdoc destpath="${target.dir}" version="${history.version}" />
+    </target>
+
+    <target name="check-history-sample">
+        <available file="${sources.dir}/history/${history.version}/sample/webapp-js-repo" property="doc.sample.present"/>
+    </target>
+
+    <target name="generate-history-sample-zip" depends="check-history-sample" if="doc.sample.present">
+        <zip destfile="${sources.dir}/history/${history.version}/sample/webapp-js-repo.zip" basedir="${sources.dir}/history/${history.version}/sample/webapp-js-repo" />
     </target>
 
 </project>
