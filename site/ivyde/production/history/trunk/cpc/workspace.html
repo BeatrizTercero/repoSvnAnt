@@ -68,7 +68,37 @@
 		<div class="block block-book" id="block-book-0">
 		<h2>Apache IvyDE&#153;</h2>
 
-		<div class="content"><ul id="treemenu" class="treeview"><li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-release-notes"><a href="../release-notes.html" >Release Notes</a></li><li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li><li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li><li id="xooki-install"><a href="../install.html" >Installation</a></li><li id="xooki-cp_container" class="submenu"><a href="../cp_container.html" >Classpath Container</a><ul class="open"><li id="xooki-cpc/create"><a href="../cpc/create.html" >Create a container</a></li><li id="xooki-cpc/edit"><a href="../cpc/edit.html" >Edit the classpath</a></li><li id="xooki-cpc/resolve"><a href="../cpc/resolve.html" >Launching resolve</a></li><li id="xooki-cpc/retrieve"><a href="../cpc/retrieve.html" >Retrieve dependencies</a></li><li id="xooki-cpc/jarmapping"><a href="../cpc/jarmapping.html" >Jar mapping</a></li><li id="xooki-cpc/cleancache"><a href="../cpc/cleancache.html" >Clean the caches</a></li><li id="xooki-cpc/reload_settings"><a href="../cpc/reload_settings.html" >Reload settings</a></li><li id="xooki-cpc/workspace"><a href="../cpc/workspace.html" class="current">Resolve in workspace</a></li><li id="xooki-cpc/launch"><a href="../cpc/launch.html" >Launch configuration</a></li><li id="xooki-cpc/maven"><a href="../cpc/maven.html" >Use with maven poms</a></li><li id="xooki-cpc/wtp"><a href="../cpc/wtp.html" >WTP integration</a></li></ul></li><li id="xooki-ivyeditor"><a href="../ivyeditor.html" >Ivy file editor</a></li><li id="xooki-settingseditor"><a href="../settingseditor.html" >Ivy settings editor</a></li><li id="xooki-preferences"><a href="../preferences.html" >Eclipse global preferences</a></li><li id="xooki-eclipsevar"><a href="../eclipsevar.html" >Eclipse variables</a></li><li id="xooki-console"><a href="../console.html" >Ivy Console</a></li><li id="xooki-ant"><a href="../ant.html" >Eclipse's Ant integration</a></li><li id="xooki-revdepexplorer"><a href="../revdepexplorer.html" >Reverse Dependency Explorer</a></li><li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="../dev/build.html" >Building</a></li><li id="xooki-dev/release"><a href="../dev/release.html" >Releasing</a></li></ul></li></ul></li></ul></div>
+		<div class="content"><ul id="treemenu" class="treeview">
+<li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-release-notes"><a href="../release-notes.html" >Release Notes</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li>
+<li id="xooki-install"><a href="../install.html" >Installation</a></li>
+<li id="xooki-cp_container" class="submenu"><a href="../cp_container.html" >Classpath Container</a><ul class="open"><li id="xooki-cpc/create"><a href="../cpc/create.html" >Create a container</a></li>
+<li id="xooki-cpc/edit"><a href="../cpc/edit.html" >Edit the classpath</a></li>
+<li id="xooki-cpc/resolve"><a href="../cpc/resolve.html" >Launching resolve</a></li>
+<li id="xooki-cpc/retrieve"><a href="../cpc/retrieve.html" >Retrieve dependencies</a></li>
+<li id="xooki-cpc/jarmapping"><a href="../cpc/jarmapping.html" >Jar mapping</a></li>
+<li id="xooki-cpc/cleancache"><a href="../cpc/cleancache.html" >Clean the caches</a></li>
+<li id="xooki-cpc/workspace"><a href="../cpc/workspace.html" class="current">Resolve in workspace</a></li>
+<li id="xooki-cpc/launch"><a href="../cpc/launch.html" >Launch configuration</a></li>
+<li id="xooki-cpc/maven"><a href="../cpc/maven.html" >Use with maven poms</a></li>
+<li id="xooki-cpc/wtp"><a href="../cpc/wtp.html" >WTP integration</a></li>
+</ul></li>
+<li id="xooki-non-java"><a href="../non-java.html" >Non-Java dependencies</a></li>
+<li id="xooki-ivyeditor"><a href="../ivyeditor.html" >Ivy file editor</a></li>
+<li id="xooki-settingseditor"><a href="../settingseditor.html" >Ivy settings editor</a></li>
+<li id="xooki-preferences"><a href="../preferences.html" >Eclipse global preferences</a></li>
+<li id="xooki-eclipsevar"><a href="../eclipsevar.html" >Eclipse variables</a></li>
+<li id="xooki-console"><a href="../console.html" >Ivy Console</a></li>
+<li id="xooki-ant"><a href="../ant.html" >Eclipse's Ant integration</a></li>
+<li id="xooki-revdepexplorer"><a href="../revdepexplorer.html" >Reverse Dependency Explorer</a></li>
+<li id="xooki-resolve-visualizer"><a href="../resolve-visualizer.html" >Resolve Visualizer</a></li>
+<li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="../dev/build.html" >Building</a></li>
+<li id="xooki-dev/release"><a href="../dev/release.html" >Releasing</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 
 		</div>
 
@@ -78,7 +108,7 @@
 		<div id="main">
 
 		<h1 class="title">Resolve in workspace</h1>
-            <br class="xooki-br"/>Some projects are composed of mulpliple modules.  Often, these modules have dependencies between them, dependencies managed by Apache Ivy (of course!). <br class="xooki-br"/><br class="xooki-br"/>Eclipse is capable of calculating the workspace's build order according to dependencies between projects.  To leverage this advantage, Apache IvyDE has the ability to add a project reference to a dependency located in the workspace in place of downloading its published artifact(s) from the repository.  In this way, developers can develop multi-module applications, and test the interaction between these modules, before building and publishing artifacts to the repository.<br class="xooki-br"/><br class="xooki-br"/>Consider a multi-module application with a considerable amount of code in each of several projects.  Many developers have experienced the delays involved in waiting for Eclipse&#153; to build code across all of these projects even though development is only being conducted in one isolated part of the application (maybe just one or two projects).  If the latest published artifact in the Ivy repository has the same source code as a module that the developer is not currently working on, simply closing that project in the Eclipse workspace and resolving dependencies on dependent projects that would resolve that artifact speeds the compilation process considerably.<br class="xooki-br"/><br class="xooki-br"/>First, each application module should be separate a project in Eclipse, and each of these projects should have a configured IvyDE classpath container.<br class="xooki-br"/><br class="xooki-br"/>To enable resolution in the workspace, go to the advanced configuration panel of the classpath container and select <b>Resolve dependencies in workspace</b>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="../images/workspace.jpg"/></center>
+            <br class="xooki-br"/>Some projects are composed of mulpliple modules.  Often, these modules have dependencies between them, dependencies managed by Apache Ivy (of course!). <br class="xooki-br"/><br class="xooki-br"/>Eclipse is capable of calculating the workspace's build order according to dependencies between projects.  To leverage this advantage, Apache IvyDE has the ability to add a project reference to a dependency located in the workspace in place of downloading its published artifact(s) from the repository.  In this way, developers can develop multi-module applications, and test the interaction between these modules, before building and publishing artifacts to the repository.<br class="xooki-br"/><br class="xooki-br"/>Consider a multi-module application with a considerable amount of code in each of several projects.  Many developers have experienced the delays involved in waiting for Eclipse&#153; to build code across all of these projects even though development is only being conducted in one isolated part of the application (maybe just one or two projects).  If the latest published artifact in the Ivy repository has the same source code as a module that the developer is not currently working on, simply closing that project in the Eclipse workspace and resolving dependencies on dependent projects that would resolve that artifact speeds the compilation process considerably.<br class="xooki-br"/><br class="xooki-br"/>First, each application module should be separate a project in Eclipse, and each of these projects should have a configured IvyDE classpath container.<br class="xooki-br"/><br class="xooki-br"/>To enable resolution in the workspace, go to the "classpath" panel of the classpath container and select <b>Resolve dependencies in workspace</b>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="../images/workspace.jpg"/></center>
 
 <u>Important notes:</u> to make the resolve in workspace work correctly the <i>info</i> in the ivy.xml should be properly set:
 <ul>
@@ -109,7 +139,9 @@ In some setup, if you want to mix some resolver of your own and the workspace re
     <li>see the resolveMode attribute of <a href="http://ant.apache.org/ivy/history/latest-milestone/settings/module.html">module</a> in the ivysettings.</li>
 </ul>
 
+<h1>WTP support</h1>
 
+Note that WTP doesn't support IvyDE's workspace resolver. See the details in the page dedicated to <a href="wtp.html#resolve-in-workspace">WTP integration</a>.<br class="xooki-br"/><br class="xooki-br"/>
             <hr/>
             <a href="?action=print">Printer Friendly</a>
  		</div><!-- main -->
@@ -135,7 +167,7 @@ In some setup, if you want to mix some resolver of your own and the workspace re
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2010 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2012 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache IvyDE, Apache Ivy, Apache Ant, IvyDE, Ivy, Ant, Apache, the Apache IvyDE logo, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>Eclipse and the Eclipse logo are trademarks of Eclipse Foundation, Inc.</i>
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
