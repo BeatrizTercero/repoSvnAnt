@@ -1129,6 +1129,49 @@ shell-prompt> m4 foo.m4 > foo
           message to not contain the word "more".</p>
       </answer>
     </faq>
+
+    <faq id="macrodef-property-expansion">
+      <question>Properties are expanded twice in
+        my <code>macrodef</code>ed tasks.</question>
+      <answer>
+
+        <p>If your <code>macrodef</code>ed tasks contains attributes,
+          property references are expanded twice, for example</p>
+
+<source><![CDATA[
+  <macrodef name="echotest">
+    <attribute name="message" />
+    <sequential>
+      <echo message="@{message}" />
+    </sequential>
+  </macrodef>
+  <echotest message="$${basedir}" />
+]]></source>
+
+        <p>echos the value of the basedir property rather than the
+          text ${basedir} one would expect.  This is
+          a <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=42046">known
+            issue</a>.</p>
+
+        <p>It happens because <code>${}</code> sequences are expanded
+          once before expanding <code>@{}</code> sequences and once
+          afterwards.  This is required to make things like the
+          macrodef
+          in <a href="#propertyvalue-as-name-for-property">this
+          FAQ</a> work.  It enables</p>
+
+<source><![CDATA[
+<property name="choice" value="2"/>
+<property name="thing.1" value="one"/>
+<property name="thing.2" value="two"/>
+<property name="thing.3" value="three"/>
+<propertycopy to="thing" from="thing.${choice}"/>
+]]></source>
+
+        <p>which wouldn't be possible if properties weren't expanded
+        twice.</p>
+      </answer>
+    </faq>
   </faqsection>
 
   <faqsection title="Apache Ant and IDEs/Editors">
