@@ -730,7 +730,7 @@ shell-prompt> m4 foo.m4 > foo
       value="${${anotherprop}}"/&gt;</code> (double expanding the property)?</question>
 
       <answer>
-        <p>Without any external help you can not.</p>
+        <p>Without any external help it is tricky.</p>
         <p>With &lt;script/&gt;, which needs external libraries, you can do</p>
         <source><![CDATA[
 <script language="javascript">
@@ -1149,9 +1149,7 @@ shell-prompt> m4 foo.m4 > foo
 ]]></source>
 
         <p>echos the value of the basedir property rather than the
-          text ${basedir} one would expect.  This is
-          a <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=42046">known
-            issue</a>.</p>
+          text ${basedir} one would expect.</p>
 
         <p>It happens because <code>${}</code> sequences are expanded
           once before expanding <code>@{}</code> sequences and once
@@ -1170,6 +1168,17 @@ shell-prompt> m4 foo.m4 > foo
 
         <p>which wouldn't be possible if properties weren't expanded
         twice.</p>
+
+        <p>If you want to avoid the double expansion, since Ant 1.8.3 you can turn it off explicitly:</p>
+<source><![CDATA[
+  <macrodef name="echotest">
+    <attribute name="message" doubleexpanding="false" />
+    <sequential>
+      <echo message="@{message}" />
+    </sequential>
+  </macrodef>
+  <echotest message="$${basedir}" />
+]]></source>
       </answer>
     </faq>
   </faqsection>

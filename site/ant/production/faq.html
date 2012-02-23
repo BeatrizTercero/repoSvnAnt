@@ -1222,7 +1222,7 @@ shell-prompt&gt; m4 foo.m4 &gt; foo
       How can I do something like <code>&lt;property name="prop"
       value="${${anotherprop}}"/&gt;</code> (double expanding the property)?
     </p>
-                  <p>Without any external help you can not.</p>
+                  <p>Without any external help it is tricky.</p>
                         <p>With &lt;script/&gt;, which needs external libraries, you can do</p>
                         <pre class="code">
 &lt;script language=&quot;javascript&quot;&gt;
@@ -1568,9 +1568,7 @@ shell-prompt&gt; m4 foo.m4 &gt; foo
   &lt;echotest message=&quot;$${basedir}&quot; /&gt;
 </pre>
                         <p>echos the value of the basedir property rather than the
-          text ${basedir} one would expect.  This is
-          a <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=42046">known
-            issue</a>.</p>
+          text ${basedir} one would expect.</p>
                         <p>It happens because <code>${}</code> sequences are expanded
           once before expanding <code>@{}</code> sequences and once
           afterwards.  This is required to make things like the
@@ -1586,6 +1584,16 @@ shell-prompt&gt; m4 foo.m4 &gt; foo
 </pre>
                         <p>which wouldn't be possible if properties weren't expanded
         twice.</p>
+                        <p>If you want to avoid the double expansion, since Ant 1.8.3 you can turn it off explicitly:</p>
+                        <pre class="code">
+  &lt;macrodef name=&quot;echotest&quot;&gt;
+    &lt;attribute name=&quot;message&quot; doubleexpanding=&quot;false&quot; /&gt;
+    &lt;sequential&gt;
+      &lt;echo message=&quot;@{message}&quot; /&gt;
+    &lt;/sequential&gt;
+  &lt;/macrodef&gt;
+  &lt;echotest message=&quot;$${basedir}&quot; /&gt;
+</pre>
                                 <p class="faq">
       <a name="integration"></a>
       Is Apache Ant supported by my IDE/Editor?
