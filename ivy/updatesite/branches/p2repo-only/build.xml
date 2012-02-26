@@ -23,11 +23,11 @@
     <property environment="env" />
 
     <property name="work.dir" value="${basedir}/work" />
-    <property name="dist.dir" value="${basedir}/dist" />
+    <property name="dist.dev.dir" value="${basedir}/dist/dev" />
+    <property name="dist.release.dir" value="${basedir}/dist/release" />
 
     <target name="clean" description="Clean the folders generated during the build">
         <delete dir="${work.dir}" />
-        <delete dir="${dist.dir}" />
     </target>
 
     <!-- ==================================================================================
@@ -99,11 +99,11 @@
     </macrodef>
 
     <target name="build-main-p2-repo" description="Build the main P2 repository">
-        <mkdir dir="${dist.dir}/main" />
+        <mkdir dir="${dist.release.dir}" />
         <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
         <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
 
-        <echo file="${dist.dir}/main/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+        <echo file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
@@ -112,13 +112,13 @@ ${ASL2-header}
     <property name='p2.compressed' value='false'/>
   </properties>
 ]]></echo>
-        <concat append="true" destfile="${dist.dir}/main/compositeArtifacts.xml">
+        <concat append="true" destfile="${dist.release.dir}/compositeArtifacts.xml">
             <fileset dir="${basedir}" includes="versions.xml" />
         </concat>
-        <echo append="true" file="${dist.dir}/main/compositeArtifacts.xml"><![CDATA[</repository>
+        <echo append="true" file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[</repository>
 ]]></echo>
 
-        <echo file="${dist.dir}/main/compositeContent.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+        <echo file="${dist.release.dir}/compositeContent.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
@@ -127,10 +127,10 @@ ${ASL2-header}
     <property name='p2.compressed' value='false'/>
   </properties>
 ]]></echo>
-        <concat append="true" destfile="${dist.dir}/main/compositeContent.xml">
+        <concat append="true" destfile="${dist.release.dir}/compositeContent.xml">
             <fileset dir="${basedir}" includes="versions.xml" />
         </concat>
-        <echo append="true" file="${dist.dir}/main/compositeContent.xml"><![CDATA[</repository>
+        <echo append="true" file="${dist.release.dir}/compositeContent.xml"><![CDATA[</repository>
 ]]></echo>
     </target>
 
@@ -164,16 +164,16 @@ ${ASL2-header}
         <!-- get the version of ivyde -->
         <osgi-version jar="${ivyde.jar.path}" outputproperty="ivyde.version" />
         <!-- install the new binaries -->
-        <delete dir="${dist.dir}/ivyde-${ivyde.version}" />
-        <mkdir dir="${dist.dir}/ivyde-${ivyde.version}" />
-        <copy todir="${dist.dir}/ivyde-${ivyde.version}">
+        <delete dir="${dist.dev.dir}/ivyde-${ivyde.version}" />
+        <mkdir dir="${dist.dev.dir}/ivyde-${ivyde.version}" />
+        <copy todir="${dist.dev.dir}/ivyde-${ivyde.version}">
             <fileset dir="${ivyde.distrib.path}">
                 <include name="plugins/**" />
                 <include name="features/**" />
                 <include name="*.xml" />
             </fileset>
         </copy>
-        <xslt in="${ivyde.distrib.path}/artifacts.xml" out="${dist.dir}/ivyde-${ivyde.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
+        <xslt in="${ivyde.distrib.path}/artifacts.xml" out="${dist.dev.dir}/ivyde-${ivyde.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
           <param name="path" expression="ivyde-${ivyde.version}" />
         </xslt>
     </target>
@@ -191,9 +191,9 @@ ${ASL2-header}
         <!-- get the real OSGi version of the bundle -->
         <osgi-version jar="${ivy.jar}" outputproperty="ivy.version" />
         <!-- install the plugin -->
-        <delete dir="${dist.dir}/ivy-${ivy.version}/plugins" />
-        <mkdir dir="${dist.dir}/ivy-${ivy.version}/plugins" />
-        <copy file="${ivy.jar}" tofile="${dist.dir}/ivy-${ivy.version}/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
+        <delete dir="${dist.dev.dir}/ivy-${ivy.version}/plugins" />
+        <mkdir dir="${dist.dev.dir}/ivy-${ivy.version}/plugins" />
+        <copy file="${ivy.jar}" tofile="${dist.dev.dir}/ivy-${ivy.version}/plugins/org.apache.ivy_${ivy.version}.jar" overwrite="true" />
     </target>
 
     <target name="generate-ivy-feature" depends="get-ivy-plugin">
@@ -206,8 +206,8 @@ ${ASL2-header}
             </filterset>
         </copy>
         <!-- package the feature -->
-        <mkdir dir="${dist.dir}/ivy-${ivy.version}/features" />
-        <jar destfile="${dist.dir}/ivy-${ivy.version}/features/org.apache.ivy.feature_${ivy.version}.jar">
+        <mkdir dir="${dist.dev.dir}/ivy-${ivy.version}/features" />
+        <jar destfile="${dist.dev.dir}/ivy-${ivy.version}/features/org.apache.ivy.feature_${ivy.version}.jar">
             <fileset dir="${basedir}/ivy-feature-template">
                 <include name="feature.properties" />
                 <include name="LICENSE" />
@@ -229,8 +229,8 @@ ${ASL2-header}
             </filterset>
         </copy>
         <!-- package the feature -->
-        <mkdir dir="${dist.dir}/ivy-${ivy.version}/features" />
-        <jar destfile="${dist.dir}/ivy-${ivy.version}/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
+        <mkdir dir="${dist.dev.dir}/ivy-${ivy.version}/features" />
+        <jar destfile="${dist.dev.dir}/ivy-${ivy.version}/features/org.apache.ivy.eclipse.ant.feature_${ivy.version}.jar">
             <fileset dir="${basedir}/ivy-ant-feature-template">
                 <include name="feature.properties" />
                 <include name="LICENSE" />
@@ -258,7 +258,7 @@ ${ASL2-header}
             </filterset>
         </copy>
         <!-- package the jar -->
-        <jar destfile="${dist.dir}/ivy-${ivy.version}/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
+        <jar destfile="${dist.dev.dir}/ivy-${ivy.version}/plugins/org.apache.ivy.eclipse.ant_${ivy.version}.jar" manifest="${work.dir}/ivy-ant-plugin/MANIFEST.MF">
             <fileset dir="${work.dir}/ivy-ant-plugin">
                 <include name="plugin.xml" />
                 <include name="ivy.jar" />
@@ -271,7 +271,7 @@ ${ASL2-header}
     </target>
 
     <target name="generate-ivy-p2-repo" depends="eclipse-classpath,get-ivy-plugin">
-        <makeurl file="${dist.dir}/ivy-${ivy.version}" property="p2repo.url"/>
+        <makeurl file="${dist.dev.dir}/ivy-${ivy.version}" property="p2repo.url"/>
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
             <arg line="-clean" />
             <arg line="-application org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher" />
@@ -279,7 +279,7 @@ ${ASL2-header}
             <arg line="-artifactRepository ${p2repo.url}" />
             <arg line="-metadataRepositoryName 'Apache Ivy P2 Eclipse repository'" />
             <arg line="-artifactRepositoryName 'Apache Ivy P2 Eclipse repository'" />
-            <arg line="-source ${dist.dir}/ivy-${ivy.version}" />
+            <arg line="-source ${dist.dev.dir}/ivy-${ivy.version}" />
             <sysproperty key="eclipse.consoleLog" value="${eclipse.consoleLog}" />
         </java>        
     </target>
@@ -297,7 +297,7 @@ ${ASL2-header}
     </feature>
 </site>
 ]]></echo>
-        <makeurl file="${dist.dir}/ivy-${ivy.version}" property="p2repo.url"/>
+        <makeurl file="${dist.dev.dir}/ivy-${ivy.version}" property="p2repo.url"/>
         <makeurl file="${work.dir}/category.xml" property="p2repo.category.url"/>
         <java classpath="${eclipse.classpath}" classname="org.eclipse.core.launcher.Main" fork="true" failonerror="true">
             <arg line="-clean" />
@@ -309,13 +309,13 @@ ${ASL2-header}
         </java>
         <!-- as we're at it, let's put the ASL header -->
         <replaceregexp match="&lt;repository name='" replace="${ASL2-header}&lt;repository name='" flags="g">
-            <fileset dir="${dist.dir}/ivy-${ivy.version}" includes="*.xml" />
+            <fileset dir="${dist.dev.dir}/ivy-${ivy.version}" includes="*.xml" />
         </replaceregexp>
     </target>
 
     <target name="add-ivy-p2-mirrors" depends="generate-ivy-p2-repo">
-        <copy file="${dist.dir}/ivy-${ivy.version}/artifacts.xml" todir="${work.dir}" />
-        <xslt in="${work.dir}/artifacts.xml" out="${dist.dir}/ivy-${ivy.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
+        <copy file="${dist.dev.dir}/ivy-${ivy.version}/artifacts.xml" todir="${work.dir}" />
+        <xslt in="${work.dir}/artifacts.xml" out="${dist.dev.dir}/ivy-${ivy.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
           <param name="path" expression="ivy-${ivy.version}" />
         </xslt>
     </target>
