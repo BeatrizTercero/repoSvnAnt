@@ -38,7 +38,7 @@ The svn location of the updatesite builder is there: https://svn.apache.org/repo
 <ul><li>For an <u>Ivy</u> release:
 As you have a build jar for Ivy, just do:
 <code>ant build-ivy-p2-repo -Divy.jar=...../path/to/ivy.jar</code>
-<li>
+</li><li>
 For an <u>IvyDE</u> release:
 The zip distribution needs to be unpacked into the updatesite directory:
 <code>ant build-ivyde-p2-repo -Divyde.zip=...../path/to/org.apache.ivyde.feature-${VERSION}.zip</code>
@@ -49,8 +49,14 @@ The folder of the generated p2 repository is based on the technical version, you
 
 Note: from now on in the present doc, ${VERSION} references the renamed version.
 
-Now the binary files need to be signed; run:
+Now the binary files need to be signed.
+<ul><li>For an <u>Ivy</u> release:<li>
+<pre>./signArtifacts.sh ivy-${VERSION}</pre>
+</li><li>
+For an <u>IvyDE</u> release:
 <pre>./signArtifacts.sh ivyde-${VERSION}</pre>
+</li>
+</ul>
 
 And finally commit your changes in <tt>dist/dev</tt> (this will put the p2 repository in the dev space of the dist repository).
 
