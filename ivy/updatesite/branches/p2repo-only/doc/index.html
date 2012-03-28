@@ -45,21 +45,14 @@ The zip distribution needs to be unpacked into the updatesite directory:
 </li>
 </ul>
 
-The binary files then need to be signed and their checksum computed. For the checksums, run:
-<pre>ant checksum</pre>
-And sign the binaries:
+The folder of the generated p2 repository is based on the technical version, you might want to rename it. For instance <tt>dist/dev/ivyde-2.2.0.beta1-201203282058-RELEASE</tt> may be renamed <tt>dist/dev/ivyde-2.2.0.beta1</tt>.
 
-<ul>
-<li>For an <u>Ivy</u> release:
-<pre>./signIvyArtifacts.sh</pre>
-</li>
-<li>
-For an <u>IvyDE</u> release:
-<pre>./signIvyDEArtifacts.sh</pre>
-</li>
-</ul>
+Note: from now on in the present doc, ${VERSION} references the renamed version.
 
-And finally commit your changesin <tt>dist/dev</tt>.
+Now the binary files need to be signed; run:
+<pre>./signArtifacts.sh ivyde-${VERSION}</pre>
+
+And finally commit your changes in <tt>dist/dev</tt> (this will put the p2 repository in the dev space of the dist repository).
 
 <h2>Test the updatesite</h2>
 
