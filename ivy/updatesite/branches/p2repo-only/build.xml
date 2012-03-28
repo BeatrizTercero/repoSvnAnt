@@ -139,7 +139,10 @@ ${ASL2-header}
         ========================================
     -->
 
-    <target name="build-ivyde-p2-repo" description="Build a P2 repository from an IvyDE distribution">
+    <target name="build-ivyde-p2-repo" depends="generate-ivyde-p2-repo,checksum-ivyde" description="Build a P2 repository from an IvyDE distribution">
+    </target>
+
+    <target name="generate-ivyde-p2-repo" description="Build a P2 repository from an IvyDE distribution">
         <fail message="You have to specify the path to the zip of the IvyDE distribution via the property ivyde.zip" unless="ivyde.zip" />
         <!-- unzip -->
         <delete dir="${work.dir}/ivyde" />
@@ -178,12 +181,27 @@ ${ASL2-header}
         </xslt>
     </target>
 
+    <target name="checksum-ivyde" description="Compute the checksum for every artifact to distribute">
+        <checksum algorithm="MD5" fileext=".md5" format="MD5SUM">
+            <fileset dir="${dist.dev.dir}/ivyde-${ivyde.version}">
+                <include name="plugins/*.jar" />
+                <include name="features/*.jar" />
+            </fileset>
+        </checksum>
+        <checksum algorithm="SHA" fileext=".sha" format="MD5SUM">
+            <fileset dir="${dist.dev.dir}/ivyde-${ivyde.version}">
+                <include name="plugins/*.jar" />
+                <include name="features/*.jar" />
+            </fileset>
+        </checksum>
+    </target>
+
     <!-- ======================================
         Targets related to the P2 repo for Ivy
         ======================================
     -->
 
-    <target name="build-ivy-p2-repo" depends="get-ivy-plugin,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,generate-ivy-p2-repo,generate-ivy-p2-category,add-ivy-p2-mirrors" description="Build a P2 repository from an Ivy distribution">
+    <target name="build-ivy-p2-repo" depends="get-ivy-plugin,generate-ivy-feature,generate-ivy-ant-feature,generate-ivy-ant-plugin,generate-ivy-p2-repo,generate-ivy-p2-category,add-ivy-p2-mirrors,checksum-ivy" description="Build a P2 repository from an Ivy distribution">
     </target>
 
     <target name="get-ivy-plugin">
@@ -318,6 +336,53 @@ ${ASL2-header}
         <xslt in="${work.dir}/artifacts.xml" out="${dist.dev.dir}/ivy-${ivy.version}/artifacts.xml" style="${basedir}/p2-mirrors.xsl" force="true">
           <param name="path" expression="ivy-${ivy.version}" />
         </xslt>
+    </target>
+
+    <target name="checksum-ivy">
+        <checksum algorithm="MD5" fileext=".md5" format="MD5SUM">
+            <fileset dir="${dist.dev.dir}/ivy-${ivy.version}">
+                <include name="plugins/*.jar" />
+                <include name="features/*.jar" />
+            </fileset>
+        </checksum>
+        <checksum algorithm="SHA" fileext=".sha" format="MD5SUM">
+            <fileset dir="${dist.dev.dir}/ivy-${ivy.version}">
+                <include name="plugins/*.jar" />
+                <include name="features/*.jar" />
+            </fileset>
+        </checksum>
+    </target>
+
+    <!-- ======================================
+        Generic targets
+        ======================================
+    -->
+
+    <target name="verify-checksum" description="Verify the checksums of the artifacts to publish">
+        <checksum algorithm="MD5" fileext=".md5" format="MD5SUM" verifyproperty="checksum.md5.ok">
+            <fileset dir="${dist.dev.dir}">
+                <include name="*/plugins/*.jar" />
+                <include name="*/features/*.jar" />
+            </fileset>
+        </checksum>
+        <fail message="MD5 Checksum verify failed !">
+            <condition>
+                <isfalse value="${checksum.md5.ok}" />
+            </condition>
+        </fail>
+        <echo message="MD5 Checksum verify passed successfully" />
+        <checksum algorithm="SHA" fileext=".sha" format="MD5SUM" verifyproperty="checksum.sha.ok">
+            <fileset dir="${dist.dev.dir}">
+                <include name="*/plugins/*.jar" />
+                <include name="*/features/*.jar" />
+            </fileset>
+        </checksum>
+        <fail message="SHA Checksum verify failed !">
+            <condition>
+                <isfalse value="${checksum.sha.ok}" />
+            </condition>
+        </fail>
+        <echo message="SHA Checksum verify passed successfully" />
     </target>
 
 </project>
