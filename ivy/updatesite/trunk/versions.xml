@@ -1,6 +1,7 @@
-  <children size='5'>
+  <children size='6'>
+    <child location='ivyde-2.2.0.beta1'/>
     <child location='ivyde-2.1.0'/>
-    <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivyde-2.0.0.final'/>
+    <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivyde-2.0.0'/>
     <child location='ivy-2.2.0'/>
     <child location='http://archive.apache.org/dist/ant/ivy/updatesite/ivy-2.1.0'/>
     <child location='http://archive.apache.org/dist/ant/ivy/updatesite/ivy-2.0.0'/>
