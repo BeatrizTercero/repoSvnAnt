@@ -67,8 +67,8 @@ Apache IvyDE can be also used with other plugins like <a href="cpc/wtp.html">WTP
 
 <h1><a name="annoucement"></a>Release Annoucement</h1>
 
-<b><font color="red">!! NOT RELEASED YET, THIS IS JUST A DRAFT !!</font></b><br class="xooki-br"/><br class="xooki-br"/><tt>
-The Apache IvyDE project is pleased to announce its 2.2.0 beta release.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE is the Eclipse plugin which integrates Apache Ivy's dependency management into Eclipse. It lets you manage your dependencies declared in an ivy.xml in your Java Eclipse projects, or any other kind of project which needs dependency management. Apache IvyDE will contribute to the classpath of your Java project or you can make it retrieve your dependencies directly into your project. Last but not least Apache IvyDE offer editors of ivy.xml and ivysettings.xml files with completion. Get some preview here: <a href="http://ant.apache.org/ivy/ivyde/screenshots.html">http://ant.apache.org/ivy/ivyde/screenshots.html</a><br class="xooki-br"/><br class="xooki-br"/>Major changes in this release:<br class="xooki-br"/>* a synchronous resolve job has been introduced to take into account projet's inter dependencies and avoid too many workspace build,<br class="xooki-br"/>* resolved classpath can now be based on retrieved artifacts,<br class="xooki-br"/>* IvyDE retrieve feature can now be use on non Java projets<br class="xooki-br"/><br class="xooki-br"/>Compatibility:<br class="xooki-br"/>* this release is expected to work with every version of Ivy 2.1 or superior<br class="xooki-br"/>* as for this release and the next ones, IvyDE now expects to be installed in Eclipse 3.4 or superior.<br class="xooki-br"/><br class="xooki-br"/>This release is considered as beta since the important changes in IvyDE resolve feature. We encourage our early users to test it and report us any issue they found.<br class="xooki-br"/><br class="xooki-br"/>A more detailed release notes can be read there:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/history/latest-milestone/release-notes.html">http://ant.apache.org/ivy/ivyde/history/latest-milestone/release-notes.html</a><br class="xooki-br"/><br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVYDE">https://issues.apache.org/jira/browse/IVYDE</a><br class="xooki-br"/><br class="xooki-br"/>Download the 2.2.0 beta release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/download.cgi">http://ant.apache.org/ivy/ivyde/download.cgi</a><br class="xooki-br"/><br class="xooki-br"/>Or use directly the Apache IvyDE's updatesite:<br class="xooki-br"/><a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a><br class="xooki-br"/><br class="xooki-br"/>More information can be found on the Apache IvyDE website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/">http://ant.apache.org/ivy/ivyde/</a><br class="xooki-br"/></tt>
+<tt>
+The Apache IvyDE project is pleased to announce its 2.2.0 beta2 release.<br class="xooki-br"/><br class="xooki-br"/>The Apache IvyDE Eclipse plugin integrates Apache Ivy's dependency management into Eclipse. It lets you manage your dependencies declared in an ivy.xml in your Java Eclipse projects, or any other kind of project which needs dependency management. Apache IvyDE will contribute to the classpath of your Java project or you can make it retrieve your dependencies directly into your project. Last but not least Apache IvyDE offer editors of ivy.xml and ivysettings.xml files with completion. Get some preview here: <a href="http://ant.apache.org/ivy/ivyde/screenshots.html">http://ant.apache.org/ivy/ivyde/screenshots.html</a><br class="xooki-br"/><br class="xooki-br"/>Major changes in this release:<br class="xooki-br"/><br class="xooki-br"/>!!!!!!! TODO !!!!!!!!!<br class="xooki-br"/><br class="xooki-br"/>Compatibility:<br class="xooki-br"/>* this release is expected to work with every version of Ivy 2.1 or superior<br class="xooki-br"/><br class="xooki-br"/>This release is considered as beta since the important changes in IvyDE resolve feature. We encourage our early users to test it and report us any issue they found.<br class="xooki-br"/><br class="xooki-br"/>A more detailed release notes can be read there:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/history/latest-milestone/release-notes.html">http://ant.apache.org/ivy/ivyde/history/latest-milestone/release-notes.html</a><br class="xooki-br"/><br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVYDE">https://issues.apache.org/jira/browse/IVYDE</a><br class="xooki-br"/><br class="xooki-br"/>Download the 2.2.0 beta2 release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/download.cgi">http://ant.apache.org/ivy/ivyde/download.cgi</a><br class="xooki-br"/><br class="xooki-br"/>Or use directly the Apache IvyDE's updatesite:<br class="xooki-br"/><a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a><br class="xooki-br"/><br class="xooki-br"/>More information can be found on the Apache IvyDE website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/ivyde/">http://ant.apache.org/ivy/ivyde/</a><br class="xooki-br"/></tt>
 
 <h1><a name="what"></a>What is Apache IvyDE?</h1>
 
@@ -94,36 +94,12 @@ Here is the list of people who have contributed source code and documentation<br
 
 <h1><a name="changes"></a>List of Changes in this Release</h1>
 
-List of changes since <a href="/ivy/ivyde/history/2.1.0/release-notes.html">Apache IvyDE 2.1.0</a>:
+List of changes since <a href="/ivy/ivyde/history/2.2.0.beta1/release-notes.html">Apache IvyDE 2.2.0 beta1</a>:
 <ul>
-    <li>NEW: Custom color in XML editors (<a href="https://issues.apache.org/jira/browse/IVYDE-73">IVYDE-73</a>)</li>
-    <li>NEW: support for retrieve configuration in non Java project</li>
-    <li>NEW: an IvyDE classpath can now be retrieved (<a href="https://issues.apache.org/jira/browse/IVYDE-56">IVYDE-56</a>)</li>
-    <li>NEW: Add branch comparison to workspace resolver (<a href="https://issues.apache.org/jira/browse/IVYDE-234">IVYDE-234</a>) (thanks to Jeffrey M. Metcalf)</li>
-    <li>NEW: Look for ivysettings.xml file in project root copying the behavior of ivy ant task (<a href="https://issues.apache.org/jira/browse/IVYDE-258">IVYDE-258</a>)</li>
-    <li>NEW: IvyDE can now resolve in an offline mode, where Ivy use only the caches (Ivy 2.3 required)</li>
-    <li>NEW: Explicit ordering of configurations (<a href="https://issues.apache.org/jira/browse/IVYDE-159">IVYDE-159</a>)</li>
-    <li>NEW: Open the ivy file on the double click in the reverse dependency explorer</li>
-    <li>NEW: The ivysettings field editor now supports the variable ${ivyproject_loc} which is referencing the current project being resolved (<a href="https://issues.apache.org/jira/browse/IVYDE-247">IVYDE-247</a>)</li>
-    <li>NEW: Resolve error popups can now be avoided (<a href="https://issues.apache.org/jira/browse/IVYDE-268">IVYDE-268</a>)</li>
-    <li>NEW: Add configuration option to use an extended revision id when resolving eclipse projects (<a href="https://issues.apache.org/jira/browse/IVYDE-235">IVYDE-235</a>) (thanks to Jeffrey M. Metcalf)</li>
-    <li>NEW: Allow specifying source and javadoc mapping on binaries directly in the ivy.xml (<a href="https://issues.apache.org/jira/browse/IVYDE-267">IVYDE-267</a>)</li>
-    <li>NEW: Ivy Resolve Visualizer (<a href="https://issues.apache.org/jira/browse/IVYDE-208">IVYDE-208</a>)</li>
-    <li>NEW: "clean caches" operations have now a confirm popup (<a href="https://issues.apache.org/jira/browse/IVYDE-289">IVYDE-289</a>)</li>
-</ul><ul>
-    <li>IMPROVE: let IvyDE refresh workspace after a resolve (<a href="https://issues.apache.org/jira/browse/IVYDE-27">IVYDE-27</a>) (thanks to Clint Burghduff)</li>
-    <li>IMPROVE: IvyDE now resolve by batch, then preventing too many workspace build (<a href="https://issues.apache.org/jira/browse/IVYDE-177">IVYDE-177</a>)</li>
-    <li>IMPROVE: Shared Javadoc/Source attachments (<a href="https://issues.apache.org/jira/browse/IVYDE-230">IVYDE-230</a>) (thanks to Gregory Fernandez)</li>
-    <li>IMPROVE: WorkspaceResolver: deal with self-dependencies (<a href="https://issues.apache.org/jira/browse/IVYDE-240">IVYDE-240</a>)</li>
-    <li>IMPROVE: Impossible to resolve dependencies: missing diagnostics (<a href="https://issues.apache.org/jira/browse/IVYDE-233">IVYDE-233</a>)</li>
-</ul><ul>
-    <li>FIX: Variable based path for ivysettings doesn't work it there are some spaces in the path (<a href="https://issues.apache.org/jira/browse/IVYDE-253">IVYDE-253</a>)</li>
-    <li>FIX: Triggers are not called (<a href="https://issues.apache.org/jira/browse/IVYDE-244">IVYDE-244</a>)</li>
-    <li>FIX: Missing ivysettings.xml can make the classpath container config to change (<a href="https://issues.apache.org/jira/browse/IVYDE-248">IVYDE-248</a>)</li>
-    <li>FIX: Multiple eclipse projects with similar ivy library definitions results in launch config source path collisions (<a href="https://issues.apache.org/jira/browse/IVYDE-237">IVYDE-237</a>)</li>
-    <li>FIX: NPE when starting the IvyPlugin (<a href="https://issues.apache.org/jira/browse/IVYDE-269">IVYDE-269</a>)</li>
-    <li>FIX: IvyDE deletes entirely a project if the retrieve pattern resolved to be the root of the project (<a href="https://issues.apache.org/jira/browse/IVYDE-272">IVYDE-272</a>)</li>
-    <li>FIX: java.lang.StackOverflowError on Ivy>Resolve of a pom.xml with a parent and the workspace resolver (<a href="https://issues.apache.org/jira/browse/IVYDE-273">IVYDE-273</a>)</li>
+    <!-- samples<br class="xooki-br"/>    <li>NEW: new new new (IVYDE-XXX) (thanks to XXX)</li>
+    <li>IMPROVE: new new new (IVYDE-XXX) (thanks to XXX)</li>
+    <li>FIX: new new new (IVYDE-XXX) (thanks to XXX)</li>
+    -->
 </ul>
 
 Most of our changes are logged in our JIRA, where you can find comments and links to our subversion:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/ivyde">https://issues.apache.org/jira/browse/ivyde</a><br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>License</div><hr/><div class='toc-title toc-title-2'>Compatibility</div><br class="xooki-br"/><h2>Upgrading/Downgrading</h2>
@@ -672,6 +648,11 @@ The header should look like this
 &lt;title&gt;${title} | Apache IvyDE $VERSION Documentation&lt;/title&gt;
 </pre>
 
+You'll need to fix the revision of the svn:external in doc. Edit the svn:external property on the folder doc and set it to the latest revision. It should look like:
+<pre>
+xooki -r1306546 <a href="https://svn.apache.org/repos/asf/ant/site/xooki/">https://svn.apache.org/repos/asf/ant/site/xooki/</a><br class="xooki-br"/>style -r1306546 <a href="https://svn.apache.org/repos/asf/ant/site/ivyde/sources/style/">https://svn.apache.org/repos/asf/ant/site/ivyde/sources/style/</a>
+</pre>
+
 <h2>Commit your changes</h2>
 
 Don't forget to commit the changes you've done into the release branch.<br class="xooki-br"/><br class="xooki-br"/><h1>Building</h1>
@@ -686,52 +667,43 @@ Then it is time to tag the release as soon as you are happy with your artifacts:
 <pre>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION</a> \<br class="xooki-br"/>      -m "Tag IvyDE release $VERSION"
 </pre>
 
-And don't forget to set the svn:external on doc/xooki to a fixed revision. Edit the svn:external property on the folder doc/xooki in the tag and set it to the revision of the commit of the tag. It should look like:
+<h1>Prepare the updatesite</h1>
+
+The instructions to build the updatesite are <a href="updatesite.html">there</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Vote for the released artifacts</h1>
+
+First the release needs to be publicly available.<br class="xooki-br"/><br class="xooki-br"/>You can use the dev area of the dist subversion for that. Then just commit the artifacts into <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>And launch the vote on the ant-dev mailing list:
 <pre>
-xooki -r790212 <a href="https://svn.apache.org/repos/asf/ant/ivy/site/xooki/">https://svn.apache.org/repos/asf/ant/ivy/site/xooki/</a>
-</pre>
-
-And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h1>Prepare the updatesite</h1>
-
-The instructions to build the updatesite are there:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/history/trunk/dev/updatesite.html">http://ant.apache.org/ivy/history/trunk/dev/updatesite.html</a><br class="xooki-br"/><br class="xooki-br"/><h1>Vote for the released artifacts</h1>
-
-It is recommended to publish the distribution artifacts and the updatesite in your public_html on people.apache.org directory so not only committers can test it.<br class="xooki-br"/><br class="xooki-br"/>On people.apache.org, create your "staging" directory:
-<pre>mkdir ~/public_html/ivyde-$VERSION/</pre>
-And then the copy:
-<pre>scp dist/* $LOGIN@people.apache.org:/home/$LOGIN/public_html/ivyde-$VERSION/</pre>
-It is recommended to also deploy a staging updatesite there. See <a href="http://ant.apache.org/ivy/history/trunk/dev/updatesite.html">that page</a> to know how to proceed.<br class="xooki-br"/><br class="xooki-br"/>And launch the vote on the ant-dev mailing list:
-<pre>
-Subject: [VOTE] IvyDE $VERSION Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Apache IvyDE $VERSION<br class="xooki-br"/><br class="xooki-br"/>You can download the distribution from this URL: <a href="http://people.apache.org/~$LOGIN/ivyde-$VERSION/">http://people.apache.org/~$LOGIN/ivyde-$VERSION/</a><br class="xooki-br"/><br class="xooki-br"/>And a staging update site has been setup there: <a href="http://people.apache.org/~$LOGIN/staging/updatesite">http://people.apache.org/~$LOGIN/staging/updatesite</a><br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>$ME, IvyDE $VERSION release manager
+Subject: [VOTE] IvyDE $VERSION Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Apache IvyDE $VERSION<br class="xooki-br"/><br class="xooki-br"/>The tag is here: <a href="http://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION">http://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>You can download the distribution from this URL: <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>The Eclipse p2 repository is there: <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>$ME, IvyDE $VERSION release manager
 </pre>
 
 Note: this <a href="http://ant.apache.org/bylaws.html">page</a> is defining when and how a release can be accepted.<br class="xooki-br"/><br class="xooki-br"/><h1>Deployment</h1>
 
 <h2>Publish the artifacts</h2>
 
-The binaries have to be pushed with their signatures and checksums in the apache dist directory. On people.apache.org:
+The binaries have to be pushed with their signatures and checksums in the apache dist. It is manageg by svnpusub so it needs to be committed into the subversion <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a><br class="xooki-br"/><br class="xooki-br"/>Then just do:
 <pre>
-cp -R ~/public_html/ivyde-$VERSION /www/www.apache.org/dist/ant/ivyde/$VERSION
+$ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/$VERSION</a>
 </pre>
 
-<h2>Deploy the updatesite</h2>
+In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivyde/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy the updatesite</h2>
 
-Follow the instructions of that page: <a href="http://ant.apache.org/ivy/history/latest-milestone/dev/updatesite.html#deployment">http://ant.apache.org/ivy/history/latest-milestone/dev/updatesite.html#deployment</a><br class="xooki-br"/><br class="xooki-br"/><h1>Annoucement</h1>
+Follow the instructions of that <a href="updatesite.html#deployment">page</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Annoucement</h1>
 
 The annoucement should have been already prepared and reviewed by other committers. Its content can be found in doc/release-notes.html.<br class="xooki-br"/><br class="xooki-br"/>With that content, send a mail to announce@apache.org, ivy-user@ant.apache.org and dev@ant.apache.org with the title "[ANNOUNCE] Apache IvyDE $VERSION released", and with your apache email as sender (announce@ requires it). <br class="xooki-br"/><br class="xooki-br"/><h1>Update the documentation</h1>
 
 <h2>Update the table of content</h2>
 
-The table of content needs to be updated so that the last documentation point to that new release.<br class="xooki-br"/><br class="xooki-br"/>First we need to update the external links. In svn/site/ivyde/history:
+The table of content needs to be updated so that the last documentation point to that new release.<br class="xooki-br"/><br class="xooki-br"/>First we need to update the external links. In svn/site/ivyde/sources/history:
 <pre>svn pe svn:externals .</pre>
 And: <ul><li>update latest-milestone:
 <pre>
-latest-milestone <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre>
+latest-milestone <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION/doc</a> </pre>
 </li>
 <li>add an entry:
-<pre>$VERSION <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/tags/$VERSION/doc</a> </pre></li>
+<pre>$VERSION <a href="https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION/doc">https://svn.apache.org/repos/asf/ant/ivy/ivyde/branches/$VERSION/doc</a> </pre></li>
 </ul>
 
-Then we need to edit svn/site/ivyde/toc.json:
+Then we need to edit svn/site/ivyde/sources/toc.json:
 <ul>
 <li>add the following data to the correct abstract node:
 <pre>
@@ -746,19 +718,18 @@ Then we need to edit svn/site/ivyde/toc.json:
 
 Then svn update your working copy (to retrieve the new history branch).<br class="xooki-br"/><br class="xooki-br"/><h2>Update the download page</h2>
 
-In the page svn/site/ivyde/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy</h2>
+In the page svn/site/ivyde/sources/download.html change every reference of the old version to the new one.<br class="xooki-br"/><br class="xooki-br"/><h2>Deploy</h2>
 
 All site editing being done, commit your changes.<br class="xooki-br"/><br class="xooki-br"/>And now let's generate the site and deploy it:<br class="xooki-br"/><ol>
     <li>generate the part of the site for the new version:</li>
 <pre>
-ant generate-history-ivyde -Dhistory.version=$VERSION
+ant generate-history -Dhistory.version=$VERSION
 </pre>
 <u>WARNING:</u> that target is modifiying the toc.json in the imported branch so that the generated html have a proper version declared in the toc. You should not commit that change. Once the site has been generated, you may want to revert the changes so you won't commit it by mistake. (TODO: process to improve so we shouldn't worry).<br class="xooki-br"/>    <li>generate the website with the new toc:</li>
 <pre>
-ant /all generate-site-ivyde
+ant /all generate-site
 </pre>
     <li>you should verify that the site generated in target is OK. And once your happy with it, commit the changes in target (some svn add might be needed !)</li>
-    <li>deploy the website: go on people.apache.org and <tt>svn up /www/ant.apache.org/ivy/ivyde</tt></li>
 </ol>
 
 <h1>Post release tasks</h1>
@@ -770,11 +741,13 @@ Update the <a href="https://issues.apache.org/jira/secure/project/ManageVersions
 Update the versions needs to be updated in the following files:
 <ul>
 <li>build.properties (edit the qualifier)</li>
-<li>org.apache.ivyde.eclipse/META-INF/MANIFEST.MF</li>
-<li>org.apache.ivyde.feature/feature.xml</li>
+<li>*/META-INF/MANIFEST.MF</li>
+<li>*/feature.xml</li>
 </ul>
 
-<h2>Clean up the release notes</h2>
+<h2>Update the doap file</h2>
+
+Add the just released version in IvyDE's doap file: see doap_IvyDE.rdf at the root of the project.<br class="xooki-br"/><br class="xooki-br"/><h2>Clean up the release notes</h2>
 
 Edit the release notes in the documentation (doc/release-notes.html) so it can be prepared and maintanined for the next release:
 <ul>
@@ -783,7 +756,67 @@ Edit the release notes in the documentation (doc/release-notes.html) so it can b
     <li>edit the content under "Major Changes in this Release": wipe it all and put there something like "Nothing done yet"</li>
     <li>edit the content under "List of Changes in this Release": remove the list of entries and update the version in "List of changes since Apache IvyDE X.X.X"</li>
 </ul>
+<hr/><div class='toc-title toc-title-3'>Updatesite</div><br class="xooki-br"/>Once a release have been build for Ivy or IvyDE, they should be pushed to the Eclipse updatesite so that Eclipse users will be able to update automatically their installed version of Ivy or IvyDE.<br class="xooki-br"/><br class="xooki-br"/>This doc is in two parts, the <a href="#setup">setup</a> of the updatesite which will be the candidate for the vote of the Ivy or IvyDE release, and the <a href="#deployment">final deployment</a> once the release is accepted.<br class="xooki-br"/><br class="xooki-br"/><u>Important note:</u> in this doc, the released version is denoted as $VERSION (and have to be replaced accordingly in every commands), but this is the OSGi one, not the usually shown one, in particular for release candidate versions. For instance an Ivy version can be <tt>2.0.0-RC1</tt> but the OSGi one, and the one to use here is <tt>2.0.0.cr1</tt>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="setup"></a>Build a p2 repository</h1>
 
+The svn location of the updatesite builder is there: <a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk">https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk</a> . We will build the p2 repository dedicated to the version to release.<br class="xooki-br"/>
+<ul><li>For an <u>Ivy</u> release:<br class="xooki-br"/>As you have a build jar for Ivy, just do:
+<pre>ant build-ivy-p2-repo -Divy.jar=...../path/to/ivy.jar</pre>
+</li><li>
+For an <u>IvyDE</u> release:<br class="xooki-br"/>The zip distribution needs to be unpacked into the updatesite directory:
+<pre>ant build-ivyde-p2-repo -Divyde.zip=...../path/to/org.apache.ivyde.feature-${VERSION}.zip</pre>
+</li>
+</ul>
+
+The folder of the generated p2 repository is based on the technical version, you might want to rename it. For instance <tt>dist/dev/ivyde-2.2.0.beta1-201203282058-RELEASE</tt> may be renamed <tt>dist/dev/ivyde-2.2.0.beta1</tt>.<br class="xooki-br"/><br class="xooki-br"/>Note: from now on in the present doc, ${VERSION} references the renamed version.<br class="xooki-br"/><br class="xooki-br"/>Now the binary files need to be signed.
+<ul><li>For an <u>Ivy</u> release:<li>
+<pre>./signArtifacts.sh ivy-${VERSION}</pre>
+</li><li>
+For an <u>IvyDE</u> release:
+<pre>./signArtifacts.sh ivyde-${VERSION}</pre>
+</li>
+</ul>
+
+And finally commit your changes in <tt>dist/dev</tt> (this will put the p2 repository in the dev space of the dist repository).<br class="xooki-br"/><br class="xooki-br"/><h2>Test the updatesite</h2>
+
+The updatesite is ready to be tested at: <tt><a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-${VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-${VERSION</a>} </tt>
+
+<h2>In case of an unaccepted release</h2>
+
+In case the release has not been accepted by the PMC, don't forget to cleanup the svn repository. To do so, just run:
+<pre>svn rm <a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION</a> -m 'Remove rejected release'
+</pre>
+
+<h1><a name="deployment"></a>Deployment of a release</h1>
+
+<h2>Clean up old releases</h2>
+
+First, you may want to remove from the main repository references to the older releases. Note also that the ASF policy regarding the space occupied by the main dist is about rectricting to only have the main stable released version available there; older are archived on archiche.apache.org.<br class="xooki-br"/><br class="xooki-br"/>To remove a version from the main dist, you'll need to remove the data and remove its reference in the main updatesite.<br class="xooki-br"/><br class="xooki-br"/>To remove the data:
+<pre>svn rm <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$OLD_VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$OLD_VERSION</a> -m 'Remove old version'
+</pre>
+
+Then the version listed in the updatesite are maintained in <br class="xooki-br"/><br class="xooki-br"/>Then you have to decide if the version you removed should be still listed in the Eclipse updatesite or not.<br class="xooki-br"/>
+<ul>To remove a version from the listed one, edit the file <tt>versions.xml</tt>
+<li>If the version should no appear anymore, just delete the line about the deleted version.</li>
+<li>If the version should still be listed, prepend the reference to the old version by <tt><a href="http://archive.apache.org/dist/ant/ivy/updatesite/">http://archive.apache.org/dist/ant/ivy/updatesite/</a> </tt></li>
+</ul>
+
+NB: adding or removing lines in <tt>versions.xml</tt> infer that you should edit the <tt>size</tt> attribute in the <tt>versions.xml</tt>, it should correspond to the number of "child".<br class="xooki-br"/><br class="xooki-br"/><h2>Publish the p2 repository data</h2>
+
+It is just about moving data (svn rm is not allowed, the two steps are required): 
+<pre>svn cp <a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$VERSION</a> -m 'publishing the p2 repo of the release of IvyDE $VERSION'<br class="xooki-br"/>svn rm <a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION</a> -m 'Remove accepted release'
+</pre>
+
+<h2>Regenerate the main repo</h2>
+
+Last but not least, the p2 repository should now list the new release.<br class="xooki-br"/><br class="xooki-br"/>Edit the file <tt>versions.xml</tt>, and add a line about the released version:
+<pre>&lt;child location='ivyde-2.1.0'/&gt;
+</pre>
+
+NB: adding or removing lines in <tt>versions.xml</tt> infer that you should edit the <tt>size</tt> attribute in the <tt>versions.xml</tt>, it should correspond to the number of "child".<br class="xooki-br"/><br class="xooki-br"/>And run:
+<pre>ant build-main-p2-repo
+</pre>
+
+And now commit every modification in <tt>dist/release</tt>.<br class="xooki-br"/><br class="xooki-br"/>
  		</div><!-- main -->
 
 <div id="footer-message" class="footer">

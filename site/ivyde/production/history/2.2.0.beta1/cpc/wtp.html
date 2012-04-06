@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
+	
+
+<title>WTP integration | Apache IvyDE&#153;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../style/style.css" />
+  <script src="../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant&#153;"><img src="../images/ant-group-logo.gif" alt="Apache Ant&#153;"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="../images/logo.png" alt="Apache IvyDE&#153;" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/history.html">History</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (2.2.0.beta1)</a> &gt; <a href="../cp_container.html" >Classpath Container</a> &gt; <a href="../cpc/wtp.html" class="current">WTP integration</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>Apache IvyDE&#153;</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview">
+<li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (2.2.0.beta1)</a><ul class="open"><li id="xooki-release-notes"><a href="../release-notes.html" >Release Notes</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li>
+<li id="xooki-install"><a href="../install.html" >Installation</a></li>
+<li id="xooki-cp_container" class="submenu"><a href="../cp_container.html" >Classpath Container</a><ul class="open"><li id="xooki-cpc/create"><a href="../cpc/create.html" >Create a container</a></li>
+<li id="xooki-cpc/edit"><a href="../cpc/edit.html" >Edit the classpath</a></li>
+<li id="xooki-cpc/resolve"><a href="../cpc/resolve.html" >Launching resolve</a></li>
+<li id="xooki-cpc/retrieve"><a href="../cpc/retrieve.html" >Retrieve dependencies</a></li>
+<li id="xooki-cpc/jarmapping"><a href="../cpc/jarmapping.html" >Jar mapping</a></li>
+<li id="xooki-cpc/cleancache"><a href="../cpc/cleancache.html" >Clean the caches</a></li>
+<li id="xooki-cpc/workspace"><a href="../cpc/workspace.html" >Resolve in workspace</a></li>
+<li id="xooki-cpc/launch"><a href="../cpc/launch.html" >Launch configuration</a></li>
+<li id="xooki-cpc/maven"><a href="../cpc/maven.html" >Use with maven poms</a></li>
+<li id="xooki-cpc/wtp"><a href="../cpc/wtp.html" class="current">WTP integration</a></li>
+</ul></li>
+<li id="xooki-non-java"><a href="../non-java.html" >Non-Java dependencies</a></li>
+<li id="xooki-ivyeditor"><a href="../ivyeditor.html" >Ivy file editor</a></li>
+<li id="xooki-settingseditor"><a href="../settingseditor.html" >Ivy settings editor</a></li>
+<li id="xooki-preferences"><a href="../preferences.html" >Eclipse global preferences</a></li>
+<li id="xooki-eclipsevar"><a href="../eclipsevar.html" >Eclipse variables</a></li>
+<li id="xooki-console"><a href="../console.html" >Ivy Console</a></li>
+<li id="xooki-ant"><a href="../ant.html" >Eclipse's Ant integration</a></li>
+<li id="xooki-revdepexplorer"><a href="../revdepexplorer.html" >Reverse Dependency Explorer</a></li>
+<li id="xooki-resolve-visualizer"><a href="../resolve-visualizer.html" >Resolve Visualizer</a></li>
+<li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="../dev/build.html" >Building</a></li>
+<li id="xooki-dev/release"><a href="../dev/release.html" >Releasing</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">WTP integration</h1>
+            <br class="xooki-br"/>WTP refers to the <a href="http://www.eclipse.org/webtools/">Web Tools Platform</a> project from the Eclipse Foundation which allows Eclipse&#153; users to easily develop, launch and debug web applications. Apache IvyDE works with WTP 2.0+ (Eclipse 3.3+).<br class="xooki-br"/><br class="xooki-br"/>In the properties of your project configured to use WTP, there is a section titled "Java EE Module Dependencies". In this section you will find the IvyDE classpath container listed, usually with the name "ivy.xml [*]". Select it and dependencies found in the IvyDE classpath container will be deployed as well.<br class="xooki-br"/><br class="xooki-br"/><center><img src="../images/wtp.jpg"/></center>
+
+This has been successfully tested with Eclipse 3.3/WTP 2.0, and Eclipse 3.4/WTP 3.0.<br class="xooki-br"/><br class="xooki-br"/><h1>IBM&#153; Rational Application Developer (RAD&#153;) 7.5.3+</h1>
+
+Users of RAD 7.5.3 will notice that the classpath container is not listed in the table.  RAD prevents the deployment of classpath containers by default.  To allow this behavior, selection Windows > Preferences > Java EE.  Check "Allow loose classpath module dependencies".  RAD will present you with a warning message.  To enable the behavior, you need to check the option again in the popup and click Yes.<br class="xooki-br"/><br class="xooki-br"/><center><img src="../images/rad_jee_page.jpg"/></center>
+<br/>
+<b>Note:</b> due to a bug in RAD 7.5.3, this IBM specific property is not persisted when we close the workbench and reopen it. To work around this:
+<ul>
+<li>Export RSA preferences ( File > Export > General > Preferences)</li>
+<li>Open the exported .epf file and replace<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=false<br class="xooki-br"/>with<br class="xooki-br"/>/instance/org.eclipse.jst.j2ee/org.eclipse.jst.j2ee.preferences.allowClasspathDep=true</li>
+<li>Load the modified .epf</li>
+</ul>
+
+<h1><a name="resolve-in-workspace"></a>Resolve in workspace</h1>
+
+WTP doesn't support classpath containers like IvyDE's or Maven's one which can link to a Java project in a workspace.<br class="xooki-br"/><br class="xooki-br"/>A feature request has been opened in WTP's Bugzilla: see <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=184125">bug #184125</a>.<br class="xooki-br"/><br class="xooki-br"/>If you really want to link a Java project into the classpath of a WTP project, you should folow what is described in the <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=184125#c12">comment #12</a> and the <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=184125#c17">comment #17</a>:
+<ul>
+  <li>in your ivy.xml of your WTP project, exclude from your dependencies the java projects you want to link to (you can create a specific Ivy configuration for that, so it won't mess with the configurations used by an Ant build for instance)</li>
+  <li>make sure your Java project is a WTP "utility" project</li>
+  <li>make sure any IvyDE classpath container in the Java projects has been added to the deployment assembly</li>
+  <li>in your WTP project, add the IvyDE container which resolve the dependencies excluded your Java project dependencies</li>
+  <li>in your WTP project, add your Java project dependencies to the WTP project using existing deployment<br class="xooki-br"/>assembly facilities</li>
+</ul>
+
+
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="../index.html">Home</a> ::
+			<a href="../download.html">Download</a> ::
+			<a href="../documentation.html">Documentation</a> ::
+			<a href="../get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message" class="footer">
+    <hr />
+    <i>Copyright &#169; 2012 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Apache IvyDE, Apache Ivy, Apache Ant, IvyDE, Ivy, Ant, Apache, the Apache IvyDE logo, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
+    <i>Eclipse and the Eclipse logo are trademarks of Eclipse Foundation, Inc.</i>
+    <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
+</div>
+
+
+</div><!-- body -->
+</body>
+</html>
