@@ -100,13 +100,15 @@
 
     <target name="build-main-p2-repo" description="Build the main P2 repository">
         <mkdir dir="${dist.release.dir}" />
+        <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
         <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
 
         <echo file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
-  <properties size='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
     <property name='p2.compressed' value='false'/>
   </properties>
 ]]></echo>
@@ -120,7 +122,8 @@ ${ASL2-header}
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
-  <properties size='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
     <property name='p2.compressed' value='false'/>
   </properties>
 ]]></echo>
@@ -443,15 +446,13 @@ baseLocation=${basedir}/dependencies/${jenkins.eclipse.name}
 
     <target name="build-jenkins-p2-repo">
         <mkdir dir="${dist.release.dir}" />
-        <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
         <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
 
         <echo file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
-  <properties size='2'>
-    <property name='p2.timestamp' value='${timestamp}'/>
+  <properties size='1'>
     <property name='p2.compressed' value='false'/>
   </properties>
   <children size='2'>
@@ -464,8 +465,7 @@ ${ASL2-header}
 <?compositeArtifactRepository version='1.0.0'?>
 ${ASL2-header}
 <repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
-  <properties size='2'>
-    <property name='p2.timestamp' value='${timestamp}'/>
+  <properties size='1'>
     <property name='p2.compressed' value='false'/>
   </properties>
   <children size='2'>
