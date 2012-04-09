@@ -385,4 +385,100 @@ ${ASL2-header}
         <echo message="SHA Checksum verify passed successfully" />
     </target>
 
+    <!-- 
+        ===================================================================================================================
+        Targets dedicated to be used by Jenkins
+        
+        The 'jenkins-prepare' have to be launched first in its own ant call: it will setup build properties
+        Then 'jenkins-build' will do build the updatesite (it has to be called in a separate ant call from 'jenkins-prepare')
+        ===================================================================================================================    
+      -->
+
+    <target name="jenkins-prepare" depends="jenkins-prepare-eclipse">
+        <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
+        <echo file="local.build.properties">
+dist.dev.dir=${basedir}/build
+dist.release.dir=${basedir}/build
+mirrors.url=
+updatesite.url=http://builds.apache.org/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
+baseLocation=${basedir}/dependencies/${jenkins.eclipse.name}
+</echo>
+        <delete dir="${basedir}/build" />
+    </target>
+
+    <target name="jenkins-prepare-eclipse" depends="jenkins-get-eclipse,jenkins-unzip-eclipse" />
+
+    <target name="jenkins-check-download-eclipse">
+        <condition property="jenkins.eclipse.downloaded">
+            <available file="${basedir}/dependencies/${jenkins.eclipse.name}.zip" />
+        </condition>
+    </target>
+
+    <target name="jenkins-get-eclipse" depends="jenkins-check-download-eclipse" unless="jenkins.eclipse.downloaded">
+        <mkdir dir="${basedir}/dependencies" />
+        <get src="${jenkins.eclipse.url}" dest="${basedir}/dependencies/${jenkins.eclipse.name}.zip" verbose="yes" />
+    </target>
+
+    <target name="jenkins-check-unzip-eclipse">
+        <condition property="jenkins.eclipse.unzipped">
+            <available file="${basedir}/dependencies/${jenkins.eclipse.name}" />
+        </condition>
+    </target>
+
+    <target name="jenkins-unzip-eclipse" depends="jenkins-check-unzip-eclipse" unless="jenkins.eclipse.unzipped">
+        <unzip src="${basedir}/dependencies/${jenkins.eclipse.name}.zip" dest="${basedir}/dependencies" />
+        <move file="${basedir}/dependencies/eclipse" tofile="${basedir}/dependencies/${jenkins.eclipse.name}" />
+    </target>
+
+    <target name="jenkins-find-ivy-jar">
+        <get src="${jenkins.baseUrl}/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/dependencies/ivy-jenkins.jar" verbose="yes" />
+        <property name="ivy.jar" value="${basedir}/dependencies/ivy-jenkins.jar" />
+    </target>
+
+    <target name="jenkins-find-ivyde-zip">
+        <!-- get the last successful version -->
+        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/version.properties" dest="${basedir}/dependencies/ivyde-jenkins-version.properties" verbose="yes" />
+        <property file="${basedir}/dependencies/ivyde-jenkins-version.properties" />
+        <!-- get the actual zip -->
+        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/apache-ivyde-${ivyde.build.version}.zip" dest="${basedir}/dependencies/apache-ivyde-jenkins.zip" verbose="yes" />
+        <property name="ivyde.zip" value="${basedir}/dependencies/apache-ivyde-jenkins.zip" />
+    </target>
+
+    <target name="build-jenkins-p2-repo">
+        <mkdir dir="${dist.release.dir}" />
+        <script language="javascript">project.setProperty("timestamp",java.lang.System.currentTimeMillis());</script>
+        <loadfile property="ASL2-header" srcFile="${basedir}/ASL2-header.xml"/>
+
+        <echo file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+${ASL2-header}
+<repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <children size='2'>
+    <child location='ivy-${ivy.version}'/>
+    <child location='ivyde-${ivyde.build.version}'/>
+  </children>
+</repository>
+]]></echo>
+        <echo file="${dist.release.dir}/compositeContent.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
+<?compositeArtifactRepository version='1.0.0'?>
+${ASL2-header}
+<repository name='Apache IvyDE Repository' type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='${timestamp}'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <children size='2'>
+    <child location='ivy-${ivy.version}'/>
+    <child location='ivyde-${ivyde.build.version}'/>
+  </children>
+</repository>
+]]></echo>
+    </target>
+
+    <target name="jenkins-build" depends="clean,jenkins-find-ivy-jar,jenkins-find-ivyde-zip,build-ivy-p2-repo,build-ivyde-p2-repo,build-jenkins-p2-repo" />
+
 </project>
