@@ -213,35 +213,30 @@ Tasks which don't do any dependency checking do not help users as much as
 they can, because their needless work can trickle through the entire build, test
 and deploy process.
 
-<h2>Support Java 1.2 through Java 1.5+</h2>
+<h2>Support appropriate Java versions</h2>
 
 Ant 1.5 and lower was designed to support Java 1.1. Ant 1.6 and higher
-is designed to support Java 1.2: to build on it, to run on it. Sometimes
-functionality of tasks have to degrade in that environment--usually due to
+is designed to support Java 1.2: to build on it, to run on it.
+Ant 1.8 requires Java 1.4; 1.9 requires 1.5 ("JDK 5").
+Sometimes
+functionality of tasks has to degrade in an older or newer environment--usually due to
 library limitations; such behaviour change must always be noted in the
 documentation.
 <p>
-What is problematic is code which is dependent on Java 1.3 features;
-e.g. java.lang.reflect.Proxy, or Java 1.4 features; e.g. java.io.nio.
-Be also aware of extra methods in older classes;
-e.g. StringBuffer#append(StringBuffer). These cannot be used directly
-by any code and still be able to compile and run on a Java 1.2 system.
+What is problematic is code which is dependent on features in a newer version of Java than the current baseline,
+such as <tt>java.nio.file.Path</tt> in JDK 7.
+Be also aware of added methods in older classes;
+these cannot be used directly
+by any code and still be able to compile and run on an older system.
 If a new method in an existing class is to be used, it must be used via
 reflection and the <tt>NoSuchMethodException</tt> handled somehow.
 <p>
-What if code simply does not work on Java 1.2? It can happen. It will
+What if code simply does not work on an older version of Java? It can happen. It will
 probably be OK to have the task as an optional task, with compilation
-restricted to Java 1.3 or later through build.xml modifications.
+restricted to the newer JDK (or later) through build.xml modifications.
 Better still, use reflection to link to the classes at run time.
 <p>
-Java 1.4 adds a new optional change to the language itself, the
-<tt>assert</tt> keyword, which is only enabled if the compiler is told
-to compile 1.4 version source. Clearly with the 1.2 compatibility requirement,
-Ant tasks cannot use this keyword. They also need to move away from
-using the JUnit <tt>assert()</tt> method and call <tt>assertTrue()</tt>
-instead.
-<p>
-Java 1.5 adds the <tt>enum</tt> type; again, this must not be used.
+Similar considerations apply to new language features, such as JDK 7 string switch statements.
 
 <h2>Explicitly Expand properties in nested text</h2>
 
