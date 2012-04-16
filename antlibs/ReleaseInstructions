@@ -92,8 +92,9 @@ Note: this document is based on Ant core's ReleaseInstructions file
     Also make sure you have sent the key that you use to a public
     keyserver.
 
-11. The beta distribution is now ready to go. Bundle the distribution
-    directory into a tar.gz file and scp to your apache account.
+11. The beta distribution is now ready to go. Check in all your
+    distribution files to
+    https://dist.apache.org/repos/dist/release/ant/antlibs/ANTLIB
 
     To upload mvn artifacts to the Nexus repository manager run
 
@@ -110,22 +111,14 @@ Note: this document is based on Ant core's ReleaseInstructions file
 
 12. This step may become meaningful once you do a second release ;-)
 
-    Meanwhile, convert the part of the WHATSNEW file covering the changes
-    since the last release into HTML for the README file on the
-    website. See the previous release directories for examples of these files.
-    Add instructions and warnings (GNU tar format issues, etc).
+    Copy the file README.html from dist-bin to
+    https://dist.apache.org/repos/dist/release/ant/antlibs/ANTLIB as
+    RELEASE-NOTES-x.y.z.html.
 
-    You may choose to use the text2html convertor present at
-    http://txt2html.sourceforge.net/#test
-
-    Name the generated file RELEASE-NOTES-x.y.z.html.
-
-    [[ TODO: This must perhaps be an Ant task. ]]
-
-13. Once this is uploaded, unpack things in your home directory
-    and call for a release vote on dev@ant.  The vote will only pass
-    if at least three PMC members have voted +1 and more +1s than -1s
-    have been cast.  The vote will run for a week.
+13. Once this is uploaded and committed call for a release vote on
+    dev@ant.  The vote will only pass if at least three PMC members
+    have voted +1 and more +1s than -1s have been cast.  The vote will
+    run for a week.
 
 14. Once the vote has passed, push the release and RELEASE-NOTES files
     into the release directory.  Create a symbolic link named
