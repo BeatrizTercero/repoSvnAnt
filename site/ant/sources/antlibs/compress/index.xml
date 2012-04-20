@@ -31,11 +31,11 @@
         Commons Compress</a>.</p>
     </section>
 
-    <section name="Compress Ant Library 1.1">
-      <h3>November 5, 2011 - Apache Compress Ant Library 1.1
+    <section name="Compress Ant Library 1.2">
+      <h3>April 20, 2012 - Apache Compress Ant Library 1.2
       Available</h3>
 
-      <p>Apache Compress Ant Library 1.1 is now available for
+      <p>Apache Compress Ant Library 1.2 is now available for
       download as <a
       href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a>
       or <a
@@ -44,11 +44,11 @@
     </section>
 
     <section name="Introduction">
-      <p>Using Apache Commons Compress this Antlib supports gzip,
+      <p>Using Apache Commons Compress this Antlib supports gzip, xz,
         pack200 and bzip2 compression and ar, cpio, tar, Unix dump and
         zip archives.  Support for the dump format is read-only.</p>
 
-      <p>The current code base is based on the 1.3 release of Commons
+      <p>The current code base is based on the 1.4 release of Commons
         Compress but it is expected that this Antlib follows Commons
         Compress' development and will add new compression or
         archiving formats as they are provided by the underlying
@@ -60,14 +60,29 @@
         formats.</p>
 
       <p>The same is mostly true for the zip and tar resources as well
-        as the unzip/tar task with the major difference being that
-        unzip and zipfileset can work with non-File resources.</p>
+        as the unzip/tar task with some major differences:</p>
+
+      <ul>
+        <li>unzip and zipfileset can work with non-File resources.</li>
+        <li>All zip resources and tasks support Zip64 extensions
+        i.e. they can deal with large entries, large archives or archives
+        with many files that Ant's core resources/tasks can not
+        handle.</li>
+        <li>untar and tarfileset transparently support POSIX/PAX
+        extension headers used by modern tar implementations for long
+        file names or big file sizes - as well as star's extension for
+        large file sizes used by star and GNU tar.</li>
+        <li>The tar task can use PAX extension headers for long file
+        names or big file sizes or star's extension.  Archives created
+        with the POSIX format will be readable by GNU tar but also by
+        all modern native tar implementations.</li>
+      </ul>
 
       <p>The zip and tar tasks are completely new implementations and
-        offer a superset of the functionality of the core tasks.</p>
+      offer a superset of the functionality of the core tasks.</p>
 
       <p>Tasks and resources for the ar, dump and cpio formats mirror
-        those available for tar and zip.  Those for pack200 mirror
+        those available for tar and zip.  Those for pack200 and xz mirror
         those of gzip and bzip2.</p>
 
       <p>All tasks and types can be mixed with the core tasks and
