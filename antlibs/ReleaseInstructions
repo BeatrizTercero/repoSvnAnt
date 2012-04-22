@@ -112,7 +112,7 @@ Note: this document is based on Ant core's ReleaseInstructions file
 12. This step may become meaningful once you do a second release ;-)
 
     Copy the file README.html from dist-bin to
-    https://dist.apache.org/repos/dist/release/ant/antlibs/ANTLIB as
+    https://dist.apache.org/repos/dist/dev/ant/antlibs/ANTLIB as
     RELEASE-NOTES-x.y.z.html.
 
 13. Once this is uploaded and committed call for a release vote on
@@ -121,11 +121,15 @@ Note: this document is based on Ant core's ReleaseInstructions file
     run for a week.
 
 14. Once the vote has passed, push the release and RELEASE-NOTES files
-    into the release directory.  Create a symbolic link named
-    README.html that points to the RELEASE-NOTES.
+    into the release directory.
 
     The files should go to
-    /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME/ on people.apache.org.
+    https://dist.apache.org/repos/dist/release/ant/antlibs/ANTLIB
+
+    You can (sparsely) check out https://dist.apache.org/repos/dist
+    and perform the "svn mv" operation there or build up a pretty long
+    svnmucc command line to move all files from dev to release with a
+    single commit.
 
 15. Address the available release tags in BugZilla. Create a new tag 1.0Beta1
     and a 1.1Alpha. Assign all existing 1.0 alpha bugs to one of these release
@@ -141,11 +145,8 @@ Note: this document is based on Ant core's ReleaseInstructions file
 
     If it looks OK, announce it on dev@ant and user@ant. After a few
     days pass and there are no major problems, a wider announcement is
-    made (ant website, main jakarta website, announcements@jakarta.apache.org,
+    made (ant website, main jakarta website, announce@apache.org,
     etc).
-
-    and also perform a svn update on files in minotaur's
-    /www/ant.apache.org/
 
     Announce beta releases at freshmeat.net.
 
@@ -173,30 +174,7 @@ Note: this document is based on Ant core's ReleaseInstructions file
 
     This time you'll have to do some house-keeping for the old release:
 
-    * upload the new release files to
-
-      from distribution
-      to   /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME/[source|binaries].
-      
-      and 
-
-      [TODO need to decide on repository structure]
-
-      from java-repository/ant/jars
-      to   /www/www.apache.org/dist/java-repository/ant/jars
-
-      this can be done using the target upload of the build.xml
-
-    * remove the symbolic links from
-      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME.
-
-    * Create proper -current symlinks in
-      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME.
-
     * remove the beta release files
-
-    * Make sure that the symbolic link README.html points to the new
-      RELEASE-NOTES.
 
     Publish the Maven artifacts to the central repository: 
 
@@ -211,47 +189,29 @@ Note: this document is based on Ant core's ReleaseInstructions file
 
     (**)
 
-21. Update the ant.apache.org site :
-
-    running svn update *.html under /www/ant.apache.org should update the
-    files regenerated and committed in point 5 above (index.html, faq.html,
-    antnews.html, srcdownload.html, bindownload.html).
-
-    Update the online manual too.
-
-22. Clean up.
+21. Clean up.
 
     * remove the remaining files of the previous release from
-      /www/www.apache.org/dist/ant/antlibs/ANTLIB-NAME/[source|binaries].
+      https://dist.apache.org/repos/dist/release/ant/antlibs/ANTLIB
       This includes the old release notes.
 
-23. If you've created a branch, now and perhaps during previous betas
+22. If you've created a branch, now and perhaps during previous betas
     any changes on the branch must be merged back into the tree.
 
-24. At this point in time, the release is done and announcements are made.
+23. At this point in time, the release is done and announcements are made.
     PGP-sign your announcement posts.
 
     [[TODO: Identify the mailing lists where announcements are to be made.
       Also identify the webpages to which the announcements must go. ]]
 
     Apache mailing lists that should get the announcements:
-    announcements@jakarta.apache.org, announcements@xml.apache.org,
     announce@apache.org, dev@ant and user@ant.
 
     Announce release at freshmeat.net
 
-    Announce release in the usenet groups comp.lang.java.softwaretools
-    and comp.lang.java.announce.
+24. Add a new release tag to doap_*.rdf in the AntLib's trunk.
 
-25. Add a new release tag to doap_*.rdf in the AntLib's trunk.
-
-26. You can now reacquaint yourself with your family and friends.
-
-(*)  the xdocs need to be updated on both the branch and the HEAD revision
-     because traditionally the ant.apache.org web site reflects the HEAD
-     revision of the xdocs, but the users downloading a distribution will get
-     the xdocs and the generated html from the branch and will complain if there
-     are discrepancies in version numbers.
+25. You can now reacquaint yourself with your family and friends.
 
 (**) Mirrors : the srcdownload.html and bindownload.html each list a number of
      mirrors. For ant 1.6.0 the mirrors picked up the new version in 8 hours
