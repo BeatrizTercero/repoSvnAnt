@@ -26,6 +26,18 @@
   </properties>
 
 <body>
+  <section name="Apache Ant 1.8.4">
+    <h3>TODO - Apache Ant 1.8.4 Released</h3>
+    <p>Apache Ant 1.8.4 is now available for download as source or
+      binary from
+      <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
+      
+    <p>Ant 1.8.4 fixes a denial of service flaw in the
+    <code>&lt;bzip2&gt;</code> task present in any version of Ant
+    since Ant 1.5.</p>
+
+  </section>
+
   <section name="Apache Compress Antlib 1.2">
     <h3>April 20, 2012 - Apache Compress Antlib 1.2 Released</h3>
 

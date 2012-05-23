@@ -57,18 +57,17 @@
           Foundation</a>.</p>
   </section>
 
-  <section name="Apache Ant 1.8.3">
-    <h3>February 29th, 2012 - Apache Ant 1.8.3 Released</h3>
-    <p>Apache Ant 1.8.3 is now available for download as source or
+  <section name="Apache Ant 1.8.4">
+    <h3>TODO - Apache Ant 1.8.4 Released</h3>
+    <p>Apache Ant 1.8.4 is now available for download as source or
       binary from
       <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
       
-    <p>Ant 1.8.3 is mainly a bug fix release with a few new
-      features.</p>
+    <p>Ant 1.8.4 fixes a denial of service flaw in the
+    <code>&lt;bzip2&gt;</code> task present in any version of Ant
+    since Ant 1.5.  For details see the <a
+    href="security.html">security reports page</a>.</p>
 
-    <p>The Ant developers have decided to require at least Java5 for
-      Ant 1.9.x so this may be the last release that supports Java 1.4
-      as runtime environment.</p>
   </section>
 
   <section name="Apache Ivy 2.2.0">
@@ -109,7 +108,7 @@
   <section name="Documentation">
 
 <p>
-You can view the documentation for the current release (Apache Ant 1.8.1)
+You can view the documentation for the current release (Apache Ant 1.8.4)
 <a href="manual/index.html">online</a>
 </p>
 

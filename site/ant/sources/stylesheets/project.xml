@@ -26,6 +26,7 @@
                 <item name="Welcome"               href="/index.html"/>
                 <item name="License"               href="http://www.apache.org/licenses/LICENSE-2.0.html"/>
                 <item name="News"                  href="/antnews.html"/>
+                <item name="Security Reports"      href="/security.html"/>
             </menu>
 
             <menu name="Documentation">
