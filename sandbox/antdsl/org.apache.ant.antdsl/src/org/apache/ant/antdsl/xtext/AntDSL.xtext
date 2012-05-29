@@ -1,0 +1,86 @@
+grammar org.apache.ant.antdsl.xtext.AntDSL with org.eclipse.xtext.common.Terminals
+
+generate antdsl "http://www.apache.org/ant/AntDSL"
+
+EProject:
+    {EProject}
+    (
+        ('name'    ':' name=NAME)?
+      & ('default' ':' default=NAME)?
+      & ('basedir' ':' basedir=STRING)?
+    )
+    ('namespaces' '{' namespaces+=ENamespace* '}')?
+    tasks=ETaskLists?
+    (targets+=ETarget | extensionPoints+=EExtensionPoint | macrodDefs+=EMacrodef)*;
+
+ENamespace:
+    name=NAME ':' uri=STRING;
+
+EExtensionPoint:
+    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList)? & ('depends' depends=ETargetList)?);
+
+ETarget:
+    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList)? & ('depends' depends=ETargetList)?) tasks=ETaskLists?;
+
+ETaskLists:
+    '{' tasks+=ETask+ '}';
+
+ETargetList:
+    names+=NAME (',' names+=NAME)*;
+
+ETask:
+    EPropertyAssignment | EInnerElement | EBranch;
+
+ENSName:
+    (namespace=NAME ':')? name=NAME;
+
+EArguments:
+    arguments+=EArgument (',' arguments+=EArgument)*;
+
+EArgument:
+    name=NAME '=' value=STRING;
+
+EInnerElements:
+    '{' elements+=EInnerElement+ '}';
+
+EInnerElement:
+    name=ENSName '(' arguments=EArguments? ')' inners=EInnerElements?;
+
+EPropertyAssignment:
+    name=NAME '=' value=EExpression;
+
+EBranch:
+    if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
+
+EConditionedTasks:
+    'if' '(' condition=EInnerElement ')' tasks=ETaskLists;
+
+EMacrodef:
+    'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;
+
+EAttributes:
+    attributes+=EAttribute (',' attributes+=EAttribute)*;
+
+EAttribute:
+    ESimpleAttribute | ETextAttribute | EElementAttribute;
+
+ESimpleAttribute:
+    name=NAME ('=' default=STRING)?;
+
+ETextAttribute:
+    'text' 'optional'? 'trimmed'? name=NAME;
+
+EElementAttribute:
+    'element' 'optional'? 'implicit'? name=NAME;
+
+EExpression:
+    STRING | PROPERTY;
+
+terminal NAME:
+    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'.'|'0'..'9')*;
+
+terminal PROPERTY:
+    '$' NAME;
+
+terminal DOC:
+    '%' !('\n'|'\r')* ('\r'? '\n')?;

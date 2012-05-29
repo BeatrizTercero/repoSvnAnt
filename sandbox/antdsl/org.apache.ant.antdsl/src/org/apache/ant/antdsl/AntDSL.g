@@ -1,0 +1,186 @@
+grammar AntDSL;
+
+@lexer::header {
+package org.apache.ant.antdsl.antlr;
+}
+
+@parser::header {
+package org.apache.ant.antdsl.antlr;
+
+import org.apache.ant.antdsl.*;
+import org.apache.ant.antdsl.AbstractAntDslProjectHelper.InnerElement;
+import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
+import org.apache.tools.ant.*;
+import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.taskdefs.condition.*;
+import java.util.LinkedHashMap;
+}
+
+@parser::members {
+    private Project project;
+
+    private AntDslContext context;
+
+    private AntDslAntlrProjectHelper projectHelper;
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public void setContext(AntDslContext context) {
+        this.context = context;
+    }
+
+    public void setProjectHelper(AntDslAntlrProjectHelper projectHelper) {
+        this.projectHelper = projectHelper;
+    }
+
+    private String readString(String s) {
+        if (s == null) {
+            return null;
+        }
+        return s.substring(1, s.length() - 1);
+    }
+}
+
+project:
+    (
+        ('name'    ':' name=NAME)?
+        ('default' ':' def=NAME)?
+        ('basedir' ':' basedir=STRING)?
+    )
+    { projectHelper.setupProject(project, context, $name.text, readString($basedir.text), $def.text); }
+    ( 'namespaces' '{' ( ns=namespace { context.addNamespace(ns.first, ns.second); } )* '}')?
+    tl=taskLists?
+    { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
+    (   target
+      | extensionPoint
+      | macrodef
+    )*;
+
+namespace returns [Pair<String, String> ns = new Pair<String, String>()]:
+    NAME { ns.first = $NAME.text; } ':' STRING { ns.second = readString($STRING.text); };
+
+extensionPoint returns [Target t = new Target()]:
+    { context.setCurrentTarget(t); }
+    desc=DOC?
+    'extension-point' n=NAME
+    ('extensionOf' eo=targetList)?
+    ('depends' d=targetList)?
+    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo); }
+    { context.setCurrentTarget(context.getImplicitTarget()); }
+    ;
+
+target returns [Target t = new Target()]:
+    { context.setCurrentTarget(t); }
+    desc=DOC?
+    'target' n=NAME
+    ('extensionOf' eo=targetList)?
+    ('depends' d=targetList)?
+    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo); }
+    tl=taskLists?
+    { for (Task task : tl) { t.addTask(task); } }
+    { context.setCurrentTarget(context.getImplicitTarget()); }
+    ;
+
+taskLists returns [List<Task> tl = new ArrayList<Task>()]:
+    '{' (t=task { tl.add(t); } )+ '}';
+
+targetList returns [List<String> tl = new ArrayList<String>()]:
+    n=NAME { tl.add($n.text); }
+    (',' n=NAME { tl.add($n.text); } )*;
+
+task returns [Task t = null]:
+      pa=propertyAssignment {t=pa;}
+    | ie=innerElement {t=projectHelper.mapUnknown(project, context, ie, false);}
+    | b=branch {t=b;}
+    ;
+
+nsName returns [Pair<String, String> ns = new Pair<String, String>()]:
+    (n=NAME { ns.first = $n.text; } ':')? n=NAME { ns.second = $n.text; } ;
+
+arguments returns [LinkedHashMap<String, String> args = new LinkedHashMap<String, String>();]:
+    arg=argument { args.put(arg.first, arg.second); }
+    (',' arg=argument { args.put(arg.first, arg.second); } )*;
+
+argument returns [Pair<String, String> arg = new Pair<String, String>()]:
+    NAME { arg.first = $NAME.text; } '=' STRING { arg.second = readString($STRING.text); } ;
+
+innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
+    '{' (ie=innerElement { ies.add(ie); } )+ '}';
+
+innerElement returns [InnerElement ie = new InnerElement()]:
+    ns=nsName {ie.ns = ns.first; ie.name = ns.second;}
+    '(' args=arguments? { ie.attributes = args; } ')'
+    ies=innerElements? { ie.children = ies; };
+
+propertyAssignment returns [Property p = new Property()]:
+    { projectHelper.mapCommonTask(project, context, p); }
+    NAME { p.setName($NAME.text); } '=' STRING { p.setValue(readString($STRING.text)); } ;
+
+branch returns [IfTask if_ = new IfTask()]:
+    { projectHelper.mapCommonTask(project, context, if_); }
+    main=conditionedTasks { if_.setMain(main); }
+    ('else' elseif=conditionedTasks { if_.addElseIf(elseif); } )*
+    ('else' tl=taskLists
+        { Sequential seq = new Sequential();
+          projectHelper.mapCommonTask(project, context, seq);
+          for (Task t : tl) { seq.addTask(t); }
+          if_.setElse(seq);
+        }
+    )?;
+
+conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequential()]:
+    { projectHelper.mapCommonTask(project, context, seq); }
+    'if' '(' ie=innerElement { seq.setCondition(projectHelper.mapExpectedUnknown(project, context, ie, Condition.class)); } ')'
+    tl=taskLists { for (Task t : tl) { seq.addTask(t); } }
+    ;
+
+macrodef:
+    'macrodef' NAME '(' attributes? ')' taskLists;
+
+attributes:
+    attribute (',' attribute)*;
+
+attribute:
+    simpleAttribute | textAttribute | elementAttribute;
+
+simpleAttribute:
+    NAME ('=' STRING)?;
+
+textAttribute:
+    'text' 'optional'? 'trimmed'? NAME;
+
+elementAttribute:
+    'element' 'optional'? 'implicit'? NAME;
+
+DOC:
+    '%' ~('\n'|'\r')* '\r'? '\n'
+;
+
+PROPERTY:
+    '$' NAME
+;
+
+NAME:
+    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'-'|'.')*
+;
+
+COMMENT:
+        '//' ~('\n'|'\r')* '\r'? '\n' {skip();}
+    |   '/*' ( options {greedy=false;} : . )* '*/' {skip();}
+;
+
+WS:
+    ( ' '
+    | '\t'
+    | '\r'
+    | '\n'
+    ) {skip();}
+;
+
+STRING:
+    (   '"'  ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\') | ~(('\\'|'"'))  )* '"'
+      | '\'' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\') | ~(('\\'|'\'')) )* '\''
+    )
+;

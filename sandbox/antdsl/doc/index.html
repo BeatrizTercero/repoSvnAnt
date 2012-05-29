@@ -1,0 +1,102 @@
+<html>
+    <body>
+
+<center style="font-size: 30px;"><b>AntDSL</b></center>
+
+<h2>Introduction</h2>
+
+<p>
+antDsl is a parser of a DSL dedicated to Ant build files.
+</p>
+<p>
+It also contains some Eclipse plugin for an Editor of these antDSL files.
+</p>
+
+<h2>Exemple</h2>
+
+<p>
+Here is an exemple of an antdsl file:
+<pre>
+name : myproject
+default : build
+
+{
+	foo = "hello world!"
+	echo(message="${foo}")
+}
+
+macrodef mymacro(dest, arg2 = "defaultvalue", element source) {
+	copy(todir = "@{dest}") {
+		source()
+	}
+}
+
+% description of the target
+target build {
+	copy(file = "${basedir}/test/build.ant", tofile = "${basedir}/build/test/build.ant.copy")
+	// some comment
+	jar(file = "${basedir}/build/test/my.jar") {
+		fileset(dir="${basedir}/test", includes="*.ant")
+	}
+	/*
+	 * Some multiline comment 
+	 */
+	if (available(file = "${basedir}/test/build.ant")) {
+		mymacro(dest = "${basedir}/build/test/dest") {
+			fileset(dir = "${basedir}", includes="build.*")
+		}
+		echo(message = "mymacro call")
+	} else {
+		fail(message = "fail !")
+	}
+}
+</pre>
+</p>
+
+<p>
+Here are a screenshot of the Eclipse plugin:
+<center><img src="antdsl.jpeg" /></center>
+</p>
+
+<h2>Build</h2>
+
+<h3>Command line only</h3>
+
+<p>
+Just using the command line is sufficent to build the jar which will be used as the parser for Ant. To build the Eclipse plugins, for now you'll need to start Eclipse, see next section.
+</p>
+
+<p>
+First you will need to download the dependencies. To do so run: <tt>ant get-deps</tt>
+</p>
+<p>
+Then you will need to generate the parser and the beans representing the parsed files, for both parsers, the Xtext one and the simple Antlr one. To do so, run: <tt>ant generate-xtext generate-antlr</tt>
+</p>
+<p>
+And finally the build of the jar: <tt>ant build</tt>
+</p>
+<p>
+You can then test the parser on the file build file in the test folder by running: <tt>ant test</tt>
+</p>
+
+<h3>Eclipse setup</h3>
+
+<p>
+You will need the XText 2 plugin installed in your Eclipse. The updatesite of Xtext is there: <a href="http://download.itemis.com/updates/releases">http://download.itemis.com/updates/releases</a>.
+</p>
+<p>
+Then import the three antdsl plugins into your workspace.
+</p>
+<p>
+You will need to generate the parser and the beans representing the parsed files (Ecore beans). To do so, right click on the file <tt>org.apache.ant.antdsl/src/org/apache/ant/antdsl/AntDSL.xtext</tt> and select in the Menu <i>Run As...</i> then <i>Generate Xtext Artifacts</i>
+</p>
+<p>
+You'll also need to generate the simple antlr parser so the project properly compiles. Just launch the command: <tt>ant generate-antlr</tt>
+</p>
+<p>
+Finally, to launch an Eclipse with this antdls plugins, run the launch configuration named <i>AntDSL</i> (the launch configuration file is there: <tt>/org.apache.ant.antdsl/.launch/AntDSL.launch</tt>).
+</p>
+
+
+    </body>
+</html>

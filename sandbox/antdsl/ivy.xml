@@ -1,0 +1,56 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache.ant" module="ant-dsl" />
+    <configurations>
+        <conf name="default" extends="antruntime" />
+        <conf name="antruntime" />
+        <conf name="generate" extends="antruntime" />
+    </configurations>
+    <dependencies>
+        <!--dependency org="bundle" name="org.eclipse.xtext" rev="2.2.1.v201112130541" conf="default->default" /-->
+        <dependency org="bundle" name="org.apache.ant" rev="1.8.2.v20120109-1030" conf="antruntime->default" transitive="false" />
+        <!--dependency org="bundle" name="org.eclipse.equinox.launcher" rev="1.2.0.v20110502" conf="default->default" /-->
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.launch" rev="2.2.0.v201112071250" conf="antruntime->default" transitive="false" />
+        
+        <dependency org="bundle" name="org.eclipse.xtext" rev="2.2.1.v201112130541" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="com.google.guava" rev="10.0.1.1" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.ecore" rev="2.7.0.v20120127-1122" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.ecore.xmi" rev="2.7.0.v20120127-1122" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.common" rev="2.7.0.v20120127-1122" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="com.google.inject" rev="3.0.0.no_aop" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.apache.log4j" rev="1.2.15.v201012070815" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="javax.inject" rev="1.0.0.v20091030" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtext.util" rev="2.2.1.v201112130541" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.antlr.runtime" rev="3.2.0.v201101311130" conf="antruntime->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtext.common.types" rev="2.2.1.v201112130541" conf="antruntime->default" transitive="false" />
+
+        <dependency org="bundle" name="org.apache.commons.cli" rev="1.2.0.v201105210650" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.language" rev="2.2.0.v201112071250" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.runtime" rev="2.2.0.v201112070431" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe.utils" rev="1.2.1.v201112070431" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe.core" rev="1.2.1.v201112070431" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.apache.commons.logging" rev="1.0.4.v201101211617" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtext.generator" rev="2.2.1.v201112130541" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xpand" rev="1.1.0.v201108020519" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtend" rev="1.1.0.v201108020519" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.codegen.ecore" rev="2.7.0.v20110913-1156" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtext.xbase" rev="2.2.1.v201112130541" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.codegen" rev="2.6.0.v20120130-0943" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtext.xbase.lib" rev="2.2.1.v201112130541" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="de.itemis.xtext.antlr" rev="2.0.0.v201108011202" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="com.ibm.icu" rev="4.4.2.v20110823" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.xtend2.lib" rev="2.2.1.v201112130541" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.antlr.generator" rev="3.2.0.v201108011202" conf="generate->default" transitive="false" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0.v201112070431" conf="generate->default" transitive="false" />
+        
+        <!--dependency org="bundle" name="org.eclipse.jdt.core" rev="3.7.3.v20120119-1537" conf="default->default" transitive="false" /-->
+
+        <exclude org="package" module="org.eclipse.swt.accessibility2" />
+        <exclude org="package" module="org.mozilla.xpcom" />
+        <exclude org="package" module="javax.crypto" />
+        <exclude org="package" module="javax.crypto.spec" />
+        <exclude org="package" module="javax.security.auth" />
+        <exclude org="package" module="javax.security.auth.callback" />
+        <exclude org="package" module="javax.security.auth.login" />
+        <exclude org="package" module="javax.security.auth.spi" />
+    </dependencies>
+</ivy-module>
