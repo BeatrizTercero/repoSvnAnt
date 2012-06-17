@@ -223,6 +223,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                 for (ETask t : if_.getTasks().getTasks()) {
                     main.addTask(mapTask(project, context, t));
                 }
+                ifTask.setMain(main);
             }
             EList<EConditionedTasks> elseifs = eBranch.getElseif();
             if (elseifs != null) {
@@ -233,6 +234,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                     for (ETask t : elseif.getTasks().getTasks()) {
                         ei.addTask(mapTask(project, context, t));
                     }
+                    ifTask.addElseIf(ei);
                 }
             }
             ETaskLists else_ = eBranch.getElse();
@@ -254,7 +256,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             return null;
         }
         InnerElement innerElement = new InnerElement();
-        innerElement.ns = eInnerElement.getName().getName();
+        innerElement.ns = eInnerElement.getName().getNamespace();
         innerElement.name = eInnerElement.getName().getName();
 
         EArguments arguments = eInnerElement.getArguments();

@@ -100,7 +100,7 @@
     </target>
 
     <target name="test-xtext" description="Test the run of an antdsl file with Xtext-generated parser">
-        <typedef classname="org.apache.ant.antdsl.antmodel.xtext.AntDslXtextProjectHelper" name="antDslProjectHelper">
+        <typedef classname="org.apache.ant.antdsl.xtext.AntDslXTextProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <fileset dir="${basedir}/lib" includes="*.jar" />
                 <pathelement path="${basedir}/build/antdsl.jar" />
