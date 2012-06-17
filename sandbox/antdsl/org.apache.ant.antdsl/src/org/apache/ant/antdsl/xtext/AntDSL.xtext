@@ -23,7 +23,8 @@ ETarget:
     description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList)? & ('depends' depends=ETargetList)?) tasks=ETaskLists?;
 
 ETaskLists:
-    '{' tasks+=ETask+ '}';
+    {ETaskLists}
+    '{' tasks+=ETask* '}';
 
 ETargetList:
     names+=NAME (',' names+=NAME)*;
@@ -68,10 +69,10 @@ ESimpleAttribute:
     name=NAME ('=' default=STRING)?;
 
 ETextAttribute:
-    'text' 'optional'? 'trimmed'? name=NAME;
+    'text' (optional ?= 'optional')? (trimmed ?= 'trimmed')? name=NAME;
 
 EElementAttribute:
-    'element' 'optional'? 'implicit'? name=NAME;
+    'element' (optional ?= 'optional')? (implicit ?= 'implicit')? name=NAME;
 
 EExpression:
     STRING | PROPERTY;

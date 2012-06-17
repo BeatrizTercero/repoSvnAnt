@@ -12,6 +12,10 @@ import org.apache.ant.antdsl.AbstractAntDslProjectHelper.InnerElement;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
+import org.apache.tools.ant.taskdefs.MacroDef.NestedSequential;
+import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
+import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.condition.*;
 import java.util.LinkedHashMap;
 }
@@ -84,7 +88,7 @@ target returns [Target t = new Target()]:
     ;
 
 taskLists returns [List<Task> tl = new ArrayList<Task>()]:
-    '{' (t=task { tl.add(t); } )+ '}';
+    '{' (t=task { tl.add(t); } )* '}';
 
 targetList returns [List<String> tl = new ArrayList<String>()]:
     n=NAME { tl.add($n.text); }
@@ -136,23 +140,54 @@ conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequentia
     tl=taskLists { for (Task t : tl) { seq.addTask(t); } }
     ;
 
-macrodef:
-    'macrodef' NAME '(' attributes? ')' taskLists;
+macrodef returns [MacroDef macroDef = new MacroDef()]:
+    'macrodef' NAME { macroDef.setName($NAME.text); }
+    '(' ( atts=attributes
+          {  for (Object att : atts) {
+                if (att instanceof Attribute) {
+                    macroDef.addConfiguredAttribute((Attribute) att);
+                } else if (att instanceof Text) {
+                    macroDef.addConfiguredText((Text) att);
+                } else if (att instanceof TemplateElement) {
+                    macroDef.addConfiguredElement((TemplateElement) att);
+                } else {
+                    throw new IllegalArgumentException("Unsupported macro attribute " + att.getClass().getName());
+                }
+             }
+          } )? ')'
+    tl=taskLists
+    {
+        NestedSequential seq = macroDef.createSequential();
+        for (Task t : tl) { seq.addTask(t); }
+        macroDef.setProject(project);
+        macroDef.execute();
+    }
+    ;
 
-attributes:
-    attribute (',' attribute)*;
+attributes returns [List atts = new ArrayList()]:
+    att=attribute { atts.add(att); }
+    (',' att=attribute { atts.add(att); } )*;
 
-attribute:
-    simpleAttribute | textAttribute | elementAttribute;
+attribute returns [Object att]:
+      satt=simpleAttribute { att = satt; }
+    | tatt=textAttribute { att = tatt; }
+    | eatt=elementAttribute  { att = eatt; };
 
-simpleAttribute:
-    NAME ('=' STRING)?;
+simpleAttribute returns [Attribute att = new Attribute()]:
+    NAME { att.setName($NAME.text); }
+    ('=' STRING { att.setDefault($STRING.text); } )?;
 
-textAttribute:
-    'text' 'optional'? 'trimmed'? NAME;
+textAttribute returns [Text text = new Text()]:
+    'text'
+    ('optional' { text.setOptional(true); } )?
+    ('trimmed' { text.setTrim(true); } )?
+    NAME { text.setName($NAME.text); };
 
-elementAttribute:
-    'element' 'optional'? 'implicit'? NAME;
+elementAttribute returns [TemplateElement element = new TemplateElement()]:
+    'element'
+    ('optional' { element.setOptional(true); } )?
+    ('implicit' { element.setImplicit(true); } )?
+    NAME { element.setName($NAME.text); };
 
 DOC:
     '%' ~('\n'|'\r')* '\r'? '\n'

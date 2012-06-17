@@ -13,8 +13,11 @@ import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
+import org.apache.ant.antdsl.xtext.antdsl.EAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EAttributes;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionedTasks;
+import org.apache.ant.antdsl.xtext.antdsl.EElementAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EExtensionPoint;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
@@ -22,15 +25,22 @@ import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
+import org.apache.ant.antdsl.xtext.antdsl.ESimpleAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.ETarget;
 import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
 import org.apache.ant.antdsl.xtext.antdsl.ETaskLists;
+import org.apache.ant.antdsl.xtext.antdsl.ETextAttribute;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Target;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.MacroDef;
+import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
+import org.apache.tools.ant.taskdefs.MacroDef.NestedSequential;
+import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
+import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.taskdefs.Sequential;
 import org.apache.tools.ant.taskdefs.condition.Condition;
@@ -105,8 +115,46 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         }
     }
 
-    private void mapMacro(Project project, AntDslContext context, EMacrodef macro) {
-        // TODO
+    private void mapMacro(Project project, AntDslContext context, EMacrodef emacro) {
+        MacroDef macroDef = new MacroDef();
+        macroDef.setName(emacro.getName());
+        EAttributes eatts = emacro.getAttributes();
+        if (eatts != null) {
+            for (EAttribute eatt : eatts.getAttributes()) {
+                if (eatt instanceof ESimpleAttribute) {
+                    ESimpleAttribute esimpleatt = (ESimpleAttribute) eatt;
+                    Attribute att = new Attribute();
+                    att.setName(esimpleatt.getName());
+                    att.setDefault(esimpleatt.getDefault());
+                    macroDef.addConfiguredAttribute(att);
+                } else if (eatt instanceof ETextAttribute) {
+                    ETextAttribute etextatt = (ETextAttribute) eatt;
+                    Text text = new Text();
+                    text.setName(etextatt.getName());
+                    text.setTrim(etextatt.isTrimmed());
+                    text.setOptional(etextatt.isOptional());
+                    macroDef.addConfiguredText(text);
+                } else if (eatt instanceof EElementAttribute) {
+                    EElementAttribute eelematt = (EElementAttribute) eatt;
+                    TemplateElement element = new TemplateElement();
+                    element.setImplicit(eelematt.isImplicit());
+                    element.setOptional(eelematt.isOptional());
+                    element.setName(eelematt.getName());
+                    macroDef.addConfiguredElement(element);
+                } else {
+                    throw new IllegalArgumentException("Unsupported macro attribute " + eatt.getClass().getName());
+                }
+            }
+        }
+        ETaskLists etasks = emacro.getTasks();
+        if (etasks != null) {
+            NestedSequential seq = macroDef.createSequential();
+            for (ETask etask : etasks.getTasks()) {
+                seq.addTask(mapTask(project, context, etask));
+            }
+        }
+        macroDef.setProject(project);
+        macroDef.execute();
     }
 
     private Target mapTarget(Project project, AntDslContext context, ETarget eTarget) {

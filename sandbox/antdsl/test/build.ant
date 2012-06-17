@@ -6,7 +6,11 @@ default : build
 	echo(message="${foo}")
 }
 
-macrodef mymacro(dest, arg2 = "defaultvalue", element source) {
+macrodef mymacro(t = "mymacro") {
+	echo(message = "@{t}")
+}
+
+macrodef mymacro2(dest, element implicit source) {
 	copy(todir = "@{dest}") {
 		source()
 	}
@@ -19,16 +23,15 @@ target build {
 	jar(file = "${basedir}/build/test/my.jar") {
 		fileset(dir="${basedir}/test", includes="*.ant")
 	}
+	mymacro()
+	mymacro(t = "simple macro")
 	/*
 	 * Some multiline comment 
 	 */
 	if (available(file = "${basedir}/test/build.ant")) {
-		/* NOT WORKING YET
-		mymacro(dest = "${basedir}/build/test/dest") {
+		mymacro2(dest = "${basedir}/build/test/dest") {
 			fileset(dir = "${basedir}", includes="build.*")
 		}
-		*/
-		echo(message = "mymacro call")
 	} else {
 		fail(message = "fail !")
 	}
