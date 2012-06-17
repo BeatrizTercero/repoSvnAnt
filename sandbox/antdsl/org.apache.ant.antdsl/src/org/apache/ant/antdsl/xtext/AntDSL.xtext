@@ -30,7 +30,7 @@ ETargetList:
     names+=NAME (',' names+=NAME)*;
 
 ETask:
-    EPropertyAssignment | EInnerElement | EBranch;
+    EAssignment | EInnerElement | EBranch;
 
 ENSName:
     (namespace=NAME ':')? name=NAME;
@@ -47,8 +47,14 @@ EInnerElements:
 EInnerElement:
     name=ENSName '(' arguments=EArguments? ')' inners=EInnerElements?;
 
+EAssignment:
+    EPropertyAssignment | EReferenceAssignment;
+
 EPropertyAssignment:
-    name=NAME '=' value=EExpression;
+    'prop' name=NAME '=' value=STRING;
+
+EReferenceAssignment:
+    'ref' name=NAME '=' value=STRING;
 
 EBranch:
     if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
@@ -73,9 +79,6 @@ ETextAttribute:
 
 EElementAttribute:
     (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=NAME;
-
-EExpression:
-    STRING | PROPERTY;
 
 terminal NAME:
     ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'.'|'0'..'9')*;

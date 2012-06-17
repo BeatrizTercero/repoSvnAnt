@@ -11,6 +11,7 @@ import org.apache.ant.antdsl.AbstractAntDslProjectHelper;
 import org.apache.ant.antdsl.AntDslContext;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
+import org.apache.ant.antdsl.RefTask;
 import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
@@ -26,6 +27,7 @@ import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
+import org.apache.ant.antdsl.xtext.antdsl.EReferenceAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.ETarget;
 import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
@@ -196,6 +198,14 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             property.setName(ePropertyAssignment.getName());
             property.setValue(ePropertyAssignment.getValue());
             return property;
+        }
+        if (eTask instanceof EReferenceAssignment) {
+            EReferenceAssignment eReferenceAssignment = (EReferenceAssignment) eTask;
+            RefTask ref = new RefTask();
+            mapCommonTask(project, context, ref);
+            ref.setName(eReferenceAssignment.getName());
+            ref.setValue(eReferenceAssignment.getValue());
+            return ref;
         }
         if (eTask instanceof EInnerElement) {
             EInnerElement eInnerElement = (EInnerElement) eTask;

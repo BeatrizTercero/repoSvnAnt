@@ -95,7 +95,7 @@ targetList returns [List<String> tl = new ArrayList<String>()]:
     (',' n=NAME { tl.add($n.text); } )*;
 
 task returns [Task t = null]:
-      pa=propertyAssignment {t=pa;}
+      a=assignment {t=a;}
     | ie=innerElement {t=projectHelper.mapUnknown(project, context, ie, false);}
     | b=branch {t=b;}
     ;
@@ -118,9 +118,18 @@ innerElement returns [InnerElement ie = new InnerElement()]:
     '(' args=arguments? { ie.attributes = args; } ')'
     ies=innerElements? { ie.children = ies; };
 
+assignment returns [Task assign]:
+    p=propertyAssignment { assign = p; } | r=refAssignment { assign = r; } ;
+
 propertyAssignment returns [Property p = new Property()]:
+    'prop'
     { projectHelper.mapCommonTask(project, context, p); }
     NAME { p.setName($NAME.text); } '=' STRING { p.setValue(readString($STRING.text)); } ;
+
+refAssignment returns [RefTask r = new RefTask()]:
+    'ref'
+    { projectHelper.mapCommonTask(project, context, r); }
+    NAME { r.setName($NAME.text); } '=' STRING { r.setValue(readString($STRING.text)); } ;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }

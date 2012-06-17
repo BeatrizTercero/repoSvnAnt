@@ -2,7 +2,7 @@ name : myproject
 default : build
 
 {
-	foo = "hello world!"
+	prop foo = "hello world!"
 	echo(message="${foo}")
 }
 
