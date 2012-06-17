@@ -63,16 +63,16 @@ EAttributes:
     attributes+=EAttribute (',' attributes+=EAttribute)*;
 
 EAttribute:
-    ESimpleAttribute | ETextAttribute | EElementAttribute;
+    EArgAttribute | ETextAttribute | EElementAttribute;
 
-ESimpleAttribute:
-    name=NAME ('=' default=STRING)?;
+EArgAttribute:
+    'arg' name=NAME ('=' default=STRING)?;
 
 ETextAttribute:
-    'text' (optional ?= 'optional')? (trimmed ?= 'trimmed')? name=NAME;
+    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=NAME;
 
 EElementAttribute:
-    'element' (optional ?= 'optional')? (implicit ?= 'implicit')? name=NAME;
+    (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=NAME;
 
 EExpression:
     STRING | PROPERTY;

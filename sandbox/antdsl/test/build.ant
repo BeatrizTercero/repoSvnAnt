@@ -6,11 +6,11 @@ default : build
 	echo(message="${foo}")
 }
 
-macrodef mymacro(t = "mymacro") {
+macrodef mymacro(arg t = "mymacro") {
 	echo(message = "@{t}")
 }
 
-macrodef mymacro2(dest, element implicit source) {
+macrodef mymacro2(arg dest, implicit element source) {
 	copy(todir = "@{dest}") {
 		source()
 	}

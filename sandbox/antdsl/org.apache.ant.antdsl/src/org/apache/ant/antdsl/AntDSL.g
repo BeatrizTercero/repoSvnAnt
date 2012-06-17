@@ -169,24 +169,25 @@ attributes returns [List atts = new ArrayList()]:
     (',' att=attribute { atts.add(att); } )*;
 
 attribute returns [Object att]:
-      satt=simpleAttribute { att = satt; }
+      aatt=argAttribute { att = aatt; }
     | tatt=textAttribute { att = tatt; }
     | eatt=elementAttribute  { att = eatt; };
 
-simpleAttribute returns [Attribute att = new Attribute()]:
+argAttribute returns [Attribute att = new Attribute()]:
+    'arg'
     NAME { att.setName($NAME.text); }
     ('=' STRING { att.setDefault($STRING.text); } )?;
 
 textAttribute returns [Text text = new Text()]:
-    'text'
     ('optional' { text.setOptional(true); } )?
     ('trimmed' { text.setTrim(true); } )?
+    'text'
     NAME { text.setName($NAME.text); };
 
 elementAttribute returns [TemplateElement element = new TemplateElement()]:
-    'element'
     ('optional' { element.setOptional(true); } )?
     ('implicit' { element.setImplicit(true); } )?
+    'element'
     NAME { element.setName($NAME.text); };
 
 DOC:

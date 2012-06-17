@@ -11,6 +11,7 @@ import org.apache.ant.antdsl.AbstractAntDslProjectHelper;
 import org.apache.ant.antdsl.AntDslContext;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
+import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EAttribute;
@@ -25,7 +26,6 @@ import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
-import org.apache.ant.antdsl.xtext.antdsl.ESimpleAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.ETarget;
 import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
@@ -121,11 +121,11 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         EAttributes eatts = emacro.getAttributes();
         if (eatts != null) {
             for (EAttribute eatt : eatts.getAttributes()) {
-                if (eatt instanceof ESimpleAttribute) {
-                    ESimpleAttribute esimpleatt = (ESimpleAttribute) eatt;
+                if (eatt instanceof EArgAttribute) {
+                    EArgAttribute eargatt = (EArgAttribute) eatt;
                     Attribute att = new Attribute();
-                    att.setName(esimpleatt.getName());
-                    att.setDefault(esimpleatt.getDefault());
+                    att.setName(eargatt.getName());
+                    att.setDefault(eargatt.getDefault());
                     macroDef.addConfiguredAttribute(att);
                 } else if (eatt instanceof ETextAttribute) {
                     ETextAttribute etextatt = (ETextAttribute) eatt;
