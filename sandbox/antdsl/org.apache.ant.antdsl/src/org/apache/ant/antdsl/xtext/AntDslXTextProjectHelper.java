@@ -117,6 +117,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
     private void mapMacro(Project project, AntDslContext context, EMacrodef emacro) {
         MacroDef macroDef = new MacroDef();
+        macroDef.setDescription(emacro.getDescription());
         macroDef.setName(emacro.getName());
         EAttributes eatts = emacro.getAttributes();
         if (eatts != null) {

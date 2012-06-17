@@ -57,7 +57,7 @@ EConditionedTasks:
     'if' '(' condition=EInnerElement ')' tasks=ETaskLists;
 
 EMacrodef:
-    'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;
+    description=DOC? 'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;
 
 EAttributes:
     attributes+=EAttribute (',' attributes+=EAttribute)*;

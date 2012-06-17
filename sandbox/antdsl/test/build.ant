@@ -6,6 +6,7 @@ default : build
 	echo(message="${foo}")
 }
 
+% Some documentation of the macro
 macrodef mymacro(arg t = "mymacro") {
 	echo(message = "@{t}")
 }

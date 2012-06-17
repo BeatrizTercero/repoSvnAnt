@@ -141,6 +141,7 @@ conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequentia
     ;
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
+    ( DOC { macroDef.setDescription($DOC.text); } )?  
     'macrodef' NAME { macroDef.setName($NAME.text); }
     '(' ( atts=attributes
           {  for (Object att : atts) {
