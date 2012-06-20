@@ -57,13 +57,6 @@ import java.util.LinkedHashMap;
     public void setProjectHelper(AntDslAntlrProjectHelper projectHelper) {
         this.projectHelper = projectHelper;
     }
-
-    private String readString(String s) {
-        if (s == null) {
-            return null;
-        }
-        return s.substring(1, s.length() - 1);
-    }
 }
 
 project:
@@ -72,7 +65,7 @@ project:
         ('default' ':' def=NAME)?
         ('basedir' ':' basedir=STRING)?
     )
-    { projectHelper.setupProject(project, context, $name.text, readString($basedir.text), $def.text); }
+    { projectHelper.setupProject(project, context, $name.text, projectHelper.readString($basedir.text), $def.text); }
     ( 'namespaces' '{' ( ns=namespace { context.addNamespace(ns.first, ns.second); } )* '}')?
     tl=taskList?
     { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
@@ -82,7 +75,7 @@ project:
     )*;
 
 namespace returns [Pair<String, String> ns = new Pair<String, String>()]:
-    NAME { ns.first = $NAME.text; } ':' STRING { ns.second = readString($STRING.text); };
+    NAME { ns.first = $NAME.text; } ':' STRING { ns.second = projectHelper.readString($STRING.text); };
 
 extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     { context.setCurrentTarget(ep); }
@@ -92,7 +85,7 @@ extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING )? )?
     ('if' if_=boolExpr { ep.setIf(if_); } )?
     ('unless' unless=boolExpr { ep.setUnless(unless); } )?
-    { projectHelper.mapCommonTarget(ep, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
+    { projectHelper.mapCommonTarget(ep, project, context, $n.text, projectHelper.readDoc($desc.text), d, eo, $onMiss.text); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
 
@@ -104,7 +97,7 @@ target returns [Target t = new Target()]:
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING)? )?
     ('if' if_=boolExpr { t.setIf(if_); } )?
     ('unless' unless=boolExpr { t.setUnless(unless); } )?
-    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
+    { projectHelper.mapCommonTarget(t, project, context, $n.text, projectHelper.readDoc($desc.text), d, eo, $onMiss.text); }
     tl=taskList?
     { for (Task task : tl) { t.addTask(task); } }
     { context.setCurrentTarget(context.getImplicitTarget()); }
@@ -131,7 +124,7 @@ arguments returns [LinkedHashMap<String, String> args = new LinkedHashMap<String
     (',' arg=argument { args.put(arg.first, arg.second); } )*;
 
 argument returns [Pair<String, String> arg = new Pair<String, String>()]:
-    NAME { arg.first = $NAME.text; } '=' STRING { arg.second = readString($STRING.text); } ;
+    NAME { arg.first = $NAME.text; } '=' STRING { arg.second = projectHelper.readString($STRING.text); } ;
 
 innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
     '{' (ie=innerElement { ies.add(ie); } )+ '}';
@@ -147,12 +140,12 @@ assignment returns [Task assign]:
 propertyAssignment returns [Property p = new Property()]:
     'prop'
     { projectHelper.mapCommonTask(project, context, p); }
-    NAME { p.setName($NAME.text); } '=' STRING { p.setValue(readString($STRING.text)); } ;
+    NAME { p.setName($NAME.text); } '=' STRING { p.setValue(projectHelper.readString($STRING.text)); } ;
 
 refAssignment returns [RefTask r = new RefTask()]:
     'ref'
     { projectHelper.mapCommonTask(project, context, r); }
-    NAME { r.setName($NAME.text); } '=' STRING { r.setValue(readString($STRING.text)); } ;
+    NAME { r.setName($NAME.text); } '=' STRING { r.setValue(projectHelper.readString($STRING.text)); } ;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
@@ -222,7 +215,7 @@ boolNotExpr returns [Condition c]:
     };
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
-    ( DOC { macroDef.setDescription($DOC.text); } )?  
+    ( DOC { macroDef.setDescription(projectHelper.readDoc($DOC.text)); } )?
     'macrodef' NAME { macroDef.setName($NAME.text); }
     '(' ( atts=attributes
           {  for (Object att : atts) {
@@ -273,7 +266,7 @@ elementAttribute returns [TemplateElement element = new TemplateElement()]:
     NAME { element.setName($NAME.text); };
 
 DOC:
-    '%' ~('\n'|'\r')* '\r'? '\n'
+    ( '%' ~('\n'|'\r')* '\r'? '\n' )+
 ;
 
 PROPERTY:

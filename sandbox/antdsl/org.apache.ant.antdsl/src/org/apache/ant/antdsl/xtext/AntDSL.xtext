@@ -128,4 +128,4 @@ terminal PROPERTY:
     '$' NAME;
 
 terminal DOC:
-    '%' !('\n'|'\r')* ('\r'? '\n')?;
+    ( '%' !('\n'|'\r')* '\r'? '\n' )+;

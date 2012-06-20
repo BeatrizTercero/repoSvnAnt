@@ -1,6 +1,10 @@
 name : myproject
 default : build
 
+namespaces {
+    antunit : "antlib:org.apache.ant.antunit"
+}
+
 {
     prop foo = "hello world!"
     echo(message="${foo}")
@@ -30,6 +34,7 @@ target notexecuted
 }
 
 % description of the target
+% which is on a multiline
 target build
     depends dep, notexecuted
 {
@@ -55,4 +60,7 @@ target build
     } else {
         fail(message = "fail !")
     }
+    echo(message = "test encoding\\backslash")
+    echo(message = "test encoding\ttab")
+    echo(message = "test encoding\nline")
 }
