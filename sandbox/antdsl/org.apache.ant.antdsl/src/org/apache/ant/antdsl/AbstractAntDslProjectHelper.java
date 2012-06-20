@@ -36,6 +36,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.MagicNames;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.ProjectHelper;
 import org.apache.tools.ant.RuntimeConfigurable;
 import org.apache.tools.ant.Target;
@@ -433,18 +434,36 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         return element;
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T mapExpectedUnknown(Project project, AntDslContext context, InnerElement eInnerElement, Class<T> c) {
         if (eInnerElement == null) {
             return null;
         }
-        UnknownElement element = mapUnknown(project, context, eInnerElement, false);
-        element.maybeConfigure();
-        Object real = element.getRealThing();
-        if (!(c.isAssignableFrom(real.getClass()))) {
-            throw new BuildException("Incorrect condition: expecting a " + c.getSimpleName() + " but was : " + real.getClass().getName());
+
+        UnknownElement element = new UnknownElement("projectComponentContainer");
+        element.setProject(project);
+        RuntimeConfigurable wrapper = new RuntimeConfigurable(element, element.getTaskName());
+        context.pushWrapper(wrapper);
+        UnknownElement child = mapUnknown(project, context, eInnerElement, false);
+        element.addChild(child);
+        context.popWrapper();
+
+        ProjectComponentContainer container = new ProjectComponentContainer();
+        element.configure(container);
+        if (!(c.isAssignableFrom(container.component.getClass()))) {
+            throw new BuildException("Incorrect element: expecting a " + c.getSimpleName() + " but was : "
+                    + container.component.getClass().getName());
         }
-        return (T) real;
+        @SuppressWarnings("unchecked")
+        T expected = (T) container.component;
+        return expected;
+    }
+
+    public static class ProjectComponentContainer {
+        ProjectComponent component;
+
+        public void add(ProjectComponent component) {
+            this.component = component;
+        }
     }
 
     public static class InnerElement {
