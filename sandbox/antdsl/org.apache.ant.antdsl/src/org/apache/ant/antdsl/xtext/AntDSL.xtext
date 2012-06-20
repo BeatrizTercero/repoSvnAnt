@@ -72,10 +72,10 @@ EAssignment:
     EPropertyAssignment | EReferenceAssignment;
 
 EPropertyAssignment:
-    'prop' name=NAME '=' value=STRING;
+    'prop' name=NAME '=' value=EExpr;
 
 EReferenceAssignment:
-    'ref' name=NAME '=' value=STRING;
+    'ref' name=NAME '=' value=EExpr;
 
 EBranch:
     if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
@@ -102,6 +102,30 @@ EBoolPrimaryExpr returns EBoolExpr:
 
 EBoolNotExpr returns EBoolNotExpr:
     '!' expr=EBoolExpr;
+
+EExpr:
+    EMultExpr;
+
+EMultExpr returns EExpr:
+    EAddExpr ({EMultExpr.left=current} '*' right=EAddExpr )*;
+
+EAddExpr returns EExpr:
+    EPrimaryExpr ({EAddExpr.left=current} '+' right=EPrimaryExpr)*;
+
+EPrimaryExpr returns EExpr:
+    EFuncExpr | ENumExpr | EStringExpr | EPropExpr;
+
+EFuncExpr returns EFuncExpr:
+    name=NAME '(' arguments+=EExpr (',' arguments+=EExpr)* ')';
+
+ENumExpr returns ENumExpr:
+    value=INT;
+
+EStringExpr returns EStringExpr:
+    value=STRING;
+
+EPropExpr returns EPropExpr:
+    property=PROPERTY;
 
 EMacrodef:
     description=DOC? 'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;

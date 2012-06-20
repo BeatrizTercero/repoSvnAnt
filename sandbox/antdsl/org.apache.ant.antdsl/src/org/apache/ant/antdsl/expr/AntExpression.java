@@ -15,27 +15,22 @@
  *  limitations under the License.
  *
  */
-package org.apache.ant.antdsl;
+package org.apache.ant.antdsl.expr;
 
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
+import org.apache.tools.ant.Project;
 
-public class RefTask extends Task {
+public abstract class AntExpression {
 
-    private String name;
+    private Project project;
 
-    private Object value;
-
-    public void setName(String name) {
-        this.name = name;
+    public void setProject(Project project) {
+        this.project = project;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public Project getProject() {
+        return project;
     }
-    
-    @Override
-    public void execute() throws BuildException {
-        getProject().addReference(name, value);
-    }
+
+    public abstract Object eval();
+
 }

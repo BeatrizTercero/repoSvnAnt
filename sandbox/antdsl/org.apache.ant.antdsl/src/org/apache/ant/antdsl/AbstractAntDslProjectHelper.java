@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import org.apache.ant.antdsl.expr.func.FunctionRegistry;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.MagicNames;
@@ -53,6 +54,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     private static final String REFID_CONTEXT = "antdsl.parsingcontext";
 
+    public static final String REFID_FUNCTION_REGISTRY = "antdsl.function.registry";
+
     public String getDefaultBuildFile() {
         return "build.ant";
     }
@@ -71,6 +74,12 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         if (context == null) {
             context = new AntDslContext(project);
             project.addReference(REFID_CONTEXT, context);
+        }
+
+        FunctionRegistry functionRegistry = (FunctionRegistry) project.getReference(REFID_FUNCTION_REGISTRY);
+        if (functionRegistry == null) {
+            functionRegistry = new FunctionRegistry();
+            project.addReference(REFID_FUNCTION_REGISTRY, functionRegistry);
         }
 
         if (getImportStack().size() > 1) {
@@ -450,8 +459,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         ProjectComponentContainer container = new ProjectComponentContainer();
         element.configure(container);
         if (!(c.isAssignableFrom(container.component.getClass()))) {
-            throw new BuildException("Incorrect element: expecting a " + c.getSimpleName() + " but was : "
-                    + container.component.getClass().getName());
+            throw new BuildException("Incorrect element: expecting a " + c.getSimpleName() + " but was : " + container.component.getClass().getName());
         }
         @SuppressWarnings("unchecked")
         T expected = (T) container.component;

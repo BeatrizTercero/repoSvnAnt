@@ -26,11 +26,19 @@ import java.util.List;
 
 import org.apache.ant.antdsl.AbstractAntDslProjectHelper;
 import org.apache.ant.antdsl.AntDslContext;
+import org.apache.ant.antdsl.AssignPropertyTask;
 import org.apache.ant.antdsl.ExtensionPoint;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
-import org.apache.ant.antdsl.RefTask;
+import org.apache.ant.antdsl.AssignReferenceTask;
 import org.apache.ant.antdsl.Target;
+import org.apache.ant.antdsl.expr.AddAntExpression;
+import org.apache.ant.antdsl.expr.AntExpression;
+import org.apache.ant.antdsl.expr.FuncAntExpression;
+import org.apache.ant.antdsl.expr.MultiplicationAntExpression;
+import org.apache.ant.antdsl.expr.PrimaryAntExpression;
+import org.apache.ant.antdsl.expr.PropExpression;
+import org.apache.ant.antdsl.xtext.antdsl.EAddExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
@@ -44,14 +52,20 @@ import org.apache.ant.antdsl.xtext.antdsl.EBoolXorExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionedTasks;
 import org.apache.ant.antdsl.xtext.antdsl.EElementAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExtensionPoint;
+import org.apache.ant.antdsl.xtext.antdsl.EFuncExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
 import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
+import org.apache.ant.antdsl.xtext.antdsl.EMultExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
+import org.apache.ant.antdsl.xtext.antdsl.ENumExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
+import org.apache.ant.antdsl.xtext.antdsl.EPropExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EReferenceAssignment;
+import org.apache.ant.antdsl.xtext.antdsl.EStringExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ETarget;
 import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
@@ -224,18 +238,18 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private Task mapTask(Project project, AntDslContext context, ETask eTask) {
         if (eTask instanceof EPropertyAssignment) {
             EPropertyAssignment ePropertyAssignment = (EPropertyAssignment) eTask;
-            Property property = new Property();
+            AssignPropertyTask property = new AssignPropertyTask();
             mapCommonTask(project, context, property);
             property.setName(ePropertyAssignment.getName());
-            property.setValue(ePropertyAssignment.getValue());
+            property.setValue(mapExpr(project, context, ePropertyAssignment.getValue()));
             return property;
         }
         if (eTask instanceof EReferenceAssignment) {
             EReferenceAssignment eReferenceAssignment = (EReferenceAssignment) eTask;
-            RefTask ref = new RefTask();
+            AssignReferenceTask ref = new AssignReferenceTask();
             mapCommonTask(project, context, ref);
             ref.setName(eReferenceAssignment.getName());
-            ref.setValue(eReferenceAssignment.getValue());
+            ref.setValue(mapExpr(project, context, eReferenceAssignment.getValue()));
             return ref;
         }
         if (eTask instanceof EInnerElement) {
@@ -349,5 +363,56 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         }
 
         return innerElement;
+    }
+
+    private AntExpression mapExpr(Project project, AntDslContext context, EExpr eexpr) {
+        if (eexpr instanceof EAddExpr) {
+            EAddExpr eadd = (EAddExpr) eexpr;
+            AddAntExpression add = new AddAntExpression();
+            add.setProject(project);
+            add.add(mapExpr(project, context, eadd.getLeft()));
+            add.add(mapExpr(project, context, eadd.getRight()));
+            return add;
+        }
+        if (eexpr instanceof EMultExpr) {
+            EMultExpr emult = (EMultExpr) eexpr;
+            MultiplicationAntExpression mult = new MultiplicationAntExpression();
+            mult.setProject(project);
+            mult.add(mapExpr(project, context, emult.getLeft()));
+            mult.add(mapExpr(project, context, emult.getRight()));
+            return mult;
+        }
+        if (eexpr instanceof EFuncExpr) {
+            EFuncExpr efunc = (EFuncExpr) eexpr;
+            FuncAntExpression func = new FuncAntExpression();
+            func.setProject(project);
+            func.setName(efunc.getName());
+            for (EExpr arg : efunc.getArguments()) {
+                func.addArgument(mapExpr(project, context, arg));
+            }
+            return func;
+        }
+        if (eexpr instanceof ENumExpr) {
+            ENumExpr enumb = (ENumExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(enumb.getValue());
+            return primary;
+        }
+        if (eexpr instanceof EStringExpr) {
+            EStringExpr estring = (EStringExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(estring.getValue());
+            return primary;
+        }
+        if (eexpr instanceof EPropExpr) {
+            EPropExpr eprop = (EPropExpr) eexpr;
+            PropExpression prop = new PropExpression();
+            prop.setProject(project);
+            prop.setProperty(eprop.getProperty().substring(1));
+            return prop;
+        }
+        throw new IllegalArgumentException("Unsupported expression " + eexpr.getClass().getName());
     }
 }

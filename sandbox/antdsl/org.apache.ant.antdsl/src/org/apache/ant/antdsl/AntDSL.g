@@ -29,6 +29,7 @@ import org.apache.ant.antdsl.AbstractAntDslProjectHelper.InnerElement;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
 import org.apache.ant.antdsl.Target;
 import org.apache.ant.antdsl.ExtensionPoint;
+import org.apache.ant.antdsl.expr.*;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
 import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
@@ -137,15 +138,15 @@ innerElement returns [InnerElement ie = new InnerElement()]:
 assignment returns [Task assign]:
     p=propertyAssignment { assign = p; } | r=refAssignment { assign = r; } ;
 
-propertyAssignment returns [Property p = new Property()]:
+propertyAssignment returns [AssignPropertyTask p = new AssignPropertyTask()]:
     'prop'
     { projectHelper.mapCommonTask(project, context, p); }
-    NAME { p.setName($NAME.text); } '=' STRING { p.setValue(projectHelper.readString($STRING.text)); } ;
+    NAME { p.setName($NAME.text); } '=' e=expr { p.setValue(e); } ;
 
-refAssignment returns [RefTask r = new RefTask()]:
+refAssignment returns [AssignReferenceTask r = new AssignReferenceTask()]:
     'ref'
     { projectHelper.mapCommonTask(project, context, r); }
-    NAME { r.setName($NAME.text); } '=' STRING { r.setValue(projectHelper.readString($STRING.text)); } ;
+    NAME { r.setName($NAME.text); } '=' e=expr { r.setValue(e); } ;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
@@ -213,6 +214,56 @@ boolNotExpr returns [Condition c]:
       not.add(be);
       c = not;
     };
+
+expr returns [AntExpression e]:
+    me=multExpr { e = me; } ;
+
+multExpr returns [AntExpression e]:
+    ae=addExpr { e = ae; }
+    ( '*' right=addExpr
+      {  MultiplicationAntExpression me = new MultiplicationAntExpression();
+         me.setProject(project);
+         me.add(e);
+         me.add(right);
+         e = me;
+      }
+    )*;
+
+addExpr returns [AntExpression e]:
+    pe=primaryExpr { e = pe; }
+    ( '+' right=primaryExpr
+      { AddAntExpression ae = new AddAntExpression();
+        ae.setProject(project);
+        ae.add(e);
+        ae.add(right);
+        e = ae;
+      }
+    )*;
+
+primaryExpr returns [AntExpression e]:
+      fe=funcExpr { e = fe; }
+    | ne=numExpr { e = ne; }
+    | se=stringExpr { e = se; }
+    | pe=propExpr { e = pe; };
+
+funcExpr returns [FuncAntExpression fe = new FuncAntExpression()]:
+    { fe.setProject(project); }
+    NAME { fe.setName($NAME.text); }
+    '(' arg=expr { fe.addArgument(arg); }
+        (',' arg=expr  { fe.addArgument(arg); } )*
+    ')';
+
+numExpr returns [PrimaryAntExpression pe = new PrimaryAntExpression()]:
+    { pe.setProject(project); }
+    INT { pe.setValue(Integer.parseInt($INT.text)); };
+
+stringExpr returns [PrimaryAntExpression pe = new PrimaryAntExpression()]:
+    { pe.setProject(project); }
+    STRING { pe.setValue(projectHelper.readString($STRING.text)); };
+
+propExpr returns [PropExpression pe = new PropExpression()]:
+    { pe.setProject(project); }
+    PROPERTY { pe.setProperty($PROPERTY.text.substring(1)); };
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
     ( DOC { macroDef.setDescription(projectHelper.readDoc($DOC.text)); } )?
