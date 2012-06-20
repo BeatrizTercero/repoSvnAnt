@@ -35,12 +35,12 @@ ENamespace:
 
 EExtensionPoint:
     description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EInnerElement)? & ('unless' unless=EInnerElement)?
+        & ('depends' depends=ETargetList)? & ('if' if=EBoolExpr)? & ('unless' unless=EBoolExpr)?
     );
 
 ETarget:
     description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EInnerElement)? & ('unless' unless=EInnerElement)?
+        & ('depends' depends=ETargetList)? & ('if' if=EBoolExpr)? & ('unless' unless=EBoolExpr)?
     ) tasks=ETaskLists?;
 
 ETaskLists:
@@ -81,7 +81,27 @@ EBranch:
     if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
 
 EConditionedTasks:
-    'if' '(' condition=EInnerElement ')' tasks=ETaskLists;
+    'if' '(' condition=EBoolExpr ')' tasks=ETaskLists;
+
+EBoolExpr:
+    EBoolXorExpr;
+
+EBoolXorExpr returns EBoolExpr:
+    EBoolOrExpr ({EBoolXorExpr.left=current} '^^' right=EBoolOrExpr)*;
+
+EBoolOrExpr returns EBoolExpr:
+    EBoolAndExpr ({EBoolOrExpr.left=current} '||' right=EBoolAndExpr)*;
+
+EBoolAndExpr returns EBoolExpr:
+    EBoolPrimaryExpr ({EBoolAndExpr.left=current} '&&' right=EBoolPrimaryExpr)*;
+
+EBoolPrimaryExpr returns EBoolExpr:
+     EInnerElement
+   | '(' EBoolExpr ')'
+   | EBoolNotExpr;
+
+EBoolNotExpr returns EBoolNotExpr:
+    '!' expr=EBoolExpr;
 
 EMacrodef:
     description=DOC? 'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;

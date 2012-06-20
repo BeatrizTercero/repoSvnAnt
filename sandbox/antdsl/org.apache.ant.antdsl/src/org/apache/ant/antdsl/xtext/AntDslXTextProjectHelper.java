@@ -36,6 +36,11 @@ import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EAttributes;
+import org.apache.ant.antdsl.xtext.antdsl.EBoolAndExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EBoolExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EBoolNotExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EBoolOrExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EBoolXorExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionedTasks;
 import org.apache.ant.antdsl.xtext.antdsl.EElementAttribute;
@@ -62,7 +67,11 @@ import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
 import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.taskdefs.Sequential;
+import org.apache.tools.ant.taskdefs.condition.And;
 import org.apache.tools.ant.taskdefs.condition.Condition;
+import org.apache.tools.ant.taskdefs.condition.Not;
+import org.apache.tools.ant.taskdefs.condition.Or;
+import org.apache.tools.ant.taskdefs.condition.Xor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
@@ -180,8 +189,8 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private Target mapTarget(Project project, AntDslContext context, ETarget eTarget) {
         Target target = new Target();
         context.setCurrentTarget(target);
-        target.setIf(mapExpectedUnknown(project, context, mapInnerElement(eTarget.getIf()), Condition.class));
-        target.setUnless(mapExpectedUnknown(project, context, mapInnerElement(eTarget.getUnless()), Condition.class));
+        target.setIf(mapCondition(project, context, eTarget.getIf()));
+        target.setUnless(mapCondition(project, context, eTarget.getUnless()));
         mapCommonTarget(target, project, context, eTarget.getName(), eTarget.getDescription(), mapTargetList(eTarget.getDepends()),
                 mapTargetList(eTarget.getExtensionsOf()), eTarget.getOnMissingExtensionPoint());
         ETaskLists tasks = eTarget.getTasks();
@@ -203,8 +212,8 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
     private ExtensionPoint mapExtensionPoint(Project project, AntDslContext context, EExtensionPoint eExtensionPoint) {
         ExtensionPoint extensionPoint = new ExtensionPoint();
-        extensionPoint.setIf(mapExpectedUnknown(project, context, mapInnerElement(eExtensionPoint.getIf()), Condition.class));
-        extensionPoint.setUnless(mapExpectedUnknown(project, context, mapInnerElement(eExtensionPoint.getUnless()), Condition.class));
+        extensionPoint.setIf(mapCondition(project, context, eExtensionPoint.getIf()));
+        extensionPoint.setUnless(mapCondition(project, context, eExtensionPoint.getUnless()));
         mapCommonTarget(extensionPoint, project, context, eExtensionPoint.getName(), eExtensionPoint.getDescription(),
                 mapTargetList(eExtensionPoint.getDepends()), mapTargetList(eExtensionPoint.getExtensionsOf()),
                 eExtensionPoint.getOnMissingExtensionPoint());
@@ -241,7 +250,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             if (if_ != null) {
                 ConditionnalSequential main = new ConditionnalSequential();
                 mapCommonTask(project, context, main);
-                main.setCondition(mapExpectedUnknown(project, context, mapInnerElement(if_.getCondition()), Condition.class));
+                main.setCondition(mapCondition(project, context, if_.getCondition()));
                 for (ETask t : if_.getTasks().getTasks()) {
                     main.addTask(mapTask(project, context, t));
                 }
@@ -252,7 +261,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                 for (EConditionedTasks elseif : elseifs) {
                     ConditionnalSequential ei = new ConditionnalSequential();
                     mapCommonTask(project, context, ei);
-                    ei.setCondition(mapExpectedUnknown(project, context, mapInnerElement(elseif.getCondition()), Condition.class));
+                    ei.setCondition(mapCondition(project, context, elseif.getCondition()));
                     for (ETask t : elseif.getTasks().getTasks()) {
                         ei.addTask(mapTask(project, context, t));
                     }
@@ -271,6 +280,48 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             return ifTask;
         }
         throw new IllegalStateException("Unknown task type " + eTask.getClass().getName());
+    }
+
+    private Condition mapCondition(Project project, AntDslContext context, EBoolExpr expr) {
+        if (expr == null) {
+            return null;
+        }
+        if (expr instanceof EInnerElement) {
+            EInnerElement elemExpr = (EInnerElement) expr;
+            return mapExpectedUnknown(project, context, mapInnerElement(elemExpr), Condition.class);
+        }
+        if (expr instanceof EBoolAndExpr) {
+            EBoolAndExpr andExpr = (EBoolAndExpr) expr;
+            And and = new And();
+            and.setProject(project);
+            and.add(mapCondition(project, context, andExpr.getLeft()));
+            and.add(mapCondition(project, context, andExpr.getRight()));
+            return and;
+        }
+        if (expr instanceof EBoolOrExpr) {
+            EBoolOrExpr orExpr = (EBoolOrExpr) expr;
+            Or or = new Or();
+            or.setProject(project);
+            or.add(mapCondition(project, context, orExpr.getLeft()));
+            or.add(mapCondition(project, context, orExpr.getRight()));
+            return or;
+        }
+        if (expr instanceof EBoolXorExpr) {
+            EBoolXorExpr xorExpr = (EBoolXorExpr) expr;
+            Xor xor = new Xor();
+            xor.setProject(project);
+            xor.add(mapCondition(project, context, xorExpr.getLeft()));
+            xor.add(mapCondition(project, context, xorExpr.getRight()));
+            return xor;
+        }
+        if (expr instanceof EBoolNotExpr) {
+            EBoolNotExpr notExpr = (EBoolNotExpr) expr;
+            Not not = new Not();
+            not.setProject(project);
+            not.add(mapCondition(project, context, notExpr.getExpr()));
+            return not;
+        }
+        throw new IllegalArgumentException("Unsupported boolean expression " + expr.getClass().getName());
     }
 
     private InnerElement mapInnerElement(EInnerElement eInnerElement) {

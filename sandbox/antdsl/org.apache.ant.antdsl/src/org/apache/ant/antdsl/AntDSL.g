@@ -90,8 +90,8 @@ extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     'extension-point' n=NAME
     ('depends' d=targetList)?
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING )? )?
-    ('if' if_=innerElement { ep.setIf(projectHelper.mapExpectedUnknown(project, context, if_, Condition.class)); } )?
-    ('unless' unless=innerElement { ep.setUnless(projectHelper.mapExpectedUnknown(project, context, unless, Condition.class)); } )?
+    ('if' if_=boolExpr { ep.setIf(if_); } )?
+    ('unless' unless=boolExpr { ep.setUnless(unless); } )?
     { projectHelper.mapCommonTarget(ep, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
@@ -102,8 +102,8 @@ target returns [Target t = new Target()]:
     'target' n=NAME
     ('depends' d=targetList)?
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING)? )?
-    ('if' if_=innerElement { t.setIf(projectHelper.mapExpectedUnknown(project, context, if_, Condition.class)); } )?
-    ('unless' unless=innerElement { t.setUnless(projectHelper.mapExpectedUnknown(project, context, unless, Condition.class)); } )?
+    ('if' if_=boolExpr { t.setIf(if_); } )?
+    ('unless' unless=boolExpr { t.setUnless(unless); } )?
     { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
     tl=taskList?
     { for (Task task : tl) { t.addTask(task); } }
@@ -168,9 +168,58 @@ branch returns [IfTask if_ = new IfTask()]:
 
 conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequential()]:
     { projectHelper.mapCommonTask(project, context, seq); }
-    'if' '(' ie=innerElement { seq.setCondition(projectHelper.mapExpectedUnknown(project, context, ie, Condition.class)); } ')'
+    'if' '(' ie=boolExpr { seq.setCondition(ie); } ')'
     tl=taskList { for (Task t : tl) { seq.addTask(t); } }
     ;
+
+boolExpr returns [Condition c]:
+    be=boolXorExpr { c = be; } ;
+
+boolXorExpr returns [Condition c]:
+    be=boolOrExpr { c = be; }
+    ( '^^' right=boolOrExpr
+      { Xor xor = new Xor();
+        xor.setProject(project);
+        xor.add(c);
+        xor.add(right);
+        c = xor;
+      }
+    )*;
+
+boolOrExpr returns [Condition c]:
+    be=boolAndExpr { c = be; }
+    ( '||' right=boolAndExpr
+      { Or or = new Or();
+        or.setProject(project);
+        or.add(c);
+        or.add(right);
+        c = or;
+      }
+    )*;
+
+boolAndExpr returns [Condition c]:
+    be=boolPrimaryExpr { c = be; }
+    ( '&&' right=boolPrimaryExpr
+      { And and = new And();
+        and.setProject(project);
+        and.add(c);
+        and.add(right);
+        c = and;
+      }
+    )*;
+
+boolPrimaryExpr returns [Condition c]:
+     ie=innerElement { c = projectHelper.mapExpectedUnknown(project, context, ie, Condition.class); }
+   | '(' be=boolExpr { c = be; } ')'
+   | be=boolNotExpr { c = be; } ;
+
+boolNotExpr returns [Condition c]:
+    '!' be=boolExpr
+    { Not not = new Not();
+      not.setProject(project);
+      not.add(be);
+      c = not;
+    };
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
     ( DOC { macroDef.setDescription($DOC.text); } )?  

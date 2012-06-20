@@ -50,5 +50,9 @@ target build
     } else {
         fail(message = "fail !")
     }
+    if (isset(property = "foo") && !isset(property = "notsetproperty")) {
+        echo(message = "test ok")
+    } else {
+        fail(message = "fail !")
+    }
 }
-
