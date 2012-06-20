@@ -27,6 +27,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
@@ -286,9 +287,12 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
     }
 
     public void mapCommonTarget(
-            Target target, Project project, AntDslContext context, String name, String description, List<String> depends, List<String> extensionsOf) {
-        // TODO
+            Target target, Project project, AntDslContext context, String name, String description, List<String> depends, List<String> extensionsOf,
+            String onMiss) {
         OnMissingExtensionPoint extensionPointMissing = null;
+        if (onMiss != null) {
+            extensionPointMissing = OnMissingExtensionPoint.valueOf(onMiss.toUpperCase(Locale.ENGLISH));
+        }
 
         context.addTarget(target);
         target.setProject(project);

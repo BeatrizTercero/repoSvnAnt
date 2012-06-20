@@ -181,7 +181,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         Target target = new Target();
         context.setCurrentTarget(target);
         mapCommonTarget(target, project, context, eTarget.getName(), eTarget.getDescription(), mapTargetList(eTarget.getDepends()),
-                mapTargetList(eTarget.getExtensionsOf()));
+                mapTargetList(eTarget.getExtensionsOf()), eTarget.getOnMissingExtensionPoint());
         ETaskLists tasks = eTarget.getTasks();
         if (tasks != null && tasks.getTasks() != null) {
             for (ETask eTask : tasks.getTasks()) {
@@ -202,7 +202,8 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private ExtensionPoint mapExtensionPoint(Project project, AntDslContext context, EExtensionPoint eExtensionPoint) {
         ExtensionPoint extensionPoint = new ExtensionPoint();
         mapCommonTarget(extensionPoint, project, context, eExtensionPoint.getName(), eExtensionPoint.getDescription(),
-                mapTargetList(eExtensionPoint.getDepends()), mapTargetList(eExtensionPoint.getExtensionsOf()));
+                mapTargetList(eExtensionPoint.getDepends()), mapTargetList(eExtensionPoint.getExtensionsOf()),
+                eExtensionPoint.getOnMissingExtensionPoint());
         context.setCurrentTarget(context.getImplicitTarget());
         return extensionPoint;
     }

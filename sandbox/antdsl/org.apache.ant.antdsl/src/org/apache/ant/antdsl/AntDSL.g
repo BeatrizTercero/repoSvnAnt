@@ -86,9 +86,9 @@ extensionPoint returns [Target t = new Target()]:
     { context.setCurrentTarget(t); }
     desc=DOC?
     'extension-point' n=NAME
-    ('extensionOf' eo=targetList)?
     ('depends' d=targetList)?
-    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo); }
+    ('extensionOf' eo=targetList ('onMiss' onMiss=STRING )? )?
+    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
 
@@ -96,9 +96,9 @@ target returns [Target t = new Target()]:
     { context.setCurrentTarget(t); }
     desc=DOC?
     'target' n=NAME
-    ('extensionOf' eo=targetList)?
     ('depends' d=targetList)?
-    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo); }
+    ('extensionOf' eo=targetList ('onMiss' onMiss=STRING)? )?
+    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
     tl=taskLists?
     { for (Task task : tl) { t.addTask(task); } }
     { context.setCurrentTarget(context.getImplicitTarget()); }

@@ -34,10 +34,10 @@ ENamespace:
     name=NAME ':' uri=STRING;
 
 EExtensionPoint:
-    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList)? & ('depends' depends=ETargetList)?);
+    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )? & ('depends' depends=ETargetList)?);
 
 ETarget:
-    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList)? & ('depends' depends=ETargetList)?) tasks=ETaskLists?;
+    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )? & ('depends' depends=ETargetList)? ) tasks=ETaskLists?;
 
 ETaskLists:
     {ETaskLists}
