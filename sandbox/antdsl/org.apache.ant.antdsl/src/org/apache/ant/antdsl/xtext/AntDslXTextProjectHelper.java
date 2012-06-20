@@ -26,11 +26,12 @@ import java.util.List;
 
 import org.apache.ant.antdsl.AbstractAntDslProjectHelper;
 import org.apache.ant.antdsl.AntDslContext;
+import org.apache.ant.antdsl.AssignLocalTask;
 import org.apache.ant.antdsl.AssignPropertyTask;
+import org.apache.ant.antdsl.AssignReferenceTask;
 import org.apache.ant.antdsl.ExtensionPoint;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
-import org.apache.ant.antdsl.AssignReferenceTask;
 import org.apache.ant.antdsl.Target;
 import org.apache.ant.antdsl.expr.AddAntExpression;
 import org.apache.ant.antdsl.expr.AntExpression;
@@ -57,6 +58,7 @@ import org.apache.ant.antdsl.xtext.antdsl.EExtensionPoint;
 import org.apache.ant.antdsl.xtext.antdsl.EFuncExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
+import org.apache.ant.antdsl.xtext.antdsl.ELocalAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
 import org.apache.ant.antdsl.xtext.antdsl.EMultExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
@@ -79,7 +81,6 @@ import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
 import org.apache.tools.ant.taskdefs.MacroDef.NestedSequential;
 import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
 import org.apache.tools.ant.taskdefs.MacroDef.Text;
-import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.taskdefs.Sequential;
 import org.apache.tools.ant.taskdefs.condition.And;
 import org.apache.tools.ant.taskdefs.condition.Condition;
@@ -251,6 +252,14 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             ref.setName(eReferenceAssignment.getName());
             ref.setValue(mapExpr(project, context, eReferenceAssignment.getValue()));
             return ref;
+        }
+        if (eTask instanceof ELocalAssignment) {
+            ELocalAssignment eLocalAssignment = (ELocalAssignment) eTask;
+            AssignLocalTask local = new AssignLocalTask();
+            mapCommonTask(project, context, local);
+            local.setName(eLocalAssignment.getName());
+            local.setValue(mapExpr(project, context, eLocalAssignment.getValue()));
+            return local;
         }
         if (eTask instanceof EInnerElement) {
             EInnerElement eInnerElement = (EInnerElement) eTask;

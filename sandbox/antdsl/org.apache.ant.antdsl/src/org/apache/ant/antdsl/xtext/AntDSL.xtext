@@ -69,13 +69,16 @@ EInnerElement:
     name=ENSName '(' arguments=EArguments? (','? inners=EInnerElements)? ')';
 
 EAssignment:
-    EPropertyAssignment | EReferenceAssignment;
+    EPropertyAssignment | EReferenceAssignment | ELocalAssignment;
 
 EPropertyAssignment:
     'prop' name=NAME '=' value=EExpr;
 
 EReferenceAssignment:
     'ref' name=NAME '=' value=EExpr;
+
+ELocalAssignment:
+    'local' name=NAME '=' value=EExpr;
 
 EBranch:
     if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;

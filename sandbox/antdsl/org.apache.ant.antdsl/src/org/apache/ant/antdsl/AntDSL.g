@@ -136,7 +136,9 @@ innerElement returns [InnerElement ie = new InnerElement()]:
     (','? ies=innerElements)? { ie.children = ies; } ')';
 
 assignment returns [Task assign]:
-    p=propertyAssignment { assign = p; } | r=refAssignment { assign = r; } ;
+      p=propertyAssignment { assign = p; }
+    | r=refAssignment { assign = r; }
+    | l=localAssignment { assign = l; };
 
 propertyAssignment returns [AssignPropertyTask p = new AssignPropertyTask()]:
     'prop'
@@ -147,6 +149,11 @@ refAssignment returns [AssignReferenceTask r = new AssignReferenceTask()]:
     'ref'
     { projectHelper.mapCommonTask(project, context, r); }
     NAME { r.setName($NAME.text); } '=' e=expr { r.setValue(e); } ;
+
+localAssignment returns [AssignLocalTask l = new AssignLocalTask()]:
+    'local'
+    { projectHelper.mapCommonTask(project, context, l); }
+    NAME { l.setName($NAME.text); } '=' e=expr { l.setValue(e); } ;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
