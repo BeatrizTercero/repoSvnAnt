@@ -116,7 +116,7 @@ EAddExpr returns EExpr:
     EPrimaryExpr ({EAddExpr.left=current} '+' right=EPrimaryExpr)*;
 
 EPrimaryExpr returns EExpr:
-    EFuncExpr | ENumExpr | EStringExpr | EPropExpr;
+    EFuncExpr | ENumExpr | EStringExpr | EVariableExpr;
 
 EFuncExpr returns EFuncExpr:
     name=NAME '(' arguments+=EExpr (',' arguments+=EExpr)* ')';
@@ -127,8 +127,8 @@ ENumExpr returns ENumExpr:
 EStringExpr returns EStringExpr:
     value=STRING;
 
-EPropExpr returns EPropExpr:
-    property=PROPERTY;
+EVariableExpr returns EVariableExpr:
+    name=VARIABLE;
 
 EMacrodef:
     description=DOC? 'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;
@@ -151,8 +151,8 @@ EElementAttribute:
 terminal NAME:
     ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'.'|'0'..'9')*;
 
-terminal PROPERTY:
-    '$' NAME;
+terminal VARIABLE:
+    '$' ( NAME | '{' !('}')+ '}');
 
 terminal DOC:
     ( '%' !('\n'|'\r')* '\r'? '\n' )+;

@@ -142,17 +142,4 @@ public class AntDslAntlrProjectHelper extends AbstractAntDslProjectHelper {
         return new String(out, 0, outLen);
     }
 
-    public String readDoc(String s) {
-        if (s == null) {
-            return null;
-        }
-        String[] split = s.split("\r?\n");
-        StringBuilder builder = new StringBuilder();
-        for (String line : split) {
-            builder.append(line.substring(1)); // remove the leading %
-            builder.append(' '); // replace the line end by a space
-        }
-        return builder.toString();
-    }
-
 }

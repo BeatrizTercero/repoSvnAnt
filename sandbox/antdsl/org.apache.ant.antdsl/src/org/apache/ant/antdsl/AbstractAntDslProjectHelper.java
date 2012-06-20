@@ -487,4 +487,32 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         public List<InnerElement> children;
     }
+
+    public String readDoc(String s) {
+        if (s == null) {
+            return null;
+        }
+        String[] split = s.split("\r?\n");
+        StringBuilder builder = new StringBuilder();
+        for (String line : split) {
+            builder.append(line.substring(1)); // remove the leading %
+            builder.append(' '); // replace the line end by a space
+        }
+        return builder.toString();
+    }
+
+    public String readVariable(String s) {
+        if (s == null) {
+            return null;
+        }
+        if (s.charAt(1) == '{') {
+            // remove the lead ${ and the ending }
+            s = s.substring(2, s.length() - 1);
+        } else {
+            // remove the leading $
+            s = s.substring(1);
+        }
+        return s;
+    }
+
 }

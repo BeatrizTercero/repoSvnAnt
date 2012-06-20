@@ -251,7 +251,7 @@ primaryExpr returns [AntExpression e]:
       fe=funcExpr { e = fe; }
     | ne=numExpr { e = ne; }
     | se=stringExpr { e = se; }
-    | pe=propExpr { e = pe; };
+    | ve=varExpr { e = ve; };
 
 funcExpr returns [FuncAntExpression fe = new FuncAntExpression()]:
     { fe.setProject(project); }
@@ -268,9 +268,9 @@ stringExpr returns [PrimaryAntExpression pe = new PrimaryAntExpression()]:
     { pe.setProject(project); }
     STRING { pe.setValue(projectHelper.readString($STRING.text)); };
 
-propExpr returns [PropExpression pe = new PropExpression()]:
-    { pe.setProject(project); }
-    PROPERTY { pe.setProperty($PROPERTY.text.substring(1)); };
+varExpr returns [VariableExpression ve = new VariableExpression()]:
+    { ve.setProject(project); }
+    VARIABLE { ve.setName(projectHelper.readVariable($VARIABLE.text)); };
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
     ( DOC { macroDef.setDescription(projectHelper.readDoc($DOC.text)); } )?
@@ -327,12 +327,16 @@ DOC:
     ( '%' ~('\n'|'\r')* '\r'? '\n' )+
 ;
 
+NAME:
+    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'-'|'.')*
+;
+
 PROPERTY:
     '$' NAME
 ;
 
-NAME:
-    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'-'|'.')*
+INT:
+    ('0'..'9')+
 ;
 
 COMMENT:

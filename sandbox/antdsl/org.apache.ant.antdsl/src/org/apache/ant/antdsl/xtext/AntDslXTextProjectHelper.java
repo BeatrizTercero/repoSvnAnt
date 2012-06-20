@@ -38,7 +38,7 @@ import org.apache.ant.antdsl.expr.AntExpression;
 import org.apache.ant.antdsl.expr.FuncAntExpression;
 import org.apache.ant.antdsl.expr.MultiplicationAntExpression;
 import org.apache.ant.antdsl.expr.PrimaryAntExpression;
-import org.apache.ant.antdsl.expr.PropExpression;
+import org.apache.ant.antdsl.expr.VariableExpression;
 import org.apache.ant.antdsl.xtext.antdsl.EAddExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
@@ -64,7 +64,6 @@ import org.apache.ant.antdsl.xtext.antdsl.EMultExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.ENumExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
-import org.apache.ant.antdsl.xtext.antdsl.EPropExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EReferenceAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EStringExpr;
@@ -73,6 +72,7 @@ import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
 import org.apache.ant.antdsl.xtext.antdsl.ETaskLists;
 import org.apache.ant.antdsl.xtext.antdsl.ETextAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EVariableExpr;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -415,11 +415,11 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             primary.setValue(estring.getValue());
             return primary;
         }
-        if (eexpr instanceof EPropExpr) {
-            EPropExpr eprop = (EPropExpr) eexpr;
-            PropExpression prop = new PropExpression();
+        if (eexpr instanceof EVariableExpr) {
+            EVariableExpr evar = (EVariableExpr) eexpr;
+            VariableExpression prop = new VariableExpression();
             prop.setProject(project);
-            prop.setProperty(eprop.getProperty().substring(1));
+            prop.setName(readVariable(evar.getName()));
             return prop;
         }
         throw new IllegalArgumentException("Unsupported expression " + eexpr.getClass().getName());

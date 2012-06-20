@@ -18,18 +18,26 @@
 package org.apache.ant.antdsl.expr;
 
 import org.apache.tools.ant.PropertyHelper;
+import org.apache.tools.ant.property.LocalProperties;
 
-public class PropExpression extends AntExpression {
+public class VariableExpression extends AntExpression {
 
-    private String property;
+    private String name;
 
-    public void setProperty(String property) {
-        this.property = property;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public Object eval() {
-        return PropertyHelper.getProperty(getProject(), property);
+        Object value = LocalProperties.get(getProject()).evaluate(name, PropertyHelper.getPropertyHelper(getProject()));
+        if (value == null) {
+            value = PropertyHelper.getProperty(getProject(), name);
+            if (value == null) {
+                value = getProject().getReference(name);
+            }
+        }
+        return value;
     }
 
 }
