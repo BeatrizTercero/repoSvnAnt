@@ -34,10 +34,14 @@ ENamespace:
     name=NAME ':' uri=STRING;
 
 EExtensionPoint:
-    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )? & ('depends' depends=ETargetList)?);
+    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
+        & ('depends' depends=ETargetList)? & ('if' if=EInnerElement)? & ('unless' unless=EInnerElement)?
+    );
 
 ETarget:
-    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )? & ('depends' depends=ETargetList)? ) tasks=ETaskLists?;
+    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
+        & ('depends' depends=ETargetList)? & ('if' if=EInnerElement)? & ('unless' unless=EInnerElement)?
+    ) tasks=ETaskLists?;
 
 ETaskLists:
     {ETaskLists}
@@ -62,7 +66,7 @@ EInnerElements:
     '{' elements+=EInnerElement+ '}';
 
 EInnerElement:
-    name=ENSName '(' arguments=EArguments? ')' inners=EInnerElements?;
+    name=ENSName '(' arguments=EArguments? (','? inners=EInnerElements)? ')';
 
 EAssignment:
     EPropertyAssignment | EReferenceAssignment;

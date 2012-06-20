@@ -435,6 +435,9 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     @SuppressWarnings("unchecked")
     public <T> T mapExpectedUnknown(Project project, AntDslContext context, InnerElement eInnerElement, Class<T> c) {
+        if (eInnerElement == null) {
+            return null;
+        }
         UnknownElement element = mapUnknown(project, context, eInnerElement, false);
         element.maybeConfigure();
         Object real = element.getRealThing();

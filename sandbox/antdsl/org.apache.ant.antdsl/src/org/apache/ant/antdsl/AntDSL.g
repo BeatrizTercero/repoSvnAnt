@@ -27,6 +27,8 @@ package org.apache.ant.antdsl.antlr;
 import org.apache.ant.antdsl.*;
 import org.apache.ant.antdsl.AbstractAntDslProjectHelper.InnerElement;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
+import org.apache.ant.antdsl.Target;
+import org.apache.ant.antdsl.ExtensionPoint;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
 import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
@@ -72,7 +74,7 @@ project:
     )
     { projectHelper.setupProject(project, context, $name.text, readString($basedir.text), $def.text); }
     ( 'namespaces' '{' ( ns=namespace { context.addNamespace(ns.first, ns.second); } )* '}')?
-    tl=taskLists?
+    tl=taskList?
     { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
     (   target
       | extensionPoint
@@ -82,13 +84,15 @@ project:
 namespace returns [Pair<String, String> ns = new Pair<String, String>()]:
     NAME { ns.first = $NAME.text; } ':' STRING { ns.second = readString($STRING.text); };
 
-extensionPoint returns [Target t = new Target()]:
-    { context.setCurrentTarget(t); }
+extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
+    { context.setCurrentTarget(ep); }
     desc=DOC?
     'extension-point' n=NAME
     ('depends' d=targetList)?
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING )? )?
-    { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
+    ('if' if_=innerElement { ep.setIf(projectHelper.mapExpectedUnknown(project, context, if_, Condition.class)); } )?
+    ('unless' unless=innerElement { ep.setUnless(projectHelper.mapExpectedUnknown(project, context, unless, Condition.class)); } )?
+    { projectHelper.mapCommonTarget(ep, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
 
@@ -98,13 +102,15 @@ target returns [Target t = new Target()]:
     'target' n=NAME
     ('depends' d=targetList)?
     ('extensionOf' eo=targetList ('onMiss' onMiss=STRING)? )?
+    ('if' if_=innerElement { t.setIf(projectHelper.mapExpectedUnknown(project, context, if_, Condition.class)); } )?
+    ('unless' unless=innerElement { t.setUnless(projectHelper.mapExpectedUnknown(project, context, unless, Condition.class)); } )?
     { projectHelper.mapCommonTarget(t, project, context, $n.text, $desc.text, d, eo, $onMiss.text); }
-    tl=taskLists?
+    tl=taskList?
     { for (Task task : tl) { t.addTask(task); } }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
 
-taskLists returns [List<Task> tl = new ArrayList<Task>()]:
+taskList returns [List<Task> tl = new ArrayList<Task>()]:
     '{' (t=task { tl.add(t); } )* '}';
 
 targetList returns [List<String> tl = new ArrayList<String>()]:
@@ -132,8 +138,8 @@ innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
 
 innerElement returns [InnerElement ie = new InnerElement()]:
     ns=nsName {ie.ns = ns.first; ie.name = ns.second;}
-    '(' args=arguments? { ie.attributes = args; } ')'
-    ies=innerElements? { ie.children = ies; };
+    '(' args=arguments? { ie.attributes = args; } 
+    (','? ies=innerElements)? { ie.children = ies; } ')';
 
 assignment returns [Task assign]:
     p=propertyAssignment { assign = p; } | r=refAssignment { assign = r; } ;
@@ -152,7 +158,7 @@ branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
     main=conditionedTasks { if_.setMain(main); }
     ('else' elseif=conditionedTasks { if_.addElseIf(elseif); } )*
-    ('else' tl=taskLists
+    ('else' tl=taskList
         { Sequential seq = new Sequential();
           projectHelper.mapCommonTask(project, context, seq);
           for (Task t : tl) { seq.addTask(t); }
@@ -163,7 +169,7 @@ branch returns [IfTask if_ = new IfTask()]:
 conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequential()]:
     { projectHelper.mapCommonTask(project, context, seq); }
     'if' '(' ie=innerElement { seq.setCondition(projectHelper.mapExpectedUnknown(project, context, ie, Condition.class)); } ')'
-    tl=taskLists { for (Task t : tl) { seq.addTask(t); } }
+    tl=taskList { for (Task t : tl) { seq.addTask(t); } }
     ;
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
@@ -182,7 +188,7 @@ macrodef returns [MacroDef macroDef = new MacroDef()]:
                 }
              }
           } )? ')'
-    tl=taskLists
+    tl=taskList
     {
         NestedSequential seq = macroDef.createSequential();
         for (Task t : tl) { seq.addTask(t); }

@@ -26,9 +26,11 @@ import java.util.List;
 
 import org.apache.ant.antdsl.AbstractAntDslProjectHelper;
 import org.apache.ant.antdsl.AntDslContext;
+import org.apache.ant.antdsl.ExtensionPoint;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
 import org.apache.ant.antdsl.RefTask;
+import org.apache.ant.antdsl.Target;
 import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
@@ -51,9 +53,7 @@ import org.apache.ant.antdsl.xtext.antdsl.ETask;
 import org.apache.ant.antdsl.xtext.antdsl.ETaskLists;
 import org.apache.ant.antdsl.xtext.antdsl.ETextAttribute;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Target;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.MacroDef;
 import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
@@ -180,6 +180,8 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private Target mapTarget(Project project, AntDslContext context, ETarget eTarget) {
         Target target = new Target();
         context.setCurrentTarget(target);
+        target.setIf(mapExpectedUnknown(project, context, mapInnerElement(eTarget.getIf()), Condition.class));
+        target.setUnless(mapExpectedUnknown(project, context, mapInnerElement(eTarget.getUnless()), Condition.class));
         mapCommonTarget(target, project, context, eTarget.getName(), eTarget.getDescription(), mapTargetList(eTarget.getDepends()),
                 mapTargetList(eTarget.getExtensionsOf()), eTarget.getOnMissingExtensionPoint());
         ETaskLists tasks = eTarget.getTasks();
@@ -201,6 +203,8 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
     private ExtensionPoint mapExtensionPoint(Project project, AntDslContext context, EExtensionPoint eExtensionPoint) {
         ExtensionPoint extensionPoint = new ExtensionPoint();
+        extensionPoint.setIf(mapExpectedUnknown(project, context, mapInnerElement(eExtensionPoint.getIf()), Condition.class));
+        extensionPoint.setUnless(mapExpectedUnknown(project, context, mapInnerElement(eExtensionPoint.getUnless()), Condition.class));
         mapCommonTarget(extensionPoint, project, context, eExtensionPoint.getName(), eExtensionPoint.getDescription(),
                 mapTargetList(eExtensionPoint.getDepends()), mapTargetList(eExtensionPoint.getExtensionsOf()),
                 eExtensionPoint.getOnMissingExtensionPoint());
