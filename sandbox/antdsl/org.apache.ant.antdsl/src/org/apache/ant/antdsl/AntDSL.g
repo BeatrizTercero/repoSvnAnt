@@ -73,11 +73,13 @@ project:
     (   target
       | extensionPoint
       | macrodef
-    )*;
+    )*
+;
 
 namespace returns [Pair<String, String> ns = new Pair<String, String>()]:
     n=identifier { ns.first = n; }
-    ':' uri=stringLiteral { ns.second = uri; };
+    ':' uri=stringLiteral { ns.second = uri; }
+;
 
 extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     { context.setCurrentTarget(ep); }
@@ -89,7 +91,7 @@ extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     ('unless' unless=expr { ep.setUnless(projectHelper.expression2Condition(unless)); } )?
     { projectHelper.mapCommonTarget(ep, project, context, n, desc, d, eo, onMiss); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
-    ;
+;
 
 target returns [Target t = new Target()]:
     { context.setCurrentTarget(t); }
@@ -103,58 +105,69 @@ target returns [Target t = new Target()]:
     tl=taskList?
     { for (Task task : tl) { t.addTask(task); } }
     { context.setCurrentTarget(context.getImplicitTarget()); }
-    ;
+;
 
 taskList returns [List<Task> tl = new ArrayList<Task>()]:
-    '{' (t=task { tl.add(t); } )* '}';
+    '{' (t=task { tl.add(t); } )* '}'
+;
 
 targetList returns [List<String> tl = new ArrayList<String>()]:
     n=identifier { tl.add(n); }
-    (',' n=identifier { tl.add(n); } )*;
+    (',' n=identifier { tl.add(n); } )*
+;
 
 task returns [Task t = null]:
       a=assignment {t=a;}
     | ie=innerElement {t=projectHelper.mapUnknown(project, context, ie, false);}
     | b=branch {t=b;}
-    ;
+;
 
 nsName returns [Pair<String, String> ns = new Pair<String, String>()]:
-    (n=identifier { ns.first = n; } ':')? n=identifier { ns.second = n; } ;
+    (n=identifier { ns.first = n; } ':')? n=identifier { ns.second = n; }
+;
 
 arguments returns [LinkedHashMap<String, String> args = new LinkedHashMap<String, String>();]:
     arg=argument { args.put(arg.first, arg.second); }
-    (',' arg=argument { args.put(arg.first, arg.second); } )*;
+    (',' arg=argument { args.put(arg.first, arg.second); } )*
+;
 
 argument returns [Pair<String, String> arg = new Pair<String, String>()]:
-    n=identifier { arg.first = n; } '=' v=stringLiteral { arg.second = v; } ;
+    n=identifier { arg.first = n; } '=' v=stringLiteral { arg.second = v; }
+;
 
 innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
-    '{' (ie=innerElement { ies.add(ie); } )+ '}';
+    '{' (ie=innerElement { ies.add(ie); } )+ '}'
+;
 
 innerElement returns [InnerElement ie = new InnerElement()]:
     ns=nsName {ie.ns = ns.first; ie.name = ns.second;}
     '(' args=arguments? { ie.attributes = args; } 
-    (','? ies=innerElements)? { ie.children = ies; } ')';
+    (','? ies=innerElements)? { ie.children = ies; } ')'
+;
 
 assignment returns [Task assign]:
       p=propertyAssignment { assign = p; }
     | r=refAssignment { assign = r; }
-    | l=localAssignment { assign = l; };
+    | l=localAssignment { assign = l; }
+;
 
 propertyAssignment returns [AssignPropertyTask p = new AssignPropertyTask()]:
     'prop'
     { projectHelper.mapCommonTask(project, context, p); }
-    n=identifier { p.setName(n); } '=' e=expr { p.setValue(e); } ;
+    n=identifier { p.setName(n); } '=' e=expr { p.setValue(e); }
+;
 
 refAssignment returns [AssignReferenceTask r = new AssignReferenceTask()]:
     'ref'
     { projectHelper.mapCommonTask(project, context, r); }
-    n=identifier { r.setName(n); } '=' e=expr { r.setValue(e); } ;
+    n=identifier { r.setName(n); } '=' e=expr { r.setValue(e); }
+;
 
 localAssignment returns [AssignLocalTask l = new AssignLocalTask()]:
     'local'
     { projectHelper.mapCommonTask(project, context, l); }
-    n=identifier { l.setName(n); } '=' e=expr { l.setValue(e); } ;
+    n=identifier { l.setName(n); } '=' e=expr { l.setValue(e); }
+;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
@@ -166,13 +179,14 @@ branch returns [IfTask if_ = new IfTask()]:
           for (Task t : tl) { seq.addTask(t); }
           if_.setElse(seq);
         }
-    )?;
+    )?
+;
 
 conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequential()]:
     { projectHelper.mapCommonTask(project, context, seq); }
     'if' '(' e=expr { seq.setCondition(projectHelper.expression2Condition(e)); } ')'
     tl=taskList { for (Task t : tl) { seq.addTask(t); } }
-    ;
+;
 
 macrodef returns [MacroDef macroDef = new MacroDef()]:
     ( d=doc { macroDef.setDescription(d); } )?
@@ -197,33 +211,38 @@ macrodef returns [MacroDef macroDef = new MacroDef()]:
         macroDef.setProject(project);
         macroDef.execute();
     }
-    ;
+;
 
 attributes returns [List atts = new ArrayList()]:
     att=attribute { atts.add(att); }
-    (',' att=attribute { atts.add(att); } )*;
+    (',' att=attribute { atts.add(att); } )*
+;
 
 attribute returns [Object att]:
       aatt=argAttribute { att = aatt; }
     | tatt=textAttribute { att = tatt; }
-    | eatt=elementAttribute  { att = eatt; };
+    | eatt=elementAttribute  { att = eatt; }
+;
 
 argAttribute returns [Attribute att = new Attribute()]:
     'arg'
     n=identifier { att.setName(n); }
-    ('=' d=stringLiteral { att.setDefault(d); } )?;
+    ('=' d=stringLiteral { att.setDefault(d); } )?
+;
 
 textAttribute returns [Text text = new Text()]:
     ('optional' { text.setOptional(true); } )?
     ('trimmed' { text.setTrim(true); } )?
     'text'
-    n=identifier { text.setName(n); };
+    n=identifier { text.setName(n); }
+;
 
 elementAttribute returns [TemplateElement element = new TemplateElement()]:
     ('optional' { element.setOptional(true); } )?
     ('implicit' { element.setImplicit(true); } )?
     'element'
-    n=identifier { element.setName(n); };
+    n=identifier { element.setName(n); }
+;
 
 ////////////////
 // Expression

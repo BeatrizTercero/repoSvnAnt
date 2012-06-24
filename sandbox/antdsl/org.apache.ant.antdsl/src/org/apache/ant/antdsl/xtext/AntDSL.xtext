@@ -30,85 +30,117 @@ EProject:
     )
     ('namespaces' '{' namespaces+=ENamespace* '}')?
     tasks=ETaskLists?
-    (targets+=ETarget | extensionPoints+=EExtensionPoint | macrodDefs+=EMacrodef)*;
+    (targets+=ETarget | extensionPoints+=EExtensionPoint | macrodDefs+=EMacrodef)*
+;
 
 ENamespace:
-    name=Identifier ':' uri=StringLiteral;
+    name=Identifier ':' uri=StringLiteral
+;
 
 EExtensionPoint:
-    description=DOC? 'extension-point' name=Identifier (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EExpr)? & ('unless' unless=EExpr)?
-    );
+    description=DOC? 'extension-point' name=Identifier
+    (     ('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
+        & ('depends' depends=ETargetList)?
+        & ('if' if=EExpr)?
+        & ('unless' unless=EExpr)?
+    )
+;
 
 ETarget:
-    description=DOC? 'target' name=Identifier (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EExpr)? & ('unless' unless=EExpr)?
-    ) tasks=ETaskLists?;
+    description=DOC? 'target' name=Identifier
+    (
+          ('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
+        & ('depends' depends=ETargetList)?
+        & ('if' if=EExpr)?
+        & ('unless' unless=EExpr)?
+    )
+    tasks=ETaskLists?
+;
 
 ETaskLists:
     {ETaskLists}
-    '{' tasks+=ETask* '}';
+    '{' tasks+=ETask* '}'
+;
 
 ETargetList:
-    names+=Identifier (',' names+=Identifier)*;
+    names+=Identifier (',' names+=Identifier)*
+;
 
 ETask:
-    EAssignment | EInnerElement | EBranch;
+    EAssignment | EInnerElement | EBranch
+;
 
 ENSName:
-    (namespace=Identifier ':')? name=Identifier;
+    (namespace=Identifier ':')? name=Identifier
+;
 
 EArguments:
-    arguments+=EArgument (',' arguments+=EArgument)*;
+    arguments+=EArgument (',' arguments+=EArgument)*
+;
 
 EArgument:
-    name=Identifier '=' value=StringLiteral;
+    name=Identifier '=' value=StringLiteral
+;
 
 EInnerElements:
-    '{' elements+=EInnerElement+ '}';
+    '{' elements+=EInnerElement+ '}'
+;
 
 EInnerElement:
-    name=ENSName '(' arguments=EArguments? (','? inners=EInnerElements)? ')';
+    name=ENSName '(' arguments=EArguments? (','? inners=EInnerElements)? ')'
+;
 
 EAssignment:
-    EPropertyAssignment | EReferenceAssignment | ELocalAssignment;
+    EPropertyAssignment | EReferenceAssignment | ELocalAssignment
+;
 
 EPropertyAssignment:
-    'prop' name=Identifier '=' value=EExpr;
+    'prop' name=Identifier '=' value=EExpr
+;
 
 EReferenceAssignment:
-    'ref' name=Identifier '=' value=EExpr;
+    'ref' name=Identifier '=' value=EExpr
+;
 
 ELocalAssignment:
-    'local' name=Identifier '=' value=EExpr;
+    'local' name=Identifier '=' value=EExpr
+;
 
 EBranch:
-    if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
+    if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?
+;
 
 EConditionedTasks:
-    'if' '(' condition=EExpr ')' tasks=ETaskLists;
+    'if' '(' condition=EExpr ')' tasks=ETaskLists
+;
 
 ////////////////
 // Macro
 ////////////////
 
 EMacrodef:
-    description=DOC? 'macrodef' name=Identifier '(' attributes=EAttributes? ')' tasks=ETaskLists;
+    description=DOC? 'macrodef' name=Identifier '(' attributes=EAttributes? ')' tasks=ETaskLists
+;
 
 EAttributes:
-    attributes+=EAttribute (',' attributes+=EAttribute)*;
+    attributes+=EAttribute (',' attributes+=EAttribute)*
+;
 
 EAttribute:
-    EArgAttribute | ETextAttribute | EElementAttribute;
+    EArgAttribute | ETextAttribute | EElementAttribute
+;
 
 EArgAttribute:
-    'arg' name=Identifier ('=' default=StringLiteral)?;
+    'arg' name=Identifier ('=' default=StringLiteral)?
+;
 
 ETextAttribute:
-    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=Identifier;
+    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=Identifier
+;
 
 EElementAttribute:
-    (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=Identifier;
+    (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=Identifier
+;
 
 ////////////////
 // Expression
