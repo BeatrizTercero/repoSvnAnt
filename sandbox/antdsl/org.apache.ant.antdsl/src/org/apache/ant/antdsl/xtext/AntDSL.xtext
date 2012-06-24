@@ -398,7 +398,7 @@ terminal VARIABLE:
 ;
 
 terminal DOC:
-    ( '@' !('\n'|'\r')* '\r'? '\n' )+
+    ( '#' !('\n'|'\r')* '\r'? '\n' )+
 ;
 
 terminal ML_COMMENT:

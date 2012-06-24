@@ -734,7 +734,7 @@ doc returns [String s]:
 ;
 
 Doc:
-    ( '@' ~('\n'|'\r')* '\r'? '\n' )+
+    ( '#' ~('\n'|'\r')* '\r'? '\n' )+
 ;
 
 ML_COMMENT:
