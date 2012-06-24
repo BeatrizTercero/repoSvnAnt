@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -34,44 +35,77 @@ import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
 import org.apache.ant.antdsl.Target;
 import org.apache.ant.antdsl.expr.AddAntExpression;
+import org.apache.ant.antdsl.expr.AndAntExpression;
 import org.apache.ant.antdsl.expr.AntExpression;
+import org.apache.ant.antdsl.expr.BinaryAntExpression;
+import org.apache.ant.antdsl.expr.DivisionAntExpression;
+import org.apache.ant.antdsl.expr.EqualityCondition;
+import org.apache.ant.antdsl.expr.ExclusiveOrAntExpression;
 import org.apache.ant.antdsl.expr.FuncAntExpression;
+import org.apache.ant.antdsl.expr.GEAntExpression;
+import org.apache.ant.antdsl.expr.GTAntExpression;
+import org.apache.ant.antdsl.expr.InclusiveOrAntExpression;
+import org.apache.ant.antdsl.expr.InstanceofAntExpression;
+import org.apache.ant.antdsl.expr.LEAntExpression;
+import org.apache.ant.antdsl.expr.LTAntExpression;
+import org.apache.ant.antdsl.expr.LeftShiftAntExpression;
+import org.apache.ant.antdsl.expr.LogicalRightShiftAntExpression;
+import org.apache.ant.antdsl.expr.MinusAntExpression;
+import org.apache.ant.antdsl.expr.ModuloAntExpression;
 import org.apache.ant.antdsl.expr.MultiplicationAntExpression;
+import org.apache.ant.antdsl.expr.NegativeAntExpression;
+import org.apache.ant.antdsl.expr.NotBitwiseAntExpression;
+import org.apache.ant.antdsl.expr.PositiveAntExpression;
 import org.apache.ant.antdsl.expr.PrimaryAntExpression;
-import org.apache.ant.antdsl.expr.VariableExpression;
-import org.apache.ant.antdsl.xtext.antdsl.EAddExpr;
+import org.apache.ant.antdsl.expr.RightShiftAntExpression;
+import org.apache.ant.antdsl.expr.TernaryAntExpression;
+import org.apache.ant.antdsl.expr.VariableAntExpression;
+import org.apache.ant.antdsl.xtext.antdsl.EAdditiveExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EAndExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EAttributes;
-import org.apache.ant.antdsl.xtext.antdsl.EBoolAndExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EBoolExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EBoolNotExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EBoolOrExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EBoolXorExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EBooleanLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
+import org.apache.ant.antdsl.xtext.antdsl.ECharacterLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionedTasks;
+import org.apache.ant.antdsl.xtext.antdsl.EConditionnalAndExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EConditionnalExclusiveOrExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EConditionnalInclusiveOrExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EDecimalLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EElementAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EEqualityExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EExclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExtensionPoint;
+import org.apache.ant.antdsl.xtext.antdsl.EFloatingPointLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EFuncExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EHexLiteralExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EInclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
+import org.apache.ant.antdsl.xtext.antdsl.EInstanceOfExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
-import org.apache.ant.antdsl.xtext.antdsl.EMultExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EMultiplicativeExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
-import org.apache.ant.antdsl.xtext.antdsl.ENumExpr;
+import org.apache.ant.antdsl.xtext.antdsl.ENullExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EOctalLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
 import org.apache.ant.antdsl.xtext.antdsl.EPropertyAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.EReferenceAssignment;
-import org.apache.ant.antdsl.xtext.antdsl.EStringExpr;
+import org.apache.ant.antdsl.xtext.antdsl.ERelationalExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EShiftExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EStringLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ETarget;
 import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
 import org.apache.ant.antdsl.xtext.antdsl.ETaskLists;
+import org.apache.ant.antdsl.xtext.antdsl.ETernaryExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ETextAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EUnaryExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EVariableExpr;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -83,7 +117,6 @@ import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
 import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.Sequential;
 import org.apache.tools.ant.taskdefs.condition.And;
-import org.apache.tools.ant.taskdefs.condition.Condition;
 import org.apache.tools.ant.taskdefs.condition.Not;
 import org.apache.tools.ant.taskdefs.condition.Or;
 import org.apache.tools.ant.taskdefs.condition.Xor;
@@ -125,16 +158,16 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     }
 
     private void mapProject(Project project, AntDslContext context, EProject eProject) {
-        String name = eProject.getName();
-        String basedir = eProject.getBasedir();
-        String def = eProject.getDefault();
+        String name = readIdentifier(eProject.getName());
+        String basedir = readString(eProject.getBasedir());
+        String def = readIdentifier(eProject.getDefault());
 
         setupProject(project, context, name, basedir, def);
 
         EList<ENamespace> namespaces = eProject.getNamespaces();
         if (namespaces != null) {
             for (ENamespace namespace : namespaces) {
-                context.addNamespace(namespace.getName(), namespace.getUri());
+                context.addNamespace(readIdentifier(namespace.getName()), readString(namespace.getUri()));
             }
         }
 
@@ -161,20 +194,20 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private void mapMacro(Project project, AntDslContext context, EMacrodef emacro) {
         MacroDef macroDef = new MacroDef();
         macroDef.setDescription(emacro.getDescription());
-        macroDef.setName(emacro.getName());
+        macroDef.setName(readIdentifier(emacro.getName()));
         EAttributes eatts = emacro.getAttributes();
         if (eatts != null) {
             for (EAttribute eatt : eatts.getAttributes()) {
                 if (eatt instanceof EArgAttribute) {
                     EArgAttribute eargatt = (EArgAttribute) eatt;
                     Attribute att = new Attribute();
-                    att.setName(eargatt.getName());
-                    att.setDefault(eargatt.getDefault());
+                    att.setName(readIdentifier(eargatt.getName()));
+                    att.setDefault(readString(eargatt.getDefault()));
                     macroDef.addConfiguredAttribute(att);
                 } else if (eatt instanceof ETextAttribute) {
                     ETextAttribute etextatt = (ETextAttribute) eatt;
                     Text text = new Text();
-                    text.setName(etextatt.getName());
+                    text.setName(readIdentifier(etextatt.getName()));
                     text.setTrim(etextatt.isTrimmed());
                     text.setOptional(etextatt.isOptional());
                     macroDef.addConfiguredText(text);
@@ -183,7 +216,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                     TemplateElement element = new TemplateElement();
                     element.setImplicit(eelematt.isImplicit());
                     element.setOptional(eelematt.isOptional());
-                    element.setName(eelematt.getName());
+                    element.setName(readIdentifier(eelematt.getName()));
                     macroDef.addConfiguredElement(element);
                 } else {
                     throw new IllegalArgumentException("Unsupported macro attribute " + eatt.getClass().getName());
@@ -204,10 +237,10 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     private Target mapTarget(Project project, AntDslContext context, ETarget eTarget) {
         Target target = new Target();
         context.setCurrentTarget(target);
-        target.setIf(mapCondition(project, context, eTarget.getIf()));
-        target.setUnless(mapCondition(project, context, eTarget.getUnless()));
-        mapCommonTarget(target, project, context, eTarget.getName(), eTarget.getDescription(), mapTargetList(eTarget.getDepends()),
-                mapTargetList(eTarget.getExtensionsOf()), eTarget.getOnMissingExtensionPoint());
+        target.setIf(expression2Condition(mapExpr(project, context, eTarget.getIf())));
+        target.setUnless(expression2Condition(mapExpr(project, context, eTarget.getUnless())));
+        mapCommonTarget(target, project, context, readIdentifier(eTarget.getName()), eTarget.getDescription(), mapTargetList(eTarget.getDepends()),
+                mapTargetList(eTarget.getExtensionsOf()), readString(eTarget.getOnMissingExtensionPoint()));
         ETaskLists tasks = eTarget.getTasks();
         if (tasks != null && tasks.getTasks() != null) {
             for (ETask eTask : tasks.getTasks()) {
@@ -222,16 +255,20 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         if (targetList == null) {
             return null;
         }
-        return targetList.getNames();
+        List<String> names = new ArrayList<String>();
+        for (String name : targetList.getNames()) {
+            names.add(readIdentifier(name));
+        }
+        return names;
     }
 
     private ExtensionPoint mapExtensionPoint(Project project, AntDslContext context, EExtensionPoint eExtensionPoint) {
         ExtensionPoint extensionPoint = new ExtensionPoint();
-        extensionPoint.setIf(mapCondition(project, context, eExtensionPoint.getIf()));
-        extensionPoint.setUnless(mapCondition(project, context, eExtensionPoint.getUnless()));
-        mapCommonTarget(extensionPoint, project, context, eExtensionPoint.getName(), eExtensionPoint.getDescription(),
+        extensionPoint.setIf(expression2Condition(mapExpr(project, context, eExtensionPoint.getIf())));
+        extensionPoint.setUnless(expression2Condition(mapExpr(project, context, eExtensionPoint.getUnless())));
+        mapCommonTarget(extensionPoint, project, context, readIdentifier(eExtensionPoint.getName()), eExtensionPoint.getDescription(),
                 mapTargetList(eExtensionPoint.getDepends()), mapTargetList(eExtensionPoint.getExtensionsOf()),
-                eExtensionPoint.getOnMissingExtensionPoint());
+                readString(eExtensionPoint.getOnMissingExtensionPoint()));
         context.setCurrentTarget(context.getImplicitTarget());
         return extensionPoint;
     }
@@ -241,7 +278,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             EPropertyAssignment ePropertyAssignment = (EPropertyAssignment) eTask;
             AssignPropertyTask property = new AssignPropertyTask();
             mapCommonTask(project, context, property);
-            property.setName(ePropertyAssignment.getName());
+            property.setName(readIdentifier(ePropertyAssignment.getName()));
             property.setValue(mapExpr(project, context, ePropertyAssignment.getValue()));
             return property;
         }
@@ -249,7 +286,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             EReferenceAssignment eReferenceAssignment = (EReferenceAssignment) eTask;
             AssignReferenceTask ref = new AssignReferenceTask();
             mapCommonTask(project, context, ref);
-            ref.setName(eReferenceAssignment.getName());
+            ref.setName(readIdentifier(eReferenceAssignment.getName()));
             ref.setValue(mapExpr(project, context, eReferenceAssignment.getValue()));
             return ref;
         }
@@ -257,7 +294,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             ELocalAssignment eLocalAssignment = (ELocalAssignment) eTask;
             AssignLocalTask local = new AssignLocalTask();
             mapCommonTask(project, context, local);
-            local.setName(eLocalAssignment.getName());
+            local.setName(readIdentifier(eLocalAssignment.getName()));
             local.setValue(mapExpr(project, context, eLocalAssignment.getValue()));
             return local;
         }
@@ -273,7 +310,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             if (if_ != null) {
                 ConditionnalSequential main = new ConditionnalSequential();
                 mapCommonTask(project, context, main);
-                main.setCondition(mapCondition(project, context, if_.getCondition()));
+                main.setCondition(expression2Condition(mapExpr(project, context, if_.getCondition())));
                 for (ETask t : if_.getTasks().getTasks()) {
                     main.addTask(mapTask(project, context, t));
                 }
@@ -284,7 +321,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                 for (EConditionedTasks elseif : elseifs) {
                     ConditionnalSequential ei = new ConditionnalSequential();
                     mapCommonTask(project, context, ei);
-                    ei.setCondition(mapCondition(project, context, elseif.getCondition()));
+                    ei.setCondition(expression2Condition(mapExpr(project, context, elseif.getCondition())));
                     for (ETask t : elseif.getTasks().getTasks()) {
                         ei.addTask(mapTask(project, context, t));
                     }
@@ -305,61 +342,19 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         throw new IllegalStateException("Unknown task type " + eTask.getClass().getName());
     }
 
-    private Condition mapCondition(Project project, AntDslContext context, EBoolExpr expr) {
-        if (expr == null) {
-            return null;
-        }
-        if (expr instanceof EInnerElement) {
-            EInnerElement elemExpr = (EInnerElement) expr;
-            return mapExpectedUnknown(project, context, mapInnerElement(elemExpr), Condition.class);
-        }
-        if (expr instanceof EBoolAndExpr) {
-            EBoolAndExpr andExpr = (EBoolAndExpr) expr;
-            And and = new And();
-            and.setProject(project);
-            and.add(mapCondition(project, context, andExpr.getLeft()));
-            and.add(mapCondition(project, context, andExpr.getRight()));
-            return and;
-        }
-        if (expr instanceof EBoolOrExpr) {
-            EBoolOrExpr orExpr = (EBoolOrExpr) expr;
-            Or or = new Or();
-            or.setProject(project);
-            or.add(mapCondition(project, context, orExpr.getLeft()));
-            or.add(mapCondition(project, context, orExpr.getRight()));
-            return or;
-        }
-        if (expr instanceof EBoolXorExpr) {
-            EBoolXorExpr xorExpr = (EBoolXorExpr) expr;
-            Xor xor = new Xor();
-            xor.setProject(project);
-            xor.add(mapCondition(project, context, xorExpr.getLeft()));
-            xor.add(mapCondition(project, context, xorExpr.getRight()));
-            return xor;
-        }
-        if (expr instanceof EBoolNotExpr) {
-            EBoolNotExpr notExpr = (EBoolNotExpr) expr;
-            Not not = new Not();
-            not.setProject(project);
-            not.add(mapCondition(project, context, notExpr.getExpr()));
-            return not;
-        }
-        throw new IllegalArgumentException("Unsupported boolean expression " + expr.getClass().getName());
-    }
-
     private InnerElement mapInnerElement(EInnerElement eInnerElement) {
         if (eInnerElement == null) {
             return null;
         }
         InnerElement innerElement = new InnerElement();
-        innerElement.ns = eInnerElement.getName().getNamespace();
-        innerElement.name = eInnerElement.getName().getName();
+        innerElement.ns = readIdentifier(eInnerElement.getName().getNamespace());
+        innerElement.name = readIdentifier(eInnerElement.getName().getName());
 
         EArguments arguments = eInnerElement.getArguments();
         if (arguments != null) {
             innerElement.attributes = new LinkedHashMap<String, String>();
             for (EArgument argument : arguments.getArguments()) {
-                innerElement.attributes.put(argument.getName(), argument.getValue());
+                innerElement.attributes.put(readIdentifier(argument.getName()), readString(argument.getValue()));
             }
         }
 
@@ -375,53 +370,290 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
     }
 
     private AntExpression mapExpr(Project project, AntDslContext context, EExpr eexpr) {
-        if (eexpr instanceof EAddExpr) {
-            EAddExpr eadd = (EAddExpr) eexpr;
-            AddAntExpression add = new AddAntExpression();
-            add.setProject(project);
-            add.add(mapExpr(project, context, eadd.getLeft()));
-            add.add(mapExpr(project, context, eadd.getRight()));
-            return add;
+        if (eexpr == null) {
+            return null;
         }
-        if (eexpr instanceof EMultExpr) {
-            EMultExpr emult = (EMultExpr) eexpr;
-            MultiplicationAntExpression mult = new MultiplicationAntExpression();
-            mult.setProject(project);
-            mult.add(mapExpr(project, context, emult.getLeft()));
-            mult.add(mapExpr(project, context, emult.getRight()));
-            return mult;
+        if (eexpr instanceof ETernaryExpr) {
+            ETernaryExpr etern = (ETernaryExpr) eexpr;
+            TernaryAntExpression tern = new TernaryAntExpression();
+            tern.setProject(project);
+            tern.setCondition(expression2Condition(mapExpr(project, context, etern.getCondition())));
+            tern.setOnTrue(mapExpr(project, context, etern.getOnTrue()));
+            tern.setOnFalse(mapExpr(project, context, etern.getOnFalse()));
+            return tern;
+        }
+        if (eexpr instanceof EConditionnalInclusiveOrExpr) {
+            EConditionnalInclusiveOrExpr orExpr = (EConditionnalInclusiveOrExpr) eexpr;
+            Or or = new Or();
+            or.setProject(project);
+            for (EExpr child : orExpr.getChildren()) {
+                or.add(expression2Condition(mapExpr(project, context, child)));
+            }
+            return condition2Expression(or);
+        }
+        if (eexpr instanceof EConditionnalExclusiveOrExpr) {
+            EConditionnalExclusiveOrExpr xorExpr = (EConditionnalExclusiveOrExpr) eexpr;
+            Xor xor = new Xor();
+            xor.setProject(project);
+            for (EExpr child : xorExpr.getChildren()) {
+                xor.add(expression2Condition(mapExpr(project, context, child)));
+            }
+            return condition2Expression(xor);
+        }
+        if (eexpr instanceof EConditionnalAndExpr) {
+            EConditionnalAndExpr andExpr = (EConditionnalAndExpr) eexpr;
+            And and = new And();
+            and.setProject(project);
+            for (EExpr child : andExpr.getChildren()) {
+                and.add(expression2Condition(mapExpr(project, context, child)));
+            }
+            return condition2Expression(and);
+        }
+        if (eexpr instanceof EInclusiveOrExpr) {
+            EInclusiveOrExpr eor = (EInclusiveOrExpr) eexpr;
+            InclusiveOrAntExpression or = new InclusiveOrAntExpression();
+            or.setProject(project);
+            for (EExpr child : eor.getChildren()) {
+                or.add(mapExpr(project, context, child));
+            }
+            return or;
+        }
+        if (eexpr instanceof EExclusiveOrExpr) {
+            EExclusiveOrExpr eor = (EExclusiveOrExpr) eexpr;
+            ExclusiveOrAntExpression or = new ExclusiveOrAntExpression();
+            or.setProject(project);
+            for (EExpr child : eor.getChildren()) {
+                or.add(mapExpr(project, context, child));
+            }
+            return or;
+        }
+        if (eexpr instanceof EAndExpr) {
+            EAndExpr eand = (EAndExpr) eexpr;
+            AndAntExpression and = new AndAntExpression();
+            and.setProject(project);
+            for (EExpr child : eand.getChildren()) {
+                and.add(mapExpr(project, context, child));
+            }
+            return and;
+        }
+        if (eexpr instanceof EEqualityExpr) {
+            EEqualityExpr eequ = (EEqualityExpr) eexpr;
+            EqualityCondition equ = new EqualityCondition();
+            equ.setProject(project);
+            for (EExpr child : eequ.getChildren()) {
+                equ.add(mapExpr(project, context, child));
+            }
+            return equ;
+        }
+        if (eexpr instanceof EInstanceOfExpr) {
+            EInstanceOfExpr einstof = (EInstanceOfExpr) eexpr;
+            InstanceofAntExpression instof = new InstanceofAntExpression();
+            instof.setProject(project);
+            for (EExpr child : einstof.getChildren()) {
+                instof.add(mapExpr(project, context, child));
+            }
+            return instof;
+        }
+        if (eexpr instanceof ERelationalExpr) {
+            ERelationalExpr erel = (ERelationalExpr) eexpr;
+            Iterator<EExpr> itChild = erel.getChildren().iterator();
+            AntExpression expr = mapExpr(project, context, itChild.next());
+            Iterator<String> itOp = erel.getOperators().iterator();
+            while (itChild.hasNext()) {
+                String op = itOp.next();
+                BinaryAntExpression e;
+                if (op.equals("<=")) {
+                    e = new LEAntExpression();
+                } else if (op.equals("<")) {
+                    e = new LTAntExpression();
+                } else if (op.equals(">=")) {
+                    e = new GEAntExpression();
+                } else if (op.equals(">")) {
+                    e = new GTAntExpression();
+                } else {
+                    throw new IllegalStateException("Unsupported relational operator " + op);
+                }
+                e.setProject(project);
+                e.add(expr);
+                e.add(mapExpr(project, context, itChild.next()));
+                expr = e;
+            }
+            return expr;
+        }
+        if (eexpr instanceof EShiftExpr) {
+            EShiftExpr eshift = (EShiftExpr) eexpr;
+            Iterator<EExpr> itChild = eshift.getChildren().iterator();
+            AntExpression expr = mapExpr(project, context, itChild.next());
+            Iterator<String> itOp = eshift.getOperators().iterator();
+            while (itChild.hasNext()) {
+                String op = itOp.next();
+                BinaryAntExpression e;
+                if (op.equals("<<")) {
+                    e = new LeftShiftAntExpression();
+                } else if (op.equals(">>")) {
+                    e = new RightShiftAntExpression();
+                } else if (op.equals(">>>")) {
+                    e = new LogicalRightShiftAntExpression();
+                } else {
+                    throw new IllegalStateException("Unsupported shift operator " + op);
+                }
+                e.setProject(project);
+                e.add(expr);
+                e.add(mapExpr(project, context, itChild.next()));
+                expr = e;
+            }
+            return expr;
+        }
+        if (eexpr instanceof EAdditiveExpr) {
+            EAdditiveExpr eadd = (EAdditiveExpr) eexpr;
+            Iterator<EExpr> itChild = eadd.getChildren().iterator();
+            AntExpression expr = mapExpr(project, context, itChild.next());
+            Iterator<String> itOp = eadd.getOperators().iterator();
+            while (itChild.hasNext()) {
+                String op = itOp.next();
+                BinaryAntExpression e;
+                if (op.equals("+")) {
+                    e = new AddAntExpression();
+                } else if (op.equals("-")) {
+                    e = new MinusAntExpression();
+                } else {
+                    throw new IllegalStateException("Unsupported additive operator " + op);
+                }
+                e.setProject(project);
+                e.add(expr);
+                e.add(mapExpr(project, context, itChild.next()));
+                expr = e;
+            }
+            return expr;
+        }
+        if (eexpr instanceof EMultiplicativeExpr) {
+            EMultiplicativeExpr emult = (EMultiplicativeExpr) eexpr;
+            Iterator<EExpr> itChild = emult.getChildren().iterator();
+            AntExpression expr = mapExpr(project, context, itChild.next());
+            Iterator<String> itOp = emult.getOperators().iterator();
+            while (itChild.hasNext()) {
+                String op = itOp.next();
+                BinaryAntExpression e;
+                if (op.equals("*")) {
+                    e = new MultiplicationAntExpression();
+                } else if (op.equals("/")) {
+                    e = new DivisionAntExpression();
+                } else if (op.equals("%")) {
+                    e = new ModuloAntExpression();
+                } else {
+                    throw new IllegalStateException("Unsupported multiplicative operator " + op);
+                }
+                e.setProject(project);
+                e.add(expr);
+                e.add(mapExpr(project, context, itChild.next()));
+                expr = e;
+            }
+            return expr;
+        }
+        if (eexpr instanceof EUnaryExpr) {
+            EUnaryExpr eunary = (EUnaryExpr) eexpr;
+            String op = eunary.getOp();
+            if (op.equals("+")) {
+                PositiveAntExpression expr = new PositiveAntExpression();
+                expr.setProject(project);
+                expr.setExpr(mapExpr(project, context, eunary.getExpr()));
+                return expr;
+            } else if (op.equals("-")) {
+                NegativeAntExpression expr = new NegativeAntExpression();
+                expr.setProject(project);
+                expr.setExpr(mapExpr(project, context, eunary.getExpr()));
+                return expr;
+            } else if (op.equals("~")) {
+                NotBitwiseAntExpression not = new NotBitwiseAntExpression();
+                not.setProject(project);
+                not.setExpr(mapExpr(project, context, eunary.getExpr()));
+                return not;
+            } else if (op.equals("!")) {
+                Not not = new Not();
+                not.setProject(project);
+                not.add(expression2Condition(mapExpr(project, context, eunary.getExpr())));
+                return condition2Expression(not);
+            } else {
+                throw new IllegalStateException("Unsupported unary operator " + op);
+            }
+        }
+        if (eexpr instanceof EVariableExpr) {
+            EVariableExpr evar = (EVariableExpr) eexpr;
+            VariableAntExpression var = new VariableAntExpression();
+            var.setProject(project);
+            var.setName(readVariable(evar.getName()));
+            return var;
         }
         if (eexpr instanceof EFuncExpr) {
             EFuncExpr efunc = (EFuncExpr) eexpr;
             FuncAntExpression func = new FuncAntExpression();
             func.setProject(project);
-            func.setName(efunc.getName());
+            func.setName(readIdentifier(efunc.getName()));
             for (EExpr arg : efunc.getArguments()) {
                 func.addArgument(mapExpr(project, context, arg));
             }
             return func;
         }
-        if (eexpr instanceof ENumExpr) {
-            ENumExpr enumb = (ENumExpr) eexpr;
+        if (eexpr instanceof EInnerElement) {
+            EInnerElement elemExpr = (EInnerElement) eexpr;
+            return mapCallAntExpression(project, context, mapInnerElement(elemExpr));
+        }
+        if (eexpr instanceof EHexLiteralExpr) {
+            EHexLiteralExpr eint = (EHexLiteralExpr) eexpr;
             PrimaryAntExpression primary = new PrimaryAntExpression();
             primary.setProject(project);
-            primary.setValue(enumb.getValue());
+            primary.setValue(readHex(eint.getValue()));
             return primary;
         }
-        if (eexpr instanceof EStringExpr) {
-            EStringExpr estring = (EStringExpr) eexpr;
+        if (eexpr instanceof EOctalLiteralExpr) {
+            EOctalLiteralExpr eint = (EOctalLiteralExpr) eexpr;
             PrimaryAntExpression primary = new PrimaryAntExpression();
             primary.setProject(project);
-            primary.setValue(estring.getValue());
+            primary.setValue(readOctal(eint.getValue()));
             return primary;
         }
-        if (eexpr instanceof EVariableExpr) {
-            EVariableExpr evar = (EVariableExpr) eexpr;
-            VariableExpression prop = new VariableExpression();
-            prop.setProject(project);
-            prop.setName(readVariable(evar.getName()));
-            return prop;
+        if (eexpr instanceof EDecimalLiteralExpr) {
+            EDecimalLiteralExpr eint = (EDecimalLiteralExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(readDecimal(eint.getValue()));
+            return primary;
+        }
+        if (eexpr instanceof EFloatingPointLiteralExpr) {
+            EFloatingPointLiteralExpr efloat = (EFloatingPointLiteralExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(readFloat(efloat.getValue()));
+            return primary;
+        }
+        if (eexpr instanceof ECharacterLiteralExpr) {
+            ECharacterLiteralExpr echar = (ECharacterLiteralExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(readChar(echar.getValue()));
+            return primary;
+        }
+        if (eexpr instanceof EStringLiteralExpr) {
+            EStringLiteralExpr estring = (EStringLiteralExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(readString(estring.getValue()));
+            return primary;
+        }
+        if (eexpr instanceof EBooleanLiteralExpr) {
+            EBooleanLiteralExpr ebool = (EBooleanLiteralExpr) eexpr;
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(Boolean.parseBoolean(ebool.getValue()));
+            return primary;
+        }
+        if (eexpr instanceof ENullExpr) {
+            PrimaryAntExpression primary = new PrimaryAntExpression();
+            primary.setProject(project);
+            primary.setValue(null);
+            return primary;
         }
         throw new IllegalArgumentException("Unsupported expression " + eexpr.getClass().getName());
     }
+
 }

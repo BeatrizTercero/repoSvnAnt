@@ -32,6 +32,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import org.apache.ant.antdsl.expr.AntExpression;
+import org.apache.ant.antdsl.expr.AntExpressionCondition;
+import org.apache.ant.antdsl.expr.ConditionAntExpression;
 import org.apache.ant.antdsl.expr.func.FunctionRegistry;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ExtensionPoint;
@@ -44,6 +47,7 @@ import org.apache.tools.ant.Target;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.UnknownElement;
 import org.apache.tools.ant.helper.AntXMLContext;
+import org.apache.tools.ant.taskdefs.condition.Condition;
 import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.types.resources.FileProvider;
 import org.apache.tools.ant.types.resources.URLProvider;
@@ -443,7 +447,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         return element;
     }
 
-    public <T> T mapExpectedUnknown(Project project, AntDslContext context, InnerElement eInnerElement, Class<T> c) {
+    public AntExpression mapCallAntExpression(Project project, AntDslContext context, InnerElement eInnerElement) {
         if (eInnerElement == null) {
             return null;
         }
@@ -458,12 +462,10 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         ProjectComponentContainer container = new ProjectComponentContainer();
         element.configure(container);
-        if (!(c.isAssignableFrom(container.component.getClass()))) {
-            throw new BuildException("Incorrect element: expecting a " + c.getSimpleName() + " but was : " + container.component.getClass().getName());
+        if (container.component instanceof Condition) {
+            return condition2Expression((Condition) container.component);
         }
-        @SuppressWarnings("unchecked")
-        T expected = (T) container.component;
-        return expected;
+        throw new BuildException("Unsupported type of ant expression call " + container.component.getClass().getName());
     }
 
     public static class ProjectComponentContainer {
@@ -505,8 +507,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         if (s == null) {
             return null;
         }
-        if (s.charAt(1) == '{') {
-            // remove the lead ${ and the ending }
+        if (s.charAt(1) == '{' || s.charAt(1) == '`' ) {
+            // remove the lead $ and the enclosing characters
             s = s.substring(2, s.length() - 1);
         } else {
             // remove the leading $
@@ -515,4 +517,178 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         return s;
     }
 
+    public String readIdentifier(String s) {
+        if (s == null) {
+            return null;
+        }
+        if (s.charAt(0) == '`') {
+            // remove the lead ` and the ending `
+            s = s.substring(1, s.length() - 1);
+        }
+        return s;
+    }
+
+    public String readString(String s) {
+        if (s == null) {
+            return null;
+        }
+        // first remove the quotes
+        s = s.substring(1, s.length() - 1);
+        // code copied from org.eclipse.xtext.util.Strings.convertFromJavaString(String, boolean)
+        char[] in = s.toCharArray();
+        int off = 0;
+        int len = s.length();
+        char[] convtBuf = new char[len];
+        char aChar;
+        char[] out = convtBuf;
+        int outLen = 0;
+        int end = off + len;
+
+        while (off < end) {
+            aChar = in[off++];
+            if (aChar == '\\') {
+                aChar = in[off++];
+                if (aChar == 'u') {
+                    // Read the xxxx
+                    int value = 0;
+                    if (off + 4 > end)
+                        throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                    for (int i = 0; i < 4; i++) {
+                        aChar = in[off++];
+                        switch (aChar) {
+                            case '0':
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':
+                                value = (value << 4) + aChar - '0';
+                                break;
+                            case 'a':
+                            case 'b':
+                            case 'c':
+                            case 'd':
+                            case 'e':
+                            case 'f':
+                                value = (value << 4) + 10 + aChar - 'a';
+                                break;
+                            case 'A':
+                            case 'B':
+                            case 'C':
+                            case 'D':
+                            case 'E':
+                            case 'F':
+                                value = (value << 4) + 10 + aChar - 'A';
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                        }
+                    }
+                    out[outLen++] = (char) value;
+                } else {
+                    aChar = getEscapedChar(aChar);
+                    out[outLen++] = aChar;
+                }
+            } else {
+                out[outLen++] = aChar;
+            }
+        }
+        return new String(out, 0, outLen);
+    }
+
+    private char getEscapedChar(char escaped) {
+        if (escaped == 't') {
+            escaped = '\t';
+        } else if (escaped == 'r') {
+            escaped = '\r';
+        } else if (escaped == 'n') {
+            escaped = '\n';
+        } else if (escaped == 'f') {
+            escaped = '\f';
+        } else if (escaped == 'b') {
+            escaped = '\b';
+        } else if (escaped == '"') {
+            escaped = '\"';
+        } else if (escaped == '\'') {
+            escaped = '\'';
+        } else if (escaped == '\\') {
+            escaped = '\\';
+        } else {
+            throw new IllegalArgumentException("Illegal escape character \\" + escaped);
+        }
+        return escaped;
+    }
+
+    public Character readChar(String s) {
+        if (s == null) {
+            return null;
+        }
+        char c = s.charAt(1);
+        if (c == '\\') {
+            return getEscapedChar(s.charAt(2));
+        }
+        return c;
+    }
+
+    public Number readDecimal(String s) {
+        return readNumber(s, 10);
+    }
+
+    public Number readOctal(String s) {
+        return readNumber(s.substring(1), 8);
+    }
+
+    public Number readHex(String s) {
+        return readNumber(s.substring(2), 16);
+    }
+
+    public Number readNumber(String s, int radix) {
+        if (s == null) {
+            return null;
+        }
+        char suffix = s.charAt(s.length() - 1);
+        if (suffix == 'l' || suffix == 'L') {
+            return Long.parseLong(s.substring(0, s.length() - 1), radix);
+        } else {
+            return Integer.parseInt(s, radix);
+        }
+    }
+
+    public Number readFloat(String s) {
+        char suffix = s.charAt(s.length() - 1);
+        if (suffix == 'f' || suffix == 'F') {
+            return Float.parseFloat(s.substring(0, s.length() - 1));
+        } else if (suffix == 'd' || suffix == 'D') {
+            return Double.parseDouble(s.substring(0, s.length() - 1));
+        }
+        return Double.parseDouble(s);
+    }
+
+    public AntExpression condition2Expression(Condition condition) {
+        if (condition == null) {
+            return null;
+        }
+        if (condition instanceof AntExpressionCondition) {
+            return ((AntExpressionCondition) condition).getExpr();
+        }
+        ConditionAntExpression bae = new ConditionAntExpression();
+        bae.setCondition(condition);
+        return bae;
+    }
+
+    public Condition expression2Condition(AntExpression expr) {
+        if (expr == null) {
+            return null;
+        }
+        if (expr instanceof ConditionAntExpression) {
+            return ((ConditionAntExpression) expr).getCondition();
+        }
+        AntExpressionCondition condition = new AntExpressionCondition();
+        condition.setExpr(expr);
+        return condition;
+    }
 }

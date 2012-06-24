@@ -10,7 +10,7 @@ namespaces {
     echo(message="${foo}")
 }
 
-% Some documentation of the macro
+@ Some documentation of the macro
 macrodef mymacro(arg t = "mymacro")
 {
     echo(message = "@{t}")
@@ -33,8 +33,8 @@ target notexecuted
     echo(message = "must not be printed")
 }
 
-% description of the target
-% which is on a multiline
+@ description of the target
+@ which is on a multiline
 target build
     depends dep, notexecuted
 {
@@ -63,4 +63,9 @@ target build
     echo(message = "test encoding\\backslash")
     echo(message = "test encoding\ttab")
     echo(message = "test encoding\nline")
+
+    local test = "hello" + ' ' + "world !"
+    echo(message = "${test}")
+    local test2 = ((12345 + 6789) % 98765 == 12.4f)
+    echo(message = "${test2}")
 }

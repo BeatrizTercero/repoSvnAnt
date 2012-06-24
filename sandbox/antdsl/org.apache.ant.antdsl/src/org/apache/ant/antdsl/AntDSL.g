@@ -62,11 +62,11 @@ import java.util.LinkedHashMap;
 
 project:
     (
-        ('name'    ':' name=NAME)?
-        ('default' ':' def=NAME)?
-        ('basedir' ':' basedir=STRING)?
+        ('name'    ':' name=identifier)?
+        ('default' ':' def=identifier)?
+        ('basedir' ':' basedir=stringLiteral)?
     )
-    { projectHelper.setupProject(project, context, $name.text, projectHelper.readString($basedir.text), $def.text); }
+    { projectHelper.setupProject(project, context, name, basedir, def); }
     ( 'namespaces' '{' ( ns=namespace { context.addNamespace(ns.first, ns.second); } )* '}')?
     tl=taskList?
     { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
@@ -76,29 +76,30 @@ project:
     )*;
 
 namespace returns [Pair<String, String> ns = new Pair<String, String>()]:
-    NAME { ns.first = $NAME.text; } ':' STRING { ns.second = projectHelper.readString($STRING.text); };
+    n=identifier { ns.first = n; }
+    ':' uri=stringLiteral { ns.second = uri; };
 
 extensionPoint returns [ExtensionPoint ep = new ExtensionPoint()]:
     { context.setCurrentTarget(ep); }
-    desc=DOC?
-    'extension-point' n=NAME
+    desc=doc?
+    'extension-point' n=identifier
     ('depends' d=targetList)?
-    ('extensionOf' eo=targetList ('onMiss' onMiss=STRING )? )?
-    ('if' if_=boolExpr { ep.setIf(if_); } )?
-    ('unless' unless=boolExpr { ep.setUnless(unless); } )?
-    { projectHelper.mapCommonTarget(ep, project, context, $n.text, projectHelper.readDoc($desc.text), d, eo, $onMiss.text); }
+    ('extensionOf' eo=targetList ('onMiss' onMiss=stringLiteral )? )?
+    ('if' if_=expr { ep.setIf(projectHelper.expression2Condition(if_)); } )?
+    ('unless' unless=expr { ep.setUnless(projectHelper.expression2Condition(unless)); } )?
+    { projectHelper.mapCommonTarget(ep, project, context, n, desc, d, eo, onMiss); }
     { context.setCurrentTarget(context.getImplicitTarget()); }
     ;
 
 target returns [Target t = new Target()]:
     { context.setCurrentTarget(t); }
-    desc=DOC?
-    'target' n=NAME
+    desc=doc?
+    'target' n=identifier
     ('depends' d=targetList)?
-    ('extensionOf' eo=targetList ('onMiss' onMiss=STRING)? )?
-    ('if' if_=boolExpr { t.setIf(if_); } )?
-    ('unless' unless=boolExpr { t.setUnless(unless); } )?
-    { projectHelper.mapCommonTarget(t, project, context, $n.text, projectHelper.readDoc($desc.text), d, eo, $onMiss.text); }
+    ('extensionOf' eo=targetList ('onMiss' onMiss=stringLiteral)? )?
+    ('if' if_=expr { t.setIf(projectHelper.expression2Condition(if_)); } )?
+    ('unless' unless=expr { t.setUnless(projectHelper.expression2Condition(unless)); } )?
+    { projectHelper.mapCommonTarget(t, project, context, n, desc, d, eo, onMiss); }
     tl=taskList?
     { for (Task task : tl) { t.addTask(task); } }
     { context.setCurrentTarget(context.getImplicitTarget()); }
@@ -108,8 +109,8 @@ taskList returns [List<Task> tl = new ArrayList<Task>()]:
     '{' (t=task { tl.add(t); } )* '}';
 
 targetList returns [List<String> tl = new ArrayList<String>()]:
-    n=NAME { tl.add($n.text); }
-    (',' n=NAME { tl.add($n.text); } )*;
+    n=identifier { tl.add(n); }
+    (',' n=identifier { tl.add(n); } )*;
 
 task returns [Task t = null]:
       a=assignment {t=a;}
@@ -118,14 +119,14 @@ task returns [Task t = null]:
     ;
 
 nsName returns [Pair<String, String> ns = new Pair<String, String>()]:
-    (n=NAME { ns.first = $n.text; } ':')? n=NAME { ns.second = $n.text; } ;
+    (n=identifier { ns.first = n; } ':')? n=identifier { ns.second = n; } ;
 
 arguments returns [LinkedHashMap<String, String> args = new LinkedHashMap<String, String>();]:
     arg=argument { args.put(arg.first, arg.second); }
     (',' arg=argument { args.put(arg.first, arg.second); } )*;
 
 argument returns [Pair<String, String> arg = new Pair<String, String>()]:
-    NAME { arg.first = $NAME.text; } '=' STRING { arg.second = projectHelper.readString($STRING.text); } ;
+    n=identifier { arg.first = n; } '=' v=stringLiteral { arg.second = v; } ;
 
 innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
     '{' (ie=innerElement { ies.add(ie); } )+ '}';
@@ -143,17 +144,17 @@ assignment returns [Task assign]:
 propertyAssignment returns [AssignPropertyTask p = new AssignPropertyTask()]:
     'prop'
     { projectHelper.mapCommonTask(project, context, p); }
-    NAME { p.setName($NAME.text); } '=' e=expr { p.setValue(e); } ;
+    n=identifier { p.setName(n); } '=' e=expr { p.setValue(e); } ;
 
 refAssignment returns [AssignReferenceTask r = new AssignReferenceTask()]:
     'ref'
     { projectHelper.mapCommonTask(project, context, r); }
-    NAME { r.setName($NAME.text); } '=' e=expr { r.setValue(e); } ;
+    n=identifier { r.setName(n); } '=' e=expr { r.setValue(e); } ;
 
 localAssignment returns [AssignLocalTask l = new AssignLocalTask()]:
     'local'
     { projectHelper.mapCommonTask(project, context, l); }
-    NAME { l.setName($NAME.text); } '=' e=expr { l.setValue(e); } ;
+    n=identifier { l.setName(n); } '=' e=expr { l.setValue(e); } ;
 
 branch returns [IfTask if_ = new IfTask()]:
     { projectHelper.mapCommonTask(project, context, if_); }
@@ -169,112 +170,13 @@ branch returns [IfTask if_ = new IfTask()]:
 
 conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequential()]:
     { projectHelper.mapCommonTask(project, context, seq); }
-    'if' '(' ie=boolExpr { seq.setCondition(ie); } ')'
+    'if' '(' e=expr { seq.setCondition(projectHelper.expression2Condition(e)); } ')'
     tl=taskList { for (Task t : tl) { seq.addTask(t); } }
     ;
 
-boolExpr returns [Condition c]:
-    be=boolXorExpr { c = be; } ;
-
-boolXorExpr returns [Condition c]:
-    be=boolOrExpr { c = be; }
-    ( '^^' right=boolOrExpr
-      { Xor xor = new Xor();
-        xor.setProject(project);
-        xor.add(c);
-        xor.add(right);
-        c = xor;
-      }
-    )*;
-
-boolOrExpr returns [Condition c]:
-    be=boolAndExpr { c = be; }
-    ( '||' right=boolAndExpr
-      { Or or = new Or();
-        or.setProject(project);
-        or.add(c);
-        or.add(right);
-        c = or;
-      }
-    )*;
-
-boolAndExpr returns [Condition c]:
-    be=boolPrimaryExpr { c = be; }
-    ( '&&' right=boolPrimaryExpr
-      { And and = new And();
-        and.setProject(project);
-        and.add(c);
-        and.add(right);
-        c = and;
-      }
-    )*;
-
-boolPrimaryExpr returns [Condition c]:
-     ie=innerElement { c = projectHelper.mapExpectedUnknown(project, context, ie, Condition.class); }
-   | '(' be=boolExpr { c = be; } ')'
-   | be=boolNotExpr { c = be; } ;
-
-boolNotExpr returns [Condition c]:
-    '!' be=boolExpr
-    { Not not = new Not();
-      not.setProject(project);
-      not.add(be);
-      c = not;
-    };
-
-expr returns [AntExpression e]:
-    me=multExpr { e = me; } ;
-
-multExpr returns [AntExpression e]:
-    ae=addExpr { e = ae; }
-    ( '*' right=addExpr
-      {  MultiplicationAntExpression me = new MultiplicationAntExpression();
-         me.setProject(project);
-         me.add(e);
-         me.add(right);
-         e = me;
-      }
-    )*;
-
-addExpr returns [AntExpression e]:
-    pe=primaryExpr { e = pe; }
-    ( '+' right=primaryExpr
-      { AddAntExpression ae = new AddAntExpression();
-        ae.setProject(project);
-        ae.add(e);
-        ae.add(right);
-        e = ae;
-      }
-    )*;
-
-primaryExpr returns [AntExpression e]:
-      fe=funcExpr { e = fe; }
-    | ne=numExpr { e = ne; }
-    | se=stringExpr { e = se; }
-    | ve=varExpr { e = ve; };
-
-funcExpr returns [FuncAntExpression fe = new FuncAntExpression()]:
-    { fe.setProject(project); }
-    NAME { fe.setName($NAME.text); }
-    '(' arg=expr { fe.addArgument(arg); }
-        (',' arg=expr  { fe.addArgument(arg); } )*
-    ')';
-
-numExpr returns [PrimaryAntExpression pe = new PrimaryAntExpression()]:
-    { pe.setProject(project); }
-    INT { pe.setValue(Integer.parseInt($INT.text)); };
-
-stringExpr returns [PrimaryAntExpression pe = new PrimaryAntExpression()]:
-    { pe.setProject(project); }
-    STRING { pe.setValue(projectHelper.readString($STRING.text)); };
-
-varExpr returns [VariableExpression ve = new VariableExpression()]:
-    { ve.setProject(project); }
-    VARIABLE { ve.setName(projectHelper.readVariable($VARIABLE.text)); };
-
 macrodef returns [MacroDef macroDef = new MacroDef()]:
-    ( DOC { macroDef.setDescription(projectHelper.readDoc($DOC.text)); } )?
-    'macrodef' NAME { macroDef.setName($NAME.text); }
+    ( d=doc { macroDef.setDescription(d); } )?
+    'macrodef' n=identifier { macroDef.setName(n); }
     '(' ( atts=attributes
           {  for (Object att : atts) {
                 if (att instanceof Attribute) {
@@ -308,52 +210,522 @@ attribute returns [Object att]:
 
 argAttribute returns [Attribute att = new Attribute()]:
     'arg'
-    NAME { att.setName($NAME.text); }
-    ('=' STRING { att.setDefault($STRING.text); } )?;
+    n=identifier { att.setName(n); }
+    ('=' d=stringLiteral { att.setDefault(d); } )?;
 
 textAttribute returns [Text text = new Text()]:
     ('optional' { text.setOptional(true); } )?
     ('trimmed' { text.setTrim(true); } )?
     'text'
-    NAME { text.setName($NAME.text); };
+    n=identifier { text.setName(n); };
 
 elementAttribute returns [TemplateElement element = new TemplateElement()]:
     ('optional' { element.setOptional(true); } )?
     ('implicit' { element.setImplicit(true); } )?
     'element'
-    NAME { element.setName($NAME.text); };
+    n=identifier { element.setName(n); };
 
-DOC:
-    ( '%' ~('\n'|'\r')* '\r'? '\n' )+
+////////////////
+// Expression
+////////////////
+
+// an expression is actually a lot like a java one
+// highly inspired by http://www.antlr.org/grammar/1152141644268/Java.g
+expr returns [AntExpression e]:
+    te=ternaryExpr { e = te; }
 ;
 
-NAME:
-    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_'|'-'|'.')*
+ternaryExpr returns [AntExpression e]:
+    cond=conditionnalInclusiveOrExpr { e = cond; }
+    ( '?' onTrue=expr ':' onFalse=expr
+        {
+          TernaryAntExpression te = new TernaryAntExpression();
+          te.setProject(project);
+          te.setCondition(projectHelper.expression2Condition(e));
+          te.setOnTrue(onTrue);
+          te.setOnFalse(onFalse);
+          e = te;
+        }
+    )?
 ;
 
-PROPERTY:
-    '$' NAME
+conditionnalInclusiveOrExpr returns [AntExpression e]:
+    left=conditionnalExclusiveOrExpr { e = left; }
+    ( '||' right=conditionnalExclusiveOrExpr
+      {
+        Or or = new Or();
+        or.setProject(project);
+        or.add(projectHelper.expression2Condition(e));
+        or.add(projectHelper.expression2Condition(right));
+        e = projectHelper.condition2Expression(or);
+      }
+    )*
 ;
 
-INT:
-    ('0'..'9')+
+conditionnalExclusiveOrExpr returns [AntExpression e]:
+    // not a real java operator, but nice to have
+    left=conditionnalAndExpr { e = left; }
+    ( '^^' right=conditionnalAndExpr
+      { 
+        Xor xor = new Xor();
+        xor.setProject(project);
+        xor.add(projectHelper.expression2Condition(e));
+        xor.add(projectHelper.expression2Condition(right));
+        e = projectHelper.condition2Expression(xor);
+      }
+    )*
 ;
 
-COMMENT:
-        '//' ~('\n'|'\r')* '\r'? '\n' {skip();}
-    |   '/*' ( options {greedy=false;} : . )* '*/' {skip();}
+conditionnalAndExpr returns [AntExpression e]:
+    left=inclusiveOrExpr { e = left; }
+    ( '&&' right=inclusiveOrExpr
+      {
+        And and = new And();
+        and.setProject(project);
+        and.add(projectHelper.expression2Condition(e));
+        and.add(projectHelper.expression2Condition(right));
+        e = projectHelper.condition2Expression(and);
+      }
+    )*
+;
+
+inclusiveOrExpr returns [AntExpression e]:
+    left=exclusiveOrExpr { e = left; }
+    ( '|' right=exclusiveOrExpr
+      {
+        InclusiveOrAntExpression or = new InclusiveOrAntExpression();
+        or.setProject(project);
+        or.add(e);
+        or.add(left);
+        e = or;
+      }
+    )*
+;
+
+exclusiveOrExpr returns [AntExpression e]:
+    left=andExpr { e = left; }
+    ( '^' right=andExpr
+      {
+        ExclusiveOrAntExpression or = new ExclusiveOrAntExpression();
+        or.setProject(project);
+        or.add(e);
+        or.add(right);
+        e = or;
+      }
+    )*
+;
+
+andExpr returns [AntExpression e]:
+    left=equalityExpr { e = left; }
+    ( '&' right=equalityExpr
+      {
+        AndAntExpression and = new AndAntExpression();
+        and.setProject(project);
+        and.add(e);
+        and.add(right);
+        e = and;
+      }
+    )*
+;
+
+equalityExpr returns [AntExpression e]:
+    left=instanceOfExpr { e = left; }
+    ( '==' right=instanceOfExpr
+      {
+        EqualityCondition equ = new EqualityCondition();
+        equ.setProject(project);
+        equ.add(e);
+        equ.add(right);
+        e = equ;
+      }
+    )*
+;
+
+instanceOfExpr returns [AntExpression e]:
+    left=relationalExpr { e = left; }
+    ( 'instanceof' right=relationalExpr
+      {
+        InstanceofAntExpression instof = new InstanceofAntExpression();
+        instof.setProject(project);
+        instof.add(e);
+        instof.add(right);
+        e = instof;
+      }
+    )*
+;
+
+relationalExpr returns [AntExpression e]:
+    left=shiftExpr { e = left; }
+    ( op=relationalOp right=shiftExpr
+      {
+        BinaryAntExpression bae;
+        if (op.equals("<=")) {
+            bae = new LEAntExpression();
+        } else if (op.equals("<")) {
+            bae = new LTAntExpression();
+        } else if (op.equals(">=")) {
+            bae = new GEAntExpression();
+        } else if (op.equals(">")) {
+            bae = new GTAntExpression();
+        } else {
+            throw new IllegalStateException("Unsupported relational operator " + op);
+        }
+        bae.setProject(project);
+        bae.add(e);
+        bae.add(right);
+        e = bae;
+      }
+    )*
+;
+
+relationalOp returns [String s]:
+// java spec authorize '<=' and '>=' to be split by spaces or tabs
+// for sake of simplicity, we won't here
+    op=('<=' | '>=' | '<' | '>') { s = $op.text; }
+;
+
+shiftExpr returns [AntExpression e]:
+    left=additiveExpr { e = left; }
+    ( op=shiftOp right=additiveExpr
+      {
+        BinaryAntExpression bae;
+        if (op.equals("<<")) {
+            bae = new LeftShiftAntExpression();
+        } else if (op.equals(">>")) {
+            bae = new RightShiftAntExpression();
+        } else if (op.equals(">>>")) {
+            bae = new LogicalRightShiftAntExpression();
+        } else {
+            throw new IllegalStateException("Unsupported shift operator " + op);
+        }
+        bae.setProject(project);
+        bae.add(e);
+        bae.add(right);
+        e = bae;
+      }
+    )*
+;
+
+shiftOp returns [String s]:
+// idem as relationalOp, no authorized space 
+    op=('<<' | '>>>' | '>>') { s = $op.text; }
+;
+
+additiveExpr returns [AntExpression e]:
+    left=multiplicativeExpr { e = left; }
+    ( op=('+' | '-') right=multiplicativeExpr
+      {
+        BinaryAntExpression bae;
+        if ($op.text.equals("+")) {
+            bae = new AddAntExpression();
+        } else if ($op.text.equals("-")) {
+            bae = new MinusAntExpression();
+        } else {
+            throw new IllegalStateException("Unsupported additive operator " + $op.text);
+        }
+        bae.setProject(project);
+        bae.add(e);
+        bae.add(right);
+        e = bae;
+      }
+    )*
+;
+
+multiplicativeExpr returns [AntExpression e]:
+    left=unaryExpr { e = left; }
+    ( op=('*' | '/' | '%') right=unaryExpr
+      {
+        BinaryAntExpression bae;
+        if ($op.text.equals("*")) {
+            bae = new MultiplicationAntExpression();
+        } else if ($op.text.equals("/")) {
+            bae = new DivisionAntExpression();
+        } else if ($op.text.equals("\%")) {
+            bae = new ModuloAntExpression();
+        } else {
+            throw new IllegalStateException("Unsupported multiplicative operator " + $op.text);
+        }
+        bae.setProject(project);
+        bae.add(e);
+        bae.add(right);
+        e = bae;
+      }
+    )*
+;
+
+unaryExpr returns [AntExpression e]:
+      '+' ue=unaryExpr
+      {
+        PositiveAntExpression pae = new PositiveAntExpression();
+        pae.setProject(project);
+        pae.setExpr(ue);
+        e = pae;
+      }
+    | '-' ue=unaryExpr
+      {
+        NegativeAntExpression nae = new NegativeAntExpression();
+        nae.setProject(project);
+        nae.setExpr(ue);
+        e = nae;
+      }
+//    | op='++' expr=unaryExpr
+//    | op='--' expr=unaryExpr
+    | uenpe=unaryExprNotPlusMinus { e = uenpe; }
+;
+
+unaryExprNotPlusMinus returns [AntExpression e]:
+      '~' ue=unaryExpr
+      {
+        NotBitwiseAntExpression not = new NotBitwiseAntExpression();
+        not.setProject(project);
+        not.setExpr(ue);
+        e = not;
+      }
+    | '!' ue=unaryExpr
+      {
+        Not not = new Not();
+        not.setProject(project);
+        not.add(projectHelper.expression2Condition(ue));
+        e = projectHelper.condition2Expression(not);
+      }
+// no need for cast, we are are not staticly typed
+//    | castExpr 
+//    | primaryExpr selector* ('++'|'--')?
+    | pe=primaryExpr { e = pe; }
+;
+
+primaryExpr returns [AntExpression e]:
+      '(' ex=expr ')' { e = ex; }
+    | ve=variableExpr { e = ve; }
+    | fe=funcExpr { e = fe; }
+    | ie=innerElement { e = projectHelper.mapCallAntExpression(project, context, ie); }
+    | le=literalExpr { e = le; }
+;
+
+funcExpr returns [FuncAntExpression func = new FuncAntExpression()]:
+    { func.setProject(project); }
+    n=identifier { func.setName(n); }
+    '(' arg=expr { func.addArgument(arg); }
+        (',' arg2=expr  { func.addArgument(arg2); } )*
+    ')'
+;
+
+variableExpr returns [VariableAntExpression var = new VariableAntExpression()]:
+    { var.setProject(project); }
+    v=variable { var.setName(v); }
+;
+
+literalExpr returns [PrimaryAntExpression e]:
+      hle=hexLiteralExpr { e = hle; }
+    | ole=octalLiteralExpr { e = ole; }
+    | dle=decimalLiteralExpr { e = dle; }
+    | fple=floatingPointLiteralExpr { e = fple; }
+    | cle=characterLiteralExpr { e = cle; }
+    | sle=stringLiteralExpr { e = sle; }
+    | ble=booleanLiteralExpr { e = ble; }
+    | ne=nullExpr { e = ne; }
+;
+
+nullExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    'null'
+    { primary.setValue(null); }
+;
+
+hexLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=hexLiteral
+    { primary.setValue(value); }
+;
+
+octalLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=octalLiteral
+    { primary.setValue(value); }
+;
+
+decimalLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=decimalLiteral
+    { primary.setValue(value); }
+;
+
+floatingPointLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=floatingPointLiteral
+    { primary.setValue(value); }
+;
+
+characterLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=characterLiteral
+    { primary.setValue(value); }
+;
+
+stringLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+    value=stringLiteral
+    { primary.setValue(value); }
+;
+
+booleanLiteralExpr returns [PrimaryAntExpression primary = new PrimaryAntExpression()]:
+    { primary.setProject(project); }
+      value=('true' | 'false')
+    { primary.setValue(Boolean.parseBoolean($value.text)); }
+;
+
+hexLiteral returns [Number n]:
+    HexLiteral { n = projectHelper.readHex($HexLiteral.text); }
+;
+
+HexLiteral:
+    '0' ('x'|'X') HexDigit+ IntegerTypeSuffix?
+;
+
+decimalLiteral returns [Number n]:
+    DecimalLiteral { n = projectHelper.readDecimal($DecimalLiteral.text); }
+;
+
+DecimalLiteral:
+    ('0' | '1'..'9' '0'..'9'*) IntegerTypeSuffix?
+;
+
+octalLiteral returns [Number n]:
+    OctalLiteral { n = projectHelper.readOctal($OctalLiteral.text); }
+;
+
+OctalLiteral:
+    '0' ('0'..'7')+ IntegerTypeSuffix?
+;
+
+fragment HexDigit:
+    ('0'..'9'|'a'..'f'|'A'..'F')
+;
+
+fragment IntegerTypeSuffix:
+    ('l'|'L')
+;
+
+floatingPointLiteral returns [Number n]:
+    FloatingPointLiteral { n = projectHelper.readFloat($FloatingPointLiteral.text); }
+;
+
+FloatingPointLiteral:
+      ('0'..'9')+ '.' ('0'..'9')* Exponent? FloatTypeSuffix?
+    | '.' ('0'..'9')+ Exponent? FloatTypeSuffix?
+    | ('0'..'9')+ Exponent FloatTypeSuffix?
+    | ('0'..'9')+ FloatTypeSuffix
+;
+
+fragment Exponent:
+    ('e'|'E') ('+'|'-')? ('0'..'9')+
+;
+
+fragment FloatTypeSuffix:
+    ('f'|'F'|'d'|'D')
+;
+
+characterLiteral returns [char c]:
+    CharacterLiteral { c = projectHelper.readChar($CharacterLiteral.text); }
+;
+
+CharacterLiteral:
+    '\'' ( EscapeSequence | ~('\''|'\\') ) '\''
+;
+
+stringLiteral returns [String s]:
+    StringLiteral { s = projectHelper.readString($StringLiteral.text); }
+;
+
+StringLiteral:
+    '"' ( EscapeSequence | ~('\\'|'"') )* '"'
+;
+
+fragment EscapeSequence:
+      '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    | UnicodeEscape
+    | OctalEscape
+;
+
+fragment OctalEscape:
+      '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    | '\\' ('0'..'7') ('0'..'7')
+    | '\\' ('0'..'7')
+;
+
+fragment UnicodeEscape:
+    '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+;
+
+identifier returns [String s]:
+    Identifier { s = projectHelper.readIdentifier($Identifier.text); }
+;
+
+Identifier:
+      Letter (Letter|JavaIDDigit)*
+    | '`' ~('`')+ '`'
+;
+
+fragment Letter:
+      '\u0024'
+    | '\u0041'..'\u005a'
+    | '\u005f'
+    | '\u0061'..'\u007a'
+    | '\u00c0'..'\u00d6'
+    | '\u00d8'..'\u00f6'
+    | '\u00f8'..'\u00ff'
+    | '\u0100'..'\u1fff'
+    | '\u3040'..'\u318f'
+    | '\u3300'..'\u337f'
+    | '\u3400'..'\u3d2d'
+    | '\u4e00'..'\u9fff'
+    | '\uf900'..'\ufaff'
+;
+
+fragment JavaIDDigit: 
+      '\u0030'..'\u0039'
+    | '\u0660'..'\u0669'
+    | '\u06f0'..'\u06f9'
+    | '\u0966'..'\u096f'
+    | '\u09e6'..'\u09ef'
+    | '\u0a66'..'\u0a6f'
+    | '\u0ae6'..'\u0aef'
+    | '\u0b66'..'\u0b6f'
+    | '\u0be7'..'\u0bef'
+    | '\u0c66'..'\u0c6f'
+    | '\u0ce6'..'\u0cef'
+    | '\u0d66'..'\u0d6f'
+    | '\u0e50'..'\u0e59'
+    | '\u0ed0'..'\u0ed9'
+    | '\u1040'..'\u1049'
+;
+
+//// End of copy of Java grammar
+
+variable returns [String s]:
+    Variable { s = projectHelper.readVariable($Variable.text); }
+;
+
+Variable:
+    '$' ( Identifier | '{' ~('}')+ '}' )
+;
+
+doc returns [String s]:
+    Doc { s = projectHelper.readDoc($Doc.text); }
+;
+
+Doc:
+    ( '@' ~('\n'|'\r')* '\r'? '\n' )+
+;
+
+ML_COMMENT:
+    '/*' ( options {greedy=false;} : . )* '*/' {skip();}
+;
+
+SL_COMMENT:
+    '//' ~('\n'|'\r')* '\r'? '\n' {skip();}
 ;
 
 WS:
-    ( ' '
-    | '\t'
-    | '\r'
-    | '\n'
-    ) {skip();}
-;
-
-STRING:
-    (   '"'  ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\') | ~(('\\'|'"'))  )* '"'
-      | '\'' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\') | ~(('\\'|'\'')) )* '\''
-    )
+    (' ' | '\t' | '\r' | '\n') {skip();}
 ;

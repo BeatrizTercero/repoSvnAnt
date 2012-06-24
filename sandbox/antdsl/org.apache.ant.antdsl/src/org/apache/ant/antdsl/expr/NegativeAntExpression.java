@@ -17,45 +17,50 @@
  */
 package org.apache.ant.antdsl.expr;
 
-public class AddAntExpression extends ArithmeticBinaryAntExpression {
+public class NegativeAntExpression extends UnaryAntExpression {
 
-    public AddAntExpression() {
-        super("+");
+    public NegativeAntExpression() {
+        super("-");
     }
 
     @Override
-    protected Object eval(String v1, String v2) {
-        return v1 + v2;
+    protected Object eval(String v) {
+        throw buildUnexpectedTypeException("String");
     }
 
     @Override
-    protected Object eval(byte v1, byte v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(boolean v) {
+        throw buildUnexpectedTypeException("boolean");
     }
 
     @Override
-    protected Object eval(short v1, short v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(byte v) {
+        return -v;
     }
 
     @Override
-    protected Object eval(int v1, int v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(short v) {
+        return -v;
     }
 
     @Override
-    protected Object eval(long v1, long v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(int v) {
+        return -v;
     }
 
     @Override
-    protected Object eval(float v1, float v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(long v) {
+        return -v;
     }
 
     @Override
-    protected Object eval(double v1, double v2, String t1, String t2) {
-        return v1 + v2;
+    protected Object eval(float v) {
+        return -v;
+    }
+
+    @Override
+    protected Object eval(double v) {
+        return -v;
     }
 
 }

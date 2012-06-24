@@ -19,6 +19,7 @@ package org.apache.ant.antdsl;
 
 import org.apache.ant.antdsl.expr.AntExpression;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.PropertyHelper;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.property.LocalProperties;
@@ -39,6 +40,13 @@ public class AssignLocalTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        LocalProperties.get(getProject()).set(name, value.eval(), PropertyHelper.getPropertyHelper(getProject()));
+        Project p = getProject();
+        LocalProperties localProperties = LocalProperties.get(p);
+        PropertyHelper propertyHelper = PropertyHelper.getPropertyHelper(p);
+        Object v = localProperties.evaluate(name, propertyHelper);
+        if (v == null) {
+            localProperties.addLocal(name);
+        }
+        localProperties.setNew(name, value.eval(), propertyHelper);
     }
 }

@@ -95,9 +95,7 @@ public class ParserCreator {
 
         GrammarProvider grammarProvider = new GrammarProvider("org.apache.ant.antdsl.AntDSL", resourceSetProvider);
 
-        TerminalsGrammarAccess terminalsGrammarAccess = new TerminalsGrammarAccess(grammarProvider);
-
-        AntDSLGrammarAccess antDSLGrammarAccess = new AntDSLGrammarAccess(grammarProvider, terminalsGrammarAccess);
+        AntDSLGrammarAccess antDSLGrammarAccess = new AntDSLGrammarAccess(grammarProvider);
 
         SyntaxErrorMessageProvider syntaxErrorProvider = new SyntaxErrorMessageProvider();
 

@@ -17,45 +17,31 @@
  */
 package org.apache.ant.antdsl.expr;
 
-public class AddAntExpression extends ArithmeticBinaryAntExpression {
+import org.apache.tools.ant.taskdefs.condition.Condition;
 
-    public AddAntExpression() {
-        super("+");
+public class TernaryAntExpression extends AntExpression {
+
+    private Condition condition;
+
+    private AntExpression onTrue;
+
+    private AntExpression onFalse;
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public void setOnTrue(AntExpression onTrue) {
+        this.onTrue = onTrue;
+    }
+
+    public void setOnFalse(AntExpression onFalse) {
+        this.onFalse = onFalse;
     }
 
     @Override
-    protected Object eval(String v1, String v2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(byte v1, byte v2, String t1, String t2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(short v1, short v2, String t1, String t2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(int v1, int v2, String t1, String t2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(long v1, long v2, String t1, String t2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(float v1, float v2, String t1, String t2) {
-        return v1 + v2;
-    }
-
-    @Override
-    protected Object eval(double v1, double v2, String t1, String t2) {
-        return v1 + v2;
+    public Object eval() {
+        return condition.eval() ? onTrue.eval() : onFalse.eval();
     }
 
 }

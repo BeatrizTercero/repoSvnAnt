@@ -17,39 +17,24 @@
  */
 package org.apache.ant.antdsl.expr;
 
-public class MultiplicationAntExpression extends ArithmeticBinaryAntExpression {
+import org.apache.tools.ant.BuildException;
 
-    public MultiplicationAntExpression() {
-        super("*");
+public class IncompatibleTypeException extends BuildException {
+
+    private final String name;
+
+    private final String t1;
+
+    private final String t2;
+
+    public IncompatibleTypeException(String name, String t1, String t2) {
+        super("incomptable type for operation " + name + ": '" + t1 + "' and '" + t2 + "'");
+        this.name = name;
+        this.t1 = t1;
+        this.t2 = t2;
     }
 
-    @Override
-    protected Object eval(byte v1, byte v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(short v1, short v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(int v1, int v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(long v1, long v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(float v1, float v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(double v1, double v2, String t1, String t2) {
-        return v1 * v2;
+    public IncompatibleTypeException switchTypes() {
+        return new IncompatibleTypeException(name, t2, t1);
     }
 }

@@ -15,32 +15,34 @@
  *  limitations under the License.
  *
  */
-grammar org.apache.ant.antdsl.xtext.AntDSL with org.eclipse.xtext.common.Terminals
+grammar org.apache.ant.antdsl.xtext.AntDSL hidden(WS, ML_COMMENT, SL_COMMENT)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 generate antdsl "http://www.apache.org/ant/AntDSL"
 
 EProject:
     {EProject}
     (
-        ('name'    ':' name=NAME)?
-      & ('default' ':' default=NAME)?
-      & ('basedir' ':' basedir=STRING)?
+        ('name'    ':' name=Identifier)?
+      & ('default' ':' default=Identifier)?
+      & ('basedir' ':' basedir=StringLiteral)?
     )
     ('namespaces' '{' namespaces+=ENamespace* '}')?
     tasks=ETaskLists?
     (targets+=ETarget | extensionPoints+=EExtensionPoint | macrodDefs+=EMacrodef)*;
 
 ENamespace:
-    name=NAME ':' uri=STRING;
+    name=Identifier ':' uri=StringLiteral;
 
 EExtensionPoint:
-    description=DOC? 'extension-point' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EBoolExpr)? & ('unless' unless=EBoolExpr)?
+    description=DOC? 'extension-point' name=Identifier (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
+        & ('depends' depends=ETargetList)? & ('if' if=EExpr)? & ('unless' unless=EExpr)?
     );
 
 ETarget:
-    description=DOC? 'target' name=NAME (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=STRING)? )?
-        & ('depends' depends=ETargetList)? & ('if' if=EBoolExpr)? & ('unless' unless=EBoolExpr)?
+    description=DOC? 'target' name=Identifier (('extensionOf' extensionsOf=ETargetList ('onMiss' onMissingExtensionPoint=StringLiteral)? )?
+        & ('depends' depends=ETargetList)? & ('if' if=EExpr)? & ('unless' unless=EExpr)?
     ) tasks=ETaskLists?;
 
 ETaskLists:
@@ -48,19 +50,19 @@ ETaskLists:
     '{' tasks+=ETask* '}';
 
 ETargetList:
-    names+=NAME (',' names+=NAME)*;
+    names+=Identifier (',' names+=Identifier)*;
 
 ETask:
     EAssignment | EInnerElement | EBranch;
 
 ENSName:
-    (namespace=NAME ':')? name=NAME;
+    (namespace=Identifier ':')? name=Identifier;
 
 EArguments:
     arguments+=EArgument (',' arguments+=EArgument)*;
 
 EArgument:
-    name=NAME '=' value=STRING;
+    name=Identifier '=' value=StringLiteral;
 
 EInnerElements:
     '{' elements+=EInnerElement+ '}';
@@ -72,66 +74,26 @@ EAssignment:
     EPropertyAssignment | EReferenceAssignment | ELocalAssignment;
 
 EPropertyAssignment:
-    'prop' name=NAME '=' value=EExpr;
+    'prop' name=Identifier '=' value=EExpr;
 
 EReferenceAssignment:
-    'ref' name=NAME '=' value=EExpr;
+    'ref' name=Identifier '=' value=EExpr;
 
 ELocalAssignment:
-    'local' name=NAME '=' value=EExpr;
+    'local' name=Identifier '=' value=EExpr;
 
 EBranch:
     if=EConditionedTasks ('else' elseif+=EConditionedTasks )* ('else' else=ETaskLists)?;
 
 EConditionedTasks:
-    'if' '(' condition=EBoolExpr ')' tasks=ETaskLists;
+    'if' '(' condition=EExpr ')' tasks=ETaskLists;
 
-EBoolExpr:
-    EBoolXorExpr;
-
-EBoolXorExpr returns EBoolExpr:
-    EBoolOrExpr ({EBoolXorExpr.left=current} '^^' right=EBoolOrExpr)*;
-
-EBoolOrExpr returns EBoolExpr:
-    EBoolAndExpr ({EBoolOrExpr.left=current} '||' right=EBoolAndExpr)*;
-
-EBoolAndExpr returns EBoolExpr:
-    EBoolPrimaryExpr ({EBoolAndExpr.left=current} '&&' right=EBoolPrimaryExpr)*;
-
-EBoolPrimaryExpr returns EBoolExpr:
-     EInnerElement
-   | '(' EBoolExpr ')'
-   | EBoolNotExpr;
-
-EBoolNotExpr returns EBoolNotExpr:
-    '!' expr=EBoolExpr;
-
-EExpr:
-    EMultExpr;
-
-EMultExpr returns EExpr:
-    EAddExpr ({EMultExpr.left=current} '*' right=EAddExpr )*;
-
-EAddExpr returns EExpr:
-    EPrimaryExpr ({EAddExpr.left=current} '+' right=EPrimaryExpr)*;
-
-EPrimaryExpr returns EExpr:
-    EFuncExpr | ENumExpr | EStringExpr | EVariableExpr;
-
-EFuncExpr returns EFuncExpr:
-    name=NAME '(' arguments+=EExpr (',' arguments+=EExpr)* ')';
-
-ENumExpr returns ENumExpr:
-    value=INT;
-
-EStringExpr returns EStringExpr:
-    value=STRING;
-
-EVariableExpr returns EVariableExpr:
-    name=VARIABLE;
+////////////////
+// Macro
+////////////////
 
 EMacrodef:
-    description=DOC? 'macrodef' name=NAME '(' attributes=EAttributes? ')' tasks=ETaskLists;
+    description=DOC? 'macrodef' name=Identifier '(' attributes=EAttributes? ')' tasks=ETaskLists;
 
 EAttributes:
     attributes+=EAttribute (',' attributes+=EAttribute)*;
@@ -140,19 +102,281 @@ EAttribute:
     EArgAttribute | ETextAttribute | EElementAttribute;
 
 EArgAttribute:
-    'arg' name=NAME ('=' default=STRING)?;
+    'arg' name=Identifier ('=' default=StringLiteral)?;
 
 ETextAttribute:
-    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=NAME;
+    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=Identifier;
 
 EElementAttribute:
-    (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=NAME;
+    (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=Identifier;
 
-terminal NAME:
-    ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'.'|'0'..'9')*;
+////////////////
+// Expression
+////////////////
+
+// an expression is actually a lot like a java one
+// highly inspired by http://www.antlr.org/grammar/1152141644268/Java.g
+EExpr:
+    ETernaryExpr
+;
+
+ETernaryExpr returns EExpr:
+    EConditionnalInclusiveOrExpr ({ETernaryExpr.condition=current}  '?' onTrue=EExpr ':' onFalse=EExpr)?
+;
+
+EConditionnalInclusiveOrExpr returns EExpr:
+    EConditionnalExclusiveOrExpr ({EConditionnalInclusiveOrExpr.children+=current} '||' children+=EConditionnalExclusiveOrExpr)*
+;
+
+EConditionnalExclusiveOrExpr returns EExpr:
+    // not a real java operator, but nice to have
+    EConditionnalAndExpr ({EConditionnalExclusiveOrExpr.children+=current} '^^' children+=EConditionnalAndExpr)*
+;
+
+EConditionnalAndExpr returns EExpr:
+    EInclusiveOrExpr ({EConditionnalAndExpr.children+=current} '&&' children+=EInclusiveOrExpr)*
+;
+
+EInclusiveOrExpr returns EExpr:
+    EExclusiveOrExpr ({EInclusiveOrExpr.children+=current} '|' children+=EExclusiveOrExpr)*
+;
+
+EExclusiveOrExpr returns EExpr:
+    EAndExpr ({EExclusiveOrExpr.children+=current} '^' children+=EAndExpr)*
+;
+
+EAndExpr returns EExpr:
+    EEqualityExpr ({EAndExpr.children+=current} '&' children+=EEqualityExpr)*
+;
+
+EEqualityExpr returns EExpr:
+    EInstanceOfExpr ({EEqualityExpr.children+=current} '==' children+=EInstanceOfExpr)*
+;
+
+EInstanceOfExpr returns EExpr:
+    ERelationalExpr ({EInstanceOfExpr.children+=current} 'instanceof' children+=ERelationalExpr)*
+;
+
+ERelationalExpr returns EExpr:
+    EShiftExpr ({ERelationalExpr.children+=current} operators+=ERelationalOp children+=EShiftExpr)*
+;
+
+ERelationalOp:
+// java spec authorize '<=' and '>=' to be split by spaces or tabs
+// for sake of simplicity, we won't here
+    '<=' | '>=' | '<' | '>'
+;
+
+EShiftExpr returns EExpr:
+    EAdditiveExpr ({EShiftExpr.children+=current} operators+=EShiftOp children+=EAdditiveExpr)*
+;
+
+EShiftOp:
+// idem as ERelationalOp, not authorized space 
+    '<<' | '>>>' | '>>'
+;
+
+EAdditiveExpr returns EExpr:
+    EMultiplicativeExpr ({EAdditiveExpr.children+=current} operators+=('+' | '-') children+=EMultiplicativeExpr)*
+;
+
+EMultiplicativeExpr returns EExpr:
+    EUnaryExpr ({EMultiplicativeExpr.children+=current} operators+=('*' | '/' | '%') children+=EUnaryExpr)*
+;
+
+EUnaryExpr returns EExpr:
+      {EUnaryExpr} op='+' expr=EUnaryExpr
+    | {EUnaryExpr} op='-' expr=EUnaryExpr
+//    | {EUnaryExpr} op='++' expr=EUnaryExpr
+//    | {EUnaryExpr} op='--' expr=EUnaryExpr
+    | EUnaryExprNotPlusMinus
+;
+
+EUnaryExprNotPlusMinus returns EExpr:
+      {EUnaryExpr} op='~' expr=EUnaryExpr
+    | {EUnaryExpr} op='!' expr=EUnaryExpr
+// no need for cast, we are are not staticly typed
+//    | ECastExpr 
+//    | EPrimaryExpr selector* ('++'|'--')?
+    | EPrimaryExpr
+;
+
+EPrimaryExpr returns EExpr:
+      '(' EExpr ')'
+    | EVariableExpr
+    | EFuncExpr
+    | EInnerElement
+    | ELiteralExpr
+;
+
+EFuncExpr:
+    name=Identifier '(' arguments+=EExpr (',' arguments+=EExpr)* ')'
+;
+
+EVariableExpr:
+    name=VARIABLE
+;
+
+ELiteralExpr:
+      EHexLiteralExpr
+    | EOctalLiteralExpr
+    | EDecimalLiteralExpr
+    | EFloatingPointLiteralExpr
+    | ECharacterLiteralExpr
+    | EStringLiteralExpr
+    | EBooleanLiteralExpr
+    | ENullExpr
+;
+
+ENullExpr:
+    value='null'
+;
+
+EHexLiteralExpr:
+    value=HexLiteral
+;
+
+EOctalLiteralExpr:
+    value=OctalLiteral
+;
+
+EDecimalLiteralExpr:
+    value=DecimalLiteral
+;
+
+EFloatingPointLiteralExpr:
+    value=FloatingPointLiteral
+;
+
+ECharacterLiteralExpr:
+    value=CharacterLiteral
+;
+
+EStringLiteralExpr:
+    value=StringLiteral
+;
+
+EBooleanLiteralExpr:
+      value='true'
+    | value='false'
+;
+
+terminal HexLiteral:
+    '0' ('x'|'X') HexDigit+ IntegerTypeSuffix?
+;
+
+terminal DecimalLiteral:
+    ('0' | '1'..'9' '0'..'9'*) IntegerTypeSuffix?
+;
+
+terminal OctalLiteral:
+    '0' ('0'..'7')+ IntegerTypeSuffix?
+;
+
+terminal fragment HexDigit:
+    ('0'..'9'|'a'..'f'|'A'..'F')
+;
+
+terminal fragment IntegerTypeSuffix:
+    ('l'|'L')
+;
+
+terminal FloatingPointLiteral:
+      ('0'..'9')+ '.' ('0'..'9')* Exponent? FloatTypeSuffix?
+    | '.' ('0'..'9')+ Exponent? FloatTypeSuffix?
+    | ('0'..'9')+ Exponent FloatTypeSuffix?
+    | ('0'..'9')+ FloatTypeSuffix
+;
+
+terminal fragment Exponent:
+    ('e'|'E') ('+'|'-')? ('0'..'9')+
+;
+
+terminal fragment FloatTypeSuffix:
+    ('f'|'F'|'d'|'D')
+;
+
+terminal CharacterLiteral:
+    '\'' ( EscapeSequence | !('\''|'\\') ) '\''
+;
+
+terminal StringLiteral:
+    '"' ( EscapeSequence | !('\\'|'"') )* '"'
+;
+
+terminal fragment EscapeSequence:
+      '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    | UnicodeEscape
+    | OctalEscape
+;
+
+terminal fragment OctalEscape:
+      '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    | '\\' ('0'..'7') ('0'..'7')
+    | '\\' ('0'..'7')
+;
+
+terminal fragment UnicodeEscape:
+    '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+;
+
+terminal Identifier:
+      Letter (Letter|JavaIDDigit)*
+    | '`' !('`')+ '`'
+;
+
+terminal fragment Letter:
+      '\u0024'
+    | '\u0041'..'\u005a'
+    | '\u005f'
+    | '\u0061'..'\u007a'
+    | '\u00c0'..'\u00d6'
+    | '\u00d8'..'\u00f6'
+    | '\u00f8'..'\u00ff'
+    | '\u0100'..'\u1fff'
+    | '\u3040'..'\u318f'
+    | '\u3300'..'\u337f'
+    | '\u3400'..'\u3d2d'
+    | '\u4e00'..'\u9fff'
+    | '\uf900'..'\ufaff'
+;
+
+terminal fragment JavaIDDigit: 
+      '\u0030'..'\u0039'
+    | '\u0660'..'\u0669'
+    | '\u06f0'..'\u06f9'
+    | '\u0966'..'\u096f'
+    | '\u09e6'..'\u09ef'
+    | '\u0a66'..'\u0a6f'
+    | '\u0ae6'..'\u0aef'
+    | '\u0b66'..'\u0b6f'
+    | '\u0be7'..'\u0bef'
+    | '\u0c66'..'\u0c6f'
+    | '\u0ce6'..'\u0cef'
+    | '\u0d66'..'\u0d6f'
+    | '\u0e50'..'\u0e59'
+    | '\u0ed0'..'\u0ed9'
+    | '\u1040'..'\u1049'
+;
+
+//// End of copy of Java grammar
 
 terminal VARIABLE:
-    '$' ( NAME | '{' !('}')+ '}');
+    '$' ( Identifier | '{' !('}')+ '}' )
+;
 
 terminal DOC:
-    ( '%' !('\n'|'\r')* '\r'? '\n' )+;
+    ( '@' !('\n'|'\r')* '\r'? '\n' )+
+;
+
+terminal ML_COMMENT:
+    '/*' -> '*/'
+;
+
+terminal SL_COMMENT:
+    '//' !('\n'|'\r')* ('\r'? '\n')?
+;
+
+terminal WS:
+    (' '|'\t'|'\r'|'\n')+
+;

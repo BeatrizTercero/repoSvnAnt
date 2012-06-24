@@ -17,27 +17,35 @@
  */
 package org.apache.ant.antdsl.expr;
 
-import org.apache.tools.ant.PropertyHelper;
-import org.apache.tools.ant.property.LocalProperties;
+import java.util.ArrayList;
+import java.util.List;
 
-public class VariableExpression extends AntExpression {
+public abstract class BinaryAntExpression extends AntExpression {
 
-    private String name;
+    private List<AntExpression> children = new ArrayList<AntExpression>();
 
-    public void setName(String name) {
-        this.name = name;
+    public void add(AntExpression expr) {
+        children.add(expr);
+    }
+
+    public List<AntExpression> getChildren() {
+        return children;
     }
 
     @Override
-    public Object eval() {
-        Object value = LocalProperties.get(getProject()).evaluate(name, PropertyHelper.getPropertyHelper(getProject()));
-        if (value == null) {
-            value = PropertyHelper.getProperty(getProject(), name);
+    public final Object eval() {
+        Object value = null;
+        for (AntExpression child : getChildren()) {
+            Object childValue = child.eval();
             if (value == null) {
-                value = getProject().getReference(name);
+                value = childValue;
+            } else {
+                value = eval(value, childValue);
             }
         }
         return value;
     }
+
+    abstract protected Object eval(Object v1, Object v2);
 
 }

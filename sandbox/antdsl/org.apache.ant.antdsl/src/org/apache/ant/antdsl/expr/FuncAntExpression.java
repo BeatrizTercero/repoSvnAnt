@@ -35,8 +35,16 @@ public class FuncAntExpression extends AntExpression {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addArgument(AntExpression expr) {
         arguments.add(expr);
+    }
+
+    public List<AntExpression> getArguments() {
+        return arguments;
     }
 
     @Override

@@ -17,39 +17,18 @@
  */
 package org.apache.ant.antdsl.expr;
 
-public class MultiplicationAntExpression extends ArithmeticBinaryAntExpression {
+import org.apache.tools.ant.BuildException;
 
-    public MultiplicationAntExpression() {
-        super("*");
-    }
+public class InstanceofAntExpression extends BinaryAntExpression {
 
     @Override
-    protected Object eval(byte v1, byte v2, String t1, String t2) {
-        return v1 * v2;
+    protected Boolean eval(Object v1, Object v2) {
+        // FIXME ugly implementation
+        try {
+            return Class.forName(v2.toString()).isAssignableFrom(v1.getClass());
+        } catch (ClassNotFoundException e) {
+            throw new BuildException(e);
+        }
     }
 
-    @Override
-    protected Object eval(short v1, short v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(int v1, int v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(long v1, long v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(float v1, float v2, String t1, String t2) {
-        return v1 * v2;
-    }
-
-    @Override
-    protected Object eval(double v1, double v2, String t1, String t2) {
-        return v1 * v2;
-    }
 }
