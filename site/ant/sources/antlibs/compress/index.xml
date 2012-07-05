@@ -88,6 +88,8 @@
       <p>All tasks and types can be mixed with the core tasks and
         types; it is possible to use the core zip task to create an
         archive based on an cpiofileset for example.</p>
+
+      <p>As of version 1.2, the Compress Antlib requires Java 5 or higher.</p>
     </section>
   </body>
 </document>
