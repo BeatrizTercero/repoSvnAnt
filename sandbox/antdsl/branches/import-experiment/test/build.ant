@@ -1,0 +1,71 @@
+name : myproject
+default : build
+
+namespaces {
+    antunit : "antlib:org.apache.ant.antunit"
+}
+
+{
+    prop foo = "hello world!"
+    echo(message="${foo}")
+}
+
+# Some documentation of the macro
+macrodef mymacro(arg t = "mymacro")
+{
+    echo(message = "@{t}")
+}
+
+macrodef mymacro2(arg dest, implicit element source)
+{
+    copy(todir = "@{dest}" {
+        source()
+    })
+}
+
+target dep {
+    echo(message = "target dependency")
+}
+
+target notexecuted
+    unless isset(property = "foo")
+{
+    echo(message = "must not be printed")
+}
+
+# description of the target
+# which is on a multiline
+target build
+    depends dep, notexecuted
+{
+    copy(file = "${basedir}/test/build.ant", tofile = "${basedir}/build/test/build.ant.copy")
+    // some comment
+    jar(file = "${basedir}/build/test/my.jar" {
+        fileset(dir="${basedir}/test", includes="*.ant")
+    })
+    mymacro()
+    mymacro(t = "simple macro")
+    /*
+     * Some multiline comment 
+     */
+    if (available(file = "${basedir}/test/build.ant")) {
+        mymacro2(dest = "${basedir}/build/test/dest", {
+            fileset(dir = "${basedir}", includes="build.*")
+        })
+    } else {
+        fail(message = "fail !")
+    }
+    if (isset(property = "foo") && !isset(property = "notsetproperty")) {
+        echo(message = "test ok")
+    } else {
+        fail(message = "fail !")
+    }
+    echo(message = "test encoding\\backslash")
+    echo(message = "test encoding\ttab")
+    echo(message = "test encoding\nline")
+
+    local test = "hello" + ' ' + "world !"
+    echo(message = "${test}")
+    local test2 = ((12345 + 6789) % 98765 == 12.4f)
+    echo(message = "${test2}")
+}
