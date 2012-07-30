@@ -23,9 +23,9 @@
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
        uri = "http://www.apache.org/ant/AntDSL" 
-       class = "org.apache.ant.antdsl.AntdslPackage"
-       genModel = "org/apache/ant/antdsl/AntDSL.genmodel" /> 
-	
+       class = "org.apache.ant.antdsl.xtext.antdsl.AntdslPackage"
+       genModel = "org/apache/ant/antdsl/xtext/AntDSL.genmodel" /> 
+    
   </extension>
 
 
