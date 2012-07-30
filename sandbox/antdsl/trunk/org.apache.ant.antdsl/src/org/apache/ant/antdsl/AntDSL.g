@@ -26,16 +26,13 @@ package org.apache.ant.antdsl.antlr;
 
 import org.apache.ant.antdsl.*;
 import org.apache.ant.antdsl.AbstractAntDslProjectHelper.InnerElement;
+import org.apache.ant.antdsl.FunctionDef.LocalProperty;
+import org.apache.ant.antdsl.FunctionDef.NestedSequential;
+import org.apache.ant.antdsl.FunctionDef.TemplateElement;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
-import org.apache.ant.antdsl.Target;
-import org.apache.ant.antdsl.ExtensionPoint;
 import org.apache.ant.antdsl.expr.*;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
-import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
-import org.apache.tools.ant.taskdefs.MacroDef.NestedSequential;
-import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
-import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.condition.*;
 import java.util.LinkedHashMap;
 }
@@ -72,7 +69,7 @@ project:
     { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
     (   target
       | extensionPoint
-      | macrodef
+      | funcdef
     )*
 ;
 
@@ -126,13 +123,13 @@ nsName returns [Pair<String, String> ns = new Pair<String, String>()]:
     (n=identifier { ns.first = n; } ':')? n=identifier { ns.second = n; }
 ;
 
-arguments returns [LinkedHashMap<String, String> args = new LinkedHashMap<String, String>();]:
+arguments returns [LinkedHashMap<String, AntExpression> args = new LinkedHashMap<String, AntExpression>();]:
     arg=argument { args.put(arg.first, arg.second); }
     (',' arg=argument { args.put(arg.first, arg.second); } )*
 ;
 
-argument returns [Pair<String, String> arg = new Pair<String, String>()]:
-    n=identifier { arg.first = n; } '=' v=stringLiteral { arg.second = v; }
+argument returns [Pair<String, AntExpression> arg = new Pair<String, AntExpression>()]:
+    n=identifier { arg.first = n; } '=' v=expr { arg.second = v; }
 ;
 
 innerElements returns [List<InnerElement> ies = new ArrayList<InnerElement>()]:
@@ -188,56 +185,46 @@ conditionedTasks returns [ConditionnalSequential seq = new ConditionnalSequentia
     tl=taskList { for (Task t : tl) { seq.addTask(t); } }
 ;
 
-macrodef returns [MacroDef macroDef = new MacroDef()]:
-    ( d=doc { macroDef.setDescription(d); } )?
-    'macrodef' n=identifier { macroDef.setName(n); }
-    '(' ( atts=attributes
-          {  for (Object att : atts) {
-                if (att instanceof Attribute) {
-                    macroDef.addConfiguredAttribute((Attribute) att);
-                } else if (att instanceof Text) {
-                    macroDef.addConfiguredText((Text) att);
-                } else if (att instanceof TemplateElement) {
-                    macroDef.addConfiguredElement((TemplateElement) att);
+funcdef returns [FunctionDef funcDef = new FunctionDef()]:
+    ( d=doc { funcDef.setDescription(d); } )?
+    'function' n=identifier { funcDef.setName(n); }
+    '(' ( args=funcArguments
+          {  for (Object arg : args) {
+                if (arg instanceof LocalProperty) {
+                    funcDef.addConfiguredLocalProperty((LocalProperty) arg);
+                } else if (arg instanceof TemplateElement) {
+                    funcDef.addConfiguredElement((TemplateElement) arg);
                 } else {
-                    throw new IllegalArgumentException("Unsupported macro attribute " + att.getClass().getName());
+                    throw new IllegalArgumentException("Unsupported function argument " + arg.getClass().getName());
                 }
              }
           } )? ')'
     tl=taskList
     {
-        NestedSequential seq = macroDef.createSequential();
+        NestedSequential seq = funcDef.createSequential();
         for (Task t : tl) { seq.addTask(t); }
-        macroDef.setProject(project);
-        macroDef.execute();
+        funcDef.setProject(project);
+        funcDef.execute();
     }
 ;
 
-attributes returns [List atts = new ArrayList()]:
-    att=attribute { atts.add(att); }
-    (',' att=attribute { atts.add(att); } )*
+funcArguments returns [List args = new ArrayList()]:
+    arg=funcArgument { args.add(arg); }
+    (',' arg=funcArgument { args.add(arg); } )*
 ;
 
-attribute returns [Object att]:
-      aatt=argAttribute { att = aatt; }
-    | tatt=textAttribute { att = tatt; }
-    | eatt=elementAttribute  { att = eatt; }
+funcArgument returns [Object arg]:
+      lparg=localPropFuncArgument { arg = lparg; }
+    | earg=elementFuncArgument  { arg = earg; }
 ;
 
-argAttribute returns [Attribute att = new Attribute()]:
-    'arg'
-    n=identifier { att.setName(n); }
-    ('=' d=stringLiteral { att.setDefault(d); } )?
+localPropFuncArgument returns [LocalProperty localProp = new LocalProperty()]:
+    'local'
+    n=identifier { localProp.setName(n); }
+    ('=' d=expr { localProp.setDefault(d); } )?
 ;
 
-textAttribute returns [Text text = new Text()]:
-    ('optional' { text.setOptional(true); } )?
-    ('trimmed' { text.setTrim(true); } )?
-    'text'
-    n=identifier { text.setName(n); }
-;
-
-elementAttribute returns [TemplateElement element = new TemplateElement()]:
+elementFuncArgument returns [TemplateElement element = new TemplateElement()]:
     ('optional' { element.setOptional(true); } )?
     ('implicit' { element.setImplicit(true); } )?
     'element'

@@ -30,10 +30,12 @@ import org.apache.ant.antdsl.AntDslContext;
 import org.apache.ant.antdsl.AssignLocalTask;
 import org.apache.ant.antdsl.AssignPropertyTask;
 import org.apache.ant.antdsl.AssignReferenceTask;
-import org.apache.ant.antdsl.ExtensionPoint;
+import org.apache.ant.antdsl.FunctionDef;
+import org.apache.ant.antdsl.FunctionDef.LocalProperty;
+import org.apache.ant.antdsl.FunctionDef.NestedSequential;
+import org.apache.ant.antdsl.FunctionDef.TemplateElement;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
-import org.apache.ant.antdsl.Target;
 import org.apache.ant.antdsl.expr.AddAntExpression;
 import org.apache.ant.antdsl.expr.AndAntExpression;
 import org.apache.ant.antdsl.expr.AntExpression;
@@ -62,11 +64,8 @@ import org.apache.ant.antdsl.expr.TernaryAntExpression;
 import org.apache.ant.antdsl.expr.VariableAntExpression;
 import org.apache.ant.antdsl.xtext.antdsl.EAdditiveExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EAndExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EArgAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
-import org.apache.ant.antdsl.xtext.antdsl.EAttribute;
-import org.apache.ant.antdsl.xtext.antdsl.EAttributes;
 import org.apache.ant.antdsl.xtext.antdsl.EBooleanLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
 import org.apache.ant.antdsl.xtext.antdsl.ECharacterLiteralExpr;
@@ -75,20 +74,23 @@ import org.apache.ant.antdsl.xtext.antdsl.EConditionnalAndExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionnalExclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionnalInclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EDecimalLiteralExpr;
-import org.apache.ant.antdsl.xtext.antdsl.EElementAttribute;
+import org.apache.ant.antdsl.xtext.antdsl.EElementFuncArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EEqualityExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EExtensionPoint;
 import org.apache.ant.antdsl.xtext.antdsl.EFloatingPointLiteralExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EFuncArgument;
+import org.apache.ant.antdsl.xtext.antdsl.EFuncArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EFuncExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EFunctionDef;
 import org.apache.ant.antdsl.xtext.antdsl.EHexLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
 import org.apache.ant.antdsl.xtext.antdsl.EInstanceOfExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalAssignment;
-import org.apache.ant.antdsl.xtext.antdsl.EMacrodef;
+import org.apache.ant.antdsl.xtext.antdsl.ELocalPropertyFuncArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EMultiplicativeExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.ENullExpr;
@@ -104,17 +106,13 @@ import org.apache.ant.antdsl.xtext.antdsl.ETargetList;
 import org.apache.ant.antdsl.xtext.antdsl.ETask;
 import org.apache.ant.antdsl.xtext.antdsl.ETaskLists;
 import org.apache.ant.antdsl.xtext.antdsl.ETernaryExpr;
-import org.apache.ant.antdsl.xtext.antdsl.ETextAttribute;
 import org.apache.ant.antdsl.xtext.antdsl.EUnaryExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EVariableExpr;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Target;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.taskdefs.MacroDef;
-import org.apache.tools.ant.taskdefs.MacroDef.Attribute;
-import org.apache.tools.ant.taskdefs.MacroDef.NestedSequential;
-import org.apache.tools.ant.taskdefs.MacroDef.TemplateElement;
-import org.apache.tools.ant.taskdefs.MacroDef.Text;
 import org.apache.tools.ant.taskdefs.Sequential;
 import org.apache.tools.ant.taskdefs.condition.And;
 import org.apache.tools.ant.taskdefs.condition.Not;
@@ -171,10 +169,10 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
             }
         }
 
-        EList<EMacrodef> macros = eProject.getMacrodDefs();
-        if (macros != null) {
-            for (EMacrodef macro : macros) {
-                mapMacro(project, context, macro);
+        EList<EFunctionDef> efuncs = eProject.getFunctionDefs();
+        if (efuncs != null) {
+            for (EFunctionDef efunc : efuncs) {
+                mapFunction(project, context, efunc);
             }
         }
         ETaskLists tasks = eProject.getTasks();
@@ -191,47 +189,40 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         }
     }
 
-    private void mapMacro(Project project, AntDslContext context, EMacrodef emacro) {
-        MacroDef macroDef = new MacroDef();
-        macroDef.setDescription(emacro.getDescription());
-        macroDef.setName(readIdentifier(emacro.getName()));
-        EAttributes eatts = emacro.getAttributes();
-        if (eatts != null) {
-            for (EAttribute eatt : eatts.getAttributes()) {
-                if (eatt instanceof EArgAttribute) {
-                    EArgAttribute eargatt = (EArgAttribute) eatt;
-                    Attribute att = new Attribute();
-                    att.setName(readIdentifier(eargatt.getName()));
-                    att.setDefault(readString(eargatt.getDefault()));
-                    macroDef.addConfiguredAttribute(att);
-                } else if (eatt instanceof ETextAttribute) {
-                    ETextAttribute etextatt = (ETextAttribute) eatt;
-                    Text text = new Text();
-                    text.setName(readIdentifier(etextatt.getName()));
-                    text.setTrim(etextatt.isTrimmed());
-                    text.setOptional(etextatt.isOptional());
-                    macroDef.addConfiguredText(text);
-                } else if (eatt instanceof EElementAttribute) {
-                    EElementAttribute eelematt = (EElementAttribute) eatt;
+    private void mapFunction(Project project, AntDslContext context, EFunctionDef efunc) {
+        FunctionDef funcDef = new FunctionDef();
+        funcDef.setDescription(efunc.getDescription());
+        funcDef.setName(readIdentifier(efunc.getName()));
+        EFuncArguments eargs = efunc.getArguments();
+        if (eargs != null) {
+            for (EFuncArgument earg : eargs.getArguments()) {
+                if (earg instanceof ELocalPropertyFuncArgument) {
+                    ELocalPropertyFuncArgument elocalpropatt = (ELocalPropertyFuncArgument) earg;
+                    LocalProperty localProp = new LocalProperty();
+                    localProp.setName(readIdentifier(elocalpropatt.getName()));
+                    localProp.setDefault(mapExpr(project, context, elocalpropatt.getDefault()));
+                    funcDef.addConfiguredLocalProperty(localProp);
+                } else if (earg instanceof EElementFuncArgument) {
+                    EElementFuncArgument eelemarg = (EElementFuncArgument) earg;
                     TemplateElement element = new TemplateElement();
-                    element.setImplicit(eelematt.isImplicit());
-                    element.setOptional(eelematt.isOptional());
-                    element.setName(readIdentifier(eelematt.getName()));
-                    macroDef.addConfiguredElement(element);
+                    element.setImplicit(eelemarg.isImplicit());
+                    element.setOptional(eelemarg.isOptional());
+                    element.setName(readIdentifier(eelemarg.getName()));
+                    funcDef.addConfiguredElement(element);
                 } else {
-                    throw new IllegalArgumentException("Unsupported macro attribute " + eatt.getClass().getName());
+                    throw new IllegalArgumentException("Unsupported function argument " + earg.getClass().getName());
                 }
             }
         }
-        ETaskLists etasks = emacro.getTasks();
+        ETaskLists etasks = efunc.getTasks();
         if (etasks != null) {
-            NestedSequential seq = macroDef.createSequential();
+            NestedSequential seq = funcDef.createSequential();
             for (ETask etask : etasks.getTasks()) {
                 seq.addTask(mapTask(project, context, etask));
             }
         }
-        macroDef.setProject(project);
-        macroDef.execute();
+        funcDef.setProject(project);
+        funcDef.execute();
     }
 
     private Target mapTarget(Project project, AntDslContext context, ETarget eTarget) {
@@ -300,7 +291,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         }
         if (eTask instanceof EInnerElement) {
             EInnerElement eInnerElement = (EInnerElement) eTask;
-            return mapUnknown(project, context, mapInnerElement(eInnerElement), false);
+            return mapUnknown(project, context, mapInnerElement(project, context, eInnerElement), false);
         }
         if (eTask instanceof EBranch) {
             EBranch eBranch = (EBranch) eTask;
@@ -342,7 +333,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         throw new IllegalStateException("Unknown task type " + eTask.getClass().getName());
     }
 
-    private InnerElement mapInnerElement(EInnerElement eInnerElement) {
+    private InnerElement mapInnerElement(Project project, AntDslContext context, EInnerElement eInnerElement) {
         if (eInnerElement == null) {
             return null;
         }
@@ -352,9 +343,9 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
         EArguments arguments = eInnerElement.getArguments();
         if (arguments != null) {
-            innerElement.attributes = new LinkedHashMap<String, String>();
+            innerElement.attributes = new LinkedHashMap<String, AntExpression>();
             for (EArgument argument : arguments.getArguments()) {
-                innerElement.attributes.put(readIdentifier(argument.getName()), readString(argument.getValue()));
+                innerElement.attributes.put(readIdentifier(argument.getName()), mapExpr(project, context, argument.getValue()));
             }
         }
 
@@ -362,7 +353,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         if (inners != null) {
             innerElement.children = new ArrayList<InnerElement>();
             for (EInnerElement inner : inners.getElements()) {
-                innerElement.children.add(mapInnerElement(inner));
+                innerElement.children.add(mapInnerElement(project, context, inner));
             }
         }
 
@@ -596,7 +587,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         }
         if (eexpr instanceof EInnerElement) {
             EInnerElement elemExpr = (EInnerElement) eexpr;
-            return mapCallAntExpression(project, context, mapInnerElement(elemExpr));
+            return mapCallAntExpression(project, context, mapInnerElement(project, context, elemExpr));
         }
         if (eexpr instanceof EHexLiteralExpr) {
             EHexLiteralExpr eint = (EHexLiteralExpr) eexpr;
