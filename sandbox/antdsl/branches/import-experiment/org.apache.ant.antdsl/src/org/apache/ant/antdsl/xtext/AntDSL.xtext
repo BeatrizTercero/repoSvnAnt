@@ -30,7 +30,7 @@ EProject:
     )
     ('namespaces' '{' namespaces+=ENamespace* '}')?
     tasks=ETaskLists?
-    (targets+=ETarget | extensionPoints+=EExtensionPoint | macrodDefs+=EMacrodef)*
+    (targets+=ETarget | extensionPoints+=EExtensionPoint | functionDefs+=EFunctionDef)*
 ;
 
 ENamespace:
@@ -79,7 +79,7 @@ EArguments:
 ;
 
 EArgument:
-    name=Identifier '=' value=StringLiteral
+    name=Identifier '=' value=EExpr
 ;
 
 EInnerElements:
@@ -115,30 +115,26 @@ EConditionedTasks:
 ;
 
 ////////////////
-// Macro
+// Functions
 ////////////////
 
-EMacrodef:
-    description=DOC? 'macrodef' name=Identifier '(' attributes=EAttributes? ')' tasks=ETaskLists
+EFunctionDef:
+    description=DOC? 'function' name=Identifier '(' arguments=EFuncArguments? ')' tasks=ETaskLists
 ;
 
-EAttributes:
-    attributes+=EAttribute (',' attributes+=EAttribute)*
+EFuncArguments:
+    arguments+=EFuncArgument (',' arguments+=EFuncArgument)*
 ;
 
-EAttribute:
-    EArgAttribute | ETextAttribute | EElementAttribute
+EFuncArgument:
+    ELocalPropertyFuncArgument | EElementFuncArgument
 ;
 
-EArgAttribute:
-    'arg' name=Identifier ('=' default=StringLiteral)?
+ELocalPropertyFuncArgument:
+    'local' name=Identifier ('=' default=EExpr)?
 ;
 
-ETextAttribute:
-    (optional ?= 'optional')? (trimmed ?= 'trimmed')? 'text' name=Identifier
-;
-
-EElementAttribute:
+EElementFuncArgument:
     (optional ?= 'optional')? (implicit ?= 'implicit')? 'element' name=Identifier
 ;
 

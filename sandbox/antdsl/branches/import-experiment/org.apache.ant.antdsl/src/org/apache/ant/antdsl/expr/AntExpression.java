@@ -17,9 +17,10 @@
  */
 package org.apache.ant.antdsl.expr;
 
+import org.apache.tools.ant.Evaluable;
 import org.apache.tools.ant.Project;
 
-public abstract class AntExpression {
+public abstract class AntExpression implements Evaluable {
 
     private Project project;
 

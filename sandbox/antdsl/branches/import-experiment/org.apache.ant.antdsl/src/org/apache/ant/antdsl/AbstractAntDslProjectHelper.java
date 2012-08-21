@@ -389,7 +389,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
     }
 
     public UnknownElement mapUnknown(Project project, AntDslContext context, InnerElement innerElement, boolean innerUnknown) {
-        RuntimeConfigurable parentWrapper = context.currentWrapper();
+        RuntimeConfigurable parentWrapper = (RuntimeConfigurable) context.currentWrapper();
         Object parent = null;
 
         if (parentWrapper != null) {
@@ -427,7 +427,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         RuntimeConfigurable wrapper = new RuntimeConfigurable(element, element.getTaskName());
 
         if (innerElement.attributes != null) {
-            for (Entry<String, String> att : innerElement.attributes.entrySet()) {
+            for (Entry<String, AntExpression> att : innerElement.attributes.entrySet()) {
                 wrapper.setAttribute(att.getKey(), att.getValue());
             }
         }
@@ -485,7 +485,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         public String name;
 
-        public LinkedHashMap<String, String> attributes;
+        public LinkedHashMap<String, AntExpression> attributes;
 
         public List<InnerElement> children;
     }
