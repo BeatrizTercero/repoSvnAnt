@@ -34,24 +34,34 @@
         <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/build-deps/ivy-${ivy.version}.jar" />
     </target>
 
-    <target name="update-deps" depends="init" description="Update dependencies" >
+    <target name="ivy:configure" depends="init">
         <ivy:configure file="ivysettings.xml" />
-        <ivy:resolve file="ivy.xml" conf="*" uncompress="true" />
-        <ivy:fixdeps tofile="ivy-fixed.xml" />
     </target>
 
-    <target name="get-deps" depends="init" description="Download dependencies" >
-        <ivy:configure file="ivysettings.xml" />
+    <target name="get-deps" depends="init,ivy:configure" description="Download dependencies" >
         <ivy:resolve file="ivy-fixed.xml" conf="*" uncompress="true" />
         <!--ivy:retrieve conf="*" pattern="${basedir}/lib/[type]s/[artifact]_[revision](.[ext])" sync="true" uncompress="true" /-->
-        <ivy:cachepath pathid="build.classpath.ivy" conf="default" type="jar" uncompress="true" />
+        <ivy:cachepath pathid="antruntime.classpath.ivy" conf="antruntime" type="jar" uncompress="true" osgi="true" />
+        <ivy:cachepath pathid="generate.classpath.ivy" conf="generate" type="jar" uncompress="true" osgi="true" />
         <!-- Now we need to hack since we the ant trunk to build -->
-        <path id="build.classpath">
+        <path id="antruntime.classpath">
             <fileset dir="build-deps/apache-ant-1.9.0alpha/lib" includes="*.jar" />
-            <path refid="build.classpath.ivy" />
+            <path refid="antruntime.classpath.ivy" />
         </path>
-        <echo message="${toString:build.classpath}" file="build.classpath" />        
+        <path id="generate.classpath">
+            <fileset dir="build-deps/apache-ant-1.9.0alpha/lib" includes="*.jar" />
+            <path refid="generate.classpath.ivy" />
+        </path>
+        <echo message="${toString:antruntime.classpath}" file=".antruntime.classpath" />
+        <echo message="${toString:generate.classpath}" file=".generate.classpath" />
     </target>
+
+    <target name="-do-update-deps" depends="init,ivy:configure">
+        <ivy:resolve file="ivy.xml" conf="*" uncompress="true" resolveId="antdsl-update-deps" />
+        <ivy:fixdeps tofile="ivy-fixed.xml" resolveId="antdsl-update-deps" />
+    </target>
+
+    <target name="update-deps" depends="-do-update-deps,get-deps" description="Update dependencies (to be called on ivy.xml chnage)" />
 
     <target name="clean" description="Clean build artifacts">
         <delete dir="${basedir}/build" />
@@ -71,19 +81,20 @@
     </target>
 
     <target name="generate-xtext" description="Generate XText and Ecore files for the full plugin">
+        <loadpath pathid="generate.classpath" file=".generate.classpath" />
         <java classname="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher" dir="${basedir}/org.apache.ant.antdsl" fork="true" failonerror="true">
             <classpath>
                 <pathelement path="${basedir}/org.apache.ant.antdsl/src/" />
-                <fileset dir="${basedir}/lib" includes="*.jar" />
+                <path refid="generate.classpath" />
             </classpath>
             <arg line="src/org/apache/ant/antdsl/xtext/GenerateAntDSL.mwe2" />
         </java>
     </target>
 
     <target name="build" description="Full build of a antdsl jar">
-        <loadpath pathid="build.classpath" file="build.classpath" />
+        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
         <mkdir dir="${basedir}/build/classes" />
-        <javac srcdir="${basedir}/org.apache.ant.antdsl/src/:${basedir}/org.apache.ant.antdsl/src-gen/:${basedir}/org.apache.ant.antdsl/xtend-gen" destdir="${basedir}/build/classes" debug="on" includeantruntime="false" source="1.6" target="1.6" classpathref="build.classpath" />
+        <javac srcdir="${basedir}/org.apache.ant.antdsl/src/:${basedir}/org.apache.ant.antdsl/src-gen/:${basedir}/org.apache.ant.antdsl/xtend-gen" destdir="${basedir}/build/classes" debug="on" includeantruntime="false" source="1.6" target="1.6" classpathref="antruntime.classpath" />
         <copy todir="${basedir}/build/classes">
             <fileset dir="${basedir}/org.apache.ant.antdsl/src">
                 <exclude name="*.java" />
@@ -100,11 +111,11 @@
     </target>
 
     <target name="test-xtext" description="Test the run of an antdsl file with Xtext-generated parser">
-        <loadpath pathid="build.classpath" file="build.classpath" />
+        <loadpath pathid="antruntime.classpath" file="antruntime.classpath" />
         <typedef classname="org.apache.ant.antdsl.xtext.AntDslXTextProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <pathelement path="${basedir}/build/antdsl.jar" />
-                <path refid="build.classpath" />
+                <path refid="antruntime.classpath" />
             </classpath>
         </typedef>
         <projecthelper>
@@ -114,11 +125,11 @@
     </target>
 
     <target name="test-antlr" description="Test the run of an antdsl file with Xtext-generated parser">
-        <loadpath pathid="build.classpath" file="build.classpath" />
+        <loadpath pathid="antruntime.classpath" file="antruntime.classpath" />
         <typedef classname="org.apache.ant.antdsl.antlr.AntDslAntlrProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <pathelement path="${basedir}/build/antdsl.jar" />
-                <path refid="build.classpath" />
+                <path refid="antruntime.classpath" />
             </classpath>
         </typedef>
         <projecthelper>
