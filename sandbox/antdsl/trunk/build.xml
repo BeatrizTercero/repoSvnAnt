@@ -22,6 +22,7 @@
         <unzip src="${basedir}/build-deps/antlr3-task.zip" dest="${basedir}/build-deps/" />
         <get src="https://builds.apache.org/job/Ant_Nightly/lastSuccessfulBuild/artifact/trunk/distribution/binaries/apache-ant-1.9.0alpha-bin.zip" dest="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" usetimestamp="true" />
         <unzip src="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" dest="${basedir}/build-deps/" />
+        <copy file="${basedir}/build-deps/apache-ant-1.9.0alpha/lib/ant.jar" tofile="${basedir}/org.apache.ant.antdsl/ant.jar" />
     </target>
 
     <target name="init" depends="-download-build-deps">
