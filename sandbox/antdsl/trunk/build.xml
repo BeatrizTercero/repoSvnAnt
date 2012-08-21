@@ -111,7 +111,7 @@
     </target>
 
     <target name="test-xtext" description="Test the run of an antdsl file with Xtext-generated parser">
-        <loadpath pathid="antruntime.classpath" file="antruntime.classpath" />
+        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
         <typedef classname="org.apache.ant.antdsl.xtext.AntDslXTextProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <pathelement path="${basedir}/build/antdsl.jar" />
@@ -125,7 +125,7 @@
     </target>
 
     <target name="test-antlr" description="Test the run of an antdsl file with Xtext-generated parser">
-        <loadpath pathid="antruntime.classpath" file="antruntime.classpath" />
+        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
         <typedef classname="org.apache.ant.antdsl.antlr.AntDslAntlrProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <pathelement path="${basedir}/build/antdsl.jar" />
