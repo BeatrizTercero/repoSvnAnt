@@ -427,7 +427,7 @@ dist.dev.dir=${basedir}/build
 dist.release.dir=${basedir}/build
 mirrors.url=
 updatesite.url=http://builds.apache.org/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build
-baseLocation=${basedir}/dependencies/${jenkins.eclipse.name}
+baseLocation=${basedir}/dependencies/${jenkins.download.sdk.name}
 </echo>
         <delete dir="${basedir}/build" />
     </target>
