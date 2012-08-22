@@ -394,6 +394,32 @@ ${ASL2-header}
         ===================================================================================================================    
       -->
 
+    <!-- wrapper of eclipse download urls which have a common pattern -->
+    <macrodef name="check-eclipse-download">
+        <attribute name="property" />
+        <attribute name="name" />
+        <attribute name="md5" />
+        <sequential>
+            <echo file="${basedir}/dependencies/@{name}.zip.md5" message="@{md5}" />
+            <condition property="@{property}">
+                <and>
+                    <available file="${basedir}/dependencies/@{name}.zip" />
+                    <checksum file="${basedir}/dependencies/@{name}.zip" algorithm="MD5" />
+                </and>
+            </condition>
+        </sequential>
+    </macrodef>
+    <macrodef name="eclipse-download">
+        <attribute name="name" />
+        <attribute name="dropdir" />
+        <sequential>
+            <mkdir dir="${basedir}/dependencies" />
+            <delete file="${basedir}/dependencies/@{name}.zip" failonerror="false" />
+            <get src="${jenkins.download.baseurl}?file=/@{dropdir}/@{name}.zip&amp;url=${jenkins.download.mirror.url}/@{dropdir}/@{name}.zip&amp;mirror_id=${jenkins.download.mirror.id}" dest="${basedir}/dependencies/@{name}.zip" verbose="yes" />
+            <checksum file="${basedir}/dependencies/@{name}.zip" algorithm="MD5" />
+        </sequential>
+    </macrodef>
+
     <target name="jenkins-prepare" depends="jenkins-prepare-eclipse">
         <!-- we don't want to modify the checked in updatesite, so we will make it build in another place -->
         <echo file="local.build.properties">
@@ -406,28 +432,27 @@ baseLocation=${basedir}/dependencies/${jenkins.eclipse.name}
         <delete dir="${basedir}/build" />
     </target>
 
-    <target name="jenkins-prepare-eclipse" depends="jenkins-get-eclipse,jenkins-unzip-eclipse" />
+    <target name="jenkins-prepare-eclipse" depends="jenkins-get-sdk,jenkins-unzip-eclipse" />
 
-    <target name="jenkins-check-download-eclipse">
-        <condition property="jenkins.eclipse.downloaded">
-            <available file="${basedir}/dependencies/${jenkins.eclipse.name}.zip" />
-        </condition>
+    <target name="jenkins-check-download-sdk">
+        <check-eclipse-download name="${jenkins.download.sdk.name}" property="jenkins.sdk.downloaded" md5="${jenkins.download.sdk.md5}" />
     </target>
 
-    <target name="jenkins-get-eclipse" depends="jenkins-check-download-eclipse" unless="jenkins.eclipse.downloaded">
-        <mkdir dir="${basedir}/dependencies" />
-        <get src="${jenkins.eclipse.url}" dest="${basedir}/dependencies/${jenkins.eclipse.name}.zip" verbose="yes" />
+    <target name="jenkins-get-sdk" depends="jenkins-check-download-sdk" unless="jenkins.sdk.downloaded">
+        <eclipse-download name="${jenkins.download.sdk.name}" dropdir="${jenkins.download.sdk.dropdir}" />
     </target>
 
     <target name="jenkins-check-unzip-eclipse">
         <condition property="jenkins.eclipse.unzipped">
-            <available file="${basedir}/dependencies/${jenkins.eclipse.name}" />
+            <available file="${basedir}/dependencies/${jenkins.download.sdk.name}" />
         </condition>
     </target>
 
     <target name="jenkins-unzip-eclipse" depends="jenkins-check-unzip-eclipse" unless="jenkins.eclipse.unzipped">
-        <unzip src="${basedir}/dependencies/${jenkins.eclipse.name}.zip" dest="${basedir}/dependencies" />
-        <move file="${basedir}/dependencies/eclipse" tofile="${basedir}/dependencies/${jenkins.eclipse.name}" />
+        <delete dir="${basedir}/dependencies/eclipse" failonerror="false" />
+        <delete dir="${basedir}/dependencies/${jenkins.download.sdk.name}" failonerror="false" />
+        <unzip src="${basedir}/dependencies/${jenkins.download.sdk.name}.zip" dest="${basedir}/dependencies" />
+        <move file="${basedir}/dependencies/eclipse" tofile="${basedir}/dependencies/${jenkins.download.sdk.name}" />
     </target>
 
     <target name="jenkins-find-ivy-jar">
