@@ -57,6 +57,7 @@
         </path>
         <echo message="${toString:antruntime.classpath}" file=".antruntime.classpath" />
         <echo message="${toString:generate.classpath}" file=".generate.classpath" />
+        <ivy:retrieve conf="osgi" pattern="${basedir}/org.apache.ant.antdsl/lib/[type]s/[artifact]-[revision](.[ext])" sync="true" />
         <copy file="${basedir}/build-deps/apache-ant-1.9.0alpha/lib/ant.jar" tofile="${basedir}/org.apache.ant.antdsl/lib/jars/ant-1.9.0alpha.jar" />
         <jar destfile="${basedir}/org.apache.ant.antdsl/lib/sources/ant-1.9.0alpha.jar" basedir="${basedir}/build-deps/apache-ant-1.9.0alpha/src/main" />
     </target>

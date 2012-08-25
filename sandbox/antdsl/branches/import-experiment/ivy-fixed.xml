@@ -4,7 +4,7 @@
 		module="ant-dsl"
 		revision="1.0.0"
 		status="integration"
-		publication="20120825184447"
+		publication="20120822212844"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>
@@ -28,6 +28,7 @@
 		<conf name="use_org.eclipse.xtend2.lib" visibility="public" description="Exported package org.eclipse.xtend2.lib" extends="default"/>
 		<conf name="antruntime" visibility="public" extends="default"/>
 		<conf name="generate" visibility="public" extends="optional"/>
+		<conf name="osgi" visibility="public"/>
 	</configurations>
 	<publications>
 	</publications>
@@ -157,5 +158,6 @@
 		<dependency org="bundle" name="org.eclipse.ui.navigator.resources" rev="3.4.400.v20120523-1955" force="true" transitive="false" conf="transitive-optional->default"/>
 		<dependency org="bundle" name="org.eclipse.ui.views.properties.tabbed" rev="3.5.300.v20120523-1955" force="true" transitive="false" conf="transitive-optional->default"/>
 		<dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0.v201112070431" force="true" transitive="false" conf="generate->default"/>
+		<dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" force="true" transitive="false" conf="osgi->default,compile,runtime,master,sources"/>
 	</dependencies>
 </ivy-module>

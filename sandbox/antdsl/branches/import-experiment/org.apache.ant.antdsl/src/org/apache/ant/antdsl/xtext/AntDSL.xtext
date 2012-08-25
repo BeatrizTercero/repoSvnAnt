@@ -28,13 +28,22 @@ EProject:
       & ('default' ':' default=Identifier)?
       & ('basedir' ':' basedir=StringLiteral)?
     )
-    ('namespaces' '{' namespaces+=ENamespace* '}')?
+    ('antpath' '{' antpath+=EInnerElement* '}')?
+    ('import' imports+=EImport)*
     tasks=ETaskLists?
     (targets+=ETarget | extensionPoints+=EExtensionPoint | functionDefs+=EFunctionDef)*
 ;
 
-ENamespace:
-    name=Identifier ':' uri=StringLiteral
+EImport:
+    EAntlibImport | EBuildImport
+;
+
+EAntlibImport:
+    'antlib' resource=StringLiteral 'as' name=Identifier
+;
+
+EBuildImport:
+    'module' name=QualifiedName
 ;
 
 EExtensionPoint:
@@ -351,6 +360,11 @@ terminal fragment UnicodeEscape:
 terminal Identifier:
       Letter (Letter|JavaIDDigit)*
     | '`' !('`')+ '`'
+;
+
+terminal QualifiedName:
+      Identifier*
+      ('.' Identifier)*
 ;
 
 terminal fragment Letter:

@@ -68,6 +68,10 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     public static final String REFID_FUNCTION_REGISTRY = "antdsl.function.registry";
 
+    public static final String REFID_OSGI_FRAMEWORK_MANAGER = "antdsl.osgi.framework.manager";
+
+    public static final String REFID_CLASSLOADER_STACK = "antdsl.classloader.stack";
+
     public String getDefaultBuildFile() {
         return "build.ant";
     }
@@ -93,6 +97,22 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             project.addReference(REFID_FUNCTION_REGISTRY, functionRegistry);
         }
 
+        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
+        if (osgiFrameworkManager == null) {
+            try {
+                osgiFrameworkManager = new OSGiFrameworkManager();
+            } catch (BundleException e) {
+                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
+            }
+            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
+        }
+
+        Stack<ClassLoader> classloaderStack = project.getReference(REFID_CLASSLOADER_STACK);
+        if (classloaderStack == null) {
+            classloaderStack = new Stack<ClassLoader>();
+            project.addReference(REFID_CLASSLOADER_STACK, classloaderStack);
+        }
+
         if (getImportStack().size() > 1) {
             context.setIgnoreProjectTag(true);
             Target currentTarget = context.getCurrentTarget();
@@ -114,6 +134,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             }
         } else {
             // top level file
+            classloaderStack.push(getOSGiFrameworkManager(project).getGodClassLoader());
+
             context.setCurrentTargets(new HashMap<String, Target>());
             parse(project, source, context);
 
@@ -143,6 +165,14 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 }
             }
         }
+    }
+
+    private OSGiFrameworkManager getOSGiFrameworkManager(Project p) {
+        return p.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
+    }
+
+    private Stack<ClassLoader> getClassloaderStack(Project p) {
+        return p.getReference(REFID_CLASSLOADER_STACK);
     }
 
     private void parse(Project project, Object source, AntDslContext context) {
@@ -304,6 +334,96 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
 
         return projectName;
+    }
+
+    protected void setupAntpath(Project project, AntDslContext context, List<InnerElement> antpathElements) {
+        UnknownElement element = new UnknownElement("path");
+        element.setProject(project);
+        RuntimeConfigurable wrapper = new RuntimeConfigurable(element, element.getTaskName());
+        context.pushWrapper(wrapper);
+        for (InnerElement antpathElement : antpathElements) {
+            UnknownElement child = mapUnknown(project, context, antpathElement, false);
+            element.addChild(child);
+        }
+        context.popWrapper();
+
+        Path path = new Path(project);
+        element.configure(path);
+
+        OSGiFrameworkManager osgiFrameworkManager = getOSGiFrameworkManager(project);
+        Iterator<Resource> itResources = path.iterator();
+        while (itResources.hasNext()) {
+            Resource resource = itResources.next();
+            String url;
+            if (resource instanceof URLProvider) {
+                url = ((URLProvider) resource).getURL().toExternalForm();
+            } else if (resource instanceof FileProvider) {
+                try {
+                    url = ((FileProvider) resource).getFile().toURI().toURL().toExternalForm();
+                } catch (MalformedURLException e) {
+                    throw new BuildException("Unable to get url of " + resource, e);
+                }
+            } else {
+                // very speculative, but let's try
+                url = resource.getName();
+            }
+            try {
+                osgiFrameworkManager.install(url);
+            } catch (BundleException e) {
+                throw new BuildException("Unable to install the bundle " + resource.getName() + " (" + e.getMessage() + ")", e);
+            }
+        }
+    }
+
+    protected void importAntlib(Project project, AntDslContext context, String name, String resource) {
+        // FIXME seems ugly
+        String uri = UUID.randomUUID().toString();
+
+        ClassLoader cl = getClassloaderStack(project).peek();
+
+        Taskdef taskdef = new Taskdef();
+        taskdef.setProject(project);
+        taskdef.setResource(resource);
+        taskdef.setURI(uri);
+        taskdef.setAntlibClassLoader(cl);
+        taskdef.execute();
+        context.addNamespace(name, uri);
+    }
+
+    protected void importBuildModule(Project project, AntDslContext context, String buildModule) {
+        ClassLoader cl = getClassloaderStack(project).peek();
+
+        URL buildUrl = cl.getResource(buildModule);
+        if (buildUrl == null) {
+            throw new BuildException("Unable to find the build module " + buildModule);
+        }
+        URLResource urlResource = new URLResource(buildUrl);
+
+        Vector<Object> importStack = getImportStack();
+
+        if (importStack.contains(urlResource)) {
+            project.log("Skipped already imported file:\n" + urlResource + "\n", Project.MSG_VERBOSE);
+            return;
+        }
+
+        ProjectHelper subHelper = ProjectHelperRepository.getInstance().getProjectHelperForBuildFile(urlResource);
+
+        // TODO
+        // add to the classloader stack the classloader of the imported build
+        
+        // push current stacks into the sub helper
+        subHelper.getImportStack().addAll(this.getImportStack());
+        subHelper.getExtensionStack().addAll(this.getExtensionStack());
+        project.addReference(ProjectHelper.PROJECTHELPER_REFERENCE, subHelper);
+
+        subHelper.parse(project, urlResource);
+
+        // push back the stack from the sub helper to the main one
+        project.addReference(ProjectHelper.PROJECTHELPER_REFERENCE, this);
+        getImportStack().clear();
+        getImportStack().addAll(subHelper.getImportStack());
+        getExtensionStack().clear();
+        getExtensionStack().addAll(subHelper.getExtensionStack());
     }
 
     public void mapCommonTarget(

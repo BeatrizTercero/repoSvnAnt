@@ -1,0 +1,4 @@
+version=1.2
+
+Bundle-Version: ${version}
+Bundle-SymbolicName: org.apache.ant.antunit

@@ -64,10 +64,12 @@ import org.apache.ant.antdsl.expr.TernaryAntExpression;
 import org.apache.ant.antdsl.expr.VariableAntExpression;
 import org.apache.ant.antdsl.xtext.antdsl.EAdditiveExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EAndExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EAntlibImport;
 import org.apache.ant.antdsl.xtext.antdsl.EArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EBooleanLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EBranch;
+import org.apache.ant.antdsl.xtext.antdsl.EBuildImport;
 import org.apache.ant.antdsl.xtext.antdsl.ECharacterLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionedTasks;
 import org.apache.ant.antdsl.xtext.antdsl.EConditionnalAndExpr;
@@ -85,6 +87,7 @@ import org.apache.ant.antdsl.xtext.antdsl.EFuncArguments;
 import org.apache.ant.antdsl.xtext.antdsl.EFuncExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EFunctionDef;
 import org.apache.ant.antdsl.xtext.antdsl.EHexLiteralExpr;
+import org.apache.ant.antdsl.xtext.antdsl.EImport;
 import org.apache.ant.antdsl.xtext.antdsl.EInclusiveOrExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElement;
 import org.apache.ant.antdsl.xtext.antdsl.EInnerElements;
@@ -92,7 +95,6 @@ import org.apache.ant.antdsl.xtext.antdsl.EInstanceOfExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalPropertyFuncArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EMultiplicativeExpr;
-import org.apache.ant.antdsl.xtext.antdsl.ENamespace;
 import org.apache.ant.antdsl.xtext.antdsl.ENullExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EOctalLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
@@ -162,10 +164,27 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
         setupProject(project, context, name, basedir, def);
 
-        EList<ENamespace> namespaces = eProject.getNamespaces();
-        if (namespaces != null) {
-            for (ENamespace namespace : namespaces) {
-                context.addNamespace(readIdentifier(namespace.getName()), readString(namespace.getUri()));
+        EList<EInnerElement> eAntpathElements = eProject.getAntpath();
+        if (eAntpathElements != null) {
+            List<InnerElement> antpathElements = new ArrayList<InnerElement>();
+            for (EInnerElement eAntpathElement : eAntpathElements) {
+                antpathElements.add(mapInnerElement(project, context, eAntpathElement));
+            }
+            setupAntpath(project, context, antpathElements);
+        }
+
+        EList<EImport> eImports = eProject.getImports();
+        if (eImports != null) {
+            for (EImport eImport : eImports) {
+                if (eImport instanceof EAntlibImport) {
+                    EAntlibImport eAntlibImport = (EAntlibImport) eImport;
+                    importAntlib(project, context, readIdentifier(eAntlibImport.getName()), readString(eAntlibImport.getResource()));
+                } else if (eImport instanceof EBuildImport) {
+                    EBuildImport eBuildImport = (EBuildImport) eImport;
+                    // TODO
+                } else {
+                    throw new IllegalArgumentException("Unsupported import " + eImport.getClass().getName());
+                }
             }
         }
 
