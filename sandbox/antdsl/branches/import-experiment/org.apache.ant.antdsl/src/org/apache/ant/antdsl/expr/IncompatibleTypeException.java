@@ -21,6 +21,8 @@ import org.apache.tools.ant.BuildException;
 
 public class IncompatibleTypeException extends BuildException {
 
+    private static final long serialVersionUID = 1L;
+
     private final String name;
 
     private final String t1;

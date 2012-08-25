@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Stack;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.apache.ant.antdsl.expr.AntExpression;
@@ -42,17 +45,22 @@ import org.apache.tools.ant.MagicNames;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.ProjectHelperRepository;
 import org.apache.tools.ant.RuntimeConfigurable;
 import org.apache.tools.ant.Target;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.UnknownElement;
 import org.apache.tools.ant.helper.AntXMLContext;
+import org.apache.tools.ant.taskdefs.Taskdef;
 import org.apache.tools.ant.taskdefs.condition.Condition;
+import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.types.resources.FileProvider;
 import org.apache.tools.ant.types.resources.URLProvider;
+import org.apache.tools.ant.types.resources.URLResource;
 import org.apache.tools.ant.util.FileUtils;
 import org.apache.tools.zip.ZipFile;
+import org.osgi.framework.BundleException;
 
 public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
@@ -69,18 +77,17 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
     }
 
     public void parse(Project project, Object source) throws BuildException {
-        @SuppressWarnings("unchecked")
         Vector<Object> stack = getImportStack();
         stack.addElement(source);
 
         AntDslContext context = null;
-        context = (AntDslContext) project.getReference(REFID_CONTEXT);
+        context = project.getReference(REFID_CONTEXT);
         if (context == null) {
             context = new AntDslContext(project);
             project.addReference(REFID_CONTEXT, context);
         }
 
-        FunctionRegistry functionRegistry = (FunctionRegistry) project.getReference(REFID_FUNCTION_REGISTRY);
+        FunctionRegistry functionRegistry = project.getReference(REFID_FUNCTION_REGISTRY);
         if (functionRegistry == null) {
             functionRegistry = new FunctionRegistry();
             project.addReference(REFID_FUNCTION_REGISTRY, functionRegistry);
@@ -114,12 +121,11 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             context.getImplicitTarget().execute();
 
             // resolve extensionOf attributes
-            for (Iterator i = getExtensionStack().iterator(); i.hasNext();) {
-                String[] extensionInfo = (String[]) i.next();
+            for (String[] extensionInfo : getExtensionStack()) {
                 String tgName = extensionInfo[0];
                 String name = extensionInfo[1];
                 OnMissingExtensionPoint missingBehaviour = OnMissingExtensionPoint.valueOf(extensionInfo[2]);
-                Hashtable projectTargets = project.getTargets();
+                Hashtable<String, Target> projectTargets = project.getTargets();
                 if (!projectTargets.containsKey(tgName)) {
                     String message = "can't add target " + name + " to extension-point " + tgName + " because the extension-point is unknown.";
                     if (missingBehaviour == OnMissingExtensionPoint.FAIL) {
@@ -333,7 +339,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         if (context.getCurrentTargets().get(name) != null) {
             throw new BuildException("Duplicate target '" + name + "'", target.getLocation());
         }
-        Hashtable projectTargets = project.getTargets();
+        Hashtable<String, Target> projectTargets = project.getTargets();
         boolean usedTarget = false;
         // If the name has not already been defined define it
         if (projectTargets.containsKey(name)) {
@@ -368,7 +374,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             throw new BuildException("onMissingExtensionPoint attribute cannot be specified unless extensionOf is specified", target.getLocation());
         }
         if (extensionsOf != null) {
-            ProjectHelper helper = (ProjectHelper) context.getProject().getReference(ProjectHelper.PROJECTHELPER_REFERENCE);
+            ProjectHelper helper = context.getProject().getReference(ProjectHelper.PROJECTHELPER_REFERENCE);
             for (String extensionOf : extensionsOf) {
                 if (isInIncludeMode()) {
                     extensionOf = prefix + sep + extensionOf;
@@ -448,6 +454,17 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
     }
 
     public AntExpression mapCallAntExpression(Project project, AntDslContext context, InnerElement eInnerElement) {
+        ProjectComponent component = configureInnerElement(project, context, eInnerElement);
+        if (component == null) {
+            return null;
+        }
+        if (component instanceof Condition) {
+            return condition2Expression((Condition) component);
+        }
+        throw new BuildException("Unsupported type of ant expression call " + component.getClass().getName());
+    }
+
+    private ProjectComponent configureInnerElement(Project project, AntDslContext context, InnerElement eInnerElement) {
         if (eInnerElement == null) {
             return null;
         }
@@ -462,10 +479,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         ProjectComponentContainer container = new ProjectComponentContainer();
         element.configure(container);
-        if (container.component instanceof Condition) {
-            return condition2Expression((Condition) container.component);
-        }
-        throw new BuildException("Unsupported type of ant expression call " + container.component.getClass().getName());
+        return container.component;
     }
 
     public static class ProjectComponentContainer {
@@ -507,7 +521,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         if (s == null) {
             return null;
         }
-        if (s.charAt(1) == '{' || s.charAt(1) == '`' ) {
+        if (s.charAt(1) == '{' || s.charAt(1) == '`') {
             // remove the lead $ and the enclosing characters
             s = s.substring(2, s.length() - 1);
         } else {
