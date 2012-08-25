@@ -163,7 +163,6 @@ public class FunctionCall extends Task implements DynamicObjectAttribute, TaskCo
             rc.setAttribute(entry.getKey(), entry.getValue());
         }
 
-        @SuppressWarnings("unchecked")
         Enumeration<RuntimeConfigurable> e = ue.getWrapper().getChildren();
         while (e.hasMoreElements()) {
             RuntimeConfigurable r = e.nextElement();
@@ -194,7 +193,6 @@ public class FunctionCall extends Task implements DynamicObjectAttribute, TaskCo
                     }
                     continue;
                 }
-                @SuppressWarnings("unchecked")
                 List<UnknownElement> list = presentElement.getChildren();
                 if (list != null) {
                     for (UnknownElement elem : list) {

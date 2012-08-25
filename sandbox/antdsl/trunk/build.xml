@@ -9,6 +9,7 @@
                 <available file="${basedir}/build-deps/antlr3-task/ant-antlr3.jar" />
                 <available file="${basedir}/build-deps/ivy-${ivy.version}.jar" />
                 <available file="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" />
+                <available file="${basedir}/build-deps/apache-ant-1.9.0alpha-src.zip" />
             </and>
         </condition>
         <mkdir dir="${user.home}/.ivy2/lib/" />
@@ -21,8 +22,9 @@
         <get src="http://www.antlr.org/share/1169924912745/antlr3-task.zip" dest="${basedir}/build-deps/antlr3-task.zip" usetimestamp="true" />
         <unzip src="${basedir}/build-deps/antlr3-task.zip" dest="${basedir}/build-deps/" />
         <get src="https://builds.apache.org/job/Ant_Nightly/lastSuccessfulBuild/artifact/trunk/distribution/binaries/apache-ant-1.9.0alpha-bin.zip" dest="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" usetimestamp="true" />
+        <get src="https://builds.apache.org/job/Ant_Nightly/lastSuccessfulBuild/artifact/trunk/distribution/source/apache-ant-1.9.0alpha-src.zip" dest="${basedir}/build-deps/apache-ant-1.9.0alpha-src.zip" usetimestamp="true" />
         <unzip src="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" dest="${basedir}/build-deps/" />
-        <copy file="${basedir}/build-deps/apache-ant-1.9.0alpha/lib/ant.jar" tofile="${basedir}/org.apache.ant.antdsl/ant.jar" />
+        <unzip src="${basedir}/build-deps/apache-ant-1.9.0alpha-src.zip" dest="${basedir}/build-deps/" />
     </target>
 
     <target name="init" depends="-download-build-deps">
@@ -55,6 +57,8 @@
         </path>
         <echo message="${toString:antruntime.classpath}" file=".antruntime.classpath" />
         <echo message="${toString:generate.classpath}" file=".generate.classpath" />
+        <copy file="${basedir}/build-deps/apache-ant-1.9.0alpha/lib/ant.jar" tofile="${basedir}/org.apache.ant.antdsl/lib/jars/ant-1.9.0alpha.jar" />
+        <jar destfile="${basedir}/org.apache.ant.antdsl/lib/sources/ant-1.9.0alpha.jar" basedir="${basedir}/build-deps/apache-ant-1.9.0alpha/src/main" />
     </target>
 
     <target name="-do-update-deps" depends="init,ivy:configure">
@@ -69,11 +73,12 @@
     </target>
 
     <target name="clean-gen" description="Clean generate files">
-        <delete>
-            <fileset dir="${basedir}/org.apache.ant.antdsl/src-gen" includes="*"/>
-            <fileset dir="${basedir}/org.apache.ant.antdsl.ui/src-gen" includes="*"/>
-            <fileset dir="${basedir}/org.apache.ant.antdsl.tests/src-gen" includes="*"/>
-        </delete>
+        <delete dir="${basedir}/org.apache.ant.antdsl/src-gen" />
+        <delete dir="${basedir}/org.apache.ant.antdsl.ui/src-gen" />
+        <delete dir="${basedir}/org.apache.ant.antdsl.tests/src-gen" />
+        <mkdir dir="${basedir}/org.apache.ant.antdsl/src-gen" />
+        <mkdir dir="${basedir}/org.apache.ant.antdsl.ui/src-gen" />
+        <mkdir dir="${basedir}/org.apache.ant.antdsl.tests/src-gen" />
     </target>
 
     <target name="generate-antlr" depends="init" description="Generate the simple ANTLR parser">

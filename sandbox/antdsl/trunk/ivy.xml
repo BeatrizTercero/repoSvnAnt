@@ -8,10 +8,10 @@
     </configurations>
     <dependencies>
         <!-- ambiguity fix -->
-        <dependency org="bundle" name="org.apache.log4j" rev="1.2.15.v201012070815" conf="*->default" />
-        <dependency org="bundle" name="org.apache.commons.logging" rev="1.1.1.v201101211721" conf="*->default" />
-        <dependency org="bundle" name="com.ibm.icu" rev="4.4.2.v20110823" conf="*->default" />
-        <dependency org="bundle" name="org.eclipse.ui.forms" rev="3.5.200.v20120521-2329" conf="*->default" />
+        <dependency org="bundle" name="org.apache.log4j" rev="1.2.15.v201012070815" conf="default->default" />
+        <dependency org="bundle" name="org.apache.commons.logging" rev="1.1.1.v201101211721" conf="default->default" />
+        <dependency org="bundle" name="com.ibm.icu" rev="4.4.2.v20110823" conf="default->default" />
+        <dependency org="bundle" name="org.eclipse.ui.forms" rev="3.5.200.v20120521-2329" conf="default->default" />
 
         <!-- some optional dependency we do need -->
         <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0+" conf="generate->default" />
