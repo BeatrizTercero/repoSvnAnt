@@ -1,6 +1,7 @@
 package org.apache.ant.antdsl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -36,9 +37,11 @@ public class OSGiFrameworkManager {
 
     private GodClassLoader godClassLoader = new GodClassLoader();
 
-    public OSGiFrameworkManager() throws BundleException {
+    public OSGiFrameworkManager(File basedir) throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
+        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, ".ant/.felix-cache").getAbsolutePath());
+        configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
         framework = getFrameworkFactory().newFramework(configMap);
         framework.init();
     }
@@ -128,18 +131,36 @@ public class OSGiFrameworkManager {
     /**
      * Find which classloader is responsible for resolving holding url
      * 
-     * @param url
      * @return
      */
     public ClassLoader getClassLoader(String resource, URL url) {
         for (Bundle bundle : bundles) {
             BundleWiring wiring = bundle.adapt(BundleWiring.class);
-            List<URL> entries = wiring.findEntries(resource, null, 0);
-            if (!entries.isEmpty()) {
+            int i = resource.lastIndexOf('/');
+            String path = resource.substring(0, i);
+            String name = resource.substring(i + 1);
+            List<URL> entries = wiring.findEntries(path, name, 0);
+            if (!entries.isEmpty() && containsUrls(entries, url)) {
                 return wiring.getClassLoader();
             }
         }
         return null;
+    }
+
+    private boolean containsUrls(List<URL> urls, URL url) {
+        for (URL u : urls) {
+            if (urlEquals(u, url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean urlEquals(URL url1, URL url2) {
+        if (!url1.getProtocol().equals("bundle") || !url2.getProtocol().equals("bundle")) {
+            return url1.equals(url2);
+        }
+        return url1.getHost().equals(url2.getHost()) && url1.getPath().equals(url2.getPath());
     }
 
     private class GodClassLoader extends ClassLoader {

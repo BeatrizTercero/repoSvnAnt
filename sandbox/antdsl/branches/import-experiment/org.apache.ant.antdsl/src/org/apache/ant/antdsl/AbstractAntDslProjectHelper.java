@@ -97,16 +97,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             project.addReference(REFID_FUNCTION_REGISTRY, functionRegistry);
         }
 
-        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
-        if (osgiFrameworkManager == null) {
-            try {
-                osgiFrameworkManager = new OSGiFrameworkManager();
-            } catch (BundleException e) {
-                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
-            }
-            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
-        }
-
         Stack<ClassLoader> classloaderStack = project.getReference(REFID_CLASSLOADER_STACK);
         if (classloaderStack == null) {
             classloaderStack = new Stack<ClassLoader>();
@@ -134,8 +124,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             }
         } else {
             // top level file
-            classloaderStack.push(getOSGiFrameworkManager(project).getGodClassLoader());
-
             context.setCurrentTargets(new HashMap<String, Target>());
             parse(project, source, context);
 
@@ -261,6 +249,17 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 setCurrentTargetPrefix(name);
             }
         }
+
+        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
+        if (osgiFrameworkManager == null) {
+            try {
+                osgiFrameworkManager = new OSGiFrameworkManager(project.getBaseDir());
+            } catch (BundleException e) {
+                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
+            }
+            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
+        }
+        getClassloaderStack(project).push(osgiFrameworkManager.getGodClassLoader());
 
         String antFileProp = MagicNames.ANT_FILE + "." + context.getCurrentProjectName();
         String dup = project.getProperty(antFileProp);
@@ -415,6 +414,9 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         ProjectHelper subHelper = ProjectHelperRepository.getInstance().getProjectHelperForBuildFile(urlResource);
 
         ClassLoader childCl = getOSGiFrameworkManager(project).getClassLoader(buildModule, buildUrl);
+        if (childCl == null) {
+            throw new RuntimeException("Unable to find the classloader of the resource " + buildUrl);
+        }
         getClassloaderStack(project).push(childCl);
 
         // push current stacks into the sub helper
