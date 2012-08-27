@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,32 +17,51 @@ import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
+import org.osgi.framework.wiring.BundleWiring;
 
 public class OSGiFrameworkManager {
 
-    private static final String ANT_PACKAGES = "org.apache.tools.ant," + "org.apache.tools.ant.types," + "org.apache.tools.ant.taskdefs.condition,"
-            + "org.apache.tools.ant.taskdefs," + "org.apache.tools.ant.util";
+    //@formatter:off
+    private static final String ANT_PACKAGES =
+            "org.apache.tools.ant,"
+          + "org.apache.tools.ant.types,"
+          + "org.apache.tools.ant.taskdefs.condition,"
+          + "org.apache.tools.ant.taskdefs,"
+          + "org.apache.tools.ant.util";
+    //@formatter:on
 
     private Framework framework;
 
-    private List<Bundle> bundleToStart = new ArrayList<Bundle>();
+    private List<Bundle> bundles = new ArrayList<Bundle>();
 
-    private Map<String, ClassLoader> classloaders = new LinkedHashMap<String, ClassLoader>();
-
-    private GodClassLoader godClassLoader;
+    private GodClassLoader godClassLoader = new GodClassLoader();
 
     public OSGiFrameworkManager() throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
         framework = getFrameworkFactory().newFramework(configMap);
         framework.init();
-        godClassLoader = new GodClassLoader();
     }
 
     private FrameworkFactory getFrameworkFactory() {
-        URL url = OSGiFrameworkManager.class.getClassLoader().getResource("META-INF/services/org.osgi.framework.launch.FrameworkFactory");
-        if (url == null) {
+        Enumeration<URL> urls;
+        try {
+            urls = OSGiFrameworkManager.class.getClassLoader().getResources("META-INF/services/org.osgi.framework.launch.FrameworkFactory");
+        } catch (IOException e) {
+            throw new BuildException(e);
+        }
+        if (urls == null || !urls.hasMoreElements()) {
             throw new BuildException("No OSGi framework could be found in Ant's classpath");
+        }
+        URL url = null;
+        ArrayList<URL> urlList = Collections.list(urls);
+        for (URL candidate : urlList) {
+            if (candidate.toExternalForm().contains("felix")) {
+                url = candidate;
+            }
+        }
+        if (url == null) {
+            url = urlList.iterator().next();
         }
         BufferedReader br = null;
         try {
@@ -71,9 +89,8 @@ public class OSGiFrameworkManager {
 
     public void install(String bundleURI) throws BundleException {
         Bundle bundle = framework.getBundleContext().installBundle(bundleURI);
-        classloaders.put(bundleURI, new BundleClassLoader(bundle));
         if (!isFragment(bundle)) {
-            bundleToStart.add(bundle);
+            bundles.add(bundle);
         }
     }
 
@@ -95,42 +112,34 @@ public class OSGiFrameworkManager {
                 }
             }
         });
-        for (Bundle bundle : bundleToStart) {
+        for (Bundle bundle : bundles) {
             bundle.start();
         }
-    }
-
-    public ClassLoader getClassloader(String bundleURI) {
-        return classloaders.get(bundleURI);
     }
 
     public GodClassLoader getGodClassLoader() {
         return godClassLoader;
     }
 
-    private static class BundleClassLoader extends ClassLoader {
+    public List<Bundle> getBundles() {
+        return bundles;
+    }
 
-        private Bundle bundle;
-
-        private BundleClassLoader(Bundle bundle) {
-            super(null);
-            this.bundle = bundle;
+    /**
+     * Find which classloader is responsible for resolving holding url
+     * 
+     * @param url
+     * @return
+     */
+    public ClassLoader getClassLoader(String resource, URL url) {
+        for (Bundle bundle : bundles) {
+            BundleWiring wiring = bundle.adapt(BundleWiring.class);
+            List<URL> entries = wiring.findEntries(resource, null, 0);
+            if (!entries.isEmpty()) {
+                return wiring.getClassLoader();
+            }
         }
-
-        @Override
-        public URL getResource(String name) {
-            return bundle.getResource(name);
-        }
-
-        @Override
-        public Enumeration<URL> getResources(String name) throws IOException {
-            return bundle.getResources(name);
-        }
-
-        @Override
-        public Class< ? > loadClass(String name) throws ClassNotFoundException {
-            return bundle.loadClass(name);
-        }
+        return null;
     }
 
     private class GodClassLoader extends ClassLoader {
@@ -141,7 +150,9 @@ public class OSGiFrameworkManager {
 
         @Override
         public URL getResource(String name) {
-            for (ClassLoader cl : classloaders.values()) {
+            for (Bundle bundle : bundles) {
+                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                ClassLoader cl = wiring.getClassLoader();
                 URL url = cl.getResource(name);
                 if (url != null) {
                     return url;
@@ -153,7 +164,9 @@ public class OSGiFrameworkManager {
         @Override
         public Enumeration<URL> getResources(String name) throws IOException {
             List<URL> urls = new ArrayList<URL>();
-            for (ClassLoader cl : classloaders.values()) {
+            for (Bundle bundle : bundles) {
+                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                ClassLoader cl = wiring.getClassLoader();
                 Enumeration<URL> resources = cl.getResources(name);
                 if (resources != null) {
                     urls.addAll(Collections.list(resources));
@@ -164,7 +177,9 @@ public class OSGiFrameworkManager {
 
         @Override
         public Class< ? > loadClass(String name) throws ClassNotFoundException {
-            for (ClassLoader cl : classloaders.values()) {
+            for (Bundle bundle : bundles) {
+                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                ClassLoader cl = wiring.getClassLoader();
                 try {
                     return cl.loadClass(name);
                 } catch (ClassNotFoundException e) {

@@ -181,7 +181,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                     importAntlib(project, context, readIdentifier(eAntlibImport.getName()), readString(eAntlibImport.getResource()));
                 } else if (eImport instanceof EBuildImport) {
                     EBuildImport eBuildImport = (EBuildImport) eImport;
-                    // TODO
+                    importBuildModule(project, context, readString(eBuildImport.getFile()));
                 } else {
                     throw new IllegalArgumentException("Unsupported import " + eImport.getClass().getName());
                 }

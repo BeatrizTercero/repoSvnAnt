@@ -43,7 +43,7 @@ EAntlibImport:
 ;
 
 EBuildImport:
-    'module' name=QualifiedName
+    'module' file=StringLiteral
 ;
 
 EExtensionPoint:

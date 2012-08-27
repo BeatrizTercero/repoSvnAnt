@@ -44,8 +44,8 @@
     <target name="get-deps" depends="init,ivy:configure" description="Download dependencies" >
         <ivy:resolve file="ivy-fixed.xml" conf="*" uncompress="true" />
         <!--ivy:retrieve conf="*" pattern="${basedir}/lib/[type]s/[artifact]_[revision](.[ext])" sync="true" uncompress="true" /-->
-        <ivy:cachepath pathid="antruntime.classpath.ivy" conf="antruntime" type="jar" uncompress="true" osgi="true" />
-        <ivy:cachepath pathid="generate.classpath.ivy" conf="generate" type="jar" uncompress="true" osgi="true" />
+        <ivy:cachepath pathid="antruntime.classpath.ivy" conf="antruntime" type="jar,bundle" uncompress="true" osgi="true" />
+        <ivy:cachepath pathid="generate.classpath.ivy" conf="generate" type="jar,bundle" uncompress="true" osgi="true" />
         <!-- Now we need to hack since we the ant trunk to build -->
         <path id="antruntime.classpath">
             <fileset dir="build-deps/apache-ant-1.9.0alpha/lib" includes="*.jar" />

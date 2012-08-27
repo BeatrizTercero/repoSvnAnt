@@ -1,0 +1,18 @@
+<project>
+
+    <target name="get-bnd">
+        <get src="http://dl.dropbox.com/u/2590603/bnd/biz.aQute.bnd.jar" dest="biz.aQute.bnd-1.50.0.jar" />
+    </target>
+
+    <target name="build-antunit">
+        <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="biz.aQute.bnd-1.50.0.jar" /> 
+        <get src="http://repo1.maven.org/maven2/org/apache/ant/ant-antunit/1.2/ant-antunit-1.2.jar" dest="ant-antunit-1.2.jar" />
+        <bndwrap jars="ant-antunit-1.2.jar" output="org.apache.ant.antunit-1.2.jar" />
+    </target>
+
+    <target name="build-module">
+        <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="biz.aQute.bnd-1.50.0.jar" />
+        <bnd files="test-module.bnd" output="org.apache.ant.antdsl.test-1.0.jar" />
+    </target>
+
+</project>

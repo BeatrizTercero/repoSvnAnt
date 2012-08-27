@@ -4,7 +4,7 @@
 		module="ant-dsl"
 		revision="1.0.0"
 		status="integration"
-		publication="20120822212844"
+		publication="20120826210539"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>
@@ -157,7 +157,7 @@
 		<dependency org="bundle" name="org.eclipse.ui.navigator" rev="3.5.200.v20120523-1955" force="true" transitive="false" conf="transitive-optional->default"/>
 		<dependency org="bundle" name="org.eclipse.ui.navigator.resources" rev="3.4.400.v20120523-1955" force="true" transitive="false" conf="transitive-optional->default"/>
 		<dependency org="bundle" name="org.eclipse.ui.views.properties.tabbed" rev="3.5.300.v20120523-1955" force="true" transitive="false" conf="transitive-optional->default"/>
+		<dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" force="true" transitive="false" conf="osgi->default,compile,runtime,sources,master;antruntime->default,compile,runtime,master,sources"/>
 		<dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0.v201112070431" force="true" transitive="false" conf="generate->default"/>
-		<dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" force="true" transitive="false" conf="osgi->default,compile,runtime,master,sources"/>
 	</dependencies>
 </ivy-module>

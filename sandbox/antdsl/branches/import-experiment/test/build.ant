@@ -3,10 +3,13 @@ default : build
 
 antpath {
     file(file = "test/org.apache.ant.antunit-1.2.jar")
+    file(file = "test/org.apache.ant.antdsl.test-1.0.jar")
 }
 import antlib "org/apache/ant/antunit/antlib.xml" as antunit
+import module "org/apache/ant/antdsl/test/build.ant"
 
 target build
+    depends imported
 {
     antunit:assertEquals(expected = "test", actual = "test")
     antunit:assertEquals(expected = "test", actual = "nok")

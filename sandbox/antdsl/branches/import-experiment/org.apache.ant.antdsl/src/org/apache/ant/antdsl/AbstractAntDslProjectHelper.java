@@ -373,6 +373,12 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 throw new BuildException("Unable to install the bundle " + resource.getName() + " (" + e.getMessage() + ")", e);
             }
         }
+
+        try {
+            osgiFrameworkManager.start();
+        } catch (BundleException e) {
+            throw new BuildException("Unable to start the OSGi framework (" + e.getMessage() + ")", e);
+        }
     }
 
     protected void importAntlib(Project project, AntDslContext context, String name, String resource) {
@@ -408,9 +414,9 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         ProjectHelper subHelper = ProjectHelperRepository.getInstance().getProjectHelperForBuildFile(urlResource);
 
-        // TODO
-        // add to the classloader stack the classloader of the imported build
-        
+        ClassLoader childCl = getOSGiFrameworkManager(project).getClassLoader(buildModule, buildUrl);
+        getClassloaderStack(project).push(childCl);
+
         // push current stacks into the sub helper
         subHelper.getImportStack().addAll(this.getImportStack());
         subHelper.getExtensionStack().addAll(this.getExtensionStack());
@@ -419,6 +425,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         subHelper.parse(project, urlResource);
 
         // push back the stack from the sub helper to the main one
+        getClassloaderStack(project).pop();
         project.addReference(ProjectHelper.PROJECTHELPER_REFERENCE, this);
         getImportStack().clear();
         getImportStack().addAll(subHelper.getImportStack());

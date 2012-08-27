@@ -17,7 +17,7 @@
         <!-- some optional dependency we do need -->
         <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0+" conf="generate->default" />
 
-        <dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" conf="osgi->default,sources" />
+        <dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" conf="osgi,antruntime->default,sources" />
 
         <!-- provided -->
         <exclude org="package" module="javax.xml.parsers" />

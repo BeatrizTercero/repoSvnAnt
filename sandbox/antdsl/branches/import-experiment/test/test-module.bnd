@@ -1,0 +1,6 @@
+version=1.0
+
+Bundle-Version: ${version}
+Bundle-SymbolicName: org.apache.ant.antdsl.test
+Include-Resource: test-module
+Export-Package: org.apache.ant.antdsl.test.*

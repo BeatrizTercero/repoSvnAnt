@@ -1,0 +1,8 @@
+
+import antlib "org/apache/ant/antunit/antlib.xml" as antunit
+
+target imported
+{
+    antunit:assertEquals(expected = "test", actual = "test")
+    echo(message = "imported!")
+}
