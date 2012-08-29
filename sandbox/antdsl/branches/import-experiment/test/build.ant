@@ -1,10 +1,11 @@
 name : myproject
 default : build
-
+/*
 antpath {
-    file(file = "test/org.apache.ant.antunit-1.2.jar")
-    file(file = "test/org.apache.ant.antdsl.test-1.0.jar")
+    file(file = "org.apache.ant.antunit-1.2.jar")
+    file(file = "org.apache.ant.antdsl.test-1.0.jar")
 }
+*/
 import antlib "org/apache/ant/antunit/antlib.xml" as antunit
 import module "org/apache/ant/antdsl/test/build.ant"
 

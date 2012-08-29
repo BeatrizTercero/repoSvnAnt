@@ -1,4 +1,4 @@
-<project>
+<project xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <target name="get-bnd">
         <get src="http://dl.dropbox.com/u/2590603/bnd/biz.aQute.bnd.jar" dest="biz.aQute.bnd-1.50.0.jar" />
@@ -15,4 +15,11 @@
         <bnd files="test-module.bnd" output="org.apache.ant.antdsl.test-1.0.jar" />
     </target>
 
+    <target name="build-repo">
+        <mkdir dir="repo" />
+        <copy file="org.apache.ant.antunit-1.2.jar" todir="repo" />
+        <copy file="org.apache.ant.antdsl.test-1.0.jar" todir="repo" />
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="../build-deps/ivy-2.4.0-alpha.jar" />
+        <ivy:buildobr baseDir="repo" out="repo/obr.xml" indent="true" />
+    </target>
 </project>

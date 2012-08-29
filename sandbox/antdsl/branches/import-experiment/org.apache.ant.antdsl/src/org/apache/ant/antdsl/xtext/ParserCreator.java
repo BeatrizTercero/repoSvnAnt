@@ -166,7 +166,6 @@ public class ParserCreator {
 
     private static <T> Provider<T> makeProvider(final T provided) {
         return new Provider<T>() {
-            @Override
             public T get() {
                 return provided;
             }

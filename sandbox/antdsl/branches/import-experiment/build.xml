@@ -1,13 +1,12 @@
 <project name="ant-dsl" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <property name="ivy.version" value="2.4.0-alpha" />
-
     <target name="-check-build-deps">
         <condition property="build-deps.exist">
             <and>
                 <available file="${basedir}/build-deps/antlr-3.4-complete.jar" />
                 <available file="${basedir}/build-deps/antlr3-task/ant-antlr3.jar" />
-                <available file="${basedir}/build-deps/ivy-${ivy.version}.jar" />
+                <available file="${basedir}/build-deps/ivy-2.4.0-alpha.jar" />
+                <available file="${basedir}/build-deps/ivy-2.4.0-alpha-sources.jar" />
                 <available file="${basedir}/build-deps/apache-ant-1.9.0alpha-bin.zip" />
                 <available file="${basedir}/build-deps/apache-ant-1.9.0alpha-src.zip" />
             </and>
@@ -17,7 +16,8 @@
 
     <target name="-download-build-deps" depends="-check-build-deps" unless="build-deps.exist">
         <mkdir dir="${basedir}/build-deps" />
-        <get src="https://builds.apache.org/pview/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/build-deps/ivy-${ivy.version}.jar" usetimestamp="true" />
+        <get src="https://builds.apache.org/pview/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/build-deps/ivy-2.4.0-alpha.jar" usetimestamp="true" />
+        <get src="https://builds.apache.org/pview/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/sources/ivy.jar" dest="${basedir}/build-deps/ivy-2.4.0-alpha-sources.jar" usetimestamp="true" />
         <get src="http://antlr.org/download/antlr-3.4-complete.jar" dest="${basedir}/build-deps/antlr-3.4-complete.jar" usetimestamp="true" />
         <get src="http://www.antlr.org/share/1169924912745/antlr3-task.zip" dest="${basedir}/build-deps/antlr3-task.zip" usetimestamp="true" />
         <unzip src="${basedir}/build-deps/antlr3-task.zip" dest="${basedir}/build-deps/" />
@@ -34,7 +34,7 @@
                 <pathelement path="${basedir}/build-deps/antlr3-task/ant-antlr3.jar" />
             </classpath>
         </taskdef>
-        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/build-deps/ivy-${ivy.version}.jar" />
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/build-deps/ivy-2.4.0-alpha.jar" />
     </target>
 
     <target name="ivy:configure" depends="init">
@@ -44,22 +44,31 @@
     <target name="get-deps" depends="init,ivy:configure" description="Download dependencies" >
         <ivy:resolve file="ivy-fixed.xml" conf="*" uncompress="true" />
         <!--ivy:retrieve conf="*" pattern="${basedir}/lib/[type]s/[artifact]_[revision](.[ext])" sync="true" uncompress="true" /-->
+        <ivy:cachepath pathid="compile.classpath.ivy" conf="compile" type="jar,bundle" uncompress="true" osgi="true" />
         <ivy:cachepath pathid="antruntime.classpath.ivy" conf="antruntime" type="jar,bundle" uncompress="true" osgi="true" />
         <ivy:cachepath pathid="generate.classpath.ivy" conf="generate" type="jar,bundle" uncompress="true" osgi="true" />
         <!-- Now we need to hack since we the ant trunk to build -->
-        <path id="antruntime.classpath">
+        <path id="compile.classpath">
             <fileset dir="build-deps/apache-ant-1.9.0alpha/lib" includes="*.jar" />
+            <file file="${basedir}/build-deps/ivy-2.4.0-alpha.jar" />
+            <path refid="compile.classpath.ivy" />
+        </path>
+        <path id="antruntime.classpath">
+            <file file="${basedir}/build-deps/ivy-2.4.0-alpha.jar" />
+            <file file="${basedir}/build/antdsl.jar" />
             <path refid="antruntime.classpath.ivy" />
         </path>
         <path id="generate.classpath">
-            <fileset dir="build-deps/apache-ant-1.9.0alpha/lib" includes="*.jar" />
             <path refid="generate.classpath.ivy" />
         </path>
+        <echo message="${toString:compile.classpath}" file=".compile.classpath" />
         <echo message="${toString:antruntime.classpath}" file=".antruntime.classpath" />
         <echo message="${toString:generate.classpath}" file=".generate.classpath" />
         <ivy:retrieve conf="osgi" pattern="${basedir}/org.apache.ant.antdsl/lib/[type]s/[artifact]-[revision](.[ext])" sync="true" />
         <copy file="${basedir}/build-deps/apache-ant-1.9.0alpha/lib/ant.jar" tofile="${basedir}/org.apache.ant.antdsl/lib/jars/ant-1.9.0alpha.jar" />
         <jar destfile="${basedir}/org.apache.ant.antdsl/lib/sources/ant-1.9.0alpha.jar" basedir="${basedir}/build-deps/apache-ant-1.9.0alpha/src/main" />
+        <copy file="${basedir}/build-deps/ivy-2.4.0-alpha.jar" tofile="${basedir}/org.apache.ant.antdsl/lib/jars/ivy-2.4.0-alpha.jar" />
+        <copy file="${basedir}/build-deps/ivy-2.4.0-alpha-sources.jar" tofile="${basedir}/org.apache.ant.antdsl/lib/sources/ivy-2.4.0-alpha.jar" />
     </target>
 
     <target name="-do-update-deps" depends="init,ivy:configure">
@@ -99,9 +108,9 @@
     </target>
 
     <target name="build" description="Full build of a antdsl jar">
-        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
+        <loadpath pathid="compile.classpath" file=".compile.classpath" />
         <mkdir dir="${basedir}/build/classes" />
-        <javac srcdir="${basedir}/org.apache.ant.antdsl/src/:${basedir}/org.apache.ant.antdsl/src-gen/:${basedir}/org.apache.ant.antdsl/xtend-gen" destdir="${basedir}/build/classes" debug="on" includeantruntime="false" source="1.6" target="1.6" classpathref="antruntime.classpath" />
+        <javac srcdir="${basedir}/org.apache.ant.antdsl/src/:${basedir}/org.apache.ant.antdsl/src-gen/:${basedir}/org.apache.ant.antdsl/xtend-gen" destdir="${basedir}/build/classes" debug="on" includeantruntime="false" source="1.6" target="1.6" classpathref="compile.classpath" />
         <copy todir="${basedir}/build/classes">
             <fileset dir="${basedir}/org.apache.ant.antdsl/src">
                 <exclude name="*.java" />
@@ -143,6 +152,15 @@
             <antDslProjectHelper />
         </projecthelper>
         <ant antfile="test/build.ant" target="build" />
+    </target>
+
+    <target name="test-update-build" description="Test the run of an antdsl file with Xtext-generated parser">
+        <loadfile property="antruntime.classpath" srcFile=".antruntime.classpath"/>
+        <exec executable="ant" dir="test">
+            <arg line="-lib" />
+            <arg line="${antruntime.classpath}" />
+            <arg line="-update-build" />
+        </exec>
     </target>
 
     <macrodef name="loadpath">

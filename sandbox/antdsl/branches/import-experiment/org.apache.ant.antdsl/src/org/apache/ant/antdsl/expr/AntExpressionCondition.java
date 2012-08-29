@@ -32,7 +32,6 @@ public class AntExpressionCondition implements Condition {
         return expr;
     }
 
-    @Override
     public boolean eval() throws BuildException {
         return (Boolean) expr.eval();
     }

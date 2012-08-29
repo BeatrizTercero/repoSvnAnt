@@ -1,0 +1,433 @@
+Index: src/main/org/apache/tools/ant/ArgumentProcessor.java
+===================================================================
+--- src/main/org/apache/tools/ant/ArgumentProcessor.java	(revision 0)
++++ src/main/org/apache/tools/ant/ArgumentProcessor.java	(working copy)
+@@ -0,0 +1,80 @@
++/*
++ *  Licensed to the Apache Software Foundation (ASF) under one or more
++ *  contributor license agreements.  See the NOTICE file distributed with
++ *  this work for additional information regarding copyright ownership.
++ *  The ASF licenses this file to You under the Apache License, Version 2.0
++ *  (the "License"); you may not use this file except in compliance with
++ *  the License.  You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ *  Unless required by applicable law or agreed to in writing, software
++ *  distributed under the License is distributed on an "AS IS" BASIS,
++ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ *  See the License for the specific language governing permissions and
++ *  limitations under the License.
++ *
++ */
++package org.apache.tools.ant;
++
++import java.util.List;
++
++/**
++ * Processor of arguments of the command line.
++ * <p>
++ * Arguments supported by third party code should not conflict with Ant core
++ * ones. It is then recommended to chose specific 'enough' argument name,
++ * avoiding for instance one letter arguments. By the way, if there any
++ * conflict, Ant will take precedence.
++ * 
++ * @since 1.9
++ */
++public interface ArgumentProcessor {
++
++    /**
++     * Check that the specified argument is handled. It returns 0 if not
++     * supported. Else it returns the number of expected arguments to read after
++     * the current one.
++     */
++    int readArgument(String arg);
++
++    /**
++     * If some arguments matched, this method is called after all arguments were
++     * parsed. Returns <code>true</code> if Ant should stop there, ie the build
++     * file not parsed and the project should not be executed.
++     * <p>
++     * NB: the size of the argument list might not be the expected one if the
++     * end user doesn't have provided enough ones.
++     */
++    boolean handleArg(List<String> args);
++
++    /**
++     * If some arguments matched, this method is called just before the project
++     * being configured
++     * <p>
++     * NB: the size of the argument list might not be the expected one if the
++     * end user doesn't have provided enough ones.
++     */
++    void prepareConfigure(Project project, List<String> args);
++
++    /**
++     * Handle the arguments, just after the project being configured. Returns
++     * <code>true</code> if Ant should stop there, ie the build file not parsed
++     * and the project should not be executed.
++     * <p>
++     * NB: the size of the argument list might not be the expected one if the
++     * end user doesn't have provided enough ones.
++     */
++    boolean handleArg(Project project, List<String> arg);
++
++    /**
++     * Print the usage of the supported arguments
++     * 
++     * @param buffer the buffer to populate
++     * @param lSep the line separator to use
++     * 
++     * @see org.apache.tools.ant.Main.printUsage()
++     */
++    void printUsage(StringBuffer buffer, String lSep);
++
++}
+
+Property changes on: src/main/org/apache/tools/ant/ArgumentProcessor.java
+___________________________________________________________________
+Added: svn:mime-type
+## -0,0 +1 ##
++text/plain
+\ No newline at end of property
+Added: svn:keywords
+## -0,0 +1 ##
++Date Revision Author HeadURL Id
+\ No newline at end of property
+Added: svn:eol-style
+## -0,0 +1 ##
++native
+\ No newline at end of property
+Index: src/main/org/apache/tools/ant/Main.java
+===================================================================
+--- src/main/org/apache/tools/ant/Main.java	(revision 1376402)
++++ src/main/org/apache/tools/ant/Main.java	(working copy)
+@@ -24,12 +24,14 @@
+ import java.io.IOException;
+ import java.io.InputStream;
+ import java.io.PrintStream;
++import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.Collections;
+ import java.util.Enumeration;
+ import java.util.HashMap;
+ import java.util.HashSet;
+ import java.util.Iterator;
++import java.util.List;
+ import java.util.Map;
+ import java.util.Map.Entry;
+ import java.util.Properties;
+@@ -152,6 +154,7 @@
+      */
+     private boolean proxy = false;
+ 
++    private Map<Class<?>, List<String>> extraArguments = new HashMap<Class<?>, List<String>>();
+ 
+     private static final GetProperty NOPROPERTIES = new GetProperty(){
+         public Object getProperty(String aName) {
+@@ -324,6 +327,8 @@
+         boolean justPrintVersion = false;
+         boolean justPrintDiagnostics = false;
+ 
++        ArgumentProcessorRegistry processorRegistry = ArgumentProcessorRegistry.getInstance();
++        
+         for (int i = 0; i < args.length; i++) {
+             String arg = args[i];
+ 
+@@ -399,11 +404,27 @@
+             } else if (arg.equals("-autoproxy")) {
+                 proxy = true;
+             } else if (arg.startsWith("-")) {
+-                // we don't have any more args to recognize!
+-                String msg = "Unknown argument: " + arg;
+-                System.err.println(msg);
+-                printUsage();
+-                throw new BuildException("");
++                boolean processed = false;
++                for (ArgumentProcessor processor : processorRegistry.getProcessors()) {
++                    int n = processor.readArgument(arg);
++                    if (n > 0) {
++                        List<String> extraArgs = new ArrayList<String>();
++                        extraArgs.add(arg);
++                        for (int j = 1; j < n && i < args.length - 1; j++) {
++                            extraArgs.add(args[++i]);
++                        }
++                        extraArguments.put(processor.getClass(), extraArgs);
++                        processed = true;
++                        break;
++                    }
++                }
++                if (!processed) {
++                    // we don't have any more args to recognize!
++                    String msg = "Unknown argument: " + arg;
++                    System.err.println(msg);
++                    printUsage();
++                    throw new BuildException("");
++                }
+             } else {
+                 // if it's no other arg, it may be the target
+                 targets.addElement(arg);
+@@ -726,6 +747,17 @@
+             return;
+         }
+ 
++        ArgumentProcessorRegistry processorRegistry = ArgumentProcessorRegistry.getInstance();
++
++        for (ArgumentProcessor processor : processorRegistry.getProcessors()) {
++            List<String> extraArgs = extraArguments.get(processor.getClass());
++            if (extraArgs != null) {
++                if (processor.handleArg(extraArgs)) {
++                    return;
++                }
++            }
++        }
++
+         final Project project = new Project();
+         project.setCoreLoader(coreLoader);
+ 
+@@ -781,8 +813,24 @@
+                     proxySetup.enableProxies();
+                 }
+ 
++                for (ArgumentProcessor processor : processorRegistry.getProcessors()) {
++                    List<String> extraArgs = extraArguments.get(processor.getClass());
++                    if (extraArgs != null) {
++                        processor.prepareConfigure(project, extraArgs);
++                    }
++                }
++
+                 ProjectHelper.configureProject(project, buildFile);
+ 
++                for (ArgumentProcessor processor : processorRegistry.getProcessors()) {
++                    List<String> extraArgs = extraArguments.get(processor.getClass());
++                    if (extraArgs != null) {
++                        if (processor.handleArg(project, extraArgs)) {
++                            return;
++                        }
++                    }
++                }
++
+                 if (projectHelp) {
+                     printDescription(project);
+                     printTargets(project, msgOutputLevel > Project.MSG_INFO,
+@@ -996,7 +1044,10 @@
+         msg.append("  -noclasspath           Run ant without using CLASSPATH" + lSep);
+         msg.append("  -autoproxy             Java1.5+: use the OS proxy settings"
+                 + lSep);
+-        msg.append("  -main <class>          override Ant's normal entry point");
++        msg.append("  -main <class>          override Ant's normal entry point" + lSep);
++        for (ArgumentProcessor processor : ArgumentProcessorRegistry.getInstance().getProcessors()) {
++            processor.printUsage(msg, lSep);
++        }
+         System.out.println(msg.toString());
+     }
+ 
+Index: src/main/org/apache/tools/ant/ArgumentProcessorRegistry.java
+===================================================================
+--- src/main/org/apache/tools/ant/ArgumentProcessorRegistry.java	(revision 0)
++++ src/main/org/apache/tools/ant/ArgumentProcessorRegistry.java	(working copy)
+@@ -0,0 +1,189 @@
++/*
++ *  Licensed to the Apache Software Foundation (ASF) under one or more
++ *  contributor license agreements.  See the NOTICE file distributed with
++ *  this work for additional information regarding copyright ownership.
++ *  The ASF licenses this file to You under the Apache License, Version 2.0
++ *  (the "License"); you may not use this file except in compliance with
++ *  the License.  You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ *  Unless required by applicable law or agreed to in writing, software
++ *  distributed under the License is distributed on an "AS IS" BASIS,
++ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ *  See the License for the specific language governing permissions and
++ *  limitations under the License.
++ *
++ */
++package org.apache.tools.ant;
++
++import java.io.BufferedReader;
++import java.io.IOException;
++import java.io.InputStream;
++import java.io.InputStreamReader;
++import java.net.URL;
++import java.util.ArrayList;
++import java.util.Enumeration;
++import java.util.List;
++
++import org.apache.tools.ant.util.LoaderUtils;
++
++/**
++ * The global registry for {@link ArgumentProcessor}s.
++ * <p>
++ * An {@link ArgumentProcessor} implementation can be registered via the system
++ * property <code>org.apache.tools.ant.ArgumentProcessor</code>, or via a JDK1.3
++ * 'service', by putting the fully qualified name of the implementation into the
++ * file <code>META-INF/services/org.apache.tools.ant.ArgumentProcessor</code>
++ * <p>
++ * Use the system property <code>ant.argument-processor.debug</code> to enable
++ * the print of debug log.
++ * 
++ * @since 1.9
++ */
++public class ArgumentProcessorRegistry {
++
++    private static final String SYSTEM_PROPERTY = "org.apache.tools.ant.ArgumentProcessor";
++
++    private static final String DEBUG_ARGUMENT_PROCESSOR_REPOSITORY = "ant.argument-processor.debug";
++
++    // The message log level is not accessible here because everything
++    // is instanciated statically
++    private static final boolean DEBUG = "true".equals(System.getProperty(DEBUG_ARGUMENT_PROCESSOR_REPOSITORY));
++
++    private static final String SERVICE_ID = "META-INF/services/org.apache.tools.ant.ArgumentProcessor";
++
++    private static ArgumentProcessorRegistry instance = new ArgumentProcessorRegistry();
++
++    private List<ArgumentProcessor> processors = new ArrayList<ArgumentProcessor>();
++
++    public static ArgumentProcessorRegistry getInstance() {
++        return instance;
++    }
++
++    private ArgumentProcessorRegistry() {
++        collectArgumentProcessors();
++    }
++
++    public List<ArgumentProcessor> getProcessors() {
++        return processors;
++    }
++
++    private void collectArgumentProcessors() {
++        ArgumentProcessor processor = getArgumentProcessorBySystemProperty();
++        registerArgumentProcessor(processor);
++        try {
++            ClassLoader classLoader = LoaderUtils.getContextClassLoader();
++            if (classLoader != null) {
++                Enumeration<URL> resources = classLoader.getResources(SERVICE_ID);
++                while (resources.hasMoreElements()) {
++                    URL resource = resources.nextElement();
++                    processor = getProcessorByService(resource.openStream());
++                    registerArgumentProcessor(processor);
++                }
++            }
++
++            InputStream systemResource = ClassLoader.getSystemResourceAsStream(SERVICE_ID);
++            if (systemResource != null) {
++                processor = getProcessorByService(systemResource);
++                registerArgumentProcessor(processor);
++            }
++        } catch (Exception e) {
++            System.err.println("Unable to load ArgumentProcessor from service "
++                    + SERVICE_ID + " (" + e.getClass().getName() + ": "
++                    + e.getMessage() + ")");
++            if (DEBUG) {
++                e.printStackTrace(System.err);
++            }
++        }
++    }
++
++    public void registerArgumentProcessor(String helperClassName)
++            throws BuildException {
++        registerArgumentProcessor(getProcessor(helperClassName));
++    }
++
++    public void registerArgumentProcessor(
++            Class< ? extends ArgumentProcessor> helperClass)
++            throws BuildException {
++        registerArgumentProcessor(getProcessor(helperClass));
++    }
++
++    private ArgumentProcessor getProcessor(String helperClassName) {
++        try {
++            @SuppressWarnings("unchecked")
++            Class< ? extends ArgumentProcessor> cl = (Class< ? extends ArgumentProcessor>) Class.forName(helperClassName);
++            return getProcessor(cl);
++        } catch (ClassNotFoundException e) {
++            throw new BuildException("Argument processor class "
++                    + helperClassName + " was not found", e);
++        }
++    }
++
++    private ArgumentProcessor getProcessor(
++            Class< ? extends ArgumentProcessor> processorClass) {
++        ArgumentProcessor processor;
++        try {
++            processor = processorClass.getConstructor().newInstance();
++        } catch (Exception e) {
++            throw new BuildException("The argument processor class"
++                    + processorClass.getClass().getName()
++                    + " could not be instanciated with a default constructor",
++                    e);
++        }
++        return processor;
++    }
++
++    public void registerArgumentProcessor(ArgumentProcessor processor) {
++        if (processor == null) {
++            return;
++        }
++        processors.add(processor);
++        if (DEBUG) {
++            System.out.println("Argument processor "
++                    + processor.getClass().getName() + " registered.");
++        }
++    }
++
++    private ArgumentProcessor getArgumentProcessorBySystemProperty() {
++        String processorClass = System.getProperty(SYSTEM_PROPERTY);
++        try {
++            if (processorClass != null) {
++                return getProcessor(processorClass);
++            }
++        } catch (Exception e) {
++            System.err.println("Unable to load ArgumentProcessor class \""
++                    + processorClass + " specified in system property "
++                    + SYSTEM_PROPERTY + " (" + e.getMessage() + ")");
++            if (DEBUG) {
++                e.printStackTrace(System.err);
++            }
++        }
++        return null;
++    }
++
++    private ArgumentProcessor getProcessorByService(InputStream is)
++            throws IOException {
++        InputStreamReader isr = null;
++        try {
++            try {
++                isr = new InputStreamReader(is, "UTF-8");
++            } catch (java.io.UnsupportedEncodingException e) {
++                isr = new InputStreamReader(is);
++            }
++            BufferedReader rd = new BufferedReader(isr);
++            String processorClassName = rd.readLine();
++            if (processorClassName != null && !"".equals(processorClassName)) {
++                return getProcessor(processorClassName);
++            }
++        } finally {
++            try {
++                isr.close();
++            } catch (IOException e) {
++                // ignore
++            }
++        }
++        return null;
++    }
++
++}
+
+Property changes on: src/main/org/apache/tools/ant/ArgumentProcessorRegistry.java
+___________________________________________________________________
+Added: svn:mime-type
+## -0,0 +1 ##
++text/plain
+\ No newline at end of property
+Added: svn:keywords
+## -0,0 +1 ##
++Date Revision Author HeadURL Id
+\ No newline at end of property
+Added: svn:eol-style
+## -0,0 +1 ##
++native
+\ No newline at end of property

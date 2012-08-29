@@ -164,11 +164,13 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
 
         setupProject(project, context, name, basedir, def);
 
-        EList<EInnerElement> eAntpathElements = eProject.getAntpath();
-        if (eAntpathElements != null) {
+        if (!context.isIgnoringProjectTag()) {
+            EList<EInnerElement> eAntpathElements = eProject.getAntpath();
             List<InnerElement> antpathElements = new ArrayList<InnerElement>();
-            for (EInnerElement eAntpathElement : eAntpathElements) {
-                antpathElements.add(mapInnerElement(project, context, eAntpathElement));
+            if (eAntpathElements != null) {
+                for (EInnerElement eAntpathElement : eAntpathElements) {
+                    antpathElements.add(mapInnerElement(project, context, eAntpathElement));
+                }
             }
             setupAntpath(project, context, antpathElements);
         }

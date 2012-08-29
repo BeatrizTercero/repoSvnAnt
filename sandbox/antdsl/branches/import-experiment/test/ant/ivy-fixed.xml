@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+	<info organisation="org.apache.ant.antdsl"
+		module="test-build"
+		revision="working@hibpro.home"
+		status="integration"
+		publication="20120828211112"
+	/>
+	<configurations>
+		<conf name="default" visibility="public"/>
+	</configurations>
+	<publications>
+	</publications>
+	<dependencies>
+		<dependency org="bundle" name="org.apache.ant.antdsl.test" rev="1.0.0" force="true" transitive="false" conf="default->default"/>
+		<dependency org="bundle" name="org.apache.ant.antunit" rev="1.2.0" force="true" transitive="false" conf="default->default,use_org.apache.ant.antunit.listener,use_org.apache.ant.antunit"/>
+	</dependencies>
+</ivy-module>

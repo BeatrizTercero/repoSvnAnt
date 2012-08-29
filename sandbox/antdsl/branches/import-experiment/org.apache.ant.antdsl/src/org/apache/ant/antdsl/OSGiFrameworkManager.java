@@ -40,7 +40,7 @@ public class OSGiFrameworkManager {
     public OSGiFrameworkManager(File basedir) throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
-        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, ".ant/.felix-cache").getAbsolutePath());
+        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, "ant/felix-cache").getAbsolutePath());
         configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
         framework = getFrameworkFactory().newFramework(configMap);
         framework.init();
@@ -91,6 +91,9 @@ public class OSGiFrameworkManager {
     }
 
     public void install(String bundleURI) throws BundleException {
+        if (bundleURI.startsWith("file:")) {
+            bundleURI = "reference:" + bundleURI;
+        }
         Bundle bundle = framework.getBundleContext().installBundle(bundleURI);
         if (!isFragment(bundle)) {
             bundles.add(bundle);

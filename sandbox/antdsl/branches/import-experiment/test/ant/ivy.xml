@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache.ant.antdsl" module="test-build" />
+    <dependencies>
+        <dependency org="bundle" name="org.apache.ant.antdsl.test" rev="1.0.0" conf="default->default" />
+        <dependency org="bundle" name="org.apache.ant.antunit" rev="1.2.0" conf="default->default" />
+    </dependencies>
+</ivy-module>

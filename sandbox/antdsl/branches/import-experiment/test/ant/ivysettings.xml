@@ -1,0 +1,9 @@
+<ivysettings>
+
+    <settings defaultResolver="obr" defaultLatestStrategy="latest-osgi" />
+
+    <resolvers>
+        <obr name="obr" repoXmlFile="${ivy.settings.dir}/../repo/obr.xml" />
+    </resolvers>
+
+</ivysettings>

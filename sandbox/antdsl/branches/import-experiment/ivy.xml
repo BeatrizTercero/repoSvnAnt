@@ -3,11 +3,12 @@
         <extends organisation="bundle" module="org.apache.ant.antdsl" revision="1.0.0" location="org.apache.ant.antdsl/META-INF/MANIFEST.MF"/>
     </info>
     <configurations>
+        <conf name="compile" extends="default" />
         <conf name="antruntime" extends="default" />
         <conf name="generate" extends="optional" />
         <conf name="osgi" />
     </configurations>
-    <dependencies>
+    <dependencies>        
         <!-- ambiguity fix -->
         <dependency org="bundle" name="org.apache.log4j" rev="1.2.15.v201012070815" conf="default->default" />
         <dependency org="bundle" name="org.apache.commons.logging" rev="1.1.1.v201101211721" conf="default->default" />
@@ -18,6 +19,9 @@
         <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.2.0+" conf="generate->default" />
 
         <dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" conf="osgi,antruntime->default,sources" />
+
+        <!-- at ant runtime, ant is already provided -->
+        <exclude org="bundle" module="org.apache.ant" conf="antruntime" />
 
         <!-- provided -->
         <exclude org="package" module="javax.xml.parsers" />
