@@ -96,6 +96,7 @@
 <li id="xooki-dev" class="submenu"><a href="dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="dev/build.html" >Building</a></li>
 <li id="xooki-dev/release"><a href="dev/release.html" >Releasing</a></li>
 <li id="xooki-dev/updatesite"><a href="dev/updatesite.html" >Updatesite</a></li>
+<li id="xooki-dev/dev-env-setup"><a href="dev/dev-env-setup.html" >Development Environment Setup</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -127,11 +128,11 @@ The Apache IvyDE project is pleased to announce its 2.2.0 beta2 release.<br clas
 
 Apache IvyDE is the Eclipse plugin which integrates Apache Ivy's dependency management into Eclipse&#153;.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE lets you manage your dependencies declared in an ivy.xml in your Java Eclipse projects, or any other kind of project which needs dependency management. Apache IvyDE will contribute to the classpath of your Java project or you can make it retrieve your dependencies directly into your project. Last but not least Apache IvyDE offer editors of ivy.xml and ivysettings.xml files with completion. Get some preview here: <a href="http://ant.apache.org/ivy/ivyde/screenshots.html">http://ant.apache.org/ivy/ivyde/screenshots.html</a>.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="status"></a>Status of this release</h1>
 
-This release contains sevral major improvements along with some bug fixes. The major<br class="xooki-br"/>improvements are about the resolve scheduler and how retrieved artifact are handled.<br class="xooki-br"/>Thus this release is considered as a beta one.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="majorchanges"></a>Major Changes in this Release</h1>
+This release contains sevral major improvements along with some bug fixes. The major improvements are about the resolve scheduler and how retrieved artifact are handled.<br class="xooki-br"/>Thus this release is considered as a beta one.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="majorchanges"></a>Major Changes in this Release</h1>
 
-As for this release and the next ones, Apache IvyDE now expects to be installed in Eclipse 3.4 or superior.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE has now a synchronous job to launch resolve of dependencies on the projets. So<br class="xooki-br"/>IvyDE will be able to order the resolve of the projects in the correct order regarding<br class="xooki-br"/>their inter dependencies. And the immediate effect is that Eclipse get notified only<br class="xooki-br"/>one time of a classpath change, and thus triggerin only one wrokspace build.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE is now capable of having a classpath based on retrieved artifact rather than<br class="xooki-br"/>on the cached ones.<br class="xooki-br"/><br class="xooki-br"/>The existing retrieve configuration are now considered "standonale" ones, as they<br class="xooki-br"/>are independant of the classpath container. They can even now be part of non Java<br class="xooki-br"/>project.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="contrib"></a>Committers and Contributors for this Release</h1>
+As for this release and the next ones, Apache IvyDE now expects to be installed in Eclipse 3.4 or superior.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE has now a synchronous job to launch resolve of dependencies on the projets. So IvyDE will be able to order the resolve of the projects in the correct order regarding their inter dependencies. And the immediate effect is that Eclipse get notified only one time of a classpath change, and thus triggerin only one wrokspace build.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE is now capable of having a classpath based on retrieved artifact rather than on the cached ones.<br class="xooki-br"/><br class="xooki-br"/>The existing retrieve configuration are now considered "standonale" ones, as they are independant of the classpath container. They can even now be part of non Java project.<br class="xooki-br"/><br class="xooki-br"/><h1><a name="contrib"></a>Committers and Contributors</h1>
 
-Here is the list of people who have contributed source code and documentation<br class="xooki-br"/>to this release. Many thanks to all of them, and also to the whole IvyDE community<br class="xooki-br"/>contributing ideas and feedback, and promoting the use of Apache IvyDE. The list would be too<br class="xooki-br"/>long, but Apache IvyDE couldn't be what it is without you!<br class="xooki-br"/>
+Here is the list of people who have contributed source code and documentation up to this release. Many thanks to all of them, and also to the whole IvyDE community contributing ideas and feedback, and promoting the use of Apache IvyDE !<br class="xooki-br"/>
 <ul>Committers
 <li>Maarten Coene</li>
 <li>Xavier Hanin</li>
@@ -140,22 +141,65 @@ Here is the list of people who have contributed source code and documentation<br
 <li>Gilles Scokart</li>
 </ul>
 <ul>Contributors:
+<li>Daniel Becheanu</li>
+<li>Peter Blstak</li>
 <li>Clint Burghduff</li>
+<li>Peter Chanthamynavong</li>
 <li>Gregory Fernandez</li>
+<li>Thomas Friol</li>
+<li>Troy Gaines</li>
+<li>Eugene Goldfarb</li>
+<li>Matt Goldspink</li>
+<li>Will Gorman</li>
+<li>Miguel Griffa</li>
+<li>Adam Karl</li>
+<li>Ivica Loncar</li>
 <li>Jeffrey M. Metcalf</li>
+<li>S&eacute;bastien Moran</li>
+<li>Marko Niemi</li>
+<li>Peter Oxenham</li>
+<li>Joe Sortelli</li>
+<li>Phillip Webb</li>
+<li>James Wilkins</li>
 </ul>
 
 <h1><a name="changes"></a>List of Changes in this Release</h1>
 
 List of changes since <a href="/ivy/ivyde/history/2.2.0.beta1/release-notes.html">Apache IvyDE 2.2.0 beta1</a>:
 <ul>
-    <!-- samples<br class="xooki-br"/>    <li>NEW: new new new (IVYDE-XXX) (thanks to XXX)</li>
-    <li>IMPROVE: new new new (IVYDE-XXX) (thanks to XXX)</li>
-    <li>FIX: new new new (IVYDE-XXX) (thanks to XXX)</li>
-    -->
+    <li>NEW: Support Accepted Types: * (<a href="https://issues.apache.org/jira/browse/IVYDE-306">IVYDE-306</a>)</li>
+    <li>NEW: Support Workspace/Filesystem/Variables for "Ivy File" setting (<a href="https://issues.apache.org/jira/browse/IVYDE-304">IVYDE-304</a>)</li>
+    <li>NEW: Retrieve list does not resolve workspace projects (<a href="https://issues.apache.org/jira/browse/IVYDE-308">IVYDE-308</a>) (thanks to Peter Oxenham)</li>
+    <li>NEW: Allow to set the Ivy user directory globally or project by project (<a href="https://issues.apache.org/jira/browse/IVYDE-311">IVYDE-311</a>)</li>
+    <li>NEW: Add support for the OSGi access rules</li>
+    <li>NEW: Source and Javadoc attachements can now be edited jar by jar</li>
 </ul>
-
-Most of our changes are logged in our JIRA, where you can find comments and links to our subversion:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/ivyde">https://issues.apache.org/jira/browse/ivyde</a><br class="xooki-br"/><br class="xooki-br"/>
+<ul>
+    <li>IMPROVE: The properties file paths can now be edited</li>
+    <li>IMPROVE: ivy.xml and ivysettings.xml files are not better detected as such, so they can be open with the Ivy editors</li>
+</ul>
+<ul>
+    <li>FIX: org.eclipse.swt.SWTException: Invalid thread access with Eclipse Juno (<a href="https://issues.apache.org/jira/browse/IVYDE-313">IVYDE-313</a>)</li>
+    <li>FIX: Divide by zero during IvyDE resolve (<a href="https://issues.apache.org/jira/browse/IVYDE-312">IVYDE-312</a>) (thanks to Joe Sortelli)</li>
+    <li>FIX: Ivy report view stopped working on Linux (<a href="https://issues.apache.org/jira/browse/IVYDE-292">IVYDE-292</a>)</li>
+    <li>FIX: Ivy settings URL is constructed incorrectly from environment variable (<a href="https://issues.apache.org/jira/browse/IVYDE-314">IVYDE-314</a>)</li>
+    <li>FIX: Incomplete variable substitution for ivysettings.xml (<a href="https://issues.apache.org/jira/browse/IVYDE-318">IVYDE-318</a>)</li>
+    <li>FIX: In case of a multi-resolve, one fail make them all fail (<a href="https://issues.apache.org/jira/browse/IVYDE-316">IVYDE-316</a>)</li>
+    <li>FIX: Cannot change retrieve pattern at the workspace level (<a href="https://issues.apache.org/jira/browse/IVYDE-301">IVYDE-301</a>)</li>
+    <li>FIX: Resolution failure when workspace has project &amp; artifact sub-element exists (<a href="https://issues.apache.org/jira/browse/IVYDE-296">IVYDE-296</a>, <a href="https://issues.apache.org/jira/browse/IVYDE-319">IVYDE-319</a>)</li>
+    <li>FIX: IvyDE classpath containers become empty on eclipse/MyEclipse startup (<a href="https://issues.apache.org/jira/browse/IVYDE-317">IVYDE-317</a>)</li>
+</ul>
+    <!-- samples
+<ul>
+    <li>NEW: new new new (IVYDE-XXX) (thanks to XXX)</li>
+</ul>
+<ul>
+    <li>IMPROVE: improve improve improve (IVYDE-XXX) (thanks to XXX)</li>
+</ul>
+<ul>
+    <li>FIX: fix fix fix (IVYDE-XXX) (thanks to XXX)</li>
+</ul>
+    --><br class="xooki-br"/><br class="xooki-br"/>Most of our changes are logged in our JIRA, where you can find comments and links to our subversion:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/ivyde">https://issues.apache.org/jira/browse/ivyde</a><br class="xooki-br"/><br class="xooki-br"/>
             <hr/>
             <a href="?action=print">Printer Friendly</a>
  		</div><!-- main -->

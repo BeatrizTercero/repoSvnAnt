@@ -96,6 +96,7 @@
 <li id="xooki-dev" class="submenu"><a href="dev.html" >Developer doc</a><ul class="closed"><li id="xooki-dev/build"><a href="dev/build.html" >Building</a></li>
 <li id="xooki-dev/release"><a href="dev/release.html" >Releasing</a></li>
 <li id="xooki-dev/updatesite"><a href="dev/updatesite.html" >Updatesite</a></li>
+<li id="xooki-dev/dev-env-setup"><a href="dev/dev-env-setup.html" >Development Environment Setup</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -143,7 +144,7 @@
 <h4>Resolve dependencies in workpace:</h4>
 <p>Apache IvyDE allows Ivy dependencies between projects in the workspace to be realized through project references rather than jars from the repository.  See the <a href="cpc/workspace.html">documentation</a> for further information on this feature.</p>
 <h4>Accepted types:</h4>
-<p>A comma separated list of extensions which will make IvyDE add the artifact to the classpath</p>
+<p>A comma separated list of extensions which will make IvyDE add the artifact to the classpath. Setting <tt>*</tt> will make very kind of type accepted. Note that a type specified as a <a href="#mapping">source or javadoc type</a> won't be accepted in any manner.</p>
 <h4>Order of the classpath entries:</h4>
 <p>By default, the classpath container entries are ordered by order of declaration in the ivy.xml. When there are many entries, it can be useful to have them ordered lexically for enhanced readability.</p>
 <h4>Build the classpath with:</h4>
@@ -162,6 +163,8 @@
 <p>By default, Apache IvyDE will parse the ivy settings file each times it is needed (each resolve, refresh, clean cache or completion in the ivy editor). For remote ivysettings this can slow the UI dramatically, so it is possible to make IvyDE keep the settings in a cache and only reload them via the context menu on the container).</p>
 <h4>Ivy settings path:</h4>
 <p>The path to your ivy settings file. Leave it blank to use Ivy default resolvers. See also the documentation about <a href="eclipsevar.html">Eclipse variables</a>.</p>
+<h4>Ivy user dir:</h4>
+<p>The path to the default Ivy user directory, where Ivy have its default cache location</p>
 <h4>Property files:</h4>
 <p>This is a list of Java properties files to load before loading the ivysettings.xml. Specify in this files properties which you expect to use in the ivysettings.xml</p>
 
