@@ -37,7 +37,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Stack;
-import java.util.UUID;
 import java.util.Vector;
 
 import org.apache.ant.antdsl.expr.AntExpression;
@@ -264,11 +263,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             if (def != null) {
                 project.setDefault(def);
             }
-        } else {
-            if (isInIncludeMode() && !"".equals(name) && (getCurrentTargetPrefix() == null || getCurrentTargetPrefix().length() == 0)) {
-                // help nested include tasks
-                setCurrentTargetPrefix(name);
-            }
         }
 
         String antFileProp = MagicNames.ANT_FILE + "." + context.getCurrentProjectName();
@@ -340,21 +334,12 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         context.setCurrentTarget(context.getImplicitTarget());
     }
 
-    protected String getTargetPrefix(AntXMLContext context) {
-        String configuredValue = getCurrentTargetPrefix();
-        if (configuredValue != null && configuredValue.length() == 0) {
-            configuredValue = null;
+    private String getTargetPrefix(AntXMLContext context) {
+        String prefix = getCurrentTargetPrefix();
+        if (prefix != null && prefix.length() == 0) {
+            return null;
         }
-        if (configuredValue != null) {
-            return configuredValue;
-        }
-
-        String projectName = context.getCurrentProjectName();
-        if ("".equals(projectName)) {
-            projectName = null;
-        }
-
-        return projectName;
+        return prefix;
     }
 
     protected void setupAntpath(Project project, AntDslContext context, List<InnerElement> antpathElements) {
@@ -423,7 +408,13 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         Ivy ivy = configureBuildIvy(project);
 
         ResolveReport report = resolveBuild(project, ivyFile, ivy);
+        writeIvyFixed(project, ivy, report);
+        Path ivyPath = getIvyBuildPath(project, report);
+        writePath(project, ivyPath);
+        antPath.add(ivyPath);
+    }
 
+    private void writeIvyFixed(Project project, Ivy ivy, ResolveReport report) {
         File ivyFixFile = new File(project.getBaseDir(), "ant/ivy-fixed.xml");
         ModuleDescriptor md = report.toFixedModuleDescriptor(ivy.getSettings());
         try {
@@ -431,10 +422,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         } catch (IOException e) {
             throw new BuildException("Failed to write into the file " + ivyFixFile + " (" + e.getMessage() + ")", e);
         }
-
-        Path ivyPath = getIvyBuildPath(project, report);
-        writePath(project, ivyPath);
-        antPath.add(ivyPath);
     }
 
     private ResolveReport resolveBuild(Project project, File ivyFile, Ivy ivy) {
@@ -442,15 +429,16 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         try {
             ResolveOptions options = new ResolveOptions();
             options.setUncompress(true);
-            options.setDownload(false);
-            report = ivy.resolve(ivyFile, options );
+            report = ivy.resolve(ivyFile, options);
         } catch (ParseException e) {
             throw new BuildException("The ivy file " + ivyFile + " could not be parsed", e);
         } catch (IOException e) {
             throw new BuildException("The ivy file " + ivyFile + " could not be read", e);
         }
         if (report.hasError()) {
-            for (String error : ((List<String>) report.getAllProblemMessages())) {
+            @SuppressWarnings("unchecked")
+            List<String> errors = (List<String>) report.getAllProblemMessages();
+            for (String error : errors) {
                 project.log(error, Project.MSG_ERR);
             }
             throw new BuildException("Resolve of the build path failed");
@@ -487,6 +475,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         if (!antPathFile.exists()) {
             File ivyFixFile = new File(project.getBaseDir(), "ant/ivy-fixed.xml");
             if (!ivyFixFile.exists()) {
+                updateBuild(project, antPath);
                 return;
             }
             Ivy ivy = configureBuildIvy(project);
@@ -585,21 +574,20 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
     protected void importAntlib(Project project, AntDslContext context, String name, String resource) {
         // TODO maybe we can do some caching here, each time a build module import the exact same antlib, it is reloaded
 
-        // FIXME we ensured it is unique, but it is ugly for the end user: we should prefer something derived from 'resource'
-        String uri = UUID.randomUUID().toString();
+        String fqn = context.addFQNPrefix(name, resource);
 
         ClassLoader cl = getClassloaderStack(project).peek();
 
         Taskdef taskdef = new Taskdef();
+        taskdef.setTaskName("import");
         taskdef.setProject(project);
         taskdef.setResource(resource);
-        taskdef.setURI(uri);
+        taskdef.setURI(fqn);
         taskdef.setAntlibClassLoader(cl);
         taskdef.execute();
-        context.addNamespace(name, uri);
     }
 
-    protected void importBuildModule(Project project, AntDslContext context, String buildModule) {
+    protected void importBuildModule(Project project, AntDslContext context, String name, String buildModule) {
         ClassLoader cl = getClassloaderStack(project).peek();
 
         URL buildUrl = cl.getResource(buildModule);
@@ -623,12 +611,28 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
         getClassloaderStack(project).push(childCl);
 
+        String oldPrefix = ProjectHelper.getCurrentTargetPrefix();
+        boolean oldIncludeMode = ProjectHelper.isInIncludeMode();
+        String oldSep = ProjectHelper.getCurrentPrefixSeparator();
+        boolean oldIgnoringProjectTag = context.isIgnoringProjectTag();
+
+        String fqn = context.addFQNPrefix(name, buildModule);
+        setCurrentTargetPrefix(fqn);
+
         // push current stacks into the sub helper
         subHelper.getImportStack().addAll(this.getImportStack());
         subHelper.getExtensionStack().addAll(this.getExtensionStack());
         project.addReference(ProjectHelper.PROJECTHELPER_REFERENCE, subHelper);
 
-        subHelper.parse(project, urlResource);
+        context.push();
+
+        try {
+            subHelper.parse(project, urlResource);
+        } catch (BuildException e) {
+            throw ProjectHelper.addLocationToBuildException(e, context.getLocation());
+        }
+
+        context.pop();
 
         // push back the stack from the sub helper to the main one
         getClassloaderStack(project).pop();
@@ -637,11 +641,16 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         getImportStack().addAll(subHelper.getImportStack());
         getExtensionStack().clear();
         getExtensionStack().addAll(subHelper.getExtensionStack());
+
+        ProjectHelper.setCurrentTargetPrefix(oldPrefix);
+        ProjectHelper.setCurrentPrefixSeparator(oldSep);
+        ProjectHelper.setInIncludeMode(oldIncludeMode);
+        context.setIgnoreProjectTag(oldIgnoringProjectTag);
     }
 
     public void mapCommonTarget(
-            Target target, Project project, AntDslContext context, String name, String description, List<String> depends, List<String> extensionsOf,
-            String onMiss) {
+            Target target, Project project, AntDslContext context, String name, String description, List<Pair<String, String>> depends,
+            List<Pair<String, String>> extensionsOf, String onMiss) {
         OnMissingExtensionPoint extensionPointMissing = null;
         if (onMiss != null) {
             extensionPointMissing = OnMissingExtensionPoint.valueOf(onMiss.toUpperCase(Locale.ENGLISH));
@@ -649,75 +658,52 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         context.addTarget(target);
         target.setProject(project);
-        if ("".equals(name)) {
-            throw new BuildException("name attribute must " + "not be empty");
-        }
         target.setName(name);
         target.setDescription(description);
 
-        String prefix = null;
-        boolean isInIncludeMode = context.isIgnoringProjectTag() && isInIncludeMode();
-        String sep = getCurrentPrefixSeparator();
-
-        if (isInIncludeMode) {
-            prefix = getTargetPrefix(context);
-            if (prefix == null) {
-                throw new BuildException("can't include build file " + context.getBuildFileURL() + ", no as attribute has been given"
-                        + " and the project tag doesn't" + " specify a name attribute");
-            }
-            name = prefix + sep + name;
+        String fqnPrefix;
+        if (context.isIgnoringProjectTag()) {
+            fqnPrefix = getTargetPrefix(context) + getCurrentPrefixSeparator();
+        } else {
+            fqnPrefix = "";
         }
+        String fqn = fqnPrefix + name;
 
         // Check if this target is in the current build file
-        if (context.getCurrentTargets().get(name) != null) {
+        if (context.getCurrentTargets().get(fqn) != null) {
             throw new BuildException("Duplicate target '" + name + "'", target.getLocation());
         }
-        Hashtable<String, Target> projectTargets = project.getTargets();
-        boolean usedTarget = false;
-        // If the name has not already been defined define it
-        if (projectTargets.containsKey(name)) {
-            project.log("Already defined in main or a previous import, ignore " + name, Project.MSG_VERBOSE);
-        } else {
-            target.setName(name);
-            context.getCurrentTargets().put(name, target);
-            project.addOrReplaceTarget(name, target);
-            usedTarget = true;
-        }
+        context.getCurrentTargets().put(fqn, target);
+        project.addOrReplaceTarget(fqn, target);
 
         if (depends != null) {
-            for (String dep : depends) {
-                if (!isInIncludeMode) {
-                    target.addDependency(dep);
+            for (Pair<String, String> dep : depends) {
+                if (dep.first == null) {
+                    target.addDependency(fqnPrefix + dep.second);
                 } else {
-                    target.addDependency(prefix + sep + dep);
+                    target.addDependency(context.getFQNPrefix(dep.first) + getCurrentPrefixSeparator() + dep.second);
                 }
             }
         }
 
-        if (!isInIncludeMode && context.isIgnoringProjectTag() && (prefix = getTargetPrefix(context)) != null) {
-            // In an imported file (and not completely
-            // ignoring the project tag or having a preconfigured prefix)
-            String newName = prefix + sep + name;
-            Target newTarget = usedTarget ? new Target(target) : target;
-            newTarget.setName(newName);
-            context.getCurrentTargets().put(newName, newTarget);
-            project.addOrReplaceTarget(newName, newTarget);
-        }
         if (extensionPointMissing != null && extensionsOf == null) {
             throw new BuildException("onMissingExtensionPoint attribute cannot be specified unless extensionOf is specified", target.getLocation());
         }
         if (extensionsOf != null) {
             ProjectHelper helper = context.getProject().getReference(ProjectHelper.PROJECTHELPER_REFERENCE);
-            for (String extensionOf : extensionsOf) {
-                if (isInIncludeMode()) {
-                    extensionOf = prefix + sep + extensionOf;
+            for (Pair<String, String> extensionOf : extensionsOf) {
+                String extensionName;
+                if (extensionOf.first == null) {
+                    extensionName = fqnPrefix + extensionOf.second;
+                } else {
+                    extensionName = context.getFQNPrefix(extensionOf.first) + getCurrentPrefixSeparator() + extensionOf.second;
                 }
                 if (extensionPointMissing == null) {
                     extensionPointMissing = OnMissingExtensionPoint.FAIL;
                 }
                 // defer extensionpoint resolution until the full
                 // import stack has been processed
-                helper.getExtensionStack().add(new String[] {extensionOf, name, extensionPointMissing.name()});
+                helper.getExtensionStack().add(new String[] {extensionName, name, extensionPointMissing.name()});
             }
         }
     }
@@ -743,7 +729,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             qname = tag;
         } else {
             qname = ns + ":" + tag;
-            uri = context.getURI(ns);
+            uri = context.getFQNPrefix(ns);
             if (uri == null) {
                 uri = ns;
             }

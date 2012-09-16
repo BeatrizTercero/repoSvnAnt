@@ -43,7 +43,7 @@ EAntlibImport:
 ;
 
 EBuildImport:
-    'module' file=StringLiteral
+    'module' file=StringLiteral 'as' name=Identifier
 ;
 
 EExtensionPoint:
@@ -72,7 +72,7 @@ ETaskLists:
 ;
 
 ETargetList:
-    names+=Identifier (',' names+=Identifier)*
+    names+=ENSName (',' names+=ENSName)*
 ;
 
 ETask:

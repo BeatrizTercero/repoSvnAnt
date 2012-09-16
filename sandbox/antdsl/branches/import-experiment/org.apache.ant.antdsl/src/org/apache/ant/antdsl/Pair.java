@@ -15,18 +15,27 @@
  *  limitations under the License.
  *
  */
-package org.apache.ant.antdsl.antlr;
+package org.apache.ant.antdsl;
 
-public class Pair<F,S> {
+public class Pair<F, S> {
 
     public F first;
 
     public S second;
 
+    public Pair() {
+        // default constructor
+    }
+
+    public Pair(F first, S second) {
+        this.first = first;
+        this.second = second;
+    }
+
     public F getFirst() {
         return first;
     }
-    
+
     public S getSecond() {
         return second;
     }

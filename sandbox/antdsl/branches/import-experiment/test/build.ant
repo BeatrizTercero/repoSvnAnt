@@ -7,10 +7,10 @@ antpath {
 }
 */
 import antlib "org/apache/ant/antunit/antlib.xml" as antunit
-import module "org/apache/ant/antdsl/test/build.ant"
+import module "org/apache/ant/antdsl/test/build.ant" as test
 
 target build
-    depends imported
+    depends test:imported
 {
     antunit:assertEquals(expected = "test", actual = "test")
     antunit:assertEquals(expected = "test", actual = "nok")

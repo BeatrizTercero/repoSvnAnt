@@ -4,7 +4,7 @@
 		module="test-build"
 		revision="working@hibpro.home"
 		status="integration"
-		publication="20120828211112"
+		publication="20120829210819"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>

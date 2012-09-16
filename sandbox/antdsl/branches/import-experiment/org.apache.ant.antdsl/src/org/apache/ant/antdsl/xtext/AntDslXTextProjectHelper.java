@@ -36,6 +36,7 @@ import org.apache.ant.antdsl.FunctionDef.NestedSequential;
 import org.apache.ant.antdsl.FunctionDef.TemplateElement;
 import org.apache.ant.antdsl.IfTask;
 import org.apache.ant.antdsl.IfTask.ConditionnalSequential;
+import org.apache.ant.antdsl.Pair;
 import org.apache.ant.antdsl.expr.AddAntExpression;
 import org.apache.ant.antdsl.expr.AndAntExpression;
 import org.apache.ant.antdsl.expr.AntExpression;
@@ -95,6 +96,7 @@ import org.apache.ant.antdsl.xtext.antdsl.EInstanceOfExpr;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalAssignment;
 import org.apache.ant.antdsl.xtext.antdsl.ELocalPropertyFuncArgument;
 import org.apache.ant.antdsl.xtext.antdsl.EMultiplicativeExpr;
+import org.apache.ant.antdsl.xtext.antdsl.ENSName;
 import org.apache.ant.antdsl.xtext.antdsl.ENullExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EOctalLiteralExpr;
 import org.apache.ant.antdsl.xtext.antdsl.EProject;
@@ -183,7 +185,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                     importAntlib(project, context, readIdentifier(eAntlibImport.getName()), readString(eAntlibImport.getResource()));
                 } else if (eImport instanceof EBuildImport) {
                     EBuildImport eBuildImport = (EBuildImport) eImport;
-                    importBuildModule(project, context, readString(eBuildImport.getFile()));
+                    importBuildModule(project, context, readIdentifier(eBuildImport.getName()), readString(eBuildImport.getFile()));
                 } else {
                     throw new IllegalArgumentException("Unsupported import " + eImport.getClass().getName());
                 }
@@ -263,13 +265,13 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
         return target;
     }
 
-    private List<String> mapTargetList(ETargetList targetList) {
+    private List<Pair<String, String>> mapTargetList(ETargetList targetList) {
         if (targetList == null) {
             return null;
         }
-        List<String> names = new ArrayList<String>();
-        for (String name : targetList.getNames()) {
-            names.add(readIdentifier(name));
+        List<Pair<String, String>> names = new ArrayList<Pair<String, String>>();
+        for (ENSName name : targetList.getNames()) {
+            names.add(new Pair<String, String>(readIdentifier(name.getNamespace()), readIdentifier(name.getName())));
         }
         return names;
     }
