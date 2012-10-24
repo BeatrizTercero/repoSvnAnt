@@ -2765,6 +2765,29 @@
         </table>
       </subsection>
 
+      <subsection name="Reencode">
+
+        <p>Change the character encoding of a text file.</p>
+        <table class="externals">
+          <tr>
+            <th>Compatibility:</th>
+            <td>anything with fileset</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="https://github.com/nickawatts/reencode/wiki">https://github.com/nickawatts/reencode/wiki</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="https://github.com/nickawatts/reencode/wiki">https://github.com/nickawatts/reencode/wiki</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Apache License 2.0</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="RefactorIT">
 
         <p>RefactorIT includes an Ant task for metrics and audits.
