@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc1)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/dependence.html" class="current">Project dependencies</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/dependence.html" class="current">Project dependencies</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="open"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -229,7 +229,7 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0-rc1/index.html" >2.3.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0-rc2/index.html" >2.3.0-rc2</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.0.0/index.html" >2.0.0</a></li>
@@ -358,16 +358,16 @@ Go to <tt>dependee</tt> directory  and publish the project
 Buildfile: /ivy/dependence/dependee/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc1 - 20120416000235 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
 [ivy:retrieve] 	confs: [default]
 [ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ................................................................................................................................................................................................................................................................................................................................ (165kB)
+[ivy:retrieve] ...................... (165kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (1758ms)
-[ivy:retrieve] :: resolution report :: resolve 311ms :: artifacts dl 1763ms
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (468ms)
+[ivy:retrieve] :: resolution report :: resolve 125ms :: artifacts dl 468ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -376,7 +376,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#dependee
 [ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (165kB/43ms)
+[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (165kB/15ms)
 
 compile:
     [mkdir] Created dir: /ivy/dependence/dependee/build/classes
@@ -387,7 +387,7 @@ jar:
       [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
 
 publish:
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 1 :: release :: Mon Apr 16 00:12:43 CEST 2012
+[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 1 :: release :: Mon Nov 05 22:40:29 CET 2012
 [ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
 [ivy:publish] :: publishing :: org.apache#dependee
 [ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-1.jar
@@ -395,7 +395,7 @@ publish:
      [echo] project dependee released with version 1
 
 BUILD SUCCESSFUL
-Total time: 4 seconds
+Total time: 2 seconds
 
 </pre></div>
 What we see here:
@@ -423,7 +423,7 @@ Buildfile: /ivy/dependence/depender/build.xml
 clean:
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc1 - 20120416000235 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
 [ivy:retrieve] 	confs: [default]
@@ -433,8 +433,8 @@ resolve:
 [ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-1.jar ...
 [ivy:retrieve] .. (1kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;1!dependee.jar (116ms)
-[ivy:retrieve] :: resolution report :: resolve 324ms :: artifacts dl 122ms
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;1!dependee.jar (15ms)
+[ivy:retrieve] :: resolution report :: resolve 125ms :: artifacts dl 15ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -443,7 +443,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#depender
 [ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/44ms)
+[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/15ms)
 
 compile:
     [mkdir] Created dir: /ivy/dependence/depender/build/classes
@@ -456,7 +456,7 @@ run:
      [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
 
 BUILD SUCCESSFUL
-Total time: 2 seconds
+Total time: 1 second
 
 </pre></div>
 What we see here:
@@ -475,12 +475,12 @@ Like we did before in step 3, publish the dependee project again. This will resu
 Buildfile: /ivy/dependence/dependee/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc1 - 20120416000235 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
 [ivy:retrieve] 	confs: [default]
 [ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] :: resolution report :: resolve 123ms :: artifacts dl 3ms
+[ivy:retrieve] :: resolution report :: resolve 78ms :: artifacts dl 0ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -489,7 +489,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#dependee
 [ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 1 already retrieved (0kB/3ms)
+[ivy:retrieve] 	0 artifacts copied, 1 already retrieved (0kB/0ms)
 
 compile:
 
@@ -499,7 +499,7 @@ jar:
 
 publish:
    [delete] Deleting: /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 2 :: release :: Mon Apr 16 00:12:49 CEST 2012
+[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 2 :: release :: Mon Nov 05 22:40:33 CET 2012
 [ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
 [ivy:publish] :: publishing :: org.apache#dependee
 [ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-2.jar
@@ -529,7 +529,7 @@ Buildfile: /ivy/dependence/depender/build.xml
 clean:
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc1 - 20120416000235 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
 [ivy:retrieve] 	confs: [default]
@@ -539,8 +539,8 @@ resolve:
 [ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-2.jar ...
 [ivy:retrieve] .. (1kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;2!dependee.jar (45ms)
-[ivy:retrieve] :: resolution report :: resolve 274ms :: artifacts dl 49ms
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;2!dependee.jar (16ms)
+[ivy:retrieve] :: resolution report :: resolve 125ms :: artifacts dl 16ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -549,7 +549,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#depender
 [ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/29ms)
+[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/0ms)
 
 compile:
     [mkdir] Created dir: /ivy/dependence/depender/build/classes
