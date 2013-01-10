@@ -567,6 +567,41 @@
         </table>
       </subsection>
 
+      <subsection name="ModelAnt">
+
+        <p> ModelAnt tool is an extension of Apache Ant for practical managing models and meta-models
+            and generation of code/artifacts. ModelAnt uses industry standard technologies and Java APIs as
+            JMI 1.0, MOF 1.4, XMI 1.1 / 1.2, UML 1.3 though Ant scripting front-end, following the
+            paradigm of Model Driven Architecture (MDA).
+            ModelAnt also provides tasks to reverse engineer to UML 1.3 databases, Java sources, XML schemas,
+            Ant scrits. Additionally provided are:<ul>
+            <li>A demo project to generae POJO classes. It could be customized or extended to
+            generate any other text artifacts.</li>
+            <li>A task to generate documentation of Ant scripts and antlib files.</li>
+            <li>A task to convert UML 1.3 models to UML 1.4, suitable for import in ArgoUml.</li>
+            </ul>
+        </p>
+
+        <table class="externals">
+          <tr>
+            <th>Compatibility:</th>
+            <td>Ant 1.6.x and Ant 1.7.x<br/>Incompatible with Ant 1.8.x </td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="http://mdatools.net/blog/projects/model-ant/">http://mdatools.net/blog/projects/model-ant/</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="http://mdatools.net/blog/contacts/">Project Contacts form</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Eclipse Public License</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="NAnt">
 
         <p>NAnt is a .NET based build tool. In theory it is kind of
