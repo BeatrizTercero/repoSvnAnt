@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/start.html" class="current">Quick Start</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/start.html" class="current">Quick Start</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="open"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" class="current">Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -229,7 +229,7 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0-rc2/index.html" >2.3.0-rc2</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.0.0/index.html" >2.0.0</a></li>
@@ -313,42 +313,42 @@ OK, now that we have seen the files involved, let's run the sample to see what h
 Buildfile: /ivy/hello-ivy/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
 [ivy:retrieve] 	confs: [default]
 [ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
 [ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
 [ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-javadoc.jar ...
+[ivy:retrieve] ................................... (467kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(javadoc) (1154ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-sources.jar ...
+[ivy:retrieve] .................. (245kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(source) (764ms)
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ...................... (165kB)
+[ivy:retrieve] ............... (165kB)
 [ivy:retrieve] .. (0kB)
 [ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (484ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-javadoc.jar ...
-[ivy:retrieve] ..................... (467kB)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar ...
+[ivy:retrieve] ....... (92kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(javadoc) (1108ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-sources.jar ...
-[ivy:retrieve] ................... (245kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(source) (670ms)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(javadoc) (375ms)
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar ...
 [ivy:retrieve] ..... (29kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar (312ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar ...
-[ivy:retrieve] ........ (92kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(javadoc) (344ms)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar (171ms)
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar ...
 [ivy:retrieve] ...... (48kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(source) (280ms)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(source) (281ms)
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar ...
 [ivy:retrieve] .... (21kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0!commons-logging.jar (172ms)
-[ivy:retrieve] :: resolution report :: resolve 1248ms :: artifacts dl 3385ms
+[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0!commons-logging.jar (249ms)
+[ivy:retrieve] :: resolution report :: resolve 1326ms :: artifacts dl 3541ms
 [ivy:retrieve] 	:: evicted modules:
 [ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
 	---------------------------------------------------------------------
@@ -359,7 +359,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#hello-ivy
 [ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	7 artifacts copied, 0 already retrieved (1069kB/47ms)
+[ivy:retrieve] 	7 artifacts copied, 0 already retrieved (1069kB/78ms)
 
 run:
     [mkdir] Created dir: /ivy/hello-ivy/build
@@ -378,14 +378,14 @@ Without any settings, Ivy retrieves files from the maven 2 repository. That's wh
 Buildfile: /ivy/hello-ivy/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
 [ivy:retrieve] 	confs: [default]
 [ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
 [ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
 [ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
-[ivy:retrieve] :: resolution report :: resolve 171ms :: artifacts dl 16ms
+[ivy:retrieve] :: resolution report :: resolve 171ms :: artifacts dl 0ms
 [ivy:retrieve] 	:: evicted modules:
 [ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
 	---------------------------------------------------------------------
@@ -429,7 +429,7 @@ Great! The cache was used, so no download was needed and the build was instantan
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2012 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

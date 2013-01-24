@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/conf.html" class="current">Using Ivy Module Configurations</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/conf.html" class="current">Using Ivy Module Configurations</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0-rc2)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.3.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="open"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -229,7 +229,7 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0-rc2/index.html" >2.3.0-rc2</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.0.0/index.html" >2.0.0</a></li>
@@ -310,7 +310,7 @@ Buildfile: /ivy/configurations/multi-projects/filter-framework/build.xml
 clean:
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#filter-framework;working@apache
 [ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
@@ -319,12 +319,12 @@ resolve:
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar ...
 [ivy:retrieve] ..................................... (546kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-collections#commons-collections;3.1!commons-collections.jar (1295ms)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-collections#commons-collections;3.1!commons-collections.jar (1341ms)
 [ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit/3.8/junit-3.8.jar ...
-[ivy:retrieve] ........ (118kB)
+[ivy:retrieve] .......... (118kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] junit#junit;3.8!junit.jar (421ms)
-[ivy:retrieve] :: resolution report :: resolve 1514ms :: artifacts dl 1731ms
+[ivy:retrieve] 	[SUCCESSFUL ] junit#junit;3.8!junit.jar (406ms)
+[ivy:retrieve] :: resolution report :: resolve 842ms :: artifacts dl 1779ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -336,7 +336,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#filter-framework
 [ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
-[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (1211kB/63ms)
+[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (1211kB/62ms)
 
 build:
     [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build
@@ -354,12 +354,12 @@ test:
     [javac] /ivy/configurations/multi-projects/filter-framework/build.xml:82: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
     [javac] Compiling 3 source files to /ivy/configurations/multi-projects/filter-framework/build/test-classes
     [junit] Running filter.ccimpl.CCFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,047 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,063 sec
     [junit] Running filter.hmimpl.HMFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,062 sec
+    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,063 sec
 
 publish:
-[ivy:publish] :: delivering :: org.apache#filter-framework;working@apache :: 1.3 :: release :: Mon Nov 05 22:40:43 CET 2012
+[ivy:publish] :: delivering :: org.apache#filter-framework;working@apache :: 1.3 :: release :: Thu Jan 10 14:34:51 CET 2013
 [ivy:publish] 	delivering ivy file to /ivy/configurations/multi-projects/filter-framework/distrib/ivy.xml
 [ivy:publish] :: publishing :: org.apache#filter-framework
 [ivy:publish] 	published filter-api to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-api.jar
@@ -371,7 +371,7 @@ publish:
      [echo] project filter-framework released with version 1.3
 
 BUILD SUCCESSFUL
-Total time: 7 seconds
+Total time: 8 seconds
 
 </pre></div>
 The Ant default target is publish. This target uses Ivy to publish our library binaries to a local repository. Since we do not specify any repository path, the default one is used. (<tt>${home.dir}/.ivy2/local/org.apache/filter-framework/</tt>) At this point, we are ready to use our library.<br class="xooki-br"/><br class="xooki-br"/><h1>The application project</h1>
@@ -405,26 +405,26 @@ Use Ant to run the application. The default Ant target is <i>run-cc</i> and will
 Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
 [ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
 [ivy:retrieve] 	found org.apache#filter-framework;1.3 in local
 [ivy:retrieve] 	[1.3] org.apache#filter-framework;latest.integration
 [ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-api.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-api.jar (31ms)
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-hmimpl.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-hmimpl.jar (32ms)
 [ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-ccimpl.jar ...
 [ivy:retrieve] .. (1kB)
 [ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-ccimpl.jar (15ms)
-[ivy:retrieve] :: resolution report :: resolve 140ms :: artifacts dl 78ms
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-ccimpl.jar (0ms)
+[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-hmimpl.jar ...
+[ivy:retrieve] .. (1kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-hmimpl.jar (62ms)
+[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-api.jar ...
+[ivy:retrieve] .. (1kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-api.jar (16ms)
+[ivy:retrieve] :: resolution report :: resolve 172ms :: artifacts dl 78ms
 	---------------------------------------------------------------------
 	|                  |            modules            ||   artifacts   |
 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
@@ -435,7 +435,7 @@ resolve:
 	---------------------------------------------------------------------
 [ivy:retrieve] :: retrieving :: org.apache#myapp
 [ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	6 artifacts copied, 0 already retrieved (552kB/32ms)
+[ivy:retrieve] 	6 artifacts copied, 0 already retrieved (552kB/140ms)
 
 build:
     [mkdir] Created dir: /ivy/configurations/multi-projects/myapp/build
@@ -456,7 +456,7 @@ Launching the application using the homemade implementation is also straightforw
 Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
 
 resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0-rc2 - 20121105223351 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
 [ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
 [ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
 [ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
@@ -509,7 +509,7 @@ Nice! We got the same result, but we can see that the implementation classes are
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2012 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>
