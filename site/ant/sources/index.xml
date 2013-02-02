@@ -57,6 +57,27 @@
           Foundation</a>.</p>
   </section>
 
+  <section name="Apache Ivy 2.3.0">
+    <h3>January 21, 2013 - Apache Ivy 2.3.0 Released</h3>
+    <p>Apache Ivy 2.3.0 is now available for download as source or binary (with and without
+      dependencies) from
+      <a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a>.</p>
+      
+    <p>Key features of the 2.3.0 release are</p>
+    <ul>
+      <li>improved Ant support with some new Ant tasks and enhancements to existing tasks</li>
+      <li>improved Maven2 compatibility</li>
+      <li>some new resolvers</li>
+      <li>numerous bug fixes and improvements as documented in Jira
+        and in the release notes</li>
+    </ul>
+
+    <p>In addition, experimental OSGI support has been added to the Ivy core.</p>
+    
+    <p>For more information see
+      the <a href="http://ant.apache.org/ivy/">Ivy home page</a>.</p>
+  </section>
+
   <section name="Apache Ant 1.8.4">
     <h3>May 23, 2012 - Apache Ant 1.8.4 Released</h3>
     <p>Apache Ant 1.8.4 is now available for download as source or
