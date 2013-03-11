@@ -65,8 +65,9 @@
     <p>Key features of the 1.9.0 release are</p>
     <ul>
       <li>Java 1.5 is now required</li>
-      <li>support for @Ignore annotation and requirement of JUnit 4.11</li>
-      <li>the zip, bzip2 and tar are improved</li>
+      <li>support for @Ignore annotation in JUnit 4 testcases</li>
+      <li>the minimum version of JUnit 4 required is JUnit 4.11</li>
+      <li>the zip, bzip2 and tar tasks are improved</li>
       <li>removal of the Perforce Ant tasks; users of these tasks can use the tasks supplied by Perforce Inc. instead,
         which contain more functionality and connect natively to the Perforce servers</li>
       <li>numerous bug fixes and improvements as documented in Bugzilla
