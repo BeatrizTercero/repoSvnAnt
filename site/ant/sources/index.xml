@@ -57,12 +57,31 @@
           Foundation</a>.</p>
   </section>
 
+  <section name="Apache Ant 1.9.0">
+    <h3>March 7, 2013 - Apache Ant 1.9.0 Released</h3>
+    <p>Apache Ant 1.9.0 is now available for download as source or
+      binary from
+      <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
+    <p>Key features of the 1.9.0 release are</p>
+    <ul>
+      <li>Java 1.5 is now required</li>
+      <li>support for @Ignore annotation and requirement of JUnit 4.11</li>
+      <li>the zip, bzip2 and tar are improved</li>
+      <li>removal of the Perforce Ant tasks; users of these tasks can use the tasks supplied by Perforce Inc. instead,
+        which contain more functionality and connect natively to the Perforce servers</li>
+      <li>numerous bug fixes and improvements as documented in Bugzilla
+        and in the release notes</li>
+    </ul>
+
+
+  </section>
+
   <section name="Apache Ivy 2.3.0">
     <h3>January 21, 2013 - Apache Ivy 2.3.0 Released</h3>
     <p>Apache Ivy 2.3.0 is now available for download as source or binary (with and without
       dependencies) from
       <a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a>.</p>
-      
+
     <p>Key features of the 2.3.0 release are</p>
     <ul>
       <li>improved Ant support with some new Ant tasks and enhancements to existing tasks</li>
@@ -73,23 +92,11 @@
     </ul>
 
     <p>In addition, experimental OSGI support has been added to the Ivy core.</p>
-    
+
     <p>For more information see
       the <a href="http://ant.apache.org/ivy/">Ivy home page</a>.</p>
   </section>
 
-  <section name="Apache Ant 1.8.4">
-    <h3>May 23, 2012 - Apache Ant 1.8.4 Released</h3>
-    <p>Apache Ant 1.8.4 is now available for download as source or
-      binary from
-      <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
-      
-    <p>Ant 1.8.4 fixes a denial of service flaw in the
-    <code>&lt;bzip2&gt;</code> task present in any version of Ant
-    since Ant 1.5.  For details see the <a
-    href="security.html">security reports page</a>.</p>
-
-  </section>
 
   <section name="Apache Compress Antlib 1.2">
     <h3>April 20, 2012 - Apache Compress Antlib 1.2 Released</h3>
@@ -108,7 +115,7 @@
   <section name="Documentation">
 
 <p>
-You can view the documentation for the current release (Apache Ant 1.8.4)
+You can view the documentation for the current release (Apache Ant 1.9.0)
 <a href="manual/index.html">online</a>
 </p>
 

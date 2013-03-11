@@ -236,6 +236,10 @@
             <td>1.8.4</td>
             <td>23 May 2012</td>
           </tr>
+          <tr>
+            <td>1.9.0</td>
+            <td>07 March 2013</td>
+          </tr>
         </table>
       </answer>
     </faq>
@@ -284,6 +288,11 @@
           <tr>
             <td>1.8.0 up to 1.8.3</td>
             <td>1.4</td>
+          </tr>
+
+          <tr>
+            <td>1.9.0</td>
+            <td>1.5</td>
           </tr>
 
           <tr>
