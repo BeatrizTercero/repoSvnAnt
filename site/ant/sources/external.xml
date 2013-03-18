@@ -3842,7 +3842,7 @@
         <table class="externals">
           <tr>
             <th>Compatibility:</th>
-            <td>bundles 1.8.0 starting with NetBeans 6.9; 1.8.1 for 6.9.1; 1.8.2 for 7.0; 1.8.3 for 7.2</td>
+            <td>bundles Ant 1.8.3 in NetBeans 7.1.2/7.2, 1.8.4 in 7.3, 1.9.0 in the release following 7.3</td>
           </tr>
           <tr>
             <th>URL:</th>
