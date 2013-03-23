@@ -1,0 +1,38 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project name="org.apache.easyant.plugins#offline" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:ac="antlib:net.sf.antcontrib"
+    xmlns:ea="antlib:org.apache.easyant">
+
+    <ea:core-version requiredrevision="[0.9,+]" />
+
+    <ea:parameter property="project.buildscope.resolver" default="project.buildscope.repository"
+        description="name of project build scope repository" />
+    <ea:parameter property="easyant.buildscope.resolver" default="easyant.buildscope.repository"
+        description="name of easyant build scope resolver" />
+    <ea:parameter property="easyant.offline" default="false" description="specify if you're running easyant in offline mode" />
+    <ea:parameter property="offline.base.directory" default="${basedir}/offline/" description="specify offline base directory" />
+
+    <target name="offline:clean">
+        <delete dir="${offline.base.directory}" failonerror="false" />
+    </target>
+
+    <target name="offline:go-offline">
+        <fail if="${easyant.offline}" message="can't run offline:go-offline when you are already offline" />
+        <ea:parameter property="project.ivy.instance" default="project.ivy.instance" description="the ivy instance name for your project" />
+        <ea:go-offline projectResolverName="${project.buildscope.resolver}" easyantResolverName="${easyant.buildscope.resolver}" />
+    </target>
+</project>

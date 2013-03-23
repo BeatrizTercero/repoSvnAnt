@@ -1,0 +1,81 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project name="org.apache.easyant.plugins#testng" xmlns:ea="antlib:org.apache.easyant">
+    <ea:core-version requiredrevision="[0.9,+]" />
+
+    <ea:plugin module="abstract-test" revision="0.9" />
+
+    <target name="testng:init" depends="abstract-test:init">
+        <ea:parameter property="testng.filename" description="testng configuration filename" default="testng.xml" />
+        <available property="testng.available" classname="org.testng.TestNGAntTask">
+            <classpath refid="run.test.classpath" />
+        </available>
+
+        <fail unless="testng.available" message="Testng is unavailable, perhaps you forget to add testng in you project dependencies." />
+        <taskdef name="testng" classname="com.beust.testng.TestNGAntTask">
+            <classpath refid="run.test.classpath" />
+        </taskdef>
+    </target>
+
+    <macrodef name="testng-test">
+        <attribute name="prefix" />
+        <sequential>
+            <mkdir dir="${target.test.xml}" />
+            <!-- Xml and HTML file will be generated in target.test.xml -->
+            <testng outputDir="${target.test.xml}" haltonfailure="off" failureproperty="@{prefix}.failed">
+                <classpath refid="run.@{prefix}.classpath" />
+                <xmlfileset dir="${target.@{prefix}.classes}" includes="${testng.filename}" />
+                <!-- Alternative way to launch testng, maybe this could be an alternative target? -->
+                <classfileset dir="${target.@{prefix}.classes}" includes="**/*.class" />
+            </testng>
+        </sequential>
+    </macrodef>
+
+    <target name="-testng:test" depends="testng:init,abstract-test:compute-test-sets" unless="skip.test">
+        <testng-test prefix="test" />
+    </target>
+
+    <target name="-testng:integration-test" depends="testng:init,abstract-test:compute-test-sets"
+        unless="skip.test.integration">
+        <testng-test prefix="test.integration" />
+    </target>
+
+    <target name="testng:run" if="test.mode.run" unless="skip.test" depends="-testng:test" description="run testng tests"
+        extensionOf="abstract-test:test-run">
+        <check-test-result propertytocheck="test.failed"
+            message="At least one test has failed. See logs in ${target.test.xml} for details or use the report target to run the test with a report" />
+    </target>
+
+    <target name="testng:run-integration" if="test.mode.run" unless="skip.test.integration" depends="-testng:integration-test"
+        description="run testng integration tests" extensionOf="abstract-test:integration-test-run">
+        <check-test-result propertytocheck="test.integration.failed"
+            message="At least one integration test has failed. See logs in ${target.test.xml} for details or use the report target to run the test with a report" />
+    </target>
+
+    <target name="testng:report" if="test.mode.report" unless="skip.test"
+        depends="-testng:test,-testng:integration-test" description="generate testng reports">
+        <junitreport todir="${target.test.xml}">
+            <fileset dir="${target.test.xml}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${target.test.html}" />
+        </junitreport>
+        <fail if="test.failed" message="At least one test has failed. See logs in ${target.test.xml} or report in ${target.test.html}" />
+        <fail if="test.integration.failed"
+            message="At least one integration test has failed. See logs in ${target.test.xml} or report in ${target.test.html}" />
+    </target>
+</project>
