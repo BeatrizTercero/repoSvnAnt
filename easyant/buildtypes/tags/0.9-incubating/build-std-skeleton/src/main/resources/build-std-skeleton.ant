@@ -1,0 +1,53 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project name="org.apache.easyant.buildtypes#build-std-skeleton" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:ea="antlib:org.apache.easyant">
+    <ea:core-version requiredrevision="[0.9,+]" />
+    <echo message="Building ${ivy.organisation} ${ivy.module} with org.apache.easyant.buildtypes#build-std-skeleton..." />
+    <property file="${org.apache.easyant.buildtypes#build-std-skeleton.properties.file}" />
+    <ea:plugin module="phases-std" revision="0.9" />
+    <ea:plugin module="clean-std" revision="0.9" />
+    <ea:plugin module="resources-std" revision="0.9" />
+    <ea:plugin module="default-version-strategy" revision="0.9" />
+    <ea:plugin module="ivy-provisioning" revision="0.9" />
+    <ea:plugin module="easyant-plugin-publication" revision="0.9" />
+    <ea:plugin module="manifest" revision="0.9"/>
+    <ea:plugin module="package-jar" revision="0.9"/>
+    <ea:plugin module="antunit" revision="0.9" />
+
+    <!-- plugin binding -->
+    <bindtargets targets="manifest:manifest-runnable,resources-std:copy-resources" extensionPoint="abstract-package:package-ready" />
+    <bindtargets targets="package-jar:jar" extensionPoint="ivy-publication:publish-ready" />
+
+    <!-- bind high level targets -->
+    <bindtargets targets="clean-std:clean" extensionPoint="clean" />
+    <bindtargets targets="abstract-test:test-run" extensionPoint="test" />
+    <bindtargets targets="abstract-test:integration-test-run" extensionPoint="integration-test" />
+    <bindtargets targets="abstract-package:package" extensionPoint="package" />
+    <bindtargets targets="ivy-publication:generate-local-version,dist,ivy-publication:publish-local"
+        extensionPoint="publish-local" />
+    <bindtargets targets="ivy-publication:generate-shared-version,dist,ivy-publication:publish-shared"
+        extensionPoint="publish-shared" />
+    <bindtargets targets="ivy-publication:generate-release-version,verify,ivy-publication:release"
+        extensionPoint="release" />
+    <bindtargets targets="antunit:run" extensionPoint="test" />
+
+    <!-- additionnal friendtly target names -->
+    <target name="dist" depends="ivy-publication:publish-ready" description="Produce every artifact to be distributed" />
+    <target name="install" depends="ivy-publication:publish-local" description="Install the artifacts into local repository" />
+
+    <ea:configure-project defaulttarget="dist" />
+</project>
