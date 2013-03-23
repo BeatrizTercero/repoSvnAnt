@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+    <script type="text/javascript">var xookiConfig = {level: 2};</script>   
+    <script type="text/javascript" src="../../xooki/xooki.js"></script>
+</head>
+<body>
+    <textarea id="xooki-source">
+<h1>submodule task</h1>
+
+<h2>Description</h2>
+<p>
+This task is used to manage orchestration of submodules.
+</p>
+
+<h2>Arguments</h2>
+<table class="sortable" id="arguments">
+  <thead>
+    <tr><th>Parameter name</th><th class="unsortable">Description</th><th>Mandatory</th></tr>
+  </thead>
+  <tbody>
+    <tr id="mandatory">
+      <td>buildpathRef</td>
+      <td>Buildpath to use, by reference</td>
+      <td>true if no nested buildpath element</td>
+    </tr>
+    <tr>
+      <td>useBuildRepository</td>
+      <td>Specify if should use build repository or not (default value : false)</td>
+      <td> </td>
+    </tr>
+
+    <tr>
+      <td>overwrite</td>
+      <td>Specify if publication in build repository should overwrite existing artifacts<br/><i>Default : true</i></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>target</td>
+      <td>The target to call on the different sub-builds. Set to "" to execute the default target</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>verbose</td>
+      <td>Enable/ disable verbose log messages showing when each sub-build path is entered/ exited<br/><i>Default : false</i></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>failOnError</td>
+      <td>Sets whether to fail with a build exception on error, or go on<br/><i>Default : true</i></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>inheritRefs</td>
+      <td>If true, pass all references to the new Ant project<br/><i>Default : false</i></td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Nested Elements</h2>
+<h3>buildpath</h3>
+<p>
+Buildpath to be used to find sub-projects.
+Mandatory if no buildpathref argument is specified.
+</p>
+
+<h3>reference</h3>
+
+<p>
+Used to choose references that shall be copied into the new project, optionally changing their id.
+</p>
+<table class="sortable">
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th class="unsortable">Description</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>refid</td>
+      <td>The id of the reference in the calling project.</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>torefid</td>
+      <td>The id of the reference in the new project.<br/><i>Default to the value of refid</i></td>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>propertyset</h3>
+<p>You can specify a set of properties to be copied into the new project with propertysets.</p>
+
+<h2>Example</h2>
+<code type="xml">
+ <ea:submodule target="package"/>
+</code></textarea>
+<script type="text/javascript">xooki.postProcess();</script>
+</body>
+</html>

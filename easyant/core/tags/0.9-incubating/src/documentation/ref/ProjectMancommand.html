@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+    <script type="text/javascript">var xookiConfig = {level: 1};</script>   
+    <script type="text/javascript" src="../xooki/xooki.js"></script>
+</head>
+<body>
+    <textarea id="xooki-source">
+<h1>ProjectMan commands</h1>
+EasyAnt cames with a few new switches usable from the command line that allow you to obtain several informations on a given project.
+
+<ul>
+  <li>listTargets : Lists all targets available</li>
+  <li>listTargets [arg] : Lists all targets associated with the specified extension-point / plugin as argument</li>
+  <li>listExtensionPoints : Lists all extension-points available</li>
+  <li>listPugins : Lists all plugins imported in the current project</li>
+  <li>listProps [plugin] : Lists all properties available in the specified plugin</li>
+  <li>listParameters [plugin] : Lists all parameters available in the specified plugin</li>
+  <li>describe [arg] : Describes an extension-point / target / property specified by argument</li>
+</ul>
+
+<h2>listTargets</h2>
+Lists all targets available :
+<code type="shell">
+> easyant -listTargets
+</code>
+Should print :
+<code type="shell">
+--- Available Targets for current project: standard-java-app ---
+
+No ExtensionPoint / Plugin specified. Listing all targets available in the project.	
+    Target: abstract-test:compute-test-sets
+	Extension-Point: NONE
+	Description: compute the set of test cases to run
+	Depends: abstract-test:test-ready
+	IF: NONE
+	UNLESS: NONE
+...
+    Target: test-junit:run-integration
+	Extension-Point: abstract-test:integration-test-run
+	Description: run junit integration tests
+	Depends: -test-junit:integration-test
+	IF: test.mode.run
+	UNLESS: skip.test.integration
+
+--- End Of (Targets Listing) ---
+
+</code>
+
+<h2>listTargets [arg]</h2>
+Lists all targets associated with the specified extension-point / plugin as argument :
+<code type="shell">
+> easyant -listTargets package
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+--- Available Targets for current project: standard-java-app ---
+Targets for ExtensionPoint: package
+	No targets found.
+
+Targets for Module: package
+	Target: run-java:init
+		Extension-Point: NONE
+		Description: NONE
+		Depends: 
+		IF: NONE
+		UNLESS: NONE
+	Target: abstract-package:compute-metainf
+		Extension-Point: NONE
+		Description: NONE
+		Depends: abstract-package:package-ready
+		IF: NONE
+		UNLESS: NONE
+	Target: abstract-package:register-main-artifact
+		Extension-Point: abstract-package:package-finished
+		Description: NONE
+		Depends: 
+		IF: NONE
+		UNLESS: ${skip.register.main.artifact}
+	Target: run-java:run
+		Extension-Point: NONE
+		Description: run the application
+		Depends: run-java:init,abstract-package:package-ready
+		IF: NONE
+		UNLESS: NONE
+	Target: abstract-package:init
+		Extension-Point: NONE
+		Description: NONE
+		Depends: 
+		IF: NONE
+		UNLESS: NONE
+
+
+For more information on an ExtensionPoint, run:
+	 easyant -describe <EXTENSION POINT>
+
+--- End Of (Targets Listing) ---
+</code>
+
+
+<h2>listExtensionPoints</h2>
+Lists all extensio-points available:
+<code type="shell">
+> easyant -listExtensionPoints
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available ExtensionPoints for current project: standard-java-app ---
+	test
+	verify
+	package
+...
+	report
+
+For more information on an ExtensionPoint, run:
+	 easyant -describe <EXTENSION POINT>
+
+--- End Of (ExtensionPoints Listing) ---
+</code>
+
+
+<h2>listPlugins</h2>
+Lists all plugins imported in the current project:
+<code type="shell">
+> easyant -listPlugins
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available Plugins for current project: standard-java-app ---
+    org.apache.easyant.buildtypes#build-std-java;0.2
+    org.apache.easyant.plugins#run-java;0.1: Known as run
+
+
+For more information on a Plugin, run:
+     easyant -describe <PLUGIN>
+
+--- End Of (Plugins Listing) ---
+</code>
+
+
+<h2>listProps [plugin]</h2>
+Lists all properties available in the specified plugin:
+<code type="shell">
+> easyant -listProps run
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available Properties for current project: standard-java-app:: Plugin: run ---
+    Property: run.main.classname
+    Property: target.main.classes
+
+
+For more information on a Property, run:
+     easyant -describe <PROPERTY>
+
+--- End Of (Properties Listing) ---
+</code>
+
+
+<h2>listParameters [plugin]</h2>
+Lists all parameters available in the specified plugin:
+<code type="shell">
+> easyant -listParameters junit
+</code>
+Should print :
+<code type="shell">
+--- Available parameters for current project: easyant-core ---
+
+--- Filtering parameters declared in the following plugin: abstract-test ---
+
+    Parameter (type=PATH): run.test.classpath
+
+For more information on a parameter, run:
+     easyant -describe <parameter name>
+
+--- End Of (Parameter Listing) ---
+</code>
+
+
+<h2>describe [arg]</h2>
+Describes an extension-point / target / property specified by argument:
+<h3>Example with a property</h3>
+<code type="shell">
+> easyant -describe run.main.classname
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available references for: run.main.classname in current project: standard-java-app ---
+    No Extension-Point found for name: run.main.classname
+    No Target found for name: run.main.classname
+    Property: run.main.classname
+        Description: name of the main class to run
+        Default: NONE
+        Required: true
+
+--- End Of (Describe) ---
+</code>
+
+
+<h3>Example with a phase</h3>
+<code type="shell">
+> easyant -describe package
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available references for: package in current project: standard-java-app ---
+    Extension-Point: package
+        Description: take the compiled code and package it in its distributable format, such as a JAR.
+        Depends: prepare-package
+
+        For information on targets attached to this phase, run:
+        easyant -listTargets package
+    No Target found for name: package
+    No Property found for name: package
+
+--- End Of (Describe) ---
+</code>
+
+
+<h3>Example with a target</h3>
+<code type="shell">
+> easyant -describe run-java:run
+</code>
+Should print :
+<code type="shell">
+Project Manual
+--------------
+
+--- Available references for: run-java:run in current project: standard-java-app ---
+    No Phase found for name: run-java:run
+    Target: run-java:run
+        Phase: NONE
+        Description: NONE
+        Depends: validate, compile, process-resources
+        IF: NONE
+        UNLESS: NONE
+    No Property found for name: run-java:run
+
+--- End Of (Describe) ---
+
+</code>
+</textarea>
+<script type="text/javascript">xooki.postProcess();</script>
+</body>
+</html>

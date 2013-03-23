@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+    <script type="text/javascript">var xookiConfig = {level: 0};</script>   
+    <script type="text/javascript" src="xooki/xooki.js"></script>
+</head>
+<body>
+    <textarea id="xooki-source">
+<h1>Reference</h1>
+
+If you don't know EasyAnt at all, give a glance at its <a href="ref/features.html">features</a>, the <a href="faq.html">FAQ</a> and the <a href="tutorials.html">tutorials</a> before digging into this reference documentation.
+
+<h2>How does it work?</h2>
+Easyant-core.jar is in charge of :
+<ul>
+  <li>Loading  the ivy instance used by easyant internal (used to retrieve buildtypes / plugins)</li>
+  <li>Loading all the system plugins.
+</ul>
+This can be configured in a <a href="ref/EasyAntconfigurationfile.html">configuration file</a>.
+
+Then it uses the <a href="ref/anttasks/LoadModuletask.html">loadmodule task</a> provided by easyant, which basically parses an Ivy file (module.ivy similar to pom.xml for maven) and looks for easyant instructions.
+
+Finally easyant tries to import an optional file called module.ant in the user directory (the module to build). In the examples, there is no such file, but this would let the user customize the build with an Ant script if necessary.
+
+<h2>EasyAnt instructions in module.ivy</h2>
+EasyAnt intructions in module.ivy files looks like this
+<code type="xml">
+<ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.9">
+        <ea:property name="run.main.classname" value="org.apache.easyant.example.Example"/>
+        <ea:property name="target.artifacts" value="dist"/>
+        <ea:plugin module="run-java" revision="0.9"/>
+</ea:build>
+</code>
+
+The idea is to have a very limited options to customize the build in the Ivy file: settings properties, specify build modules (buildtype / plugins). If you need more, you can use a module.ant file.
+
+Let's try to understand how to use it.
+'ea:build' tag is the main instruction, arguments references a build type, which tells which build module should be imported (considered as an <a href="ref/anttasks/Importtask.html">import</a>), see below.
+Example:
+<code type="xml">
+<ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.9">
+</code>
+You can also have property definition, as you would have in an Ant script
+Example:
+<code type="xml">
+<ea:property name="target.artifacts" value="dist"/>
+</code>
+Usually build-type does the basic stuff. But sometimes we need something more (Source code management feature / code coverage etc...).
+You can load several plugins using the plugin tag.
+Example:
+<code type="xml">
+<ea:plugin module="run-java" revision="0.9"/>
+</code>
+
+In this example run-java module is loaded as a plugin(considered as an <a href="ref/anttasks/Importtask.html">include</a>). 
+As easyant proceeds with execution, all targets are imported in current project.
+
+<h2>build modules:</h2>
+There are two types of build modules:
+<ul>
+<li>plugins</li>
+<li>build types</li>
+</ul>
+
+<h3>Plugins</h3>
+Build plugins are there to actually define each block of the build system. They interact with each other by relying on the file system and properties (for instance run-java expect java classes to be in directory pointed by ${target.main.classes}). Build plugin can define extensionPoints to make stuff pluggable.
+
+Each build plugin define the expected "parameters" (i.e. the expected properties, paths) by using a parameter task like this:
+
+<code type="xml">
+<ea:parameter property="src.main.java" required="true" description="directory where sources to be compiled are" />
+</code>
+
+This is intended to be used both for validation and documentation.
+
+<h3>build types:</h3>
+A build type is a set of module preconfigured for a particular type of project (simple java jar, war, ...). EasyAnt comes with a set of build types modules relying on a standard lifecycle, but users could extend/replace it as they want. In most cases users will simply define the build type to use (either standard or a custom one ) and add specific plugins.</textarea>
+<script type="text/javascript">xooki.postProcess();</script>
+</body>
+</html>
