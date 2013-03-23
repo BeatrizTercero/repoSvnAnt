@@ -1,0 +1,256 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+body {
+    background:#f5f5f5 !important;
+    font: normal small Arial, Helvetica, sans-serif;
+    color: #6c6c6c;
+    padding: 0;
+    margin: 0;
+
+}
+
+h1, h2, h3, h4 {
+    color: #11A6D4;
+    margin:5px 0;
+}
+
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+a {
+    color: #EA672E;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #11A6D4;
+}
+
+img {
+    border: none;
+}
+
+thead {
+    background-color: #eeeeee;
+    color: #FFFFFF;
+    
+}
+
+table, sortable {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #CCCCCC;
+    background-color: #F7F7F7;
+     
+
+}
+
+#mandatory {
+    background-color: #CCFFFF;
+}
+
+
+/* Header */
+
+#header {
+    margin:0 auto;
+    line-height:1.2em;
+    width:100%;
+    height:130px;
+    background:#12A6D4 url(../images/img02.jpg) no-repeat 0 0;
+    position:relative;
+}
+
+/* Header > Logo */
+
+#incubatorlogo  {
+    float: right;
+    padding: 30px 0 0 0;
+}
+/* Header > Menu */
+ul.menu{
+padding: 0;
+margin: 0;
+background:#000;
+width:100%;
+position:absolute;
+bottom:0;
+opacity:0.5;
+}
+
+ul.menu li{
+list-style-type:none;
+}
+
+ul.menu li a{
+float:left;
+display:block;
+color:#fff;
+padding:5px 10px;
+}
+
+ul.menu li a:hover{
+background:#fff;
+text-decoration:none;
+color:#000;
+}
+
+/* Content */
+
+#content {
+    padding: 20px 20px;
+}
+
+/* Footer */
+#footer {
+	clear:both;
+	background:#12A6D4;
+}
+#footer p {
+	color:#fff;
+	text-align:center;
+	font-size:.8em;
+	line-height:1.5em;
+	padding:12px 0 12px 0;
+}
+
+/* Footer > Legal */
+
+#legal a {
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+/* Boxed Style */
+
+.boxed {
+    margin-bottom: 1em;
+    background: #F7F7F7 url(../images/img07.gif) repeat-x;
+    border: 1px solid #CCCCCC;
+}
+
+.boxed .title {
+    height: 29px;
+    padding: 11px 0 0 27px;
+    margin:0;
+    background: url(../images/img08.gif) no-repeat 10px 50%;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
+
+/* Posts */
+
+#posts {
+    float:right;
+    width:75%;
+}
+
+/* Content > Sidebar */
+
+#sidebar {
+    float: left;
+    width:24%;
+}
+
+/* Links */
+
+#links {
+    padding-left: 10px;
+    padding-right:10px;
+}
+
+#links ul {
+    padding: 0;
+    margin:0;
+}
+
+#links li a {
+    text-decoration: none;
+}
+
+
+td.spacer {
+    border-top: none;
+    background-color: #f5f5f5;
+}
+
+header-row, thead  {
+    font-weight: bold;
+    color: #EA672E;
+}
+
+.odd {background-color:#f6f7f8;}
+.even {background-color: #fff;}
+
+span.bold {
+    font-weight: bold;
+}
+
+span.defaultValue, span.buildTypeValue {
+    font-style: italic;
+
+}
+
+
+#buildtype-phases, td.phase-row {
+    vertical-align:top;
+    border-spacing:0px;
+    border-top: 1px solid black;
+}
+
+#note {
+    background-image: url('../images/info.gif');
+    background-repeat: no-repeat;
+    background-color: #eeeeee;
+    min-height:48px; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 50px;
+    padding-top : 12px;
+    border: 1px solid #dddddd;
+
+}
+
+.release {
+    background-image: url('../images/package.png');
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    font-weight: bold;
+    color: #EA672E;
+}
+
+table.list tbody tr.group td { padding: 0.8em 0 0.5em 0.3em; font-weight: bold; border-bottom: 1px solid #ccc; }
+table.list tbody tr.group { color: #aaa; font-size: 80%; }
+
+table.list tbody tr:hover { background-color:#ffffdd; }
+table.list tbody tr.group:hover { background-color:inherit; }
+
+table {
+    width: 100%;
+}
+

@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+    <script type="text/javascript">var xookiConfig = {level: 1};</script>   
+    
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Module files</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="../../../style/style.css" media="screen"/>
+  <!-- for tree, see if it would better go in xooki.js -->
+  <link rel="stylesheet" type="text/css" href="../../../style/tree.css" />
+  <script src="../../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../../xooki/"+url;}};</script>
+</head>
+<body>
+<div id="header">
+    <div id="incubatorlogo">
+	<img src="../../../images/apache-incubator-logo.png"/>
+    </div>
+    <div class="menu-main-menu-container">
+       <ul id="menu-main-menu" class="menu">
+         <li class="menu-item"><a href="../../../index.html">Home</a></li>
+         <li class="menu-item"><a href="http://www.apache.org/licenses/LICENSE-2.0.html">License</a></li>
+         <li class="menu-item"><a href="../../../download.html" accesskey="1" title="">Download</a></li>
+         <li class="menu-item"><a href="../../../history/trunk/tutorials.html">Tutorials</a></li>
+         <li class="menu-item"><a href="../../../history/trunk/reference.html">Documentation reference</a></li>
+         <li class="menu-item"><a href="../../../contact.html">Get involved</a></li>
+         <li class="menu-item"><a href="http://blog.easyant.org">Blog</a></li>
+       </ul>
+    </div>
+</div>
+<!-- end #header -->
+<div id="content">
+    <div id="sidebar" class="boxed">
+        <h2 class="title">EasyAnt&#153;</h2>
+        <div id="links">
+                <ul id="treemenu" class="treeview">
+<li id="xooki-index" class="submenu"><a href="../../../index.html" >Home</a><ul class="closed"><li id="xooki-features"><a href="../../../features.html" >Features</a></li>
+<li id="xooki-license"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-faq"><a href="../../../faq.html" >FAQ</a></li>
+</ul></li>
+<li id="xooki-download"><a href="../../../download.html" >Download</a></li>
+<li id="xooki-history" class="submenu">History<ul class="open"><li id="xooki-history/trunk/index" class="submenu"><a href="../../../history/trunk/index.html" >Trunk</a><ul class="open"><li id="xooki-history/trunk/tutorials" class="submenu"><a href="../../../history/trunk/tutorials.html" >Tutorials</a><ul class="closed"><li id="xooki-history/trunk/howto/GettingStarted"><a href="../../../history/trunk/howto/GettingStarted.html" >Getting Started</a></li>
+<li id="xooki-history/trunk/howto/multimodules"><a href="../../../history/trunk/howto/multimodules.html" >Working with multi-modules</a></li>
+<li id="xooki-history/trunk/howto/skeleton"><a href="../../../history/trunk/howto/skeleton.html" >Working with skeletons of project</a></li>
+<li id="xooki-history/trunk/howto/BuildConfigurations"><a href="../../../history/trunk/howto/BuildConfigurations.html" >Build configurations</a></li>
+<li id="xooki-history/trunk/howto/writePlugins"><a href="../../../history/trunk/howto/writePlugins.html" >Writing plugins / build types</a></li>
+</ul></li>
+<li id="xooki-history/trunk/reference" class="submenu"><a href="../../../history/trunk/reference.html" >Reference</a><ul class="open"><li id="xooki-history/trunk/ref/features"><a href="../../../history/trunk/ref/features.html" >Features</a></li>
+<li id="xooki-history/trunk/ref/Defaultlifecycle"><a href="../../../history/trunk/ref/Defaultlifecycle.html" >Default lifecycle</a></li>
+<li id="xooki-history/trunk/ref/Directorystructure"><a href="../../../history/trunk/ref/Directorystructure.html" >Directory structure</a></li>
+<li id="xooki-history/trunk/ref/Modulefiles"><a href="../../../history/trunk/ref/Modulefiles.html" class="current">Module files</a></li>
+<li id="xooki-history/trunk/ref/ExtensionPoint"><a href="../../../history/trunk/ref/ExtensionPoint.html" >Extension Point</a></li>
+<li id="xooki-history/trunk/ref/ProjectMancommand"><a href="../../../history/trunk/ref/ProjectMancommand.html" >ProjectMan commands</a></li>
+<li id="xooki-history/trunk/ref/anttasks" class="submenu"><a href="../../../history/trunk/ref/anttasks.html" >Ant Tasks</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/BindTarget"><a href="../../../history/trunk/ref/anttasks/BindTarget.html" >bindtarget</a></li>
+<li id="xooki-history/trunk/ref/anttasks/checkresolver"><a href="../../../history/trunk/ref/anttasks/checkresolver.html" >checkresolver</a></li>
+<li id="xooki-history/trunk/ref/anttasks/ConfigureBuildScopedRepository"><a href="../../../history/trunk/ref/anttasks/ConfigureBuildScopedRepository.html" >configure-build-scoped-repository</a></li>
+<li id="xooki-history/trunk/ref/anttasks/configureEasyantIvyInstance"><a href="../../../history/trunk/ref/anttasks/configureEasyantIvyInstance.html" >configure-easyant-ivy-instance</a></li>
+<li id="xooki-history/trunk/ref/anttasks/ConfigureProject"><a href="../../../history/trunk/ref/anttasks/ConfigureProject.html" >configure-project</a></li>
+<li id="xooki-history/trunk/ref/anttasks/CoreVersiontask"><a href="../../../history/trunk/ref/anttasks/CoreVersiontask.html" >core-version</a></li>
+<li id="xooki-history/trunk/ref/anttasks/easyant"><a href="../../../history/trunk/ref/anttasks/easyant.html" >easyant</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath" class="submenu"><a href="../../../history/trunk/ref/anttasks/findclasspath.html" >findclasspath</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/findclasspath/basic-configuration-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/basic-configuration-strategy.html" >basic-configuration-strategy</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath/environment-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/environment-strategy.html" >environment-strategy</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath/project-dependency-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/project-dependency-strategy.html" >project-dependency-strategy</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/anttasks/FindParentDir"><a href="../../../history/trunk/ref/anttasks/FindParentDir.html" >findparentdir</a></li>
+<li id="xooki-history/trunk/ref/anttasks/GoOffline"><a href="../../../history/trunk/ref/anttasks/GoOffline.html" >go-offline</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Importtask" class="submenu"><a href="../../../history/trunk/ref/anttasks/Importtask.html" >import</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/plugintask"><a href="../../../history/trunk/ref/anttasks/plugintask.html" >plugin task</a></li>
+<li id="xooki-history/trunk/ref/anttasks/buildtypetask"><a href="../../../history/trunk/ref/anttasks/buildtypetask.html" >buildtype task</a></li>
+<li id="xooki-history/trunk/ref/anttasks/import-test-module"><a href="../../../history/trunk/ref/anttasks/import-test-module.html" >import-test-module</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/anttasks/LoadModuletask"><a href="../../../history/trunk/ref/anttasks/LoadModuletask.html" >loadmodule</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Parametertask"><a href="../../../history/trunk/ref/anttasks/Parametertask.html" >parameter</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Pathtask"><a href="../../../history/trunk/ref/anttasks/Pathtask.html" >path</a></li>
+<li id="xooki-history/trunk/ref/anttasks/plugin-report"><a href="../../../history/trunk/ref/anttasks/plugin-report.html" >plugin-report</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Property"><a href="../../../history/trunk/ref/anttasks/Property.html" >property</a></li>
+<li id="xooki-history/trunk/ref/anttasks/registerartifact"><a href="../../../history/trunk/ref/anttasks/registerartifact.html" >registerartifact</a></li>
+<li id="xooki-history/trunk/ref/anttasks/SearchModule"><a href="../../../history/trunk/ref/anttasks/SearchModule.html" >searchmodule</a></li>
+<li id="xooki-history/trunk/ref/anttasks/SubModuletask"><a href="../../../history/trunk/ref/anttasks/SubModuletask.html" >submodule</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/OfflineMode"><a href="../../../history/trunk/ref/OfflineMode.html" >Offline mode</a></li>
+<li id="xooki-history/trunk/ref/buildtypes/buildtypes"><a href="../../../history/trunk/ref/buildtypes/buildtypes.html" >Build Types</a></li>
+<li id="xooki-history/trunk/ref/plugins/plugins"><a href="../../../history/trunk/ref/plugins/plugins.html" >Plugins</a></li>
+<li id="xooki-history/trunk/ref/EasyAntconfigurationfile"><a href="../../../history/trunk/ref/EasyAntconfigurationfile.html" >EasyAnt configuration file</a></li>
+<li id="xooki-history/trunk/ref/Ivyconfiguration" class="submenu"><a href="../../../history/trunk/ref/Ivyconfiguration.html" >Ivy configuration</a><ul class="closed"><li id="xooki-history/trunk/ref/EasyAntivyinstance"><a href="../../../history/trunk/ref/EasyAntivyinstance.html" >EasyAnt ivy instance</a></li>
+<li id="xooki-history/trunk/ref/ProjectIvyInstance"><a href="../../../history/trunk/ref/ProjectIvyInstance.html" >Project Ivy Instance</a></li>
+</ul></li>
+</ul></li>
+<li id="xooki-history/trunk/changelog" class="submenu"><a href="../../../history/trunk/changelog.html" >Changelog</a><ul class="closed"><li id="xooki-history/trunk/changelog/0.7"><a href="../../../history/trunk/changelog/0.7.html" >0.7</a></li>
+</ul></li>
+<li id="xooki-history/trunk/faq"><a href="../../../history/trunk/faq.html" >FAQ</a></li>
+<li id="xooki-history/trunk/contact"><a href="../../../history/trunk/contact.html" >Get involved</a></li>
+</ul></li>
+</ul></li>
+<li id="xooki-contact" class="submenu"><a href="../../../contact.html" >Get Involved</a><ul class="closed"><li id="xooki-Mailinglist"><a href="../../../Mailinglist.html" >Mailing list</a></li>
+<li id="xooki-Issuetracking"><a href="../../../Issuetracking.html" >Issue tracking</a></li>
+<li id="xooki-Sourcerepository"><a href="../../../Sourcerepository.html" >Source repository</a></li>
+<li id="xooki-irc"><a href="../../../irc.html" >IRC</a></li>
+</ul></li>
+<li id="xooki-Team"><a href="../../../Team.html" >Team</a></li>
+<li id="xooki-foundation" class="submenu"><a href="../../../foundation.html" >Foundation</a><ul class="closed"><li id="xooki-undefined"><a href="http://www.apache.org" >ASF</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/sponsorship.html" >Sponsorship</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/thanks.html" >Thanks</a></li>
+</ul></li>
+</ul>
+
+        </div>
+    </div>
+    
+    <div id="posts">
+        <br class="xooki-br"/><h1>Module files</h1>
+A project using EasyAnt <b>MUST</b> contain a file named module.ivy and an optional file named module.ant.<br class="xooki-br"/><br class="xooki-br"/><h2>The module.ivy file</h2>
+<p />
+This file is the module descriptor of your project. <br class="xooki-br"/>It contains several informations like your company name, the module name, dependencies, and Easyant build information.<br class="xooki-br"/><br class="xooki-br"/><h3>A short example</h3>
+<pre>
+&lt;ivy-module version="2.0" xmlns:ea="<a href="http://www.easyant.org">http://www.easyant.org</a>"&gt; <br class="xooki-br"/>  &lt;info organisation="org.mycompany" module="myJavaApp" status="integration" &gt;<br class="xooki-br"/>    &lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/>  &lt;/info&gt;<br class="xooki-br"/>  &lt;configurations&gt;<br class="xooki-br"/>    &lt;conf name="default" visibility="public" description="runtime dependencies and master artifact can be used with this conf"/&gt;<br class="xooki-br"/>    &lt;conf name="test" visibility="private" description="this scope indicates<br class="xooki-br"/> that the dependency is not required for normal use of the application, and is <br class="xooki-br"/>only available for the test compilation and execution phases."/&gt;<br class="xooki-br"/>  &lt;/configurations&gt;<br class="xooki-br"/>&lt;/ivy-module&gt;
+</pre>
+In this module descriptor, we have an application named myJavaApp created by org.mycompany.<br class="xooki-br"/>To use easyant you must declare the easyant namespace 
+<pre>
+xmlns:ea="<a href="http://www.easyant.org">http://www.easyant.org</a>"
+</pre>
+Pay attention to the <b>ea:build</b> tag.<br class="xooki-br"/>This tags define which build-type is used for your project. In this example we use <b>build-std-java</b> which provides all the targets necessary to compile / package a standard java application.
+<div id="note">Note: The organisation argument in <b>ea:build</b> tag is optionnal. If not specified easyant will use the default one (org.apache.easyant.buildtypes).</div>
+<div id="note">Note: This tag support <a href="#propertyAsAttribute">property as attribute.</a> . If you have a few property to set it's often easier to use property as attribute. If you have lot of properties we strongly recommend you to declare it using property tag</div>
+
+Running easyant with this example will run the default target (package).<br class="xooki-br"/>A few seconds later, you will have the generated jar in your_project/target/artifacts/myJavaApp.jar.<br class="xooki-br"/><br class="xooki-br"/><h3>Configure the project</h3>
+By default default target are defined in builtypes, but you have the hability to adapt it if necessary.<br class="xooki-br"/><br class="xooki-br"/>In the example bellow, we will configure <i>myDefaultTarget</i> as the default target.
+<pre>
+ &lt;ea:configure-project defaultTarget="myDefaultTarget"/&gt;
+</pre>
+
+<div id="note">Note: This tag support <a href="#propertyAsAttribute">property as attribute.</a> . If you have a few property to set it's often easier to use property as attribute. If you have lot of properties we strongly recommend your to declare it using property tag</div>
+
+<h3>Changing build-system properties</h3>
+So now we want to change several things on this build system.<br class="xooki-br"/>For example, we want to have the generated jar in "dist" directory instead of "targets/artifacts".<br class="xooki-br"/>We will add additional informations inside <easyant> tag.
+<pre>
+&lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/> &lt;ea:property name="target.artifacts" value="dist"/&gt;<br class="xooki-br"/>&lt;/ea:build&gt;
+</pre>
+Running "easyant" will generate the output jar in "dist" directory.<br class="xooki-br"/><br class="xooki-br"/><h3>Adding dependencies</h3>
+Dependencies are defined in the module.ivy files.<br class="xooki-br"/>There is a section dedicated to <b>dependencies</b><br class="xooki-br"/>Let's consider that our project needs an artifact named foo provided by acme in revision 2.0<br class="xooki-br"/>The dependencies section will look like this :
+<pre>
+&lt;dependencies&gt;<br class="xooki-br"/>&lt;dependency org="acme" name="foo" rev="2.0" conf="default"/&gt;<br class="xooki-br"/>&lt;/dependencies&gt;
+</pre>
+If you want to have more informations on dependencies please refer to the <a href="http://ant.apache.org/ivy/history/latest-milestone/ivyfile/dependency.html">official ivy documentation</a><br class="xooki-br"/><br class="xooki-br"/><h3>Using additional plugins</h3>
+In some cases, we want to use several features that are not included in the default build-type provided by easyant.<br class="xooki-br"/>If your project needs to use a specific plugin, you can use the <b>ea:plugin</b> tag inside <b>ea:build</b> tag.<br class="xooki-br"/>Example: <br class="xooki-br"/>Suppose we want to use code coverage feature.
+<pre>
+&lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/> &lt;ea:property name="target.artifacts" value="dist"/&gt;<br class="xooki-br"/> &lt;ea:plugin org="org.apache.easyant.plugins" module="emma" revision="0.1"/&gt;<br class="xooki-br"/>&lt;/ea:build&gt;
+</pre>
+Calling to "easyant -p" we should see the emma public target :
+<pre>
+org.apache.easyant.plugins#emma.:emma     generate emma covera report
+</pre>
+As you can see the target is prefixed by the project name.<br class="xooki-br"/>Most of the time the project name is quite long so easyant allows you to define an alias for the project names. This alias can be used in place of the complete project name. You can define an alias for a plugin using <b>as</b> argument as below.
+<pre>
+&lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/> &lt;ea:property name="target.artifacts" value="dist"/&gt;<br class="xooki-br"/> &lt;ea:plugin org="org.apache.easyant.plugins" module="emma" revision="0.1" as="emma"/&gt;<br class="xooki-br"/>&lt;/ea:build&gt;
+</pre>
+Calling to "easyant -p" we should see the emma public target :
+<pre>
+emma.:emma generate emma covera report
+</pre>
+<div id="note">Note: The organisation argument in <b>ea:plugin</b> tag is optionnal. If not specified easyant will use the default one (org.apache.easyant.plugins).</div>
+<div id="note">Note: This tag support <a href="#propertyAsAttribute">property as attribute.</a> . If you have a few property to set it's often easier to use property as attribute. If you have lot of properties we strongly recommend you to declare it using property tag</div>
+
+<a name="propertyAsAttribute"></a><h3>Property as attribute</h3>
+
+The following tags allow property as attribute :
+<ul>
+  <li>build</li>
+  <li>plugin</li>
+  <li>configure-project</li>
+</ul>
+If you have a few property to set it's often easier to use property as attribute. <br class="xooki-br"/>Example in ea:build
+<pre>
+  &lt;ea:build module="build-std-java" revision="0.9" my.property="myvalue"/&gt;
+</pre>
+Example in plugin
+<pre>
+  &lt;ea:plugin module="run-java" revision="0.9" run.main.classname="org.myproject.Main"/&gt;
+</pre>
+Example in configure-project
+<pre>
+  &lt;ea:configure-project defaultTarget="myDefaultTarget" run.main.classname="org.myproject.Main"/&gt;
+</pre>
+
+If you have lot of properties we strongly recommend you to declare it using property tag.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><h2>The Optional module.ant file</h2>
+<p />
+Easyant also provides you a hook for injecting custom build logic into your build process. This could include any kind of custom manipulation for using easyant locally.<br class="xooki-br"/><p />
+The module.ant file is a conventional ant script. You can retain any convenient build logic from your legacy scripts in module.ant. All targets defined in this file are available for invocation using easyant through command terminal.<br class="xooki-br"/><p />
+<u>Example:</u>
+Consider the following module.ivy file:<br class="xooki-br"/><p />
+<pre>
+&lt;ivy-module version="2.0"&gt; <br class="xooki-br"/>    &lt;info organisation="org.apache.easyant" module="standard-java-app" status="integration" &gt;<br class="xooki-br"/>                &lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"&gt;<br class="xooki-br"/>                        &lt;ea:plugin organisation="org.apache.easyant.plugins" module="checkstyle" revision="0.1"/&gt;<br class="xooki-br"/>                &lt;/ea:build&gt; <br class="xooki-br"/>        &lt;/info&gt;<br class="xooki-br"/>    &lt;configurations&gt;<br class="xooki-br"/>        &lt;conf name="default" visibility="public" description="runtime dependencies and master artifact"/&gt;<br class="xooki-br"/>        &lt;conf name="test" visibility="private" description="this scope indicates this is only available for the test compilation and execution phases."/&gt;<br class="xooki-br"/>    &lt;/configurations&gt;<br class="xooki-br"/>    &lt;dependencies&gt;<br class="xooki-br"/>        &lt;dependency org="hsqldb" name="hsqldb" rev="1.8.0.7" conf="default-&gt;default"/&gt;<br class="xooki-br"/>        &lt;dependency org="junit" name="junit" rev="4.4" conf="test-&gt;default" /&gt;<br class="xooki-br"/>    &lt;/dependencies&gt;<br class="xooki-br"/>&lt;/ivy-module&gt;<br class="xooki-br"/>
+</pre>
+The above code snippet is a declaration of a easyant project that uses the standard-java-app build type. The same functionality can be achieved by the following module.ant file in your project root directory:<br class="xooki-br"/>
+<pre>
+&lt;project name="org.apache.easyant.buildtypes#standard-java-app"<br class="xooki-br"/>    xmlns:ea="antlib:org.apache.easyant"&gt;<br class="xooki-br"/>    &lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/>        &lt;ea:plugin organisation="org.apache.easyant.plugins" module="checkstyle" revision="0.1"/&gt;<br class="xooki-br"/>&lt;/project&gt;              
+</pre>
+<div id="note">Note: organisation are optionnal in <b>ea:build</b> / <b>ea:plugin</b>. If no organisation is set easyant will use the default one.
+<ul>
+  <li><i>org.apache.easyant.buildtypes</i> for buildtypes</li>
+  <li><i>org.apache.easyant.plugins</i> for plugins</li>
+</ul>
+</div>
+
+Similarly, you can provide additional functionalities using the module.ant incase, you dont find smaller things missing in your build types or plugins. For larger customizations, you may consider writing new plugins.<br class="xooki-br"/><br class="xooki-br"/><h2>Mixing module.ivy and module.ant</h2>
+EasyAnt offer the possibility to mix both files.<br class="xooki-br"/>This make sense if we need to use buildtypes/plugins and additional targets specific to your project.<br class="xooki-br"/><br class="xooki-br"/>Let's try to add a target name hello world in the project.<br class="xooki-br"/>The module ivy looks like this : 
+<pre>
+&lt;ivy-module version="2.0"&gt; <br class="xooki-br"/>    &lt;info organisation="org.apache.easyant" module="standard-java-app" status="integration" &gt;<br class="xooki-br"/>                &lt;ea:build organisation="org.apache.easyant.buildtypes" module="build-std-java" revision="0.2"/&gt;<br class="xooki-br"/>        &lt;/info&gt;<br class="xooki-br"/>    &lt;configurations&gt;<br class="xooki-br"/>        &lt;conf name="default" visibility="public" description="runtime dependencies and master artifact"/&gt;<br class="xooki-br"/>        &lt;conf name="test" visibility="private" description="this scope indicates this is only available for the test compilation and execution phases."/&gt;<br class="xooki-br"/>    &lt;/configurations&gt;<br class="xooki-br"/>    &lt;dependencies/&gt;<br class="xooki-br"/>&lt;/ivy-module&gt;
+</pre>
+
+Here we're able to run any phase/target provided by the <b>build-std-java</b> build type.<br class="xooki-br"/><br class="xooki-br"/>Now we will add our helloWorld target in module.ant
+<pre>
+&lt;project name="org.apache.easyant.buildtypes#standard-java-app"<br class="xooki-br"/>    xmlns:ea="antlib:org.apache.easyant"&gt;<br class="xooki-br"/>    &lt;target name="helloWorld" description="display a helloWorld message"&gt;<br class="xooki-br"/>        &lt;echo message="Hello World!"/&gt;<br class="xooki-br"/>    &lt;/target&gt;<br class="xooki-br"/>&lt;/project&gt;
+</pre>
+
+Running a easyant -p should display our new target helloWorld. This target should be available if we launch easyant helloWorld.<br class="xooki-br"/><br class="xooki-br"/>Considering that all the phases provided <b>build-std-java</b> are loaded before the module.ant, you can attach your custom target to any phase.<br class="xooki-br"/>This complete the basic needs.<br class="xooki-br"/><br class="xooki-br"/><h2>Going further : overriding target / extension-point</h2>
+Let's consider the use case were you want to adapt a specific target or extension-point to your need.<br class="xooki-br"/>We need to keep in mind that ant-based system works with a useFirst mechanism.<br class="xooki-br"/>Which means :
+<ul>
+  <li>properties are set only first time we use it</li>
+  <li>target / extension-point are set first time we use it</li>
+</ul>
+
+But the choregraphy is to load :
+<ul>
+  <li>the module.ivy</li>
+  <li>the module.ant</li>
+</ul>
+
+This means that you're not able to override target/extension-point in the module.ant.<br class="xooki-br"/><br class="xooki-br"/>Fortunately EasyAnt provides a way to do it.<br class="xooki-br"/>The real choregraphy is to load :
+<ul>
+  <li>the override.module.ant</li>
+  <li>the module.ivy</li>
+  <li>the module.ant</li>
+</ul>
+
+The <b>override.module.ant</b> is a true ant script loaded before the module.ivy. It's the right place if you want to override target/extension-point provided by things defined later in module.ivy.<br class="xooki-br"/><br class="xooki-br"/>For example suppose we want to introduce a new phase named my-phase run before the default package phase. 
+<pre>
+&lt;project name="org.apache.easyant.buildtypes#standard-java-app"<br class="xooki-br"/>    xmlns:ea="antlib:org.apache.easyant"&gt;<br class="xooki-br"/>        &lt;!-- Define a new phase --&gt;<br class="xooki-br"/>        &lt;extension-point name="my-phase" description="foobar"/&gt;<br class="xooki-br"/>        &lt;!-- Override the package phase that depends on my-phase and the default package phase --&gt;<br class="xooki-br"/>        &lt;extension-point name="package" depends="my-phase, org.apache.easyant.plugins#phases-std.package" description="package the application"/&gt;<br class="xooki-br"/>&lt;/project&gt;
+</pre>
+
+    </div>
+    <!-- end #posts -->
+    <div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #content -->
+<div id="footer">
+    <p id="legal">
+        <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br>
+        <i>Apache EasyAnt, Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br>
+        <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
+    </p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

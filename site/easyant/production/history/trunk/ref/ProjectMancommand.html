@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<html>
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+    <script type="text/javascript">var xookiConfig = {level: 1};</script>   
+    
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>ProjectMan commands</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="../../../style/style.css" media="screen"/>
+  <!-- for tree, see if it would better go in xooki.js -->
+  <link rel="stylesheet" type="text/css" href="../../../style/tree.css" />
+  <script src="../../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../../xooki/"+url;}};</script>
+</head>
+<body>
+<div id="header">
+    <div id="incubatorlogo">
+	<img src="../../../images/apache-incubator-logo.png"/>
+    </div>
+    <div class="menu-main-menu-container">
+       <ul id="menu-main-menu" class="menu">
+         <li class="menu-item"><a href="../../../index.html">Home</a></li>
+         <li class="menu-item"><a href="http://www.apache.org/licenses/LICENSE-2.0.html">License</a></li>
+         <li class="menu-item"><a href="../../../download.html" accesskey="1" title="">Download</a></li>
+         <li class="menu-item"><a href="../../../history/trunk/tutorials.html">Tutorials</a></li>
+         <li class="menu-item"><a href="../../../history/trunk/reference.html">Documentation reference</a></li>
+         <li class="menu-item"><a href="../../../contact.html">Get involved</a></li>
+         <li class="menu-item"><a href="http://blog.easyant.org">Blog</a></li>
+       </ul>
+    </div>
+</div>
+<!-- end #header -->
+<div id="content">
+    <div id="sidebar" class="boxed">
+        <h2 class="title">EasyAnt&#153;</h2>
+        <div id="links">
+                <ul id="treemenu" class="treeview">
+<li id="xooki-index" class="submenu"><a href="../../../index.html" >Home</a><ul class="closed"><li id="xooki-features"><a href="../../../features.html" >Features</a></li>
+<li id="xooki-license"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-faq"><a href="../../../faq.html" >FAQ</a></li>
+</ul></li>
+<li id="xooki-download"><a href="../../../download.html" >Download</a></li>
+<li id="xooki-history" class="submenu">History<ul class="open"><li id="xooki-history/trunk/index" class="submenu"><a href="../../../history/trunk/index.html" >Trunk</a><ul class="open"><li id="xooki-history/trunk/tutorials" class="submenu"><a href="../../../history/trunk/tutorials.html" >Tutorials</a><ul class="closed"><li id="xooki-history/trunk/howto/GettingStarted"><a href="../../../history/trunk/howto/GettingStarted.html" >Getting Started</a></li>
+<li id="xooki-history/trunk/howto/multimodules"><a href="../../../history/trunk/howto/multimodules.html" >Working with multi-modules</a></li>
+<li id="xooki-history/trunk/howto/skeleton"><a href="../../../history/trunk/howto/skeleton.html" >Working with skeletons of project</a></li>
+<li id="xooki-history/trunk/howto/BuildConfigurations"><a href="../../../history/trunk/howto/BuildConfigurations.html" >Build configurations</a></li>
+<li id="xooki-history/trunk/howto/writePlugins"><a href="../../../history/trunk/howto/writePlugins.html" >Writing plugins / build types</a></li>
+</ul></li>
+<li id="xooki-history/trunk/reference" class="submenu"><a href="../../../history/trunk/reference.html" >Reference</a><ul class="open"><li id="xooki-history/trunk/ref/features"><a href="../../../history/trunk/ref/features.html" >Features</a></li>
+<li id="xooki-history/trunk/ref/Defaultlifecycle"><a href="../../../history/trunk/ref/Defaultlifecycle.html" >Default lifecycle</a></li>
+<li id="xooki-history/trunk/ref/Directorystructure"><a href="../../../history/trunk/ref/Directorystructure.html" >Directory structure</a></li>
+<li id="xooki-history/trunk/ref/Modulefiles"><a href="../../../history/trunk/ref/Modulefiles.html" >Module files</a></li>
+<li id="xooki-history/trunk/ref/ExtensionPoint"><a href="../../../history/trunk/ref/ExtensionPoint.html" >Extension Point</a></li>
+<li id="xooki-history/trunk/ref/ProjectMancommand"><a href="../../../history/trunk/ref/ProjectMancommand.html" class="current">ProjectMan commands</a></li>
+<li id="xooki-history/trunk/ref/anttasks" class="submenu"><a href="../../../history/trunk/ref/anttasks.html" >Ant Tasks</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/BindTarget"><a href="../../../history/trunk/ref/anttasks/BindTarget.html" >bindtarget</a></li>
+<li id="xooki-history/trunk/ref/anttasks/checkresolver"><a href="../../../history/trunk/ref/anttasks/checkresolver.html" >checkresolver</a></li>
+<li id="xooki-history/trunk/ref/anttasks/ConfigureBuildScopedRepository"><a href="../../../history/trunk/ref/anttasks/ConfigureBuildScopedRepository.html" >configure-build-scoped-repository</a></li>
+<li id="xooki-history/trunk/ref/anttasks/configureEasyantIvyInstance"><a href="../../../history/trunk/ref/anttasks/configureEasyantIvyInstance.html" >configure-easyant-ivy-instance</a></li>
+<li id="xooki-history/trunk/ref/anttasks/ConfigureProject"><a href="../../../history/trunk/ref/anttasks/ConfigureProject.html" >configure-project</a></li>
+<li id="xooki-history/trunk/ref/anttasks/CoreVersiontask"><a href="../../../history/trunk/ref/anttasks/CoreVersiontask.html" >core-version</a></li>
+<li id="xooki-history/trunk/ref/anttasks/easyant"><a href="../../../history/trunk/ref/anttasks/easyant.html" >easyant</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath" class="submenu"><a href="../../../history/trunk/ref/anttasks/findclasspath.html" >findclasspath</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/findclasspath/basic-configuration-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/basic-configuration-strategy.html" >basic-configuration-strategy</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath/environment-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/environment-strategy.html" >environment-strategy</a></li>
+<li id="xooki-history/trunk/ref/anttasks/findclasspath/project-dependency-strategy"><a href="../../../history/trunk/ref/anttasks/findclasspath/project-dependency-strategy.html" >project-dependency-strategy</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/anttasks/FindParentDir"><a href="../../../history/trunk/ref/anttasks/FindParentDir.html" >findparentdir</a></li>
+<li id="xooki-history/trunk/ref/anttasks/GoOffline"><a href="../../../history/trunk/ref/anttasks/GoOffline.html" >go-offline</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Importtask" class="submenu"><a href="../../../history/trunk/ref/anttasks/Importtask.html" >import</a><ul class="closed"><li id="xooki-history/trunk/ref/anttasks/plugintask"><a href="../../../history/trunk/ref/anttasks/plugintask.html" >plugin task</a></li>
+<li id="xooki-history/trunk/ref/anttasks/buildtypetask"><a href="../../../history/trunk/ref/anttasks/buildtypetask.html" >buildtype task</a></li>
+<li id="xooki-history/trunk/ref/anttasks/import-test-module"><a href="../../../history/trunk/ref/anttasks/import-test-module.html" >import-test-module</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/anttasks/LoadModuletask"><a href="../../../history/trunk/ref/anttasks/LoadModuletask.html" >loadmodule</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Parametertask"><a href="../../../history/trunk/ref/anttasks/Parametertask.html" >parameter</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Pathtask"><a href="../../../history/trunk/ref/anttasks/Pathtask.html" >path</a></li>
+<li id="xooki-history/trunk/ref/anttasks/plugin-report"><a href="../../../history/trunk/ref/anttasks/plugin-report.html" >plugin-report</a></li>
+<li id="xooki-history/trunk/ref/anttasks/Property"><a href="../../../history/trunk/ref/anttasks/Property.html" >property</a></li>
+<li id="xooki-history/trunk/ref/anttasks/registerartifact"><a href="../../../history/trunk/ref/anttasks/registerartifact.html" >registerartifact</a></li>
+<li id="xooki-history/trunk/ref/anttasks/SearchModule"><a href="../../../history/trunk/ref/anttasks/SearchModule.html" >searchmodule</a></li>
+<li id="xooki-history/trunk/ref/anttasks/SubModuletask"><a href="../../../history/trunk/ref/anttasks/SubModuletask.html" >submodule</a></li>
+</ul></li>
+<li id="xooki-history/trunk/ref/OfflineMode"><a href="../../../history/trunk/ref/OfflineMode.html" >Offline mode</a></li>
+<li id="xooki-history/trunk/ref/buildtypes/buildtypes"><a href="../../../history/trunk/ref/buildtypes/buildtypes.html" >Build Types</a></li>
+<li id="xooki-history/trunk/ref/plugins/plugins"><a href="../../../history/trunk/ref/plugins/plugins.html" >Plugins</a></li>
+<li id="xooki-history/trunk/ref/EasyAntconfigurationfile"><a href="../../../history/trunk/ref/EasyAntconfigurationfile.html" >EasyAnt configuration file</a></li>
+<li id="xooki-history/trunk/ref/Ivyconfiguration" class="submenu"><a href="../../../history/trunk/ref/Ivyconfiguration.html" >Ivy configuration</a><ul class="closed"><li id="xooki-history/trunk/ref/EasyAntivyinstance"><a href="../../../history/trunk/ref/EasyAntivyinstance.html" >EasyAnt ivy instance</a></li>
+<li id="xooki-history/trunk/ref/ProjectIvyInstance"><a href="../../../history/trunk/ref/ProjectIvyInstance.html" >Project Ivy Instance</a></li>
+</ul></li>
+</ul></li>
+<li id="xooki-history/trunk/changelog" class="submenu"><a href="../../../history/trunk/changelog.html" >Changelog</a><ul class="closed"><li id="xooki-history/trunk/changelog/0.7"><a href="../../../history/trunk/changelog/0.7.html" >0.7</a></li>
+</ul></li>
+<li id="xooki-history/trunk/faq"><a href="../../../history/trunk/faq.html" >FAQ</a></li>
+<li id="xooki-history/trunk/contact"><a href="../../../history/trunk/contact.html" >Get involved</a></li>
+</ul></li>
+</ul></li>
+<li id="xooki-contact" class="submenu"><a href="../../../contact.html" >Get Involved</a><ul class="closed"><li id="xooki-Mailinglist"><a href="../../../Mailinglist.html" >Mailing list</a></li>
+<li id="xooki-Issuetracking"><a href="../../../Issuetracking.html" >Issue tracking</a></li>
+<li id="xooki-Sourcerepository"><a href="../../../Sourcerepository.html" >Source repository</a></li>
+<li id="xooki-irc"><a href="../../../irc.html" >IRC</a></li>
+</ul></li>
+<li id="xooki-Team"><a href="../../../Team.html" >Team</a></li>
+<li id="xooki-foundation" class="submenu"><a href="../../../foundation.html" >Foundation</a><ul class="closed"><li id="xooki-undefined"><a href="http://www.apache.org" >ASF</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/sponsorship.html" >Sponsorship</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/thanks.html" >Thanks</a></li>
+</ul></li>
+</ul>
+
+        </div>
+    </div>
+    
+    <div id="posts">
+        <br class="xooki-br"/><h1>ProjectMan commands</h1>
+EasyAnt cames with a few new switches usable from the command line that allow you to obtain several informations on a given project.<br class="xooki-br"/>
+<ul>
+  <li>listTargets : Lists all targets available</li>
+  <li>listTargets [arg] : Lists all targets associated with the specified extension-point / plugin as argument</li>
+  <li>listExtensionPoints : Lists all extension-points available</li>
+  <li>listPugins : Lists all plugins imported in the current project</li>
+  <li>listProps [plugin] : Lists all properties available in the specified plugin</li>
+  <li>listParameters [plugin] : Lists all parameters available in the specified plugin</li>
+  <li>describe [arg] : Describes an extension-point / target / property specified by argument</li>
+</ul>
+
+<h2>listTargets</h2>
+Lists all targets available :
+<pre>
+&gt; easyant -listTargets
+</pre>
+Should print :
+<pre>
+--- Available Targets for current project: standard-java-app ---<br class="xooki-br"/><br class="xooki-br"/>No ExtensionPoint / Plugin specified. Listing all targets available in the project.	<br class="xooki-br"/>    Target: abstract-test:compute-test-sets<br class="xooki-br"/>	Extension-Point: NONE<br class="xooki-br"/>	Description: compute the set of test cases to run<br class="xooki-br"/>	Depends: abstract-test:test-ready<br class="xooki-br"/>	IF: NONE<br class="xooki-br"/>	UNLESS: NONE<br class="xooki-br"/>...<br class="xooki-br"/>    Target: test-junit:run-integration<br class="xooki-br"/>	Extension-Point: abstract-test:integration-test-run<br class="xooki-br"/>	Description: run junit integration tests<br class="xooki-br"/>	Depends: -test-junit:integration-test<br class="xooki-br"/>	IF: test.mode.run<br class="xooki-br"/>	UNLESS: skip.test.integration<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Targets Listing) ---<br class="xooki-br"/>
+</pre>
+
+<h2>listTargets [arg]</h2>
+Lists all targets associated with the specified extension-point / plugin as argument :
+<pre>
+&gt; easyant -listTargets package
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/>--- Available Targets for current project: standard-java-app ---<br class="xooki-br"/>Targets for ExtensionPoint: package<br class="xooki-br"/>	No targets found.<br class="xooki-br"/><br class="xooki-br"/>Targets for Module: package<br class="xooki-br"/>	Target: run-java:init<br class="xooki-br"/>		Extension-Point: NONE<br class="xooki-br"/>		Description: NONE<br class="xooki-br"/>		Depends: <br class="xooki-br"/>		IF: NONE<br class="xooki-br"/>		UNLESS: NONE<br class="xooki-br"/>	Target: abstract-package:compute-metainf<br class="xooki-br"/>		Extension-Point: NONE<br class="xooki-br"/>		Description: NONE<br class="xooki-br"/>		Depends: abstract-package:package-ready<br class="xooki-br"/>		IF: NONE<br class="xooki-br"/>		UNLESS: NONE<br class="xooki-br"/>	Target: abstract-package:register-main-artifact<br class="xooki-br"/>		Extension-Point: abstract-package:package-finished<br class="xooki-br"/>		Description: NONE<br class="xooki-br"/>		Depends: <br class="xooki-br"/>		IF: NONE<br class="xooki-br"/>		UNLESS: ${skip.register.main.artifact}<br class="xooki-br"/>	Target: run-java:run<br class="xooki-br"/>		Extension-Point: NONE<br class="xooki-br"/>		Description: run the application<br class="xooki-br"/>		Depends: run-java:init,abstract-package:package-ready<br class="xooki-br"/>		IF: NONE<br class="xooki-br"/>		UNLESS: NONE<br class="xooki-br"/>	Target: abstract-package:init<br class="xooki-br"/>		Extension-Point: NONE<br class="xooki-br"/>		Description: NONE<br class="xooki-br"/>		Depends: <br class="xooki-br"/>		IF: NONE<br class="xooki-br"/>		UNLESS: NONE<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>For more information on an ExtensionPoint, run:<br class="xooki-br"/>	 easyant -describe &lt;EXTENSION POINT&gt;<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Targets Listing) ---
+</pre>
+
+
+<h2>listExtensionPoints</h2>
+Lists all extensio-points available:
+<pre>
+&gt; easyant -listExtensionPoints
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available ExtensionPoints for current project: standard-java-app ---<br class="xooki-br"/>	test<br class="xooki-br"/>	verify<br class="xooki-br"/>	package<br class="xooki-br"/>...<br class="xooki-br"/>	report<br class="xooki-br"/><br class="xooki-br"/>For more information on an ExtensionPoint, run:<br class="xooki-br"/>	 easyant -describe &lt;EXTENSION POINT&gt;<br class="xooki-br"/><br class="xooki-br"/>--- End Of (ExtensionPoints Listing) ---
+</pre>
+
+
+<h2>listPlugins</h2>
+Lists all plugins imported in the current project:
+<pre>
+&gt; easyant -listPlugins
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available Plugins for current project: standard-java-app ---<br class="xooki-br"/>    org.apache.easyant.buildtypes#build-std-java;0.2<br class="xooki-br"/>    org.apache.easyant.plugins#run-java;0.1: Known as run<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>For more information on a Plugin, run:<br class="xooki-br"/>     easyant -describe &lt;PLUGIN&gt;<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Plugins Listing) ---
+</pre>
+
+
+<h2>listProps [plugin]</h2>
+Lists all properties available in the specified plugin:
+<pre>
+&gt; easyant -listProps run
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available Properties for current project: standard-java-app:: Plugin: run ---<br class="xooki-br"/>    Property: run.main.classname<br class="xooki-br"/>    Property: target.main.classes<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>For more information on a Property, run:<br class="xooki-br"/>     easyant -describe &lt;PROPERTY&gt;<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Properties Listing) ---
+</pre>
+
+
+<h2>listParameters [plugin]</h2>
+Lists all parameters available in the specified plugin:
+<pre>
+&gt; easyant -listParameters junit
+</pre>
+Should print :
+<pre>
+--- Available parameters for current project: easyant-core ---<br class="xooki-br"/><br class="xooki-br"/>--- Filtering parameters declared in the following plugin: abstract-test ---<br class="xooki-br"/><br class="xooki-br"/>    Parameter (type=PATH): run.test.classpath<br class="xooki-br"/><br class="xooki-br"/>For more information on a parameter, run:<br class="xooki-br"/>     easyant -describe &lt;parameter name&gt;<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Parameter Listing) ---
+</pre>
+
+
+<h2>describe [arg]</h2>
+Describes an extension-point / target / property specified by argument:<br class="xooki-br"/><h3>Example with a property</h3>
+<pre>
+&gt; easyant -describe run.main.classname
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available references for: run.main.classname in current project: standard-java-app ---<br class="xooki-br"/>    No Extension-Point found for name: run.main.classname<br class="xooki-br"/>    No Target found for name: run.main.classname<br class="xooki-br"/>    Property: run.main.classname<br class="xooki-br"/>        Description: name of the main class to run<br class="xooki-br"/>        Default: NONE<br class="xooki-br"/>        Required: true<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Describe) ---
+</pre>
+
+
+<h3>Example with a phase</h3>
+<pre>
+&gt; easyant -describe package
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available references for: package in current project: standard-java-app ---<br class="xooki-br"/>    Extension-Point: package<br class="xooki-br"/>        Description: take the compiled code and package it in its distributable format, such as a JAR.<br class="xooki-br"/>        Depends: prepare-package<br class="xooki-br"/><br class="xooki-br"/>        For information on targets attached to this phase, run:<br class="xooki-br"/>        easyant -listTargets package<br class="xooki-br"/>    No Target found for name: package<br class="xooki-br"/>    No Property found for name: package<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Describe) ---
+</pre>
+
+
+<h3>Example with a target</h3>
+<pre>
+&gt; easyant -describe run-java:run
+</pre>
+Should print :
+<pre>
+Project Manual<br class="xooki-br"/>--------------<br class="xooki-br"/><br class="xooki-br"/>--- Available references for: run-java:run in current project: standard-java-app ---<br class="xooki-br"/>    No Phase found for name: run-java:run<br class="xooki-br"/>    Target: run-java:run<br class="xooki-br"/>        Phase: NONE<br class="xooki-br"/>        Description: NONE<br class="xooki-br"/>        Depends: validate, compile, process-resources<br class="xooki-br"/>        IF: NONE<br class="xooki-br"/>        UNLESS: NONE<br class="xooki-br"/>    No Property found for name: run-java:run<br class="xooki-br"/><br class="xooki-br"/>--- End Of (Describe) ---<br class="xooki-br"/>
+</pre>
+
+    </div>
+    <!-- end #posts -->
+    <div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end #content -->
+<div id="footer">
+    <p id="legal">
+        <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br>
+        <i>Apache EasyAnt, Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br>
+        <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
+    </p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

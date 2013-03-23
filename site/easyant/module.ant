@@ -1,0 +1,44 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project xmlns:ea="antlib:org.apache.easyant" >
+    
+    <property name="site.generate.directory" value="./production"/>
+    <property name="src.documentation.dir" value="./sources"/>
+    <!-- this avoid creation of mispelled directory when xooki make resources processing -->
+    <property name="target" value="target"/>
+    <property name="xooki.resources.include.pattern" value="*.cgi,style/**,images/**,js/*"/>
+    <property name="xooki.resources.exclude.pattern" value="**/xooki/**"/>
+
+    <ea:bindtarget target="xooki:generate" extensionOf="publish-local"/>
+
+    <target name="generate-site" depends="xooki:generate" extensionOf="publish-shared">
+        <!-- 
+	    	by default local website is generated in target/documentation, 
+		    so when promoting we should stage the content of this directory
+        -->  
+        <copy todir="${site.generate.directory}">
+            <fileset dir="${target.documentation.dir}"/>
+        </copy>
+    	<!-- todo invoke svn add / svn commit -->
+    </target>
+
+
+    <target name="update-production-site" extensionOf="release">
+        <!-- not implemented but we can easily use svnmerge.py -->
+    </target>
+
+</project>

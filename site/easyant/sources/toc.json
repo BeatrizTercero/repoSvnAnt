@@ -1,0 +1,119 @@
+{
+  "children": [
+      {
+        "id":"index",
+        "title":"Home",
+        "children": [
+            {
+              "id":"features",
+              "title":"Features",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"license",
+              "title":"License",
+              "url":"http://www.apache.org/licenses/",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"faq",
+              "title":"FAQ",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"download",
+        "title":"Download",
+        "children": [
+
+          ]
+      },
+      {
+        "id":"history",
+        "title":"History",
+        "isAbstract":true,
+        "children": [
+            {
+              "title":"Trunk",
+              "importRoot":"history/trunk",
+              "importNode":"index"
+            }
+        ]
+      },
+      {
+        "id":"contact",
+        "title":"Get Involved",
+        "children": [
+            {
+              "id":"Mailinglist",
+              "title":"Mailing list",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"Issuetracking",
+              "title":"Issue tracking",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"Sourcerepository",
+              "title":"Source repository",
+              "children": [
+
+                ]
+            },
+            {
+              "id":"irc",
+              "title":"IRC",
+              "children": [
+
+                ]
+            }
+          ]
+      },
+      {
+        "id":"Team",
+        "title":"Team",
+        "children": [
+
+          ]
+      },
+      {
+        "id":"foundation",
+        "title":"Foundation",
+        "children": [
+            {
+              "title":"ASF",
+              "url":"http://www.apache.org",
+              "children": [
+
+                ]
+            },
+            {
+              "title":"Sponsorship",
+              "url":"http://www.apache.org/foundation/sponsorship.html",
+              "children": [
+
+                ]
+            },
+            {
+              "title":"Thanks",
+              "url":"http://www.apache.org/foundation/thanks.html",
+              "children": [
+
+                ]
+            }
+          ]
+      }
+    ]
+}
