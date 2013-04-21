@@ -97,6 +97,15 @@
                 <item name="Screenshots"          href="http://ant.apache.org/ivy/ivyde/screenshots.html"/>
                 <item name="Distributions"        href="http://ant.apache.org/ivy/ivyde/download.cgi"/>
             </menu>
+            <menu name="Apache EasyAnt">
+                <item name="Introduction"         href="/projects/easyant.html"/>
+                <item name="Homepage"             href="http://ant.apache.org/easyant/"/>
+                <item name="Distributions"        href="http://ant.apache.org/easyant/download.cgi"/>
+                <item name="Issue Tracker"        href="http://issues.apache.org/jira/browse/EASYANT"/>
+                <item name="IRC"                  href="irc://irc.freenode.net/easyant"/>
+                <item name="Blog"                 href="http://blog.easyant.org/"/>
+            </menu>
+                                                            
         </menusection>
     </body>
 </project>
