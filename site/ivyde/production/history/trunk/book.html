@@ -48,12 +48,12 @@
 		<div id="main">
             <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (trunk)</div><br class="xooki-br"/>Apache IvyDE Eclipse plugin integrates Apache Ivy's dependency management into Eclipse&#153;. It lets you manage your dependencies declared in an ivy.xml in your Java Eclipse projects, or any other kind of project which needs dependency management.<br class="xooki-br"/><br class="xooki-br"/>A summary of the features it provides follows:
 <ul>
-<li><a href="cp_container.html">Managed classpath container</a>: automatic downloads, access to the Ivy "resolve" task from your IDE, and a <a href="cpc/workspace.html">feature</a> allowing you to develop interdependent multi-module applications in one workspace.</li>
+<li><a href="cp_container.html">Managed classpath container</a>: for Java projects, automatic build of you classpath with resolve and downloads of jars and<br class="xooki-br"/>    sources of your dependencies, and also <a href="cpc/workspace.html">managed project inter dependencies</a> within the workspace.</li>
 <li><a href="ivyeditor.html">Ivy XML files editor</a>: creation wizard, html preview and completion for Ivy XML tags, attributes, and attribute values.</li>
 <li><a href="settingseditor.html">Ivy settings files editor</a>: completion for XML tags, attributes, and attribute values.</li>
-<li><a href="cp_container.html">Ivy console</a>: presents every log from Ivy to assist in debugging a failing resolve.</li>
+<li><a href="console.html">Ivy console</a>: presents every log from Ivy to assist in debugging a failing resolve.</li>
 <li><a href="revdepexplorer.html">Reverse Dependency Explorer</a>: helps you work with conflicting dependencies amongst several projects.</li>
-<li>Resolve and retrieve for non Java project: use Ivy within Eclipse to manage files non necessarly Java-related</li>
+<li><a href="non-java.html">Resolve and retrieve for non Java project</a>: automation of the retrival of your dependencies in your non Java project</li>
 </ul>
 
 Apache IvyDE can be also used with other plugins like <a href="cpc/wtp.html">WTP</a> and <a href="ant.html">Apache Ant</a>.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Release Notes</div><br class="xooki-br"/><ol>
@@ -98,13 +98,17 @@ Here is the list of people who have contributed source code and documentation up
 <li>Matt Goldspink</li>
 <li>Will Gorman</li>
 <li>Miguel Griffa</li>
+<li>Stephen Haberman</li>
 <li>Adam Karl</li>
+<li>Bernd Kurz</li>
 <li>Ivica Loncar</li>
 <li>Jeffrey M. Metcalf</li>
 <li>S&eacute;bastien Moran</li>
 <li>Marko Niemi</li>
 <li>Peter Oxenham</li>
+<li>Carsten Pfeiffer</li>
 <li>Joe Sortelli</li>
+<li>Nathan Summers</li>
 <li>Phillip Webb</li>
 <li>James Wilkins</li>
 </ul>
@@ -113,6 +117,7 @@ Here is the list of people who have contributed source code and documentation up
 
 List of changes since <a href="/ivy/ivyde/history/2.2.0.beta1/release-notes.html">Apache IvyDE 2.2.0 beta1</a>:
 <ul>
+    <li>NEW: Support for variables in the retrieve pattern (<a href="https://issues.apache.org/jira/browse/IVYDE-326">IVYDE-326</a>) (thanks to Carsten Pfeiffer)</li>
     <li>NEW: Support Accepted Types: * (<a href="https://issues.apache.org/jira/browse/IVYDE-306">IVYDE-306</a>)</li>
     <li>NEW: Support Workspace/Filesystem/Variables for "Ivy File" setting (<a href="https://issues.apache.org/jira/browse/IVYDE-304">IVYDE-304</a>)</li>
     <li>NEW: Retrieve list does not resolve workspace projects (<a href="https://issues.apache.org/jira/browse/IVYDE-308">IVYDE-308</a>) (thanks to Peter Oxenham)</li>
@@ -125,6 +130,10 @@ List of changes since <a href="/ivy/ivyde/history/2.2.0.beta1/release-notes.html
     <li>IMPROVE: ivy.xml and ivysettings.xml files are not better detected as such, so they can be open with the Ivy editors</li>
 </ul>
 <ul>
+    <li>FIX: Wrong size of an icon in "about eclipse platform" (<a href="https://issues.apache.org/jira/browse/IVYDE-338">IVYDE-338</a>)</li>
+    <li>FIX: Disable DTD external fetching (<a href="https://issues.apache.org/jira/browse/IVYDE-329">IVYDE-329</a>) (thanks to Stephen Haberman)</li>
+    <li>FIX: IvyDERuntimeClasspathResolver does not resolve entries that don't implement IRuntimeClasspathEntry2 (<a href="https://issues.apache.org/jira/browse/IVYDE-335">IVYDE-335</a>) (thanks to Nathan Summers)</li>
+    <li>FIX: IvyDE can corrupt the workspace (<a href="https://issues.apache.org/jira/browse/IVYDE-341">IVYDE-341</a>) (thanks to Bernd Kurz)</li>
     <li>FIX: org.eclipse.swt.SWTException: Invalid thread access with Eclipse Juno (<a href="https://issues.apache.org/jira/browse/IVYDE-313">IVYDE-313</a>)</li>
     <li>FIX: Divide by zero during IvyDE resolve (<a href="https://issues.apache.org/jira/browse/IVYDE-312">IVYDE-312</a>) (thanks to Joe Sortelli)</li>
     <li>FIX: Ivy report view stopped working on Linux (<a href="https://issues.apache.org/jira/browse/IVYDE-292">IVYDE-292</a>)</li>
@@ -134,6 +143,9 @@ List of changes since <a href="/ivy/ivyde/history/2.2.0.beta1/release-notes.html
     <li>FIX: Cannot change retrieve pattern at the workspace level (<a href="https://issues.apache.org/jira/browse/IVYDE-301">IVYDE-301</a>)</li>
     <li>FIX: Resolution failure when workspace has project &amp; artifact sub-element exists (<a href="https://issues.apache.org/jira/browse/IVYDE-296">IVYDE-296</a>, <a href="https://issues.apache.org/jira/browse/IVYDE-319">IVYDE-319</a>)</li>
     <li>FIX: IvyDE classpath containers become empty on eclipse/MyEclipse startup (<a href="https://issues.apache.org/jira/browse/IVYDE-317">IVYDE-317</a>)</li>
+    <li>FIX: IvyDE doesn't update .classpath anymore; sometimes some containers could not get initialized (<a href="https://issues.apache.org/jira/browse/IVYDE-299">IVYDE-299</a>)</li>
+	<li>FIX: Only one resolve is done when several are sharing the same ivy.xml and the workspace resolver is enabled (<a href="https://issues.apache.org/jira/browse/IVYDE-293">IVYDE-293</a>)</li>
+	<li>FIX: Problem when exporting the eclipse-plugins (compiler target 1.2) (<a href="https://issues.apache.org/jira/browse/IVYDE-293">IVYDE-293</a>) (thanks to Carsten Pfeiffer)</li>
 </ul>
     <!-- samples
 <ul>
@@ -207,7 +219,12 @@ Now your classpath is set and you can see all dependencies in one unique folder 
 
 <hr/><div class='toc-title toc-title-3'>Edit the classpath</div><br class="xooki-br"/>During the life of your project, you can change the ivy.xml file or <a href="maven.html">maven pom.xml</a> and change its configuration.<br class="xooki-br"/><br class="xooki-br"/>These properties can be accessed by the context menu of the IvyDE classpath container:<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_configuration.jpg"></center>
 
-You can also edit it via the build path configuration. Open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container. Then click on the "Edit" button: the IvyDE classpath container configuration dialog will pop up.<br class="xooki-br"/>This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3).  When the container is empty, this is the only way to trigger a resolve on this project.<br class="xooki-br"/><br/><br/>
+You can also edit it via the <b>build path</b> configuration:<br class="xooki-br"/><ol>
+    <li>open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container.</li>
+    <li>then click on the "Edit" button: the IvyDE classpath container configuration dialog will pop up.</li>
+</ol>
+
+This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3).  When the container is empty, this is the only way to trigger a resolve on this project.<br class="xooki-br"/><br class="xooki-br"/><br/><br/>
 <center><img src="images/build_path_edit.jpg"></center>
 <br/>
 <hr/><div class='toc-title toc-title-3'>Launching resolve</div><br class="xooki-br"/>You can explicitly ask for Ivy dependency resolution from your classpath container.<br class="xooki-br"/><br class="xooki-br"/>This command will invoke the "resolve" Ivy task and update your classpath container.<br class="xooki-br"/><br class="xooki-br"/>There is also a "refresh" action: this action is similar to the resolve one, but does not perform a full resolve if a report already exists in the cache. This is particularly useful if you work with Apache Ant and a command line so that you avoid two full resolves.  It is also the default action performed on classpath containers when the Eclipse workspace is opened (<b>Windows > Preferences > Ivy</b>), in effect restoring the classpath container to its state prior to the last closing of the workspace if no other action is performed against the ivy.xml in the meantime.<br class="xooki-br"/><br class="xooki-br"/>And there is a "reload settings" action: by default IvyDE does reload ivy settings files each time a resolve it required. But in case the ivy settings file is remote, this take make the user experience quite slow. To work around that, you can check in the <a href="../preferences.html">preference page</a> the option to only load on demand, and use the "reload settings" action in the context menu.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/cp_resolve.jpg"></center><br/>
@@ -481,6 +498,8 @@ Completion comes with contextual help. The completion popup is displayed through
 
 <h4>Offline</h4>
 <p>If checked, it will force Ivy to never check resources via any network and trust its cache</p>
+<h4>Open the Ivy console on startup</h4>
+<p>If checked, the Ivy console will be opened on startup so that every log from Ivy will be printed. This is especially usefull when looking for debug log from IvyDE starting up.</p>
 <h4>On Eclipse startup:</h4>
 <p>Specifies what Apache IvyDE should do in every project containing an IvyDE managed classpath container when Eclipse&#153; is starting up.</p>
 <h4>On Ivy file change:</h4>
@@ -508,6 +527,8 @@ Completion comes with contextual help. The completion popup is displayed through
 
 <h4>Resolve dependencies in workpace:</h4>
 <p>Apache IvyDE allows Ivy dependencies between projects in the workspace to be realized through project references rather than jars from the repository.  See the <a href="cpc/workspace.html">documentation</a> for further information on this feature.</p>
+<h4>Read OSGi metadata:</h4>
+<p>If your classpath is based on jars which are actually OSGi bundles, checking this option will make IvyDE read the jar manifests and setup the specific OSGi visibility constraints.</p>
 <h4>Accepted types:</h4>
 <p>A comma separated list of extensions which will make IvyDE add the artifact to the classpath. Setting <tt>*</tt> will make very kind of type accepted. Note that a type specified as a <a href="#mapping">source or javadoc type</a> won't be accepted in any manner.</p>
 <h4>Order of the classpath entries:</h4>
@@ -569,7 +590,7 @@ Completion comes with contextual help. The completion popup is displayed through
 
 This configuration panel allow you to change the color used in the <a href="ivyeditor.html">Ivy file editor</a> and the <a href="settingseditor.html">Ivy settings editor</a>.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/xml_editor_color.jpg"/></center>
 
-<hr/><div class='toc-title toc-title-2'>Eclipse variables</div><br class="xooki-br"/>Eclipse contains a <a href="http://help.eclipse.org/galileo/index.jsp?topic=/org.eclipse.jdt.doc.user/reference/preferences/run-debug/ref-string_substitution.htm">string substitution mecanism</a>. This feature allows you to specify a path location that can be shared between developers.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE uses it to find the ivysettings.xml and properties files in both the <a href="preferences.html#settings">glogal preference page</a> and the <a href="cpc/create.html#localconf">project specific preference page</a>.<br class="xooki-br"/><br class="xooki-br"/>Using the "Workspace..." button will open a window to choose a file in the workspace. Apache IvyDE will automatically fill the field with the proper variable.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_workspace.jpg" /></center>
+<hr/><div class='toc-title toc-title-2'>Eclipse variables</div><br class="xooki-br"/>Eclipse contains a <a href="http://help.eclipse.org/galileo/index.jsp?topic=/org.eclipse.jdt.doc.user/reference/preferences/run-debug/ref-string_substitution.htm">string substitution mecanism</a>. This feature allows you to specify a path location that can be shared between developers.<br class="xooki-br"/><br class="xooki-br"/>Apache IvyDE uses it to find the ivysettings.xml and properties files in both the <a href="preferences.html#settings">global preference page</a> and the <a href="cpc/create.html#localconf">project specific preference page</a>.<br class="xooki-br"/><br class="xooki-br"/>Using the "Workspace..." button will open a window to choose a file in the workspace. Apache IvyDE will automatically fill the field with the proper variable.<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_workspace.jpg" /></center>
 
 Using the "File System..." button will allow you to choose a file in the file system. This path will not be portable.<br class="xooki-br"/><br class="xooki-br"/>Finally, you can choose to depend on the Eclipse variable system by clicking on "Variable...".<br class="xooki-br"/><br class="xooki-br"/><center><img src="images/eclipsevar_variables.jpg" /></center>
 
@@ -590,7 +611,7 @@ The colors in the console correspond to the different log levels. Here is the de
 <li>Error: red</li>
 </ul>
 
-To change the level of logging in the console, use the button in the view:<br class="xooki-br"/><br/>
+There are two kinds of logs. The ones from Ivy itself and the ones from IvyDE. The ones from Ivy are the ones you should be used to see when you use it via Ant.<br class="xooki-br"/><br class="xooki-br"/>The IvyDE logs are here to help you understand what IvyDE actually do when launching a resolve or refreshing a project. They can be espacially usefull in debug mode when reporting a bug to the developpers of IvyDE.<br class="xooki-br"/><br class="xooki-br"/>To change the level of logging in the console, use the button in the view:<br class="xooki-br"/><br/>
 <center><img src="images/ivy_console_debug.jpg"></center><br/>
 <hr/><div class='toc-title toc-title-2'>Eclipse's Ant integration</div><br class="xooki-br"/>Most Eclipse&#153; distributions include a plugin to launch Apache Ant build files. The provided Apache Ant distribution is a standard distribution of Ant that doesn't include Apache Ivy. You may wish to run Ivy targets against Eclipse's Ant distribution.<br class="xooki-br"/><br class="xooki-br"/><h1>Install the plugin</h1>
 
