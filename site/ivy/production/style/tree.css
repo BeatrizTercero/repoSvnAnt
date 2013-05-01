@@ -16,6 +16,11 @@
  *
  */
 
+
+#treemenu { 
+padding-left: 10px; 
+}
+
 .treeview ul{ 
 margin: 0;
 padding: 0;
