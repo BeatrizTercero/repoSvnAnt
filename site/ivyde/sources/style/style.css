@@ -153,7 +153,7 @@ pre {
 }
 
 #sidebar-left, #sidebar-right {
-  width: 200px;
+  width: 260px;
   /* padding in px not ex because IE messes up 100% width tables otherwise */
   padding: 15px 5px 75px 10px;
   vertical-align: top;
@@ -184,7 +184,7 @@ pre {
 }
 
 .content {
-  padding-top: 10px;
+  padding-top: 0px;
 }
 
 #forum {
