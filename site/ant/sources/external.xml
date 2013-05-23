@@ -96,7 +96,12 @@
       </subsection>
 
       <subsection name="Andariel">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last change in the java file in "Andariel Ant Tasks 1.2.3 source code"
+        is from 2007-06-04.
+        Is this project still active?
+        -->
         <p>Andariel is a set of tasks designed to help the generation of HTML
         (and other markup languages) pages from Ant. Includes a XPath processor,
         an image information retriever, and others.</p>
@@ -142,7 +147,11 @@
       </subsection>
 
       <subsection name="ant4eclipse">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid.
+        Last version from 2010-05-18.
+        But Jenkins is running with last change from 2013-05-13.
+        -->
         <p>ant4eclipse provides a set of Ant tasks to make several
                 configurations from the Eclipse IDE available in Ant
                 buildscripts. The tasks are aimed to avoid redundancy between
@@ -173,6 +182,11 @@
       </subsection>
 
       <subsection name="Antcount">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last version from 2007-02-24.
+        Last change in trunk: 2007-04-06.
+        -->
         <p>Antcount is a set of filters that can be used to gather statistics
            from files or resources. It is mainly used for log files analysis.
            It allows to:<ul>
@@ -208,7 +222,10 @@
     </subsection>
 
       <subsection name="AntDoc">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src 0.8g (2003-10-01) downloadable.
+        Is this project still active?
+        -->
         <p>AntDoc is a tool that generates HTML documentation from Ant
         buildfiles; the generated HTML is inspired from what javadoc
         yields.  AntDocGUI offers a simple Ant target launcher named
@@ -239,8 +256,10 @@
         </table>
       </subsection>
 
+      <!-- jhm: Link check 2013-05-23
+      Link valid, distro not available, sources not available.
+      Contact not available (rake error).
       <subsection name="AntDoclet">
-
         <p>AntDoclet is a tool to automatically generate documentation out of
         your Ant Tasks' source code.</p>
 
@@ -267,9 +286,14 @@
           </tr>
         </table>
       </subsection>
+      -->
 
       <subsection name="Anteater">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last version 0.9.16 from 2003-04-12.
+        I think this project is not active any more.
+        -->
         <p>Anteater is a set of Ant tasks for the functional testing of websites
           and web services (functional testing being; hit a URL and ensure the
           response meets certain criteria). Can test HTTP params, response
@@ -299,7 +323,11 @@
       </subsection>
 
       <subsection name="AntForm">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last version from 2009-02-01.
+        Last code change from 2013-04-30.
+        -->
         <p>Provides a java/swing form-based input scheme for
         configuring ant properties and launching ant targets.</p>
 
@@ -323,31 +351,11 @@
         </table>
       </subsection>
 
-      <subsection name="Antmerge">
-        <p>Provides simple inheritance between ant files</p>
-        <p>As noted on the website, this project is deprected.</p>
-        <table class="externals">
-          <tr>
-            <th>Compatibility:</th>
-            <td>Tested with 1.5. Should work with all versions.</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.russet.org.uk/antmerge.html">http://www.russet.org.uk/antmerge.html</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:antmerge@russet.org.uk">Phillip Lord</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>GNU Lesser General Public License</td>
-          </tr>
-        </table>
-      </subsection>
-      
-
       <subsection name="Antomology">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last snapshot build available from 2011-11-27.
+        -->
         <p>Antomology is an analysis tool suite for Ant. It includes:<ul>
           <li><b>StatisticsListener</b> - an Ant BuildListener which can be used to gather
               statistics while an Ant build is executed. Statistics on the targets
@@ -376,6 +384,11 @@
         
       
       <subsection name="AntPrettyBuild">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin/src downloadable.
+        Last version from 2008-04-01.
+        I think this project is dead, but maybe contains useful sources.
+        -->
          <p>
           Ant Pretty Build is a tool to easily show and run Ant buildfiles directly from
         within a browser window. It consists of a single XSL file that will generate,
@@ -406,6 +419,11 @@
       </subsection>
       
       <subsection name="AntRunner">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2009-10-23.
+        Is this project still active?
+        -->
         <p>AntRunner is an easy to use and free GUI application for running
         Ant build files. It's written for .NET so it should run on any Windows
         Platform.</p>
@@ -431,6 +449,11 @@
 
 
       <subsection name="AntSpaces">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2005-07-08.
+        Is this project still active?
+        -->
         <p>AntSpaces provides Ant integration with JavaSpaces. This
         allows you to coordinate Ant tasks via JavaSpaces, pull out
         work units from a JavaSpace for distributed Ant tasks to work
@@ -459,6 +482,11 @@
       </subsection>
 
       <subsection name="AntTimerTask">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2004 (when Mario died).
+        Maybe still useful.
+        -->
         <p><a href="http://www.jeckle.de/freeStuff/AntTimerTask/index.html">Timer</a>
         is task for measuring the time elapsed to complete other
         tasks</p>
@@ -486,7 +514,12 @@
       </subsection>
 
       <subsection name="Ant Web Start Task">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2005-04-22.
+        Last update in the bugtracker: 2009-12-04.
+        I think this project dead.
+        -->
         <p>Ant Web Start Task is an Ant task allowing developers to
         package a desktop application as a WAR (Web Application
         Archive) to be distributed over the net via Java Web Start</p>
@@ -508,7 +541,10 @@
       </subsection>
 
       <subsection name="AntXtras">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version 3.5.0b2 from 2012-09.
+        -->
         <p>A collection of powerful Ant extensions components
         organized into five categories: fixture-control,
         execution-rules, flow-control, feedback, and helpers.</p>
@@ -535,6 +571,9 @@
 
 
       <subsection name="Build Number">
+        <!-- jhm: Link check 2013-05-23
+        Link valid. Order page not available.
+        -->
         <p> Build Number is a tool to track software artifacts such as files and automatically assign
         proper version/build numbers to them. It ensures that two different artifacts will have different
         version/build numbers, but identical artifacts/builds will be assigned the same number. It doesn't
@@ -566,7 +605,7 @@
       </subsection>
 
       <subsection name="Checkstyle">
-
+        <!-- jhm: Link check 2013-05-23. ok -->
         <p>Checkstyle is a development tool to help programmers write
         Java code that adheres to a coding standard. Its purpose is to
         automate the process of checking Java code, and to spare
@@ -598,7 +637,7 @@
       </subsection>
 
       <subsection name="ChownTask">
-
+        <!-- jhm: Link check 2013-05-23: no changes -->
         <p>ChownTask is an Ant task to change ownership of files on Unix.</p>
         <p>Note: <i>As the Sourceforge <a href="http://sourceforge.net/projects/chowntask/">project site</a>
         shows, the last update was on <b>Feb 16 2003</b>.</i> (jhm)</p>
@@ -627,6 +666,11 @@
       </subsection>
 
       <subsection name="CleanImports">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2003-07-07.
+        I think this is project is dead.
+        -->
         <p>Removes unneeded imports. Formats your import
         sections. Flags ambiguous imports.</p>
         <table class="externals">
@@ -650,7 +694,7 @@
       </subsection>
 
       <subsection name="Clover">
-
+        <!-- jhm: Link check 2013-05-23: ok -->
         <p>Clover is an Ant-based Code Coverage tool. It can be used
         seamlessly with Ant-based projects. It provides method,
         statement, and branch coverage analysis, and has rich
@@ -677,33 +721,8 @@
         </table>
       </subsection>
 
-      <subsection name="CMSDeploy">
-
-        <p><a href="http://cmsdeploy.sourceforge.net">CMSDeploy</a> is
-        an Apache Ant Task to submit files and templates to Vignette
-        CMS.</p>
-
-        <table class="externals">
-          <tr>
-            <th>Compatibility:</th>
-            <td>Ant 1.5.1 and later</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://cmsdeploy.sourceforge.net">http://cmsdeploy.sourceforge.net</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:masogato@users.sourceforge.net">masogato@users.sourceforge.net</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>GNU Lesser General Public License</td>
-          </tr>
-        </table>
-      </subsection>
-
       <subsection name="Cocoon Task">
+        <!-- jhm: Link check 2013-05-23: ok -->
         <p>This task allows the generation of static web pages and
         sites using Apache Cocoon in off-line mode.</p>
         <p>It allows the configuration information for Cocoon to be
@@ -738,6 +757,10 @@
      </subsection>
 
      <subsection name="Commons Configuration Ant Task">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2010-09, last code change from 2010-09-23.
+        -->
        <p>A set of Ant task that help convert Apache Commons
        Configuration property files into build properties, java Enum's
        (that are populated at runtime), and any exportable property /
@@ -775,41 +798,14 @@
        </table>
      </subsection>
 
-     <subsection name="Configure">
-
-        <p>Recursive build support (call ant on every package level,
-        and only build files in that package or in that package and
-        everything below) with seperation of source and output.</p>
-
-        <p>The task generates build files in any subdirectory (except
-        for CVS-directories) for you. Only place one build.xml file in
-        the top and call target &apos;setup&apos; or
-        &apos;rescan&apos;.</p>
-        
-        <p>As of 2009-03-06 this site was offline due database problems. So we do not know
-        if this still longer exist. But you could also try Ants own &lt;subant&gt; task.</p>
-
-        <table class="externals">
-          <tr>
-            <th>Compatibility:</th>
-            <td>Ant 1.2 and 1.3</td>
-          </tr>
-          <tr>
-            <th>URL:</th>
-            <td><a href="http://www.dsdelft.nl/~lemval/ant/">http://www.dsdelft.nl/~lemval/ant/</a></td>
-          </tr>
-          <tr>
-            <th>Contact:</th>
-            <td><a href="mailto:lemval@dsdelft.nl">M.J.P. van Leeuwen</a></td>
-          </tr>
-          <tr>
-            <th>License:</th>
-            <td>License derived from Apache Software License 1.1</td>
-          </tr>
-        </table>
-      </subsection>
-
       <subsection name="CVSGrab">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2007-03-20. 
+        Last change in bugtracker from 2008-12-29.
+        Last change in vcs 6 years old. 
+        Is this project still active?
+        -->
 
         <p>A little CVS client that can be useful when people are
         behind corporate firewall that blocks any cvs
@@ -840,36 +836,8 @@
         </table>
       </subsection>
 
-      <subsection name="Dependencies">
-          <p>The dependencies task manages a set of external dependencies which
-            may be downloaded from a remote repository,
-             such as ibiblio.org. Uses a local cache to avoid repeated
-            downloads.</p>
-
-          <p>Note: While the HttpUnit site is still active, the referenced URL is not available.
-          You could also try <a href="http://ant.apache.org/ivy/">Ivy</a>.</p>
-
-          <table class="externals">
-            <tr>
-              <th>Compatibility:</th>
-              <td>Tested with 1.5.1, should work with 1.4+.</td>
-           </tr>
-            <tr>
-              <th>URL:</th>
-              <td><a href="http://www.httpunit.org/doc/dependencies.html">http://www.httpunit.org/doc/dependencies.html</a></td>
-            </tr>
-            <tr>
-              <th>Contact:</th>
-              <td><a href="mailto:russgold@httpunit.org">Russell Gold</a></td>
-            </tr>
-            <tr>
-              <th>License:</th>
-              <td>MIT License</td>
-            </tr>
-          </table>
-      </subsection>
-
       <subsection name="Dependency Finder">
+        <!-- jhm: Link check 2013-05-23: ok, last changes from 2013-03-13 -->
         <p>Dependency Finder extracts dependencies and OO metrics from
         Java class files produced by most Java compilers. It can compute
         API differences between versions;  no sources needed. It includes
@@ -903,7 +871,11 @@
       </subsection>
 
       <subsection name="Doxygen task">
-
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2008-12, last code change 4 years old.
+        Is this project still active?
+        -->
         <table class="externals">
           <tr>
             <th>Compatibility:</th>
@@ -925,6 +897,12 @@
       </subsection>
 
       <subsection name="DTDDoc">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2007-02-03.
+        Last code change 5 years old.
+        Is this project still active?
+        -->
         <p>DTDDoc is here to help you to document your DTD's efficiently. It is a
         straightforward extension of the javadoc concept to the DTD file format.</p>
 
@@ -949,6 +927,7 @@
       </subsection>
 
       <subsection name="dynaTrace Ant Task">
+        <!-- jhm: Link check 2013-05-23: URLs require login. -->
         <p>dtAnt allows integrating automated performance analysis
                  into your ant builds. This way you can easily record performance metrics
                  of your tests and get alerts to performance regressions.</p>
@@ -974,6 +953,7 @@
       </subsection>
 
       <subsection name="EnvGen">
+        <!-- jhm: Link check 2013-05-23: ok -->
         <p>
           <a href="http://www.basilv.com/psd/software">EnvGen</a> is an Ant task for generating 
           different versions of the same file parameterized for different environments (i.e. 
@@ -1002,6 +982,12 @@
       </subsection>
 
       <subsection name="EMMA">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2005.
+        Last code change 7 years old.
+        Is this project still active?
+        -->
         <p>EMMA is an open-source toolkit for measuring and reporting
         Java code coverage. EMMA distinguishes itself from other tools
         by going after a unique feature combination: support large-scale
@@ -1029,6 +1015,12 @@
       </subsection>
 
       <subsection name="EPP Task">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2009-10-15.
+        Last code change from 2009-10-11.
+        Is this project still active?
+        -->
         <p>EPP Task is an easy preprocessor ant task.
         The next directives are supported: #ifdef, #ifndef, #else,
         #endif and #include.</p>
@@ -1054,6 +1046,7 @@
       </subsection>
 
       <subsection name="FMPP">
+        <!-- jhm: Link check 2013-05-23: seems to be active and moved to Github -->
         <p>FMPP is a general-purpose text file preprocessor tool that
         uses FreeMarker templates. It is particularly designed for
         HTML preprocessor, for the generation of complete (static)
@@ -1063,6 +1056,11 @@
         classes to pull data from any data sources (XML file,
         database, etc.) and embed the data into the generated
         files.</p>
+        <p>From the project homepage: <i>I will be honest about it: 
+        I (Daniel Dekany) have stopped the active development of the 
+        FMPP project with FMPP 0.9.7. I still fix bugs and do other 
+        maintenance work (check it here if I really do), so the 
+        project is <b>not abandoned</b>.</i></p>
 
         <table class="externals">
           <tr>
@@ -1081,6 +1079,11 @@
       </subsection>
 
       <subsection name="GenJar">
+        <!-- jhm: Link check 2013-05-23
+        Link valid, bin downloadable.
+        Last version from 2003-03-06.
+        Is think this project is dead, but artifacts are still available.
+        -->
         <p>Builds a JAR file based on class dependencies rather than simply the contents of a directory</p>
 
         <table class="externals">
