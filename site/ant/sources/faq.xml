@@ -2080,6 +2080,24 @@ build.xml:
 ]]></source>
       </answer>
     </faq>
+
+    <faq id="CVE-2013-1571">
+      <question>How do I deal with the javadoc vulnerability
+      CVE-2013-1571</question>
+      <answer>
+        <p>There is a frame injection bug in Javadocs as produced by
+        all Oracle JDK's javadoc tool prior to Java 7 update 25.</p>
+
+        <p>If you cannot upgrade your JDK you can use the patchtool
+        provided by Oracle.  Alternatively the <code>macrodef</code>
+        provided as part of <a
+        href="https://issues.apache.org/bugzilla/show_bug.cgi?id=55132">Issue
+        55132</a> can be used as part of your build process.</p>
+
+        <p>Ant 1.9.2 will postprocess the generated javadocs as part
+        of the javadoc task.</p>
+      </answer>
+    </faq>
   </faqsection>
 
 </document>
