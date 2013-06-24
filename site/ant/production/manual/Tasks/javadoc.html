@@ -83,11 +83,14 @@ to &lt;javadoc&gt; using <tt>classpath</tt>, <tt>classpathref</tt> attributes or
 <p><b>Note:</b> javadocs created by Oracle JDKs prior to Java 7 update
   25 contain a frane injection security vulnerability - for more
   information
-  see <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1571">CVE-2013-1571</a>.
-  Oracle provides a tool that can post-process javadocs, alternatively
-  you can use the macrodef provided as part
-  of <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=55132">Issue
-  55132</a> in order to fix the generated documents.</p>
+  see <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2013-1571"
+  target="_blank">CVE-2013-1571</a>.  Oracle provides a tool that can
+  post-process javadocs, alternatively you can use the macrodef
+  provided as part
+  of <a href="https://issues.apache.org/bugzilla/show_bug.cgi?id=55132"
+  target="_blank">Issue 55132</a> in order to fix the generated
+  documents.  The macrodef is reproduced at
+  the <a href="#CVE-2013-1571-macrodef">bottom</a>.</p>
 
 <h3>Parameters</h3>
 <table border="1" cellpadding="2" cellspacing="0">
@@ -897,6 +900,63 @@ arguments</a>. <em>Since Ant 1.6</em></p>
   &lt/javadoc&gt;</pre>
 
 
+<a name="CVE-2013-1571-macrodef"><h3>workaround for CVE-2013-1571</h3></a>
+
+<p>The following macro can be used to post-process generated javadocs.</p>
+
+<pre>
+&lt;macrodef name="patch-javadoc">
+    &lt;attribute name="dir"/>
+    &lt;attribute name="docencoding" default="${file.encoding}"/>
+    &lt;sequential>
+      &lt;replace encoding="@{docencoding}" summary="true" taskname="patch-javadoc">
+        &lt;restrict>
+          &lt;fileset dir="@{dir}" casesensitive="false" includes="**/index.html,**/index.htm,**/toc.html,**/toc.htm"/>
+          &lt;!-- TODO: add encoding="@{docencoding}" to contains check, when we are on ANT 1.9.0: -->
+          &lt;not>&lt;contains text="function validURL(url) {" casesensitive="true" />&lt;/not>
+        &lt;/restrict>
+        &lt;replacetoken>&lt;![CDATA[function loadFrames() {]]>&lt;/replacetoken>
+        &lt;replacevalue expandProperties="false">&lt;![CDATA[if (targetPage != "" && !validURL(targetPage))
+        targetPage = "undefined";
+    function validURL(url) {
+        var pos = url.indexOf(".html");
+        if (pos == -1 || pos != url.length - 5)
+            return false;
+        var allowNumber = false;
+        var allowSep = false;
+        var seenDot = false;
+        for (var i = 0; i &lt; url.length - 5; i++) {
+            var ch = url.charAt(i);
+            if ('a' &lt;= ch && ch &lt;= 'z' ||
+                    'A' &lt;= ch && ch &lt;= 'Z' ||
+                    ch == '$' ||
+                    ch == '_') {
+                allowNumber = true;
+                allowSep = true;
+            } else if ('0' &lt;= ch && ch &lt;= '9'
+                    || ch == '-') {
+                if (!allowNumber)
+                     return false;
+            } else if (ch == '/' || ch == '.') {
+                if (!allowSep)
+                    return false;
+                allowNumber = false;
+                allowSep = false;
+                if (ch == '.')
+                     seenDot = true;
+                if (ch == '/' && seenDot)
+                     return false;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    function loadFrames() {]]>&lt;/replacevalue>
+      &lt;/replace>
+    &lt;/sequential>
+  &lt;/macrodef>
+</pre>
 
 </body>
 </html>
