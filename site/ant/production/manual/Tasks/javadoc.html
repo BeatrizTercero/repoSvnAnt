@@ -910,11 +910,10 @@ arguments</a>. <em>Since Ant 1.6</em></p>
     &lt;attribute name="docencoding" default="${file.encoding}"/>
     &lt;sequential>
       &lt;replace encoding="@{docencoding}" summary="true" taskname="patch-javadoc">
-        &lt;restrict>
-          &lt;fileset dir="@{dir}" casesensitive="false" includes="**/index.html,**/index.htm,**/toc.html,**/toc.htm"/>
+        &lt;fileset dir="@{dir}" casesensitive="false" includes="**/index.html,**/index.htm,**/toc.html,**/toc.htm">
           &lt;!-- TODO: add encoding="@{docencoding}" to contains check, when we are on ANT 1.9.0: -->
           &lt;not>&lt;contains text="function validURL(url) {" casesensitive="true" />&lt;/not>
-        &lt;/restrict>
+        &lt;/fileset>
         &lt;replacetoken>&lt;![CDATA[function loadFrames() {]]>&lt;/replacetoken>
         &lt;replacevalue expandProperties="false">&lt;![CDATA[if (targetPage != "" && !validURL(targetPage))
         targetPage = "undefined";
