@@ -57,21 +57,20 @@
           Foundation</a>.</p>
   </section>
 
-  <section name="Apache Ant 1.9.1">
-    <h3>May 21, 2013 - Apache Ant 1.9.1 Released</h3>
-    <p>Apache Ant 1.9.1 is now available for download as source or
+  <section name="Apache Ant 1.9.2">
+    <h3>July 12, 2013 - Apache Ant 1.9.2 Released</h3>
+    <p>Apache Ant 1.9.2 is now available for download as source or
       binary from
       <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
 
-    <p>Key features of the 1.9.1 release are</p>
-    <ul>
-      <li>new if and unless XML namespaces available on all tasks and nested elements</li>
-      <li>Zip64 extensions are disabled by default</li>
-      <li>Loading of external dependencies fixed in JUnit tasks</li>
-      <li>JUnitreport default stylesheets now compatible with JDK 1.7</li>
-      <li>Recommending to upgrade to jsch 0.1.50 for users of the ssh/scp tasks under Java 1.7</li>
-      <li>Other fixes and improvements documented in WHATSNEW</li>
-    </ul>
+    <p>Ant 1.9.2's javadoc task provides a workaround for the recently
+    patched frame injection vulnerability of the javadoc tool found in
+    Oracle JDKs prior to Java 7u25 known as CVE-2013-1571.  The task
+    will now post-process the generated files and remove the
+    vulnerability if detected.</p>
+
+    <p>In addition some interoperability patches to the tar and zip
+    classes have been applied.</p>
 
   </section>
 
