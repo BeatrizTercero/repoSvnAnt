@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="../use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="../use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="../use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="../use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="../use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="../use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="../use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="../use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="../use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="../use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="../use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="../use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="../use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="../use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="../use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="../extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="../dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="../dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -234,9 +236,17 @@
 
 		<h1 class="title">Building a standard OSGi bundle</h1>
             <br class="xooki-br"/>
-<div class="notice">
-This documentation is describing the <b>experimental</b> OSGi capability of Ivy. It should work with simple configuration but may not in complex ones. If you have any issue with that feature, you are welcomed to come discussed your use case on the <a href="http://ant.apache.org/ivy/mailing-lists.html">ivy-user</a> mailing list, or discuss about implementation issues or improvement you may have found on <a href="http://ant.apache.org/ivy/mailing-lists.html">ant-dev</a>.
-</div>
+<table class="notice">
+  <tr>
+    <td style="vertical-align: top"><img src="../images/warning.png" style="float:left;" /></td>
+    <td>
+    Note that this feature is considered as <b>experimental</b>. It should work with simple configuration but may not in complex ones. If you have any issue with that feature, you are welcomed to come discussed your use case on the <a href="http://ant.apache.org/ivy/mailing-lists.html">ivy-user</a> mailing list, or discuss about implementation issues or improvement you may have found on <a href="http://ant.apache.org/ivy/mailing-lists.html">ant-dev</a>.<br class="xooki-br"/>    </td>
+  </tr>
+</table>
+
+<hr />
+<center><b>TODO - WORK IN PROGRESS</b></center>
+<hr />
 
 This page describes how to build an OSGi&#153; bundle with Apache Ivy&#153;. In this use case, we just basically want to compute a classpath to compile, optionaly one for testing too, and then publish our bundle in a OSGi aware repository.<br class="xooki-br"/><br class="xooki-br"/>In oder to produce OSGi metadata of suffient quality and to avoid maintaining them manually, the <a href="http://www.aqute.biz/Code/Bnd">bnd</a> tool will be used. The approach taken is then an "Ivy file first" approach. The dependencies will be specified in the ivy.xml file, the MANIFEST.MF being generated from the computed classpath.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/><h1>Quick setup</h1>
 
@@ -246,7 +256,6 @@ In few steps, we will setup a build to compile and publish an OSGi bundle.<br cl
 <li><i>(optional)</i> by default the build.xml is expecting the sources to be in the <tt>src</tt> folder. You may want to edit it if it is not the case</li>
 <li><i>(optional)</i> if Ivy is not in Ant's classpath, get the jar of <a href="../download.html">Apache Ivy</a> and edit the build.xml accordingly (see the comments at the begining of the file)</li>
 </ol>
-
 
 	
  		</div><!-- main -->
@@ -271,7 +280,7 @@ In few steps, we will setup a build to compile and publish an OSGi bundle.<br cl
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

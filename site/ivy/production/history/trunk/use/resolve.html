@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="../use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="../use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="../use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="../use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="../use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="../use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="../use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="../use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="../use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="../use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="../use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="../use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="../use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="../use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="../use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="../extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="../dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="../dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -254,7 +256,20 @@ set to the comma separated list of configurations resolved
 <li>ivy.deps.changed.${resolveId}</li>
 </ul>
 
-When ivy has finished the resolve task, it outputs a summary of what has been resolved. This summary looks like this:
+<b>Since 2.4</b><br class="xooki-br"/>If current module extends other modules 
+<ul>
+<li>ivy.parents.count</li>
+number of parents module
+<li>ivy.parent[index].organisation</li>
+set to the organisation name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].module</li>
+set to the module name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].revision</li>
+set to the revision name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].branch</li>
+set to the branch name found in the parent ivyfile which was used for resolve
+</ul>
+Where <i>index</i> represent the index of extends module.<br class="xooki-br"/><br class="xooki-br"/>When ivy has finished the resolve task, it outputs a summary of what has been resolved. This summary looks like this:
 <pre>
 ---------------------------------------------------------------------<br class="xooki-br"/>|                  |            modules            ||   artifacts   |<br class="xooki-br"/>|       conf       | number| search|dwnlded|evicted|| number|dwnlded|<br class="xooki-br"/>---------------------------------------------------------------------<br class="xooki-br"/>|      default     |   4   |   0   |   0   |   0   ||   4   |   0   |<br class="xooki-br"/>---------------------------------------------------------------------
 </pre>
@@ -391,7 +406,7 @@ Resolve all dependencies declared in path/to/ivy.xml file, but download only jar
 </pre>
 Resolve the commons-lang module revision 2+ from the repository, with its dependencies.<br class="xooki-br"/><br class="xooki-br"/><hr/>
 <pre>
-&lt;ivy:resolve&gt;<br class="xooki-br"/>    &lt;dependency org="apache" module="commons-lang" rev="2+" /&gt;<br class="xooki-br"/>    &lt;dependency org="apache" module="commons-logging" rev="1.1" /&gt;<br class="xooki-br"/>    &lt;exclude org="apache" module="log4j" /&gt;<br class="xooki-br"/>&lt;/ivy:resolve&gt;
+&lt;ivy:resolve&gt;<br class="xooki-br"/>    &lt;dependency org="apache" name="commons-lang" rev="2+" /&gt;<br class="xooki-br"/>    &lt;dependency org="apache" name="commons-logging" rev="1.1" /&gt;<br class="xooki-br"/>    &lt;exclude org="apache" module="log4j" /&gt;<br class="xooki-br"/>&lt;/ivy:resolve&gt;
 </pre>
 Resolve of both commons lang and commons logging, with their dependencies but not log4j.<br class="xooki-br"/><br class="xooki-br"/><hr/>
 <pre>
@@ -420,7 +435,7 @@ Resolve the configurations "api" and "log4j" of "slf4j".<br class="xooki-br"/><b
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

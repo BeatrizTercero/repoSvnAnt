@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="../use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="../use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="../use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="../use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="../use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="../use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="../use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="../use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="../use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="../use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="../use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="../use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="../use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="../use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="../use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="open"><li id="xooki-extend"><a href="../extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="../dev/makerelease.html" class="current">Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="../dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -283,7 +285,7 @@ Be prepared to enter your passphrase several times if you use this script, gpg w
 
 <h3>11. Prepare the Eclipse update site</h3>
 
-To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
+To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
 As soon as you are happy with the artifacts to be released, it is time to tag the svn repo
 <pre>
 svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Tag release 2.0.0-beta1."
@@ -294,13 +296,25 @@ And don't forget to set the svn:external on doc/xooki to a fixed revision. Edit 
 xooki -r790212 <a href="https://svn.apache.org/repos/asf/ant/ivy/site/xooki/">https://svn.apache.org/repos/asf/ant/ivy/site/xooki/</a>
 </pre>
 
-And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h3>13. Call for a vote to approve the release</h3>
+And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h3>Publish the release candidate</h3>
+
+<ul>Two choices here:<br class="xooki-br"/>  <li>commit them into the dev dist area: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> </li>
+  <li>or simply put it in your <tt>public_html</tt> folder on people.apache.org so it will be avalaible at <a href="http://people.apache.org/~$LOGIN/$RELEASENAME">http://people.apache.org/~$LOGIN/$RELEASENAME</a> </li>
+</ul>
+
+<h3>13. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
 <pre>
 Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>You can download it from this URL: ${url}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
 </pre>
-<h3>14. Upload to public repository</h3>
-If the release is approved, it's now time to make it public by uploading it to the public Apache distrib repository (i.e. /www/www.apache.org/dist/ant/ivy/[version] on people.a.o).<br class="xooki-br"/><br class="xooki-br"/>Copy also the staging maven 2 repository to apache maven 2 rsync repo:<br class="xooki-br"/>/www/people.apache.org/repo/m2-ibiblio-rsync-repository<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
+<h3>14. Publish the release</h3>
+
+If the release is approved, it's now time to make it public. The apache dist is manage by svnpubsub, so releases should be committed into <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>If the release candidate has been staged into the dev area, then just do:
+<pre>
+$ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION</a>
+</pre>
+
+If the candidate has been published on people.apache.org, just directly commit the artifacts into the subversion repository <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a> <br class="xooki-br"/><br class="xooki-br"/>In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
 Add a link to the released version documentation in the web site. <br class="xooki-br"/><br class="xooki-br"/>To do so, you need to:<br class="xooki-br"/><ol>
 <li>add a svn externals reference to the documentation</li>
 edit the svn properties of site/history, and in the svn:externals property, add a line like this one:
@@ -318,19 +332,18 @@ You can also edit the title of the main documentation node pointing to latest-mi
 Then you can update the release notes page of the imported documentation if necessary, to include the announcement for example.<br class="xooki-br"/><br class="xooki-br"/>It's time to update the download image used on the home page and the download page. Use site/images/ivy-dl.xcf as a basis if you have <a href="http://www.gimp.org/">gimp</a> installed. Then you can update the home page to refer to this image, and add a news item announcing the new version. Update also the download page with the new image and update the links to the download location (using a search/replace on the html source is recommended for this).<br class="xooki-br"/><br class="xooki-br"/>All site editing being done, commit your changes.<br class="xooki-br"/><br class="xooki-br"/>And now let's generate the site and deploy it:<br class="xooki-br"/><ol>
     <li>generate the part of the site for the new version:</li>
 <pre>
-ant generate-history-ivy -Dhistory.version=2.0.0-beta1
+ant generate-history -Dhistory.version=2.0.0-beta1
 </pre>
 <u>WARNING:</u> that target is modifiying the toc.json in the imported branch so that the generated html have a proper version declared in the toc. You should not commit that change. Once the site has been generated, you may want to revert the changes so you won't commit it by mistake. (TODO: process to improve so we shouldn't worry).<br class="xooki-br"/>    <li>generate the website with the new toc:</li>
 <pre>
-ant /all generate-site-ivy
+ant /all generate-site
 </pre>
-    <li>you should verify that the site generated in target is OK. And once your happy with it, commit the changes in target (some svn add might be needed !)</li>
-    <li>deploy the website: go on people.apache.org and <tt>svn up /www/ant.apache.org/ivy/</tt></li>
+    <li>you should verify that the site generated in the production directory is OK. And once your happy with it, commit the changes (some svn add might be needed !)</li>
 </ol>
 
 <h3>16. Deploy the Eclipse updatesite</h3>
 
-If the Eclipse update site has already been prepared to include that new Ivy release, it is now needed to be deployed. Then follow the deployment instruction on <a href="updatesite.html">that page</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>17. Announce</h3>
+If the Eclipse update site has already been prepared to include that new Ivy release, it is now needed to be deployed. Then follow the deployment instruction on <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>17. Announce</h3>
 Announce the release on the dev@ant.a.o, ivy-user@ant.a.o, user@ant.apache.org and announce@apache.org mailing lists.<br class="xooki-br"/>You can also announce the release on popular web sites, like freshmeat.net (xavier is the owner of the Ivy project on freshmeat), javalobby.org, theserverside.com, dzone.com, ...<br class="xooki-br"/><h3>16. Update this doc</h3>
 If you feel like anything is missing or misleading in this release doc, update it as soon as you encounter the problem.<br class="xooki-br"/><h3>17. Merge your modifications back to the trunk if necessary.</h3>
 Modifications on the template files do not need to be merged, but if you had troubles during your release you may want to merge your fixes back to the trunk.<br class="xooki-br"/><h3>18. Prepare next release</h3>
@@ -357,7 +370,7 @@ Update the file version.properties with the version of the next release so that 
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

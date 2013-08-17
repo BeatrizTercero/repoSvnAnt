@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="../use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="../use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="../use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="../use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="../use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="../use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="../use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="../use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="../use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="../use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="../use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="../use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="../use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="../use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="../use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="../extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="../dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="../dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -264,7 +266,7 @@ To map the windows and linux configurations (the one which have the attribute ax
 </ul>
 
 If you prefer more verbose mapping declaration, everything is also possible with sub elements mapping declaration. <br class="xooki-br"/><br class="xooki-br"/><h2>Artifact restriction</h2>
-Moreover, the dependency element also supports an artifact restriction feature (since 0.6).<br class="xooki-br"/>See <a href="#dependency-artifact">dependency artifact restriction</a> for details.<br class="xooki-br"/><br class="xooki-br"/><h2>Forcing revision</h2>
+Moreover, the dependency element also supports an artifact restriction feature (since 0.6).<br class="xooki-br"/>See <a href="../ivyfile/dependency-artifact.html">dependency artifact</a> for details.<br class="xooki-br"/><br class="xooki-br"/><h2>Forcing revision</h2>
 Finally, the dependency element also supports an a force attribute (since 0.8), which gives an indication<br class="xooki-br"/>to conflicts manager to force the revision of a dependency to the one given here.<br class="xooki-br"/>See <a href="../ivyfile/conflicts.html">conflicts manager</a> for details. <br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> this tag supports <a href="../concept.html#extra">extra attributes</a><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
 <thead>
@@ -353,7 +355,7 @@ Declares a dependency on the module <pre>bar</pre> from foo, in revision 3.0. Th
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

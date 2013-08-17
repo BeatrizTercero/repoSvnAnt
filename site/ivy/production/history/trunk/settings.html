@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -235,7 +237,7 @@
 		<h1 class="title">Settings Files</h1>
             <br class="xooki-br"/>In order to work as you want, ivy sometimes needs some settings. Actually, ivy can work with no specific settings at all, see the <a href="tutorial/defaultconf.html">default settings documentation</a> for details about that. But ivy is able to work in very different contexts. You just have to configure it properly.<br class="xooki-br"/><br class="xooki-br"/>Settings are specified through an xml file, usually called ivysettings.xml. To configure ivy from ant, you just have to use the <a href="use/settings.html">settings</a> datatype with the path of your settings file.<br class="xooki-br"/><br class="xooki-br"/>Here is an example of the settings file:
 <pre>
-&lt;ivysettings&gt;<br class="xooki-br"/>        &lt;properties file="${ivy.settings.dir}/ivysettings-file.properties" /&gt;<br class="xooki-br"/>        &lt;settings defaultCache="${cache.dir}" defaultResolver="ibiblio" checkUpToDate="false" /&gt;<br class="xooki-br"/>        &lt;resolvers&gt;<br class="xooki-br"/>                &lt;ibiblio name="ibiblio" /&gt;<br class="xooki-br"/>                &lt;filesystem name="internal"&gt;<br class="xooki-br"/>                        &lt;ivy pattern="${repository.dir}/[module]/ivy-[revision].xml" /&gt;<br class="xooki-br"/>                        &lt;artifact pattern="${repository.dir}/[module]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>                &lt;/filesystem&gt;<br class="xooki-br"/>        &lt;/resolvers&gt;<br class="xooki-br"/>        &lt;modules&gt;<br class="xooki-br"/>                &lt;module organisation="jayasoft" name=".*" resolver="internal" /&gt;<br class="xooki-br"/>        &lt;/modules&gt;<br class="xooki-br"/>&lt;/ivysettings&gt;
+&lt;ivysettings&gt;<br class="xooki-br"/>        &lt;properties file="${ivy.settings.dir}/ivysettings-file.properties" /&gt;<br class="xooki-br"/>        &lt;settings defaultResolver="ibiblio" /&gt;<br class="xooki-br"/>        &lt;caches  defaultCacheDir="${cache.dir}" checkUpToDate="false" /&gt;<br class="xooki-br"/>        &lt;resolvers&gt;<br class="xooki-br"/>                &lt;ibiblio name="ibiblio" /&gt;<br class="xooki-br"/>                &lt;filesystem name="internal"&gt;<br class="xooki-br"/>                        &lt;ivy pattern="${repository.dir}/[module]/ivy-[revision].xml" /&gt;<br class="xooki-br"/>                        &lt;artifact pattern="${repository.dir}/[module]/[artifact]-[revision].[ext]" /&gt;<br class="xooki-br"/>                &lt;/filesystem&gt;<br class="xooki-br"/>        &lt;/resolvers&gt;<br class="xooki-br"/>        &lt;modules&gt;<br class="xooki-br"/>                &lt;module organisation="jayasoft" name=".*" resolver="internal" /&gt;<br class="xooki-br"/>        &lt;/modules&gt;<br class="xooki-br"/>&lt;/ivysettings&gt;
 </pre>
 
 <br/>
@@ -322,7 +324,7 @@ ivysettings<br class="xooki-br"/>    <a href="settings/property.html">property</
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

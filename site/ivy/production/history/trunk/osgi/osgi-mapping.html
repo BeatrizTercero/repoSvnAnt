@@ -183,12 +183,15 @@
 <li id="xooki-use/buildnumber"><a href="../use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="../use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="../use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="../use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="../use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="../use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="../use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="../use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="../use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="../use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="../use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="../use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="../use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="../use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="../use/listmodules.html" >listmodules</a></li>
@@ -214,7 +217,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="../dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="../extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="../dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="../dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -237,9 +239,8 @@
 
 In OSGi a bundle is identified by its symbolic name. In Ivy there is a notion of organisation and module name.<br class="xooki-br"/><br class="xooki-br"/>The choosen mapping is:
 <ul>
-<li>No organisation : org=""</li>
+<li>The organisation is "bundle" (transitive dependencies like pakages or services have their own organisations, "package" and "service")</li>
 <li>The module name is the symbolic name</li>
-<li>an extra attribute is defining it as an OSGi bundle</li>
 </ul>
 
 <table border="1" cellspacing="1" cellpadding="4">
@@ -251,7 +252,7 @@ In OSGi a bundle is identified by its symbolic name. In Ivy there is a notion of
 <td> <tt>Bundle-SymbolicName: com.acme.product.plugin</tt> </td>
 <td>
 <pre>
-&lt;info organisation="" module="com.acme.product.plugin" osgi="bundle" /&gt;
+&lt;info organisation="bundle" module="com.acme.product.plugin" /&gt;
 </pre>
 </td>
 </tr>
@@ -274,7 +275,7 @@ The OSGi specification is defining a version as a composition of 3 numbers and a
 <td><tt>Require-Bundle: com.acme.product.plugin;bundle-version="3.2.1"</tt> </td>
 <td>
 <pre>
-&lt;dependency osgi="bundle" org="" name="com.acme.product.plugin" rev="[3.2.1,)" /&gt;
+&lt;dependency org="bundle" name="com.acme.product.plugin" rev="[3.2.1,)" /&gt;
 </pre>
 </td>
 </tr>
@@ -339,7 +340,7 @@ The OSGi <tt>Require-Bundle</tt> is some a requirement directly on a specific bu
 <td> <tt>Require-Bundle: com.acme.product.plugin;bundle-version="3.2.1";resolution:="optional"</tt> </td>
 <td>
 <pre>
-&lt;dependency osgi="bundle" org="" name="com.acme.product.plugin" rev="[3.2.1,)" conf="optional-&gt;default;transitive-optional-&gt;transitive-optional" /&gt;
+&lt;dependency org="bundle" name="com.acme.product.plugin" rev="[3.2.1,)" conf="optional-&gt;default;transitive-optional-&gt;transitive-optional" /&gt;
 </pre>
 </td>
 </tr>
@@ -358,7 +359,7 @@ The OSGi <tt>Import-Package</tt> is some a requirement on a package of a bundle.
 </td>
 <td>
 <pre>
-&lt;dependency osgi="pkg" org="" name="com.acme.product.plugin.utils" rev="[3.2.1,)" conf="default-&gt;default;use_com.acme.product.plugin.utils-&gt;use_com.acme.product.plugin.utils" /&gt;
+&lt;dependency org="package" name="com.acme.product.plugin.utils" rev="[3.2.1,)" conf="default-&gt;default;use_com.acme.product.plugin.utils-&gt;use_com.acme.product.plugin.utils" /&gt;
 </pre>
 </td>
 </tr>
@@ -366,7 +367,7 @@ The OSGi <tt>Import-Package</tt> is some a requirement on a package of a bundle.
 <td> <tt>Import-Package: com.acme.product.plugin.utils;version="3.2.1";resolution:="optional"</tt> </td>
 <td>
  <pre>
-&lt;dependency osgi="pkg" org="" name="com.acme.product.plugin.utils" rev="[3.2.1,)" conf="optional-&gt;default;transitive-optional-&gt;transitive-optional;use_com.acme.product.plugin.utils-&gt;use_com.acme.product.plugin.utils" /&gt;
+&lt;dependency org="package" name="com.acme.product.plugin.utils" rev="[3.2.1,)" conf="optional-&gt;default;transitive-optional-&gt;transitive-optional;use_com.acme.product.plugin.utils-&gt;use_com.acme.product.plugin.utils" /&gt;
 </pre>
 </td>
 </tr>
@@ -384,7 +385,7 @@ The OSGi <tt>Bundle-RequiredExecutionEnvironment</tt> manifest attribute is spec
 <td> <tt>Bundle-RequiredExecutionEnvironment: JavaSE-1.6</tt> </td>
 <td>
 <pre>
-&lt;dependencies&gt;<br class="xooki-br"/>    &lt;exclude org="" module="javax.accessibility" osgi="pkg" /&gt;<br class="xooki-br"/>    &lt;exclude org="" module="javax.activation" osgi="pkg" /&gt;<br class="xooki-br"/>    &lt;exclude org="" module="javax.activity" osgi="pkg" /&gt;<br class="xooki-br"/>    ...<br class="xooki-br"/>&lt;/dependencies&gt;
+&lt;dependencies&gt;<br class="xooki-br"/>    &lt;exclude org="package" module="javax.accessibility" /&gt;<br class="xooki-br"/>    &lt;exclude org="package" module="javax.activation" /&gt;<br class="xooki-br"/>    &lt;exclude org="package" module="javax.activity" /&gt;<br class="xooki-br"/>    ...<br class="xooki-br"/>&lt;/dependencies&gt;
 </pre>
 </td>
 </tr>
@@ -415,7 +416,7 @@ Ivy doesn't support the header <tt>Fragment-Host</tt>.<br class="xooki-br"/><br 
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>
