@@ -1,0 +1,83 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<project name="antdsl" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <import file="../build/common-build.xml" />
+    <import file="../build/common-build-plugin.xml" />
+
+    <target name="ivy:resolve" depends="antdsl-common-build-plugin.ivy:resolve">
+        <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" uncompress="true" osgi="true" />
+    </target>
+
+    <target name="generate-antlr" depends="init" description="Generate the simple ANTLR parser">
+        <mkdir dir="${basedir}/src/org/apache/ant/antdsl/antlr" />
+        <antlr3 target="${basedir}/src/org/apache/ant/antdsl/AntDSL.g" outputdirectory="${basedir}/src/org/apache/ant/antdsl/antlr" />
+    </target>
+
+    <target name="generate-xtext" depends="ivy:resolve" description="Generate XText and Ecore files for the full plugin">
+        <java classname="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher" dir="${basedir}" fork="true" failonerror="true">
+            <jvmarg line="-Xmx256M" />
+            <classpath>
+                <pathelement path="${basedir}/src/" />
+                <pathelement path="${target.dir}/classes" />
+                <path refid="generate.classpath" />
+            </classpath>
+            <arg line="src/org/apache/ant/antdsl/xtext/GenerateAntDSL.mwe2" />
+        </java>
+        <delete file="src/org/apache/ant/antdsl/xtext/generator/AntDSLGenerator.xtend" />
+    </target>
+
+    <target name="test-xtext" description="Test the run of an antdsl file with Xtext-generated parser">
+        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
+        <typedef classname="org.apache.ant.antdsl.xtext.AntDslXTextProjectHelper" name="antDslProjectHelper">
+            <classpath>
+                <pathelement path="${basedir}/build/antdsl.jar" />
+                <path refid="antruntime.classpath" />
+            </classpath>
+        </typedef>
+        <projecthelper>
+            <antDslProjectHelper />
+        </projecthelper>
+        <ant antfile="test/build.ant" target="build" />
+    </target>
+
+    <target name="test-antlr" description="Test the run of an antdsl file with Xtext-generated parser">
+        <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
+        <typedef classname="org.apache.ant.antdsl.antlr.AntDslAntlrProjectHelper" name="antDslProjectHelper">
+            <classpath>
+                <pathelement path="${basedir}/build/antdsl.jar" />
+                <path refid="antruntime.classpath" />
+            </classpath>
+        </typedef>
+        <projecthelper>
+            <antDslProjectHelper />
+        </projecthelper>
+        <ant antfile="test/build.ant" target="build" />
+    </target>
+
+    <target name="test-update-build" description="Test the run of an antdsl file with Xtext-generated parser">
+        <loadfile property="antruntime.classpath" srcFile=".antruntime.classpath"/>
+        <exec executable="ant" dir="test">
+            <arg line="-lib" />
+            <arg line="${antruntime.classpath}" />
+            <arg line="-update-build" />
+        </exec>
+    </target>
+
+</project>

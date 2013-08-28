@@ -1,0 +1,94 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<project name="antdsl-common-build" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <dirname property="antdsl-common-build.dir" file="${ant.file.antdsl-common-build}" />
+    <property name="antdsl-root.dir" location="${antdsl-common-build.dir}/.." />
+    <property name="build-deps.dir" location="${antdsl-root.dir}/build-deps" />
+    <property name="p2repo.dir" location="${antdsl-root.dir}/p2repo" />
+
+    <property name="ivy.version" value="2.4.0-alpha" />
+
+    <property file="${basedir}/build.properties" />
+
+    <loadresource property="antdsl.version">
+        <file file="${antdsl-root.dir}/org.apache.ant.antdsl/META-INF/MANIFEST.MF" />
+        <filterchain>
+            <linecontainsregexp>
+                <regexp pattern="Bundle-Version:"/>
+            </linecontainsregexp>
+            <striplinebreaks />
+            <tokenfilter>
+                <replaceregex pattern="Bundle-Version: (.*)\.qualifier" replace="\1" flags="gi" />
+            </tokenfilter>
+        </filterchain>
+    </loadresource>
+    <tstamp />
+    <property name="antdsl.version.qualifier" value="dev" />
+    <property name="antdsl.version.full" value="${antdsl.version}.${DSTAMP}${TSTAMP}-${antdsl.version.qualifier}" />
+
+    <target name="-check-build-deps">
+        <condition property="build-deps.exist">
+            <and>
+                <available file="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" />
+
+                <available file="${build-deps.dir}/antlr3-task/ant-antlr3.jar" />
+
+                <available file="${build-deps.dir}/ivy-${ivy.version}.jar" />
+
+                <available file="${build-deps.dir}/antlr-generator-3.2.0.jar" />
+
+                <available file="${build-deps.dir}/ant-contrib-20020829.jar" />
+            </and>
+        </condition>
+        <mkdir dir="${user.home}/.ivy2/lib/" />
+    </target>
+
+    <target name="-download-build-deps" depends="-check-build-deps" unless="build-deps.exist">
+        <mkdir dir="${build-deps.dir}" />
+
+        <get src="https://builds.apache.org/pview/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${build-deps.dir}/ivy-${ivy.version}.jar" usetimestamp="true" />
+
+        <get src="http://www.antlr3.org/download/antlr-3.5-complete-no-st3.jar" dest="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" usetimestamp="true" />
+
+        <get src="http://download.itemis.com/antlr-generator-3.2.0.jar" dest="${build-deps.dir}/antlr-generator-3.2.0.jar" usetimestamp="true" />
+        <copy file="${build-deps.dir}/antlr-generator-3.2.0.jar" tofile="${antdsl-root.dir}/org.apache.ant.antdsl/.antlr-generator-3.2.0.jar" />
+
+        <get src="http://www.antlr.org/share/1169924912745/antlr3-task.zip" dest="${build-deps.dir}/antlr3-task.zip" usetimestamp="true" />
+        <unzip src="${build-deps.dir}/antlr3-task.zip" dest="${build-deps.dir}" />
+
+        <get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/20020829/ant-contrib-20020829.jar" dest="${build-deps.dir}/ant-contrib-20020829.jar" usetimestamp="true" />
+    </target>
+
+    <target name="init" depends="-download-build-deps">
+        <taskdef name="antlr3" classname="org.apache.tools.ant.antlr.ANTLR3">
+            <classpath>
+                <pathelement path="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" />
+                <pathelement path="${build-deps.dir}/antlr3-task/ant-antlr3.jar" />
+            </classpath>
+        </taskdef>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${build-deps.dir}/ivy-${ivy.version}.jar" />
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" uri="antlib:net.sf.antcontrib" classpath="${build-deps.dir}/ant-contrib-20020829.jar" />
+    </target>
+
+    <target name="ivy:configure" depends="init">
+        <ivy:configure file="${antdsl-common-build.dir}/ivysettings.xml" />
+    </target>
+
+</project>
