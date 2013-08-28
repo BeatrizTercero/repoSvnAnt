@@ -19,15 +19,10 @@ package org.apache.ant.antdsl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -43,16 +38,6 @@ import org.apache.ant.antdsl.expr.AntExpression;
 import org.apache.ant.antdsl.expr.AntExpressionCondition;
 import org.apache.ant.antdsl.expr.ConditionAntExpression;
 import org.apache.ant.antdsl.expr.func.FunctionRegistry;
-import org.apache.ivy.Ivy;
-import org.apache.ivy.core.module.descriptor.ModuleDescriptor;
-import org.apache.ivy.core.report.ArtifactDownloadReport;
-import org.apache.ivy.core.report.ResolveReport;
-import org.apache.ivy.core.resolve.ResolveOptions;
-import org.apache.ivy.osgi.core.BundleInfo;
-import org.apache.ivy.osgi.core.ManifestParser;
-import org.apache.ivy.plugins.parser.xml.XmlModuleDescriptorWriter;
-import org.apache.ivy.util.filter.Filter;
-import org.apache.ivy.util.filter.FilterHelper;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.ExtensionPoint;
 import org.apache.tools.ant.MagicNames;
@@ -78,7 +63,7 @@ import org.osgi.framework.BundleException;
 
 public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
-    private static final String REFID_CONTEXT = "antdsl.parsingcontext";
+	private static final String REFID_CONTEXT = "antdsl.parsingcontext";
 
     public static final String REFID_FUNCTION_REGISTRY = "antdsl.function.registry";
 
@@ -88,9 +73,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     public static final String REFID_ANT_PATH = "antdsl.path";
 
-    public static final String REFID_UPDATE_BUILD = "antdsl.update-build";
-
-    private static final Charset UTF8 = Charset.forName("UTF-8");
+    private AntPathManager antPathManager = new AntPathManager();
 
     public String getDefaultBuildFile() {
         return "build.ant";
@@ -350,11 +333,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             antPath = new Path(project);
         }
 
-        if (Boolean.TRUE.equals(project.getReference(REFID_UPDATE_BUILD))) {
-            updateBuild(project, antPath);
-        } else {
-            readAntPath(project, antPath);
-        }
+        antPathManager.readAntPath(project, antPath);
 
         if (!antpathElements.isEmpty()) {
             UnknownElement element = new UnknownElement("path");
@@ -396,178 +375,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             osgiFrameworkManager.start();
         } catch (BundleException e) {
             throw new BuildException("Unable to start the OSGi framework (" + e.getMessage() + ")", e);
-        }
-    }
-
-    private void updateBuild(Project project, Path antPath) {
-        File ivyFile = new File(project.getBaseDir(), "ant/ivy.xml");
-        if (!ivyFile.exists()) {
-            return;
-        }
-
-        Ivy ivy = configureBuildIvy(project);
-
-        ResolveReport report = resolveBuild(project, ivyFile, ivy);
-        writeIvyFixed(project, ivy, report);
-        Path ivyPath = getIvyBuildPath(project, report);
-        writePath(project, ivyPath);
-        antPath.add(ivyPath);
-    }
-
-    private void writeIvyFixed(Project project, Ivy ivy, ResolveReport report) {
-        File ivyFixFile = new File(project.getBaseDir(), "ant/ivy-fixed.xml");
-        ModuleDescriptor md = report.toFixedModuleDescriptor(ivy.getSettings());
-        try {
-            XmlModuleDescriptorWriter.write(md, ivyFixFile);
-        } catch (IOException e) {
-            throw new BuildException("Failed to write into the file " + ivyFixFile + " (" + e.getMessage() + ")", e);
-        }
-    }
-
-    private ResolveReport resolveBuild(Project project, File ivyFile, Ivy ivy) {
-        ResolveReport report;
-        try {
-            ResolveOptions options = new ResolveOptions();
-            options.setUncompress(true);
-            report = ivy.resolve(ivyFile, options);
-        } catch (ParseException e) {
-            throw new BuildException("The ivy file " + ivyFile + " could not be parsed", e);
-        } catch (IOException e) {
-            throw new BuildException("The ivy file " + ivyFile + " could not be read", e);
-        }
-        if (report.hasError()) {
-            @SuppressWarnings("unchecked")
-            List<String> errors = (List<String>) report.getAllProblemMessages();
-            for (String error : errors) {
-                project.log(error, Project.MSG_ERR);
-            }
-            throw new BuildException("Resolve of the build path failed");
-        }
-        return report;
-    }
-
-    private Ivy configureBuildIvy(Project project) {
-        Ivy ivy = Ivy.newInstance();
-
-        File ivysettingsFile = new File(project.getBaseDir(), "ant/ivysettings.xml");
-        if (ivysettingsFile.exists()) {
-            try {
-                ivy.configure(ivysettingsFile);
-            } catch (ParseException e) {
-                throw new BuildException("The ivysettings file " + ivysettingsFile + " could not be parsed", e);
-            } catch (IOException e) {
-                throw new BuildException("The ivysettings file " + ivysettingsFile + " could not be read", e);
-            }
-        } else {
-            try {
-                ivy.configureDefault();
-            } catch (ParseException e) {
-                throw new BuildException("The default ivysettings file could not be parsed", e);
-            } catch (IOException e) {
-                throw new BuildException("The default ivysettings file could not be read", e);
-            }
-        }
-        return ivy;
-    }
-
-    private void readAntPath(Project project, Path antPath) {
-        File antPathFile = new File(project.getBaseDir(), "ant/ant.path");
-        if (!antPathFile.exists()) {
-            File ivyFixFile = new File(project.getBaseDir(), "ant/ivy-fixed.xml");
-            if (!ivyFixFile.exists()) {
-                updateBuild(project, antPath);
-                return;
-            }
-            Ivy ivy = configureBuildIvy(project);
-            ResolveReport report = resolveBuild(project, ivyFixFile, ivy);
-            Path ivyPath = getIvyBuildPath(project, report);
-            writePath(project, ivyPath);
-            antPath.add(ivyPath);
-            return;
-        }
-
-        String path;
-        try {
-            path = FileUtils.readFully(new FileReader(antPathFile));
-        } catch (FileNotFoundException e) {
-            throw new BuildException("The cached ant path " + antPathFile + " has been deleted juste before reading it", e);
-        } catch (IOException e) {
-            throw new BuildException("The cached ant path " + antPathFile + " cannot be read", e);
-        }
-        antPath.createPathElement().setPath(path);
-    }
-
-    private Path getIvyBuildPath(Project project, ResolveReport report) {
-        // TODO make it configurable
-        boolean uncompress = true;
-        boolean osgi = true;
-        Filter artifactfilter = FilterHelper.getArtifactTypeFilter(new String[] {"bundle", "jar"});
-
-        Path ivyPath = new Path(project);
-        for (ArtifactDownloadReport adr : report.getAllArtifactsReports()) {
-            if (artifactfilter.accept(adr.getArtifact())) {
-                File f = adr.getLocalFile();
-                if (uncompress && adr.getUncompressedLocalDir() != null) {
-                    f = adr.getUncompressedLocalDir();
-                }
-                addToPath(ivyPath, f, osgi);
-            }
-        }
-        return ivyPath;
-    }
-
-    private void writePath(Project project, Path ivyPath) {
-        File antPathFile = new File(project.getBaseDir(), "ant/ant.path");
-        FileOutputStream out;
-        try {
-            out = new FileOutputStream(antPathFile);
-        } catch (FileNotFoundException e) {
-            throw new BuildException("The cached ant path " + antPathFile + "could not be written", e);
-        }
-        try {
-            out.write(ivyPath.toString().getBytes(UTF8.name()));
-        } catch (IOException e) {
-            throw new BuildException("The cached ant path " + antPathFile + "could not be written", e);
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                // ignore
-            }
-        }
-    }
-
-    private void addToPath(Path path, File f, boolean osgi) {
-        if (!osgi || !f.isDirectory()) {
-            path.createPathElement().setLocation(f);
-            return;
-        }
-        File manifest = new File(f, "META-INF/MANIFEST.MF");
-        if (!manifest.exists()) {
-            path.createPathElement().setLocation(f);
-            return;
-        }
-        BundleInfo bundleInfo;
-        try {
-            bundleInfo = ManifestParser.parseManifest(manifest);
-        } catch (IOException e) {
-            throw new BuildException("The manifest " + manifest + " could not be read", e);
-        } catch (ParseException e) {
-            throw new BuildException("The manifest " + manifest + " could not be parsed", e);
-        }
-        @SuppressWarnings("unchecked")
-        List<String> cp = bundleInfo.getClasspath();
-        if (cp == null) {
-            path.createPathElement().setLocation(f);
-            return;
-        }
-        for (int i = 0; i < cp.size(); i++) {
-            String p = (String) cp.get(i);
-            if (p.equals(".")) {
-                path.createPathElement().setLocation(f);
-            } else {
-                path.createPathElement().setLocation(new File(f, p));
-            }
         }
     }
 
@@ -658,7 +465,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         context.addTarget(target);
         target.setProject(project);
-        target.setName(name);
         target.setDescription(description);
 
         String fqnPrefix;
@@ -668,6 +474,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             fqnPrefix = "";
         }
         String fqn = fqnPrefix + name;
+        target.setName(fqn);
 
         // Check if this target is in the current build file
         if (context.getCurrentTargets().get(fqn) != null) {

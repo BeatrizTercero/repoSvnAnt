@@ -1,3 +1,20 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one or more
+ *  contributor license agreements.  See the NOTICE file distributed with
+ *  this work for additional information regarding copyright ownership.
+ *  The ASF licenses this file to You under the Apache License, Version 2.0
+ *  (the "License"); you may not use this file except in compliance with
+ *  the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
 package org.apache.ant.antdsl;
 
 import java.io.BufferedReader;
@@ -20,9 +37,9 @@ import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 import org.osgi.framework.wiring.BundleWiring;
 
-public class OSGiFrameworkManager {
+class OSGiFrameworkManager {
 
-    //@formatter:off
+	//@formatter:off
     private static final String ANT_PACKAGES =
             "org.apache.tools.ant,"
           + "org.apache.tools.ant.types,"
@@ -37,10 +54,10 @@ public class OSGiFrameworkManager {
 
     private GodClassLoader godClassLoader = new GodClassLoader();
 
-    public OSGiFrameworkManager(File basedir) throws BundleException {
+    OSGiFrameworkManager(File basedir) throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
-        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, "ant/felix-cache").getAbsolutePath());
+        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, AntPathManager.OSGI_STORAGE_LOCATION).getAbsolutePath());
         configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
         framework = getFrameworkFactory().newFramework(configMap);
         framework.init();
@@ -59,6 +76,7 @@ public class OSGiFrameworkManager {
         URL url = null;
         ArrayList<URL> urlList = Collections.list(urls);
         for (URL candidate : urlList) {
+        	// we prefer using felix (equinox might be somewhere in the classpath too within Eclipse)
             if (candidate.toExternalForm().contains("felix")) {
                 url = candidate;
             }
@@ -90,7 +108,7 @@ public class OSGiFrameworkManager {
         throw new BuildException("No OSGi framework factory found");
     }
 
-    public void install(String bundleURI) throws BundleException {
+    void install(String bundleURI) throws BundleException {
         if (bundleURI.startsWith("file:")) {
             bundleURI = "reference:" + bundleURI;
         }
@@ -104,7 +122,7 @@ public class OSGiFrameworkManager {
         return bundle.getHeaders().get(Constants.FRAGMENT_HOST) != null;
     }
 
-    public void start() throws BundleException {
+    void start() throws BundleException {
         framework.start();
         Runtime.getRuntime().addShutdownHook(new Thread("OSGi Framwork Shutdown Hook") {
             public void run() {
@@ -114,7 +132,8 @@ public class OSGiFrameworkManager {
                         framework.waitForStop(0);
                     }
                 } catch (Exception ex) {
-                    System.err.println("Error stopping framework: " + ex);
+                    System.err.println("Error stopping framework: " + ex.getMessage());
+                    ex.printStackTrace();
                 }
             }
         });
@@ -123,11 +142,11 @@ public class OSGiFrameworkManager {
         }
     }
 
-    public GodClassLoader getGodClassLoader() {
+    GodClassLoader getGodClassLoader() {
         return godClassLoader;
     }
 
-    public List<Bundle> getBundles() {
+    List<Bundle> getBundles() {
         return bundles;
     }
 
@@ -136,9 +155,9 @@ public class OSGiFrameworkManager {
      * 
      * @return
      */
-    public ClassLoader getClassLoader(String resource, URL url) {
+    ClassLoader getClassLoader(String resource, URL url) {
         for (Bundle bundle : bundles) {
-            BundleWiring wiring = bundle.adapt(BundleWiring.class);
+            BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
             int i = resource.lastIndexOf('/');
             String path = resource.substring(0, i);
             String name = resource.substring(i + 1);
@@ -175,7 +194,7 @@ public class OSGiFrameworkManager {
         @Override
         public URL getResource(String name) {
             for (Bundle bundle : bundles) {
-                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 URL url = cl.getResource(name);
                 if (url != null) {
@@ -189,7 +208,7 @@ public class OSGiFrameworkManager {
         public Enumeration<URL> getResources(String name) throws IOException {
             List<URL> urls = new ArrayList<URL>();
             for (Bundle bundle : bundles) {
-                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 Enumeration<URL> resources = cl.getResources(name);
                 if (resources != null) {
@@ -202,7 +221,7 @@ public class OSGiFrameworkManager {
         @Override
         public Class< ? > loadClass(String name) throws ClassNotFoundException {
             for (Bundle bundle : bundles) {
-                BundleWiring wiring = bundle.adapt(BundleWiring.class);
+                BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 try {
                     return cl.loadClass(name);

@@ -21,5 +21,6 @@ Import-Package: org.apache.log4j,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.apache.ant.antdsl.xtext.ui.contentassist,
  org.apache.ant.antdsl.xtext.ui.contentassist.antlr,
- org.apache.ant.antdsl.xtext.ui.internal
+ org.apache.ant.antdsl.xtext.ui.internal,
+ org.apache.ant.antdsl.xtext.ui.quickfix
 Bundle-Activator: org.apache.ant.antdsl.xtext.ui.internal.AntDSLActivator

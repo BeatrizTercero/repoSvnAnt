@@ -64,7 +64,7 @@ project:
         ('basedir' ':' basedir=stringLiteral)?
     )
     { projectHelper.setupProject(project, context, name, basedir, def); }
-    ( 'namespaces' '{' ( ns=namespace { context.addNamespace(ns.first, ns.second); } )* '}')?
+    ( 'namespaces' '{' ( ns=namespace { context.addFQNPrefix(ns.first, ns.second); } )* '}')?
     tl=taskList?
     { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
     (   target
@@ -108,9 +108,14 @@ taskList returns [List<Task> tl = new ArrayList<Task>()]:
     '{' (t=task { tl.add(t); } )* '}'
 ;
 
-targetList returns [List<String> tl = new ArrayList<String>()]:
-    n=identifier { tl.add(n); }
-    (',' n=identifier { tl.add(n); } )*
+targetList returns [List<Pair<String, String>> tl = new ArrayList<Pair<String, String>>()]:
+    ensn=ensName { tl.add(ensn); }
+    (',' ensn=ensName { tl.add(ensn); } )*
+;
+
+ensName returns [Pair<String, String> pair = null]:
+    (ns=identifier ':')? name=identifier
+    { pair = new Pair<String, String>(ns, name); }
 ;
 
 task returns [Task t = null]:
