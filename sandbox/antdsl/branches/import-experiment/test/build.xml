@@ -1,13 +1,27 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <target name="get-bnd">
-        <get src="http://dl.dropbox.com/u/2590603/bnd/biz.aQute.bnd.jar" dest="biz.aQute.bnd-1.50.0.jar" />
+        <get src="http://dl.dropbox.com/u/2590603/bnd/biz.aQute.bnd.jar" dest="biz.aQute.bnd-1.50.0.jar" skipexisting="true" />
     </target>
 
     <target name="build-antunit">
-        <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="biz.aQute.bnd-1.50.0.jar" /> 
-        <get src="http://repo1.maven.org/maven2/org/apache/ant/ant-antunit/1.2/ant-antunit-1.2.jar" dest="ant-antunit-1.2.jar" />
-        <bndwrap jars="ant-antunit-1.2.jar" output="org.apache.ant.antunit-1.2.jar" />
+        <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="biz.aQute.bnd-1.50.0.jar" />
+        <get src="http://repo1.maven.org/maven2/org/apache/ant/ant-antunit/1.2/ant-antunit-1.2.jar" dest="ant-antunit-1.2.jar" skipexisting="true" />
+        <mkdir dir="ant-antunit" />
+        <unzip src="ant-antunit-1.2.jar" dest="ant-antunit" />
+        <copy file="ant-antunit/org/apache/ant/antunit/antlib.xml" tofile="antunit-antlib.xml" />
+        <copy file="antunit-antlib.xml" tofile="ant-antunit/org/apache/ant/antunit/antlib.xml">
+            <filterchain>
+                <tokenfilter>
+                    <replacestring from="antlib:org.apache.ant.antunit" to="ant:current"/>
+                </tokenfilter>
+            </filterchain>
+        </copy>
+        <jar basedir="ant-antunit" destfile="ant-antunit-1.2-patched.jar" />
+        <bndwrap jars="ant-antunit-1.2-patched.jar" output="org.apache.ant.antunit-1.2.jar" />
+        <delete dir="ant-antunit" />
+        <delete file="antunit-antlib.xml" />
+        <delete file="ant-antunit-1.2-patched.jar" />
     </target>
 
     <target name="build-module">

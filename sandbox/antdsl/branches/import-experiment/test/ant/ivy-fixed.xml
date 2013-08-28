@@ -2,9 +2,9 @@
 <ivy-module version="2.0">
 	<info organisation="org.apache.ant.antdsl"
 		module="test-build"
-		revision="working@hibpro.home"
+		revision="working@hibpro.local"
 		status="integration"
-		publication="20120829210819"
+		publication="20120922143732"
 	/>
 	<configurations>
 		<conf name="default" visibility="public"/>
