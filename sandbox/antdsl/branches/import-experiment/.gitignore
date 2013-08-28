@@ -1,0 +1,16 @@
+build-deps
+build
+lib
+.*.classpath
+*/bin
+*/plugin.xml_gen
+*/src-gen
+org.apache.ant.antdsl/.antlr-generator-3.2.0.jar
+org.apache.ant.antdsl/src/org/apache/ant/antdsl/antlr/AntDSL.tokens
+org.apache.ant.antdsl/src/org/apache/ant/antdsl/antlr/AntDSLLexer.java
+org.apache.ant.antdsl/src/org/apache/ant/antdsl/antlr/AntDSLParser.java
+org.apache.ant.antdsl/target
+test/*.jar
+test/repo
+p2repo/dist
+p2repo/target
