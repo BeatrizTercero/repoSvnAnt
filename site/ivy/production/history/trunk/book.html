@@ -3977,7 +3977,17 @@ Builds a list of build.xml files sorted according to the ivy.xml files found in 
 <pre>
     &lt;ivy:buildlist reference="build-path" ivyfilepath="ivy/ivy.xml" leaf="mymodule"&gt;<br class="xooki-br"/>      &lt;fileset dir="projects" includes="**/build.xml"/&gt;<br class="xooki-br"/>    &lt;/ivy:buildlist&gt;
 </pre>
-Builds a list of build.xml files sorted according to the ivy.xml files found in an ivy directory relative to those build files. Only build.xml files of modules which have dependencies (direct or transitive) on mymodule are put in the result list.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildobr</div><br class="xooki-br"/><span class="since">since 2.3</span> From a bunch of jar artifacts, generate an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/>
+Builds a list of build.xml files sorted according to the ivy.xml files found in an ivy directory relative to those build files. Only build.xml files of modules which have dependencies (direct or transitive) on mymodule are put in the result list.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildobr</div><br class="xooki-br"/><span class="since">since 2.3</span> From a set of jar artifacts, this task generates an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/><br class="xooki-br"/>The set of jars which will be described by the OBR can be defined in 4 exclusive ways:
+<ul>
+<li>via an Ivy resolver: every jar listed by the resolver will be taken into account</li>
+<li>by defining a root directory: every jar found recursively in that folder will be taken into account</li>
+<li>via the name of an Ivy cache: every artifact contained in the cache will be taken into account</li>
+<li><span class="since">since 2.4</span> via a resolve: this task is a <a href="use/postresolvetask.html">post resolve task</a> (with all the behaviour and attributes common to all post resolve tasks), thus ever artifact which has been resolved will be taken into account; it is especially useful for building a <a href="../osgi/target-platform.html">target platform</a></li>
+</ul>
+
+NB: among every listed files or artifacts, only the actually OSGi bundles will be described by the OBR descriptor; the other files are ignored. <br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+
+<span class="since">since 2.4</span> This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/>
 <table class="ant">
 <thead>
     <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
@@ -3986,7 +3996,7 @@ Builds a list of build.xml files sorted according to the ivy.xml files found in 
     <tr><td>out</td><td>the location of the descriptor file to generate</td><td>Yes</td></tr>
     <tr><td>resolverName</td><td>the name of the resolver from which the jars should be to gathered</td><td>No</td></tr>
     <tr><td>cacheName</td><td>the name of the cache from which the jars should be to gathered</td><td>No</td></tr>
-    <tr><td>baseDir</td><td>the folder into whicch the jars should be gather recursively</td><td>No</td></tr>
+    <tr><td>baseDir</td><td>the folder into which the jars should be gather recursively</td><td>No</td></tr>
     <tr><td>encoding</td><td>The encoding of the resulting xml file</td><td>No. Defaults to <tt>UTF-8</tt></td></tr>
     <tr><td>indent</td><td>Specify if the xml result file should be indented</td><td>No. Defaults to <tt>true</tt></td></tr>
     <tr><td>quiet</td><td>Log as debug rather than warning the rejected jars as they are illformed</td><td>No. Defaults to <tt>false</tt></td></tr>
@@ -4005,7 +4015,11 @@ Configure an Ivy settings and builds an OBR descriptor from jars resolved by the
 <pre>
     &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr cacheName="my-cache" out="${basedir}/target/repo-eclipse.xml" /&gt;
 </pre>
-Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildnumber</div><br class="xooki-br"/><span class="since">since 1.4</span>
+Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/><hr/>
+<pre>
+    &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:resolve file="ivy.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr out="${basedir}/target-platform-obr.xml" /&gt;
+</pre>
+Launch a resolve and then build an obr.xml describing the resolved artifacts.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildnumber</div><br class="xooki-br"/><span class="since">since 1.4</span>
 The buildnumber task is similar to the ant buildnumber task, except that it uses ivy repository to find what is the latest version and calculate a new one for you.<br class="xooki-br"/><br class="xooki-br"/>When called it sets four properties according to what has been found.<br class="xooki-br"/>These properties are:
 <ul>
 <li>ivy.revision</li> the last revision found in the repository
@@ -5581,17 +5595,16 @@ In few steps, we will setup a build to compile and publish an OSGi bundle.<br cl
   </tr>
 </table>
 
-<hr />
-<center><b>TODO - WORK IN PROGRESS</b></center>
-<hr />
+The concept of "target platform" is a concept introduced by Eclipse&#153; to describe the set of bundle which will run together in an OSGi&#153; environement. Then when developping an OSGi bundle, we expect it to run in a such "target platform".<br class="xooki-br"/><br class="xooki-br"/>When developping a single OSGi bundle, a single ivy.xml (together with the use of the <a href="../use/fixdeps.html">fixdeps</a> task) is sufficent to describe precisely how the bundle requirements.<br class="xooki-br"/><br class="xooki-br"/>But when developping several bundles, it will be error prone to declare for each bundle its dependencies. Because once deployed in an OSGi environement, the bindings are sensitive to the available bundles. So when developping, we must ensure that the set of bundles will be the same set as the one at deploy time.<br class="xooki-br"/><br class="xooki-br"/>The concept of "target platform" is a perfect fit to describe the set of bundles to resolve against. Here is a recipe to handle it with just Ant+Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A Target Platform Project</h1>
 
-Building an OSGi&#153; bundle with standard tools like <tt>javac</tt> and a classpath computed by Apache Ivy&#153; can be erroneous as these tools doesn't take into account the package visibility enforced by the OSGi metadata. Then switching to OSGi dedicated tools like the Eclipse&#153; JDT can be prefered. This kind of tools still need a "target platform", a set of jars against to compile and then later run. A target platform can be easily managed with Ivy and its OSGi capabilities.<br class="xooki-br"/>
-<ul>Some links of interest:<br class="xooki-br"/>  <li><a href="../resolver/obr.html">OSGi Bundle Repository Resolver</a></li>
-  <li><a href="../resolver/updatesite.html">Eclipse updatesite Resolver</a></li>
-  <li><a href="../use/retrieve.html">Ant ivy:retrieve task</a></li>
+First you need a project (basically a folder) in which you will manage your target platform. In this project you'll need 3 files:
+<ul>
+<li>an <a href="../samples/target-platform/ivy.xml">ivy.xml</a> in which you will describe the bundles you need,</li>
+<li>an <a href="../samples/target-platform/ivysettings.xml">ivysettings.xml</a> which will describe where to download bundles from,</li>
+<li>and a <a href="../samples/target-platform/build.xml">build.xml</a> with which you'll manage your target platform.</li>
 </ul>
 
-	<hr/><div class='toc-title toc-title-4'>Apache Felix Sigil</div><br class="xooki-br"/><br class="xooki-br"/>Another initiative to manage OSGi&#153; dependencies is the project <a href="http://felix.apache.org/site/apache-felix-sigil.html">Apache Felix Sigil&#153;</a>. Sigil can used also together with Ivy. We will try to explain here the different approach taken there compared to the build-in OSGi capabilities of Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A different approach</h1>
+In the build there is a first important target: <tt>'update-dependencies'</tt>. Since the OSGi dependencies are very sensible to the available resources to resolve against, it is important to make the resolve as tight and reproductible as possible. First this target will do a resolve with the <tt>ivy.xml</tt>: a resolve which is very sensible to the content of the remote repo, thus not much reproductible. And it is will generate an <tt>ivy-fixed.xml</tt> from the resolved depedencies: this Ivy file contains only fixed non transitive dependencies (see the <a href="../use/fixdeps.html">fixdeps</a> task for further info). With that <tt>ivy-fixed.xml</tt> file, resolves are then reproductible and will always generate the same set of artifacts.<br class="xooki-br"/><br class="xooki-br"/>Once generated, it is recommended to share that <tt>ivy-fixed.xml</tt> file into you version control system (subversion, git, etc...). The target <tt>'update-dependencies'</tt> is then to be launched each time you edit the <tt>ivy.xml</tt>, when you want to change the content of your target platform.<br class="xooki-br"/><br class="xooki-br"/>The second target <tt>'generate-target-platform'</tt> will generate an <tt>obr.xml</tt>, a OSGi Bundle repository descriptor. This file will list every artifact wich has been resolved by the <tt>ivy-fixed.xml</tt>. Then each of your bundles you develop will do its resolve against that <tt>obr.xml</tt> (see the <a href="../resolver/obr.html">obr resolver</a>).<br class="xooki-br"/><br class="xooki-br"/>The generated <tt>obr.xml</tt> contains paths to the local filesystem, so it is recommended to not share it between developpers.<br class="xooki-br"/><br class="xooki-br"/>If it is required to develop your plugin with the Eclipse PDE plugin, you can then use the alternative target <tt>generate-retrieved-target-platform</tt>. It has the same principle than the <tt>'generate-target-platform'</tt> but the artifacts are also retrieved in a single folder, just like are plugins in an Eclipse install. That way you can define your target platform within Eclipse quite easily.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Apache Felix Sigil</div><br class="xooki-br"/><br class="xooki-br"/>Another initiative to manage OSGi&#153; dependencies is the project <a href="http://felix.apache.org/site/apache-felix-sigil.html">Apache Felix Sigil&#153;</a>. Sigil can used also together with Ivy. We will try to explain here the different approach taken there compared to the build-in OSGi capabilities of Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A different approach</h1>
 
 Apache Felix Sigil is at its core about managing OSGi dependencies, not directly related to Ivy. Most of it core feature is about the implementation of the not yet released OBR (OSGi Bundle Repository) specification. It then provides integration layers with sevral tools so human being can actually use the OBR API. As "layer" there is an Eclipse plugin, and there are the Ant/Ivy tasks and resolver.<br class="xooki-br"/><br class="xooki-br"/>On the other hand the build in OSGi capabilities in Ivy are targeted against users already familiar with Ivy and their <a href="http://ant.apache.org/ivy/links.html">tools</a> like <a href="http://ant.apache.org/ivy/ivyde">Apache IvyDE&#153;</a>. So with a minimum of effort, they can get OSGi dependency management.<br class="xooki-br"/><br class="xooki-br"/><h1>Resulting differences</h1>
 

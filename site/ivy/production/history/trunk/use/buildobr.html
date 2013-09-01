@@ -235,7 +235,17 @@
 		<div id="main">
 
 		<h1 class="title">buildobr</h1>
-            <br class="xooki-br"/><span class="since">since 2.3</span> From a bunch of jar artifacts, generate an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/>
+            <br class="xooki-br"/><span class="since">since 2.3</span> From a set of jar artifacts, this task generates an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/><br class="xooki-br"/>The set of jars which will be described by the OBR can be defined in 4 exclusive ways:
+<ul>
+<li>via an Ivy resolver: every jar listed by the resolver will be taken into account</li>
+<li>by defining a root directory: every jar found recursively in that folder will be taken into account</li>
+<li>via the name of an Ivy cache: every artifact contained in the cache will be taken into account</li>
+<li><span class="since">since 2.4</span> via a resolve: this task is a <a href="../use/postresolvetask.html">post resolve task</a> (with all the behaviour and attributes common to all post resolve tasks), thus ever artifact which has been resolved will be taken into account; it is especially useful for building a <a href="../osgi/target-platform.html">target platform</a></li>
+</ul>
+
+NB: among every listed files or artifacts, only the actually OSGi bundles will be described by the OBR descriptor; the other files are ignored. <br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+
+<span class="since">since 2.4</span> This is a <a href="../use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/>
 <table class="ant">
 <thead>
     <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
@@ -244,7 +254,7 @@
     <tr><td>out</td><td>the location of the descriptor file to generate</td><td>Yes</td></tr>
     <tr><td>resolverName</td><td>the name of the resolver from which the jars should be to gathered</td><td>No</td></tr>
     <tr><td>cacheName</td><td>the name of the cache from which the jars should be to gathered</td><td>No</td></tr>
-    <tr><td>baseDir</td><td>the folder into whicch the jars should be gather recursively</td><td>No</td></tr>
+    <tr><td>baseDir</td><td>the folder into which the jars should be gather recursively</td><td>No</td></tr>
     <tr><td>encoding</td><td>The encoding of the resulting xml file</td><td>No. Defaults to <tt>UTF-8</tt></td></tr>
     <tr><td>indent</td><td>Specify if the xml result file should be indented</td><td>No. Defaults to <tt>true</tt></td></tr>
     <tr><td>quiet</td><td>Log as debug rather than warning the rejected jars as they are illformed</td><td>No. Defaults to <tt>false</tt></td></tr>
@@ -263,7 +273,11 @@ Configure an Ivy settings and builds an OBR descriptor from jars resolved by the
 <pre>
     &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr cacheName="my-cache" out="${basedir}/target/repo-eclipse.xml" /&gt;
 </pre>
-Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/>	
+Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/><hr/>
+<pre>
+    &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:resolve file="ivy.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr out="${basedir}/target-platform-obr.xml" /&gt;
+</pre>
+Launch a resolve and then build an obr.xml describing the resolved artifacts.<br class="xooki-br"/><br class="xooki-br"/>	
  		</div><!-- main -->
 		</td>
 	</tr>
