@@ -196,12 +196,12 @@
         on <a href="http://commons.apache.org/compress/">Apache
         Commons Compress</a>.</p>
                         <h3 class="section">
-      <a name="Compress Ant Library 1.2"></a>
-      Compress Ant Library 1.2
+      <a name="Compress Ant Library 1.3"></a>
+      Compress Ant Library 1.3
     </h3>
-                        <h3>April 20, 2012 - Apache Compress Ant Library 1.2
+                        <h3>November 7, 2013 - Apache Compress Ant Library 1.3
       Available</h3>
-                                <p>Apache Compress Ant Library 1.2 is now available for
+                                <p>Apache Compress Ant Library 1.3 is now available for
       download as <a href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a>
       or <a href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
       release.</p>
@@ -210,9 +210,11 @@
       Introduction
     </h3>
                         <p>Using Apache Commons Compress this Antlib supports gzip, xz,
-        pack200 and bzip2 compression and ar, cpio, tar, Unix dump and
-        zip archives.  Support for the dump format is read-only.</p>
-                                <p>The current code base is based on the 1.4 release of Commons
+        pack200, lzma and bzip2 compression and ar, arj, cpio, tar,
+        Unix dump, 7z and zip archives.  Support for the dump, lzma
+        and arj formats is read-only.  For the 7z format only file
+        based resources are supported.</p>
+                                <p>The current code base is based on the 1.6 release of Commons
         Compress but it is expected that this Antlib follows Commons
         Compress' development and will add new compression or
         archiving formats as they are provided by the underlying
@@ -240,12 +242,12 @@
       </ul>
                                 <p>The zip and tar tasks are completely new implementations and
       offer a superset of the functionality of the core tasks.</p>
-                                <p>Tasks and resources for the ar, dump and cpio formats mirror
-        those available for tar and zip.  Those for pack200 and xz mirror
-        those of gzip and bzip2.</p>
+                                <p>Tasks and resources for the ar, arj, dump, 7z and cpio
+        formats mirror those available for tar and zip.  Those for
+        pack200, lzma and xz mirror those of gzip and bzip2.</p>
                                 <p>All tasks and types can be mixed with the core tasks and
         types; it is possible to use the core zip task to create an
-        archive based on an cpiofileset for example.</p>
+        archive based on a cpiofileset for example.</p>
                                 <p>As of version 1.2, the Compress Antlib requires Java 5 or higher.</p>
                 
     </div>
