@@ -95,19 +95,17 @@
       the <a href="http://ant.apache.org/ivy/">Ivy home page</a>.</p>
   </section>
 
+  <section name="Apache Compress Antlib 1.3">
+    <h3>November 7, 2013 - Apache Compress Antlib 1.3 Released</h3>
 
-  <section name="Apache Compress Antlib 1.2">
-    <h3>April 20, 2012 - Apache Compress Antlib 1.2 Released</h3>
-
-    <p>The Apache Compress Antlib 1.2 is now available for download as <a
+    <p>The Apache Compress Antlib 1.3 is now available for download as <a
     href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a> or
     <a href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
     release.</p>
 
-    <p>This release adapts to the 1.4 release of Apache Commons
-    Compress and now adds support for the XZ format and supports a
-    wider variety of tar dialects including limited support for the
-    current POSIX standard.</p>
+    <p>This release adapts to the 1.6 release of Apache Commons
+    Compress and now adds support for the ARJ, LZMA and 7z
+    formats.</p>
   </section>
 
   <section name="Documentation">
