@@ -1,0 +1,38 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Apache IvyDE
+Bundle-SymbolicName: org.apache.ivyde.eclipse; singleton:=true
+Bundle-Version: 2.2.0.qualifier
+Bundle-ClassPath: ivyde-eclipse.jar
+Bundle-Activator: org.apache.ivyde.internal.eclipse.IvyPlugin
+Bundle-Vendor: Apache Software Foundation
+Export-Package: org.apache.ivyde.common.completion,
+ org.apache.ivyde.common.ivyfile,
+ org.apache.ivyde.common.ivysettings,
+ org.apache.ivyde.common.model,
+ org.apache.ivyde.eclipse,
+ org.apache.ivyde.eclipse.cp,
+ org.apache.ivyde.eclipse.extension,
+ org.apache.ivyde.internal.eclipse.ui.console
+Require-Bundle: org.apache.xerces;bundle-version="[2.9.0,3.0.0)";resolution:=optional,
+ org.eclipse.ui;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.core.runtime;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.jface.text;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.ui.editors;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.ui.workbench.texteditor;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.ui.ide;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.ui.forms;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.search;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.jdt.core;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.jdt.ui;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.ui.console;bundle-version="[3.4.0,4.0.0)",
+ org.apache.ivy;bundle-version="[2.1.0,3.0.0)",
+ org.eclipse.help;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.wst.xml.core;bundle-version="[1.1.0,2.0.0)";resolution:=optional,
+ org.eclipse.debug.core;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.jdt.launching;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.debug.ui;bundle-version="[3.4.0,4.0.0)",
+ org.eclipse.core.variables;bundle-version="[3.2.0,4.0.0)"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
