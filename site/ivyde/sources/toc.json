@@ -32,7 +32,7 @@
           "url":"http://www.apache.org/licenses/"
       },
       {
-        "title":"Documentation (2.2.0.beta1)",
+        "title":"Documentation (2.2.0.final)",
         "importRoot":"history/latest-milestone",
         "importNode":"index"      },
       {
@@ -48,6 +48,10 @@
               "title":"2.x",
               "isAbstract":true,
               "children": [
+                  {
+                      "title":"2.2.0.final",
+                      "url":"http://ant.apache.org/ivy/ivyde/history/2.2.0.final/index.html"
+                  },
                   {
                       "title":"2.2.0.beta1",
                       "url":"http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html"
