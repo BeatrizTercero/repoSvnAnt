@@ -133,7 +133,7 @@ For an <u>IvyDE</u> release:
 
 And finally commit your changes in <tt>dist/dev</tt> (this will put the p2 repository in the dev space of the dist repository).<br class="xooki-br"/><br class="xooki-br"/><h2>Test the updatesite</h2>
 
-The updatesite is ready to be tested at: <tt><a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-${VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-${VERSION</a>} </tt>
+The updatesite is ready to be tested at: <tt><a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-${VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-${VERSION</a>} </tt>
 
 <h2>In case of an unaccepted release</h2>
 
@@ -149,16 +149,18 @@ First, you may want to remove from the main repository references to the older r
 <pre>svn rm <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$OLD_VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$OLD_VERSION</a> -m 'Remove old version'
 </pre>
 
-Then the version listed in the updatesite are maintained in <br class="xooki-br"/><br class="xooki-br"/>Then you have to decide if the version you removed should be still listed in the Eclipse updatesite or not.<br class="xooki-br"/>
+Then the version listed in the updatesite are maintained in <tt><a href="https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk/versions.xml">https://svn.apache.org/repos/asf/ant/ivy/updatesite/trunk/versions.xml</a></tt>
+
+Then you have to decide if the version you removed should be still listed in the Eclipse updatesite or not.<br class="xooki-br"/>
 <ul>To remove a version from the listed one, edit the file <tt>versions.xml</tt>
 <li>If the version should no appear anymore, just delete the line about the deleted version.</li>
-<li>If the version should still be listed, prepend the reference to the old version by <tt><a href="http://archive.apache.org/dist/ant/ivy/updatesite/">http://archive.apache.org/dist/ant/ivy/updatesite/</a> </tt></li>
+<li>If the version should still be listed, prepend the reference to the old version by <tt><a href="http://archive.apache.org/dist/ant/ivy/updatesite/">http://archive.apache.org/dist/ant/ivy/updatesite/</a></tt></li>
 </ul>
 
 NB: adding or removing lines in <tt>versions.xml</tt> infer that you should edit the <tt>size</tt> attribute in the <tt>versions.xml</tt>, it should correspond to the number of "child".<br class="xooki-br"/><br class="xooki-br"/><h2>Publish the p2 repository data</h2>
 
 It is just about moving data (svn rm is not allowed, the two steps are required): 
-<pre>svn cp <a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-$VERSION</a> -m 'publishing the p2 repo of the release of IvyDE $VERSION'<br class="xooki-br"/>svn rm <a href="https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/eclipse-updatesite/ivyde-$VERSION</a> -m 'Remove accepted release'
+<pre>svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/updatesite/ivyde-$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/">https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/</a> -m 'publishing the p2 repo of the release of IvyDE $VERSION'
 </pre>
 
 <h2>Regenerate the main repo</h2>

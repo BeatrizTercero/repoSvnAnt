@@ -117,7 +117,9 @@
 
 First in <a href="https://issues.apache.org/jira/browse/IVYDE">Jira</a> make sure that no more issues are opened for the target release.<br class="xooki-br"/><br class="xooki-br"/><h2>Release notes</h2>
 
-Make sure the release notes and the annoucement are up to date. Look at doc/release-notes.html. Remove there anything which refers to a draft status.<br class="xooki-br"/><br class="xooki-br"/><h2>Release branch</h2>
+Make sure the release notes and the annoucement are up to date. Look at doc/release-notes.html. Remove there anything which refers to a draft status.<br class="xooki-br"/><br class="xooki-br"/><h2>Last checks</h2>
+
+Make sure that there is no missing ASL header in the source files. The build of IvyDE generate a report there: <a href="https://builds.apache.org/job/IvyDE/lastSuccessfulBuild/artifact/trunk/work/rat/report.txt">https://builds.apache.org/job/IvyDE/lastSuccessfulBuild/artifact/trunk/work/rat/report.txt</a><br class="xooki-br"/><br class="xooki-br"/>Make sure the copyright year in the NOTICE file is the current year.<br class="xooki-br"/><br class="xooki-br"/>Make sure the copyright year in the html template is the current year; the 3 template files to check are: <tt>template.html</tt>, <tt>template-eclipse.html</tt> and <tt>printTemplate.html</tt>.<br class="xooki-br"/><br class="xooki-br"/><h2>Release branch</h2>
 
 Some modifications of the branch are need to do the release. So a new branch is needed:
 <pre>
@@ -172,7 +174,7 @@ Note: this <a href="http://ant.apache.org/bylaws.html">page</a> is defining when
 
 <h2>Publish the artifacts</h2>
 
-The binaries have to be pushed with their signatures and checksums in the apache dist. It is manageg by svnpusub so it needs to be committed into the subversion <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a><br class="xooki-br"/><br class="xooki-br"/>Then just do:
+The binaries have to be pushed with their signatures and checksums in the apache dist. It is managed by svnpusub so it needs to be committed into the subversion <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a><br class="xooki-br"/><br class="xooki-br"/>Then just do:
 <pre>
 $ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivyde/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivyde/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivyde/$VERSION</a>
 </pre>
