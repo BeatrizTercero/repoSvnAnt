@@ -54,7 +54,7 @@
 		<td>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.beta1)</a> &gt; <a href="../../../history/latest-milestone/cp_container.html" >Classpath Container</a> &gt; <a href="../../../history/latest-milestone/cpc/edit.html" class="current">Edit the classpath</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a> &gt; <a href="../../../history/latest-milestone/cp_container.html" >Classpath Container</a> &gt; <a href="../../../history/latest-milestone/cpc/edit.html" class="current">Edit the classpath</a></span>
 		</div>
 		</td>
 	</tr>
@@ -74,7 +74,7 @@
 <li id="xooki-screenshots"><a href="../../../screenshots.html" >Screenshots</a></li>
 <li id="xooki-download"><a href="../../../download.html" >Download</a></li>
 <li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.beta1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
 <li id="xooki-history/latest-milestone/compatibility"><a href="../../../history/latest-milestone/compatibility.html" >Compatibility</a></li>
 <li id="xooki-history/latest-milestone/install"><a href="../../../history/latest-milestone/install.html" >Installation</a></li>
@@ -100,10 +100,13 @@
 <li id="xooki-history/latest-milestone/resolve-visualizer"><a href="../../../history/latest-milestone/resolve-visualizer.html" >Resolve Visualizer</a></li>
 <li id="xooki-history/latest-milestone/dev" class="submenu"><a href="../../../history/latest-milestone/dev.html" >Developer doc</a><ul class="closed"><li id="xooki-history/latest-milestone/dev/build"><a href="../../../history/latest-milestone/dev/build.html" >Building</a></li>
 <li id="xooki-history/latest-milestone/dev/release"><a href="../../../history/latest-milestone/dev/release.html" >Releasing</a></li>
+<li id="xooki-history/latest-milestone/dev/updatesite"><a href="../../../history/latest-milestone/dev/updatesite.html" >Updatesite</a></li>
+<li id="xooki-history/latest-milestone/dev/dev-env-setup"><a href="../../../history/latest-milestone/dev/dev-env-setup.html" >Development Environment Setup</a></li>
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/trunk/index.html" >trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html" >2.2.0.beta1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.final/index.html" >2.2.0.final</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html" >2.2.0.beta1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html" >2.1.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html" >2.0.0.final</a></li>
 </ul></li>
@@ -129,7 +132,12 @@
 		<h1 class="title">Edit the classpath</h1>
             <br class="xooki-br"/>During the life of your project, you can change the ivy.xml file or <a href="maven.html">maven pom.xml</a> and change its configuration.<br class="xooki-br"/><br class="xooki-br"/>These properties can be accessed by the context menu of the IvyDE classpath container:<br class="xooki-br"/><br class="xooki-br"/><center><img src="../images/cp_configuration.jpg"></center>
 
-You can also edit it via the build path configuration. Open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container. Then click on the "Edit" button: the IvyDE classpath container configuration dialog will pop up.<br class="xooki-br"/>This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3).  When the container is empty, this is the only way to trigger a resolve on this project.<br class="xooki-br"/><br/><br/>
+You can also edit it via the <b>build path</b> configuration:<br class="xooki-br"/><ol>
+    <li>open the build path configuration dialog, select the "Libraries" panel and select the IvyDE classpath container.</li>
+    <li>then click on the "Edit" button: the IvyDE classpath container configuration dialog will pop up.</li>
+</ol>
+
+This is particularly useful when Eclipse hides the empty classpath containers (since Eclipse 3.3).  When the container is empty, this is the only way to trigger a resolve on this project.<br class="xooki-br"/><br class="xooki-br"/><br/><br/>
 <center><img src="../images/build_path_edit.jpg"></center>
 <br/>
 

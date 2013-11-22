@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.    
+-->
+<html>
+<head>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
+	
+
+<title>Development Environment Setup | Apache IvyDE&#153;</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="../../../style/style.css" />
+  <script src="../../../js/jquery.pack.js" type="text/javascript"></script>
+  <script src="../../../js/jquery.treeview.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){$("#treemenu").Treeview({speed: "fast",store: true});});
+  </script>
+
+<script language="javascript" type="text/javascript">xooki = {u: function(url) {return "../../../xooki/"+url;}};</script>
+</head>
+<body>
+
+<div id="body">
+<table id="header" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td id="home" width="30%"><a href="http://ant.apache.org/"
+			title="Apache Ant&#153;"><img src="../../../images/ant-group-logo.gif" alt="Apache Ant&#153;"
+			border="0" /></a></td>
+
+		<td class="product" width="70%" align="right" valign="middle"><img
+			src="../../../images/logo.png" alt="Apache IvyDE&#153;" border="0" /></td>
+	</tr>
+</table>
+
+<table id="top-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td>
+
+		<div id="navcontainer">
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a> &gt; <a href="../../../history/latest-milestone/dev.html" >Developer doc</a> &gt; <a href="../../../history/latest-milestone/dev/dev-env-setup.html" class="current">Development Environment Setup</a></span>
+		</div>
+		</td>
+	</tr>
+
+</table>
+
+<table id="content" border="0" cellpadding="0" cellspacing="0"
+	width="100%">
+	<tr>
+		<td id="sidebar-left">
+		<div class="block block-book" id="block-book-0">
+		<h2>Apache IvyDE&#153;</h2>
+
+		<div class="content"><ul id="treemenu" class="treeview">
+<li id="xooki-index" class="submenu"><a href="../../../index.html" >Home</a><ul class="closed"><li id="xooki-faq"><a href="../../../faq.html" >FAQ</a></li>
+</ul></li>
+<li id="xooki-screenshots"><a href="../../../screenshots.html" >Screenshots</a></li>
+<li id="xooki-download"><a href="../../../download.html" >Download</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
+<li id="xooki-history/latest-milestone/compatibility"><a href="../../../history/latest-milestone/compatibility.html" >Compatibility</a></li>
+<li id="xooki-history/latest-milestone/install"><a href="../../../history/latest-milestone/install.html" >Installation</a></li>
+<li id="xooki-history/latest-milestone/cp_container" class="submenu"><a href="../../../history/latest-milestone/cp_container.html" >Classpath Container</a><ul class="closed"><li id="xooki-history/latest-milestone/cpc/create"><a href="../../../history/latest-milestone/cpc/create.html" >Create a container</a></li>
+<li id="xooki-history/latest-milestone/cpc/edit"><a href="../../../history/latest-milestone/cpc/edit.html" >Edit the classpath</a></li>
+<li id="xooki-history/latest-milestone/cpc/resolve"><a href="../../../history/latest-milestone/cpc/resolve.html" >Launching resolve</a></li>
+<li id="xooki-history/latest-milestone/cpc/retrieve"><a href="../../../history/latest-milestone/cpc/retrieve.html" >Retrieve dependencies</a></li>
+<li id="xooki-history/latest-milestone/cpc/jarmapping"><a href="../../../history/latest-milestone/cpc/jarmapping.html" >Jar mapping</a></li>
+<li id="xooki-history/latest-milestone/cpc/cleancache"><a href="../../../history/latest-milestone/cpc/cleancache.html" >Clean the caches</a></li>
+<li id="xooki-history/latest-milestone/cpc/workspace"><a href="../../../history/latest-milestone/cpc/workspace.html" >Resolve in workspace</a></li>
+<li id="xooki-history/latest-milestone/cpc/launch"><a href="../../../history/latest-milestone/cpc/launch.html" >Launch configuration</a></li>
+<li id="xooki-history/latest-milestone/cpc/maven"><a href="../../../history/latest-milestone/cpc/maven.html" >Use with maven poms</a></li>
+<li id="xooki-history/latest-milestone/cpc/wtp"><a href="../../../history/latest-milestone/cpc/wtp.html" >WTP integration</a></li>
+</ul></li>
+<li id="xooki-history/latest-milestone/non-java"><a href="../../../history/latest-milestone/non-java.html" >Non-Java dependencies</a></li>
+<li id="xooki-history/latest-milestone/ivyeditor"><a href="../../../history/latest-milestone/ivyeditor.html" >Ivy file editor</a></li>
+<li id="xooki-history/latest-milestone/settingseditor"><a href="../../../history/latest-milestone/settingseditor.html" >Ivy settings editor</a></li>
+<li id="xooki-history/latest-milestone/preferences"><a href="../../../history/latest-milestone/preferences.html" >Eclipse global preferences</a></li>
+<li id="xooki-history/latest-milestone/eclipsevar"><a href="../../../history/latest-milestone/eclipsevar.html" >Eclipse variables</a></li>
+<li id="xooki-history/latest-milestone/console"><a href="../../../history/latest-milestone/console.html" >Ivy Console</a></li>
+<li id="xooki-history/latest-milestone/ant"><a href="../../../history/latest-milestone/ant.html" >Eclipse's Ant integration</a></li>
+<li id="xooki-history/latest-milestone/revdepexplorer"><a href="../../../history/latest-milestone/revdepexplorer.html" >Reverse Dependency Explorer</a></li>
+<li id="xooki-history/latest-milestone/resolve-visualizer"><a href="../../../history/latest-milestone/resolve-visualizer.html" >Resolve Visualizer</a></li>
+<li id="xooki-history/latest-milestone/dev" class="submenu"><a href="../../../history/latest-milestone/dev.html" >Developer doc</a><ul class="open"><li id="xooki-history/latest-milestone/dev/build"><a href="../../../history/latest-milestone/dev/build.html" >Building</a></li>
+<li id="xooki-history/latest-milestone/dev/release"><a href="../../../history/latest-milestone/dev/release.html" >Releasing</a></li>
+<li id="xooki-history/latest-milestone/dev/updatesite"><a href="../../../history/latest-milestone/dev/updatesite.html" >Updatesite</a></li>
+<li id="xooki-history/latest-milestone/dev/dev-env-setup"><a href="../../../history/latest-milestone/dev/dev-env-setup.html" class="current">Development Environment Setup</a></li>
+</ul></li>
+</ul></li>
+<li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/trunk/index.html" >trunk</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.final/index.html" >2.2.0.final</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html" >2.2.0.beta1</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html" >2.1.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html" >2.0.0.final</a></li>
+</ul></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/1.2.0/index.html" >1.2.0</a></li>
+</ul></li>
+<li id="xooki-get-involved" class="submenu"><a href="../../../get-involved.html" >Get Involved</a><ul class="closed"><li id="xooki-mailing-lists"><a href="../../../mailing-lists.html" >Mailing Lists</a></li>
+<li id="xooki-issues"><a href="../../../issues.html" >Issue Tracking</a></li>
+</ul></li>
+<li id="xooki-foundation" class="submenu"><a href="../../../foundation.html" >Foundation</a><ul class="closed"><li id="xooki-undefined"><a href="http://www.apache.org" >ASF</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/sponsorship.html" >Sponsorship</a></li>
+<li id="xooki-undefined"><a href="http://www.apache.org/foundation/thanks.html" >Thanks</a></li>
+</ul></li>
+</ul>
+</div>
+
+		</div>
+
+		</td>
+		
+		<td valign="top">
+		<div id="main">
+
+		<h1 class="title">Development Environment Setup</h1>
+            <br class="xooki-br"/>This page describe how to setup an environment to develop IvyDE.<br class="xooki-br"/><br class="xooki-br"/><h1>Requirement</h1>
+
+<h2>Eclipse plugins</h2>
+
+<ul>
+You need some plugins installed in your Eclipse:
+<li>the PDE plugins</li>
+<li>the Zest plugins if you want to work with the IvyDE resolve visualizer</li>
+</ul>
+
+If you have a "Classic" Eclipse, the PDE plugins are already installed. Otherwise you should find them in the Eclipse update site "The Eclipse Project Updates". Under the section "Eclipse Platform SDK", the feature to install is called "Eclipse Platform SDK".<br class="xooki-br"/><br class="xooki-br"/>The Zest plugins can be found in the Eclipse updatesite of your Eclipse distribution (Indigo, Juno, etc...). Under the section "Modeling", the feature to install is called "Graphical Editing Framework Zest Visualization Toolkit SDK".<br class="xooki-br"/><br class="xooki-br"/><h2>Ivy</h2>
+
+You will also need Ivy as it is a dependency of IvyDE. Either you will work against a release version of Ivy, or work against an- build form the source in your Eclipse. Note that even when working against a released version, you will still be able to run in debug mode, see the sources and put break points in Ivy code. You just won't be able to modify the sources.<br class="xooki-br"/><br class="xooki-br"/>Running against a released version is the simpler. Just install it from the IvyDE updatesite in you Eclipse.<br class="xooki-br"/><br class="xooki-br"/>Otherwise you will need to setup a project for Ivy in your workspace, see next section.<br class="xooki-br"/><br class="xooki-br"/><h1>Setup</h1>
+
+<h2>Import Ivy</h2>
+
+If you want to run against an Ivy from source in your workspace, you must import the Ivy project in your workspace. Otherwise, you can skip this section.<br class="xooki-br"/><br class="xooki-br"/>The Ivy sources already contains the Eclipse metadata. Just "Import" from "Existing Project into Workspace". <br class="xooki-br"/><br class="xooki-br"/><h2>Import IvyDE</h2>
+
+Once the required plugins are installed, you can import the IvyDE plugins and features into your workspace. Just do a regular "Import" from "Existing Project into Workspace".<br class="xooki-br"/><br class="xooki-br"/>If you just have to fix a bug or add a little feature to IvyDE, just import the "org.apache.ivyde.eclipse" plugin.<br class="xooki-br"/>If you intend to work on the resolve visualizer, you should import the plugin "org.apache.ivyde.eclipse.resolvevisualizer".<br class="xooki-br"/><br class="xooki-br"/><h1>Launch</h1>
+
+You will have to create you "Launch configuration".<br class="xooki-br"/>
+<ul>
+<li>In the Debug menu, select "Debug Configuration...".</li>
+<li>On the section "Eclipse Application", right click and select "New".</li>
+<li>Give a better name to your configuration: "IvyDE".</li>
+<li>You may want to give a better location to the workspace in which the forked eclipse will run: for instance "${workspace_loc}/_eclipse/runtime-IvyDE"</li>
+</ul>
+
+Now you can launch and so some happy debugging !<br class="xooki-br"/><br class="xooki-br"/><h2>Advanced tips</h2>
+
+<h3>Console log</h3>
+
+For old version of Eclipse only, in recent ones the option is automatically added.<br class="xooki-br"/><br class="xooki-br"/>By default the logs of the forked Eclipse just goes in the Error log of the forked Eclipse. It is not ideal when browsing a stack trace since you will have to switch between the 2 Eclipse.<br class="xooki-br"/>Just add "-consoleLog" in the "Program Arguments" of the launch configuration so that errors of the forked Eclipse will go in the console of the host one.<br class="xooki-br"/><br class="xooki-br"/><h3>Slow fork</h3>
+
+Your hosting Eclipse may have a lot of plugins installed. By default, forking an Eclipse will launch with the same plugins. So forking may take some time and can be painful while developing.<br class="xooki-br"/><br class="xooki-br"/>In the launch configuration, you can tune what plugins should be loaded in the "Plug-ins" tab. Select "plug-ins selected below only". Then it is quite tedious to know which one should be selected. The button "Add Required Plug-ins" will help you not missing one.
+<ul>Basically you will need:
+<li>org.eclipse.ivyde (in your workspace)</li>
+<li>org.eclipse.ivy (in your workspace if you have one)</li>
+<li>org.eclipse.sdk</li>
+<li>org.eclipse.jdt.*</li>
+</ul>
+
+            <hr/>
+            <a href="?action=print">Printer Friendly</a>
+ 		</div><!-- main -->
+		</td>
+	</tr>
+</table>
+
+<table id="footer-menu" summary="Navigation elements." border="0"
+	cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center" valign="middle">
+		<div class="primary-links">:: 
+			<a href="../../../index.html">Home</a> ::
+			<a href="../../../download.html">Download</a> ::
+			<a href="../../../documentation.html">Documentation</a> ::
+			<a href="../../../get-involved.html">Get involved</a> ::
+		</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<div id="footer-message" class="footer">
+    <hr />
+    <i>Copyright &#169; 2012 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Apache IvyDE, Apache Ivy, Apache Ant, IvyDE, Ivy, Ant, Apache, the Apache IvyDE logo, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
+    <i>Eclipse and the Eclipse logo are trademarks of Eclipse Foundation, Inc.</i>
+    <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
+</div>
+
+
+</div><!-- body -->
+</body>
+</html>

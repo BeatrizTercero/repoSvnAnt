@@ -54,7 +54,7 @@
 		<td>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.2.0.beta1)</a> &gt; <a href="../../history/latest-milestone/preferences.html" class="current">Eclipse global preferences</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <a href="http://ant.apache.org/ivy/ivyde/">Apache IvyDE&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a> &gt; <a href="../../history/latest-milestone/preferences.html" class="current">Eclipse global preferences</a></span>
 		</div>
 		</td>
 	</tr>
@@ -74,7 +74,7 @@
 <li id="xooki-screenshots"><a href="../../screenshots.html" >Screenshots</a></li>
 <li id="xooki-download"><a href="../../download.html" >Download</a></li>
 <li id="xooki-undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.2.0.beta1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.2.0.final)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/undefined"><a href="http://www.apache.org/licenses/" >License</a></li>
 <li id="xooki-history/latest-milestone/compatibility"><a href="../../history/latest-milestone/compatibility.html" >Compatibility</a></li>
 <li id="xooki-history/latest-milestone/install"><a href="../../history/latest-milestone/install.html" >Installation</a></li>
@@ -100,10 +100,13 @@
 <li id="xooki-history/latest-milestone/resolve-visualizer"><a href="../../history/latest-milestone/resolve-visualizer.html" >Resolve Visualizer</a></li>
 <li id="xooki-history/latest-milestone/dev" class="submenu"><a href="../../history/latest-milestone/dev.html" >Developer doc</a><ul class="closed"><li id="xooki-history/latest-milestone/dev/build"><a href="../../history/latest-milestone/dev/build.html" >Building</a></li>
 <li id="xooki-history/latest-milestone/dev/release"><a href="../../history/latest-milestone/dev/release.html" >Releasing</a></li>
+<li id="xooki-history/latest-milestone/dev/updatesite"><a href="../../history/latest-milestone/dev/updatesite.html" >Updatesite</a></li>
+<li id="xooki-history/latest-milestone/dev/dev-env-setup"><a href="../../history/latest-milestone/dev/dev-env-setup.html" >Development Environment Setup</a></li>
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/trunk/index.html" >trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html" >2.2.0.beta1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.final/index.html" >2.2.0.final</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.2.0.beta1/index.html" >2.2.0.beta1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.1.0/index.html" >2.1.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/ivyde/history/2.0.0.final/index.html" >2.0.0.final</a></li>
 </ul></li>
@@ -133,6 +136,8 @@
 
 <h4>Offline</h4>
 <p>If checked, it will force Ivy to never check resources via any network and trust its cache</p>
+<h4>Open the Ivy console on startup</h4>
+<p>If checked, the Ivy console will be opened on startup so that every log from Ivy will be printed. This is especially usefull when looking for debug log from IvyDE starting up.</p>
 <h4>On Eclipse startup:</h4>
 <p>Specifies what Apache IvyDE should do in every project containing an IvyDE managed classpath container when Eclipse&#153; is starting up.</p>
 <h4>On Ivy file change:</h4>
@@ -158,10 +163,14 @@
 
 <center><img src="images/pref_classpath.jpg"/></center>
 
-<h4>Resolve dependencies in workpace:</h4>
+<h4>Resolve dependencies in workspace:</h4>
 <p>Apache IvyDE allows Ivy dependencies between projects in the workspace to be realized through project references rather than jars from the repository.  See the <a href="cpc/workspace.html">documentation</a> for further information on this feature.</p>
+<h4>Resolve dependencies transitively</h4>
+<p>If unchecked, the dependencies will be resolved with transitivity disabled regardless to the settings in ivy.xml</p>
+<h4>Read OSGi metadata:</h4>
+<p>If your classpath is based on jars which are actually OSGi bundles, checking this option will make IvyDE read the jar manifests and setup the specific OSGi visibility constraints.</p>
 <h4>Accepted types:</h4>
-<p>A comma separated list of extensions which will make IvyDE add the artifact to the classpath</p>
+<p>A comma separated list of extensions which will make IvyDE add the artifact to the classpath. Setting <tt>*</tt> will make very kind of type accepted. Note that a type specified as a <a href="#mapping">source or javadoc type</a> won't be accepted in any manner.</p>
 <h4>Order of the classpath entries:</h4>
 <p>By default, the classpath container entries are ordered by order of declaration in the ivy.xml. When there are many entries, it can be useful to have them ordered lexically for enhanced readability.</p>
 <h4>Build the classpath with:</h4>
@@ -180,6 +189,8 @@
 <p>By default, Apache IvyDE will parse the ivy settings file each times it is needed (each resolve, refresh, clean cache or completion in the ivy editor). For remote ivysettings this can slow the UI dramatically, so it is possible to make IvyDE keep the settings in a cache and only reload them via the context menu on the container).</p>
 <h4>Ivy settings path:</h4>
 <p>The path to your ivy settings file. Leave it blank to use Ivy default resolvers. See also the documentation about <a href="eclipsevar.html">Eclipse variables</a>.</p>
+<h4>Ivy user dir:</h4>
+<p>The path to the default Ivy user directory, where Ivy have its default cache location</p>
 <h4>Property files:</h4>
 <p>This is a list of Java properties files to load before loading the ivysettings.xml. Specify in this files properties which you expect to use in the ivysettings.xml</p>
 
