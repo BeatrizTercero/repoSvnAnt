@@ -23,7 +23,7 @@ import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "classpath:/org/apache/ant/antdsl/xtext/AntDSL.xtext"
 var file.extensions = "ant"
-var projectName = "org.apache.ant.antdsl"
+var projectName = "org.apache.ant.antdsl.xtext"
 var runtimeProject = "../${projectName}"
 
 Workflow {

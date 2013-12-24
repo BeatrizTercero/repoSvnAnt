@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<project name="antdsl" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="antdsl-xtext" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <import file="../build/common-build.xml" />
     <import file="../build/common-build-plugin.xml" />
@@ -25,14 +25,22 @@
         <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" uncompress="true" osgi="true" />
     </target>
 
-    <target name="generate-antlr" depends="init" description="Generate the simple ANTLR parser">
-        <mkdir dir="${basedir}/src/org/apache/ant/antdsl/antlr" />
-        <antlr3 target="${basedir}/src/org/apache/ant/antdsl/AntDSL.g" outputdirectory="${basedir}/src/org/apache/ant/antdsl/antlr" />
+    <target name="generate-xtext" depends="ivy:resolve" description="Generate XText and Ecore files for the full plugin">
+        <java classname="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher" dir="${basedir}" fork="true" failonerror="true">
+            <jvmarg line="-Xmx256M" />
+            <classpath>
+                <pathelement path="${basedir}/src/" />
+                <pathelement path="${target.dir}/classes" />
+                <path refid="generate.classpath" />
+            </classpath>
+            <arg line="src/org/apache/ant/antdsl/xtext/GenerateAntDSL.mwe2" />
+        </java>
+        <delete file="src/org/apache/ant/antdsl/xtext/generator/AntDSLGenerator.xtend" />
     </target>
 
-    <target name="test-antlr" description="Test the run of an antdsl file with Xtext-generated parser">
+    <target name="test-xtext" description="Test the run of an antdsl file with Xtext-generated parser">
         <loadpath pathid="antruntime.classpath" file=".antruntime.classpath" />
-        <typedef classname="org.apache.ant.antdsl.antlr.AntDslAntlrProjectHelper" name="antDslProjectHelper">
+        <typedef classname="org.apache.ant.antdsl.xtext.AntDslXTextProjectHelper" name="antDslProjectHelper">
             <classpath>
                 <pathelement path="${basedir}/build/antdsl.jar" />
                 <path refid="antruntime.classpath" />
@@ -42,6 +50,15 @@
             <antDslProjectHelper />
         </projecthelper>
         <ant antfile="test/build.ant" target="build" />
+    </target>
+
+    <target name="test-update-build" description="Test the run of an antdsl file with Xtext-generated parser">
+        <loadfile property="antruntime.classpath" srcFile=".antruntime.classpath"/>
+        <exec executable="ant" dir="test">
+            <arg line="-lib" />
+            <arg line="${antruntime.classpath}" />
+            <arg line="-update-build" />
+        </exec>
     </target>
 
 </project>
