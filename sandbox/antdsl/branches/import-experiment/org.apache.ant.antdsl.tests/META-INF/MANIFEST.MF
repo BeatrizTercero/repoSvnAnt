@@ -12,7 +12,8 @@ Require-Bundle: org.apache.ant.antdsl,
  org.eclipse.xtext.junit4,
  org.eclipse.xtext.ui.junit,
  org.junit4,
- org.eclipse.ui.workbench;resolution:=optional
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.apache.ant;bundle-version="1.8.3"
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.junit.runner;version="4.5.0",

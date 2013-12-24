@@ -174,7 +174,7 @@ public class AntDslXTextProjectHelper extends AbstractAntDslProjectHelper {
                     antpathElements.add(mapInnerElement(project, context, eAntpathElement));
                 }
             }
-            setupAntpath(project, context, antpathElements);
+            // setupAntpath(project, context, antpathElements);
         }
 
         EList<EImport> eImports = eProject.getImports();

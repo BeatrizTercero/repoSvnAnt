@@ -19,6 +19,22 @@ grammar AntDSL;
 
 @lexer::header {
 package org.apache.ant.antdsl.antlr;
+
+import java.util.ArrayList;
+}
+
+@lexer::members {
+    private List<String> errors = new ArrayList<String>();
+
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errors.add(hdr + " " + msg);
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
 }
 
 @parser::header {
@@ -35,6 +51,7 @@ import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.*;
 import org.apache.tools.ant.taskdefs.condition.*;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
 }
 
 @parser::members {
@@ -43,6 +60,8 @@ import java.util.LinkedHashMap;
     private AntDslContext context;
 
     private AntDslAntlrProjectHelper projectHelper;
+
+    private List<String> errors = new ArrayList<String>();
 
     public void setProject(Project project) {
         this.project = project;
@@ -55,6 +74,17 @@ import java.util.LinkedHashMap;
     public void setProjectHelper(AntDslAntlrProjectHelper projectHelper) {
         this.projectHelper = projectHelper;
     }
+
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errors.add(hdr + " " + msg);
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
 }
 
 project:
@@ -66,11 +96,18 @@ project:
     { projectHelper.setupProject(project, context, name, basedir, def); }
     ( 'namespaces' '{' ( ns=namespace { context.addFQNPrefix(ns.first, ns.second); } )* '}')?
     tl=taskList?
-    { for (Task t : tl) { context.getImplicitTarget().addTask(t); } }
+    {
+        if (tl != null) {
+            for (Task t : tl) {
+                context.getImplicitTarget().addTask(t);
+            }
+        }
+    }
     (   target
       | extensionPoint
       | funcdef
     )*
+    EOF
 ;
 
 namespace returns [Pair<String, String> ns = new Pair<String, String>()]:

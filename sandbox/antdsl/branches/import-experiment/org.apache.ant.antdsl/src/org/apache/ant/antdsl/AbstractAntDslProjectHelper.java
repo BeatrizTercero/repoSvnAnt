@@ -21,11 +21,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -52,7 +51,6 @@ import org.apache.tools.ant.UnknownElement;
 import org.apache.tools.ant.helper.AntXMLContext;
 import org.apache.tools.ant.taskdefs.Taskdef;
 import org.apache.tools.ant.taskdefs.condition.Condition;
-import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Resource;
 import org.apache.tools.ant.types.resources.FileProvider;
 import org.apache.tools.ant.types.resources.URLProvider;
@@ -63,17 +61,17 @@ import org.osgi.framework.BundleException;
 
 public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
-	private static final String REFID_CONTEXT = "antdsl.parsingcontext";
+    private static final String REFID_CONTEXT = "antdsl.parsingcontext";
 
     public static final String REFID_FUNCTION_REGISTRY = "antdsl.function.registry";
 
     public static final String REFID_OSGI_FRAMEWORK_MANAGER = "antdsl.osgi.framework.manager";
 
+    public static final String REFID_RELOAD_BUNDLES = "antdsl.reload.bundles";
+
     public static final String REFID_CLASSLOADER_STACK = "antdsl.classloader.stack";
 
     public static final String REFID_ANT_PATH = "antdsl.path";
-
-    private AntPathManager antPathManager = new AntPathManager();
 
     public String getDefaultBuildFile() {
         return "build.ant";
@@ -128,6 +126,24 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         } else {
             // top level file
             context.setCurrentTargets(new HashMap<String, Target>());
+
+            // introduce our two special target to resolve and update the build
+            Target resolveBuildTarget = new Target();
+            context.setCurrentTarget(resolveBuildTarget);
+            mapCommonTarget(resolveBuildTarget, project, context, "resolve-build", "launch a resolve of the ant path from the ivy.xml of the build", null, null, null);
+            ResolveBuildTask resolveBuildTask = new ResolveBuildTask();
+            mapCommonTask(project, context, resolveBuildTask);
+            resolveBuildTarget.addTask(resolveBuildTask);
+
+            Target updateBuildTarget = new Target();
+            context.setCurrentTarget(updateBuildTarget);
+            mapCommonTarget(updateBuildTarget, project, context, "update-build", "launch an update of the ant path from the ivy-fixed.xml of the build", null, null, null);
+            UpdateBuildTask updateBuildTask = new UpdateBuildTask();
+            mapCommonTask(project, context, updateBuildTask);
+            updateBuildTarget.addTask(updateBuildTask);
+
+            context.setCurrentTarget(context.getImplicitTarget());
+            
             parse(project, source, context);
 
             // Execute the top-level target
@@ -140,7 +156,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 OnMissingExtensionPoint missingBehaviour = OnMissingExtensionPoint.valueOf(extensionInfo[2]);
                 Hashtable<String, Target> projectTargets = project.getTargets();
                 if (!projectTargets.containsKey(tgName)) {
-                    String message = "can't add target " + name + " to extension-point " + tgName + " because the extension-point is unknown.";
+                    String message = "can't add target " + name + " to extension-point " + tgName
+                            + " because the extension-point is unknown.";
                     if (missingBehaviour == OnMissingExtensionPoint.FAIL) {
                         throw new BuildException(message);
                     } else if (missingBehaviour == OnMissingExtensionPoint.WARN) {
@@ -225,7 +242,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     }
 
-    abstract protected void doParse(InputStream in, String buildFileName, Project project, AntDslContext context) throws IOException;
+    abstract protected void doParse(InputStream in, String buildFileName, Project project, AntDslContext context)
+            throws IOException;
 
     public void setupProject(Project project, AntDslContext context, String name, String basedir, String def) {
         boolean nameAttributeSet = false;
@@ -259,7 +277,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 try {
                     dupFile = new URL(dup);
                 } catch (java.net.MalformedURLException mue) {
-                    throw new BuildException("failed to parse " + dup + " as URL while looking" + " at a duplicate project" + " name.", mue);
+                    throw new BuildException("failed to parse " + dup + " as URL while looking"
+                            + " at a duplicate project" + " name.", mue);
                 }
                 contextFile = context.getBuildFileURL();
             } else {
@@ -268,8 +287,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             }
 
             if (context.isIgnoringProjectTag() && !dupFile.equals(contextFile)) {
-                project.log("Duplicated project name in import. Project " + context.getCurrentProjectName() + " defined first in " + dup
-                        + " and again in " + contextFile, Project.MSG_WARN);
+                project.log("Duplicated project name in import. Project " + context.getCurrentProjectName()
+                        + " defined first in " + dup + " and again in " + contextFile, Project.MSG_WARN);
             }
         }
         if (nameAttributeSet) {
@@ -285,17 +304,6 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
             // no further processing
             return;
         }
-
-        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
-        if (osgiFrameworkManager == null) {
-            try {
-                osgiFrameworkManager = new OSGiFrameworkManager(project.getBaseDir());
-            } catch (BundleException e) {
-                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
-            }
-            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
-        }
-        getClassloaderStack(project).push(osgiFrameworkManager.getGodClassLoader());
 
         // set explicitly before starting ?
         if (project.getProperty("basedir") != null) {
@@ -315,59 +323,29 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
         project.addTarget("", context.getImplicitTarget());
         context.setCurrentTarget(context.getImplicitTarget());
-    }
 
-    private String getTargetPrefix(AntXMLContext context) {
-        String prefix = getCurrentTargetPrefix();
-        if (prefix != null && prefix.length() == 0) {
-            return null;
-        }
-        return prefix;
-    }
+        List<File> antPath = new ArrayList<File>();
+        boolean update = AntPathManager.readAntPath(project, antPath);
 
-    protected void setupAntpath(Project project, AntDslContext context, List<InnerElement> antpathElements) {
-        OSGiFrameworkManager osgiFrameworkManager = getOSGiFrameworkManager(project);
-
-        Path antPath = project.getReference(REFID_ANT_PATH);
-        if (antPath == null) {
-            antPath = new Path(project);
-        }
-
-        antPathManager.readAntPath(project, antPath);
-
-        if (!antpathElements.isEmpty()) {
-            UnknownElement element = new UnknownElement("path");
-            element.setProject(project);
-            RuntimeConfigurable wrapper = new RuntimeConfigurable(element, element.getTaskName());
-            context.pushWrapper(wrapper);
-            for (InnerElement antpathElement : antpathElements) {
-                UnknownElement child = mapUnknown(project, context, antpathElement, false);
-                element.addChild(child);
-            }
-            context.popWrapper();
-            element.configure(antPath);
-        }
-
-        Iterator<Resource> itResources = antPath.iterator();
-        while (itResources.hasNext()) {
-            Resource resource = itResources.next();
-            String url;
-            if (resource instanceof URLProvider) {
-                url = ((URLProvider) resource).getURL().toExternalForm();
-            } else if (resource instanceof FileProvider) {
-                try {
-                    url = ((FileProvider) resource).getFile().toURI().toURL().toExternalForm();
-                } catch (MalformedURLException e) {
-                    throw new BuildException("Unable to get url of " + resource, e);
-                }
-            } else {
-                // very speculative, but let's try
-                url = resource.getName();
-            }
+        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
+        if (osgiFrameworkManager == null) {
             try {
-                osgiFrameworkManager.install(url);
+                osgiFrameworkManager = new OSGiFrameworkManager(project.getBaseDir(), update);
             } catch (BundleException e) {
-                throw new BuildException("Unable to install the bundle " + resource.getName() + " (" + e.getMessage() + ")", e);
+                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
+            }
+            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
+        }
+        getClassloaderStack(project).push(osgiFrameworkManager.getGodClassLoader());
+
+        if (update) {
+            for (File file : antPath) {
+                try {
+                    osgiFrameworkManager.install(file);
+                } catch (BundleException e) {
+                    throw new BuildException("Unable to install the bundle " + file.getAbsolutePath() + " ("
+                            + e.getMessage() + ")", e);
+                }
             }
         }
 
@@ -378,8 +356,17 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
     }
 
+    private String getTargetPrefix(AntXMLContext context) {
+        String prefix = getCurrentTargetPrefix();
+        if (prefix != null && prefix.length() == 0) {
+            return null;
+        }
+        return prefix;
+    }
+
     protected void importAntlib(Project project, AntDslContext context, String name, String resource) {
-        // TODO maybe we can do some caching here, each time a build module import the exact same antlib, it is reloaded
+        // TODO maybe we can do some caching here, each time a build module
+        // import the exact same antlib, it is reloaded
 
         String fqn = context.addFQNPrefix(name, resource);
 
@@ -455,9 +442,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         context.setIgnoreProjectTag(oldIgnoringProjectTag);
     }
 
-    public void mapCommonTarget(
-            Target target, Project project, AntDslContext context, String name, String description, List<Pair<String, String>> depends,
-            List<Pair<String, String>> extensionsOf, String onMiss) {
+    public void mapCommonTarget(Target target, Project project, AntDslContext context, String name, String description,
+            List<Pair<String, String>> depends, List<Pair<String, String>> extensionsOf, String onMiss) {
         OnMissingExtensionPoint extensionPointMissing = null;
         if (onMiss != null) {
             extensionPointMissing = OnMissingExtensionPoint.valueOf(onMiss.toUpperCase(Locale.ENGLISH));
@@ -494,7 +480,9 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
 
         if (extensionPointMissing != null && extensionsOf == null) {
-            throw new BuildException("onMissingExtensionPoint attribute cannot be specified unless extensionOf is specified", target.getLocation());
+            throw new BuildException(
+                    "onMissingExtensionPoint attribute cannot be specified unless extensionOf is specified",
+                    target.getLocation());
         }
         if (extensionsOf != null) {
             ProjectHelper helper = context.getProject().getReference(ProjectHelper.PROJECTHELPER_REFERENCE);
@@ -503,14 +491,15 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
                 if (extensionOf.first == null) {
                     extensionName = fqnPrefix + extensionOf.second;
                 } else {
-                    extensionName = context.getFQNPrefix(extensionOf.first) + getCurrentPrefixSeparator() + extensionOf.second;
+                    extensionName = context.getFQNPrefix(extensionOf.first) + getCurrentPrefixSeparator()
+                            + extensionOf.second;
                 }
                 if (extensionPointMissing == null) {
                     extensionPointMissing = OnMissingExtensionPoint.FAIL;
                 }
                 // defer extensionpoint resolution until the full
                 // import stack has been processed
-                helper.getExtensionStack().add(new String[] {extensionName, name, extensionPointMissing.name()});
+                helper.getExtensionStack().add(new String[] { extensionName, name, extensionPointMissing.name() });
             }
         }
     }
@@ -520,7 +509,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         task.setOwningTarget(context.getCurrentTarget());
     }
 
-    public UnknownElement mapUnknown(Project project, AntDslContext context, InnerElement innerElement, boolean innerUnknown) {
+    public UnknownElement mapUnknown(Project project, AntDslContext context, InnerElement innerElement,
+            boolean innerUnknown) {
         RuntimeConfigurable parentWrapper = (RuntimeConfigurable) context.currentWrapper();
         Object parent = null;
 
@@ -674,7 +664,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
         // first remove the quotes
         s = s.substring(1, s.length() - 1);
-        // code copied from org.eclipse.xtext.util.Strings.convertFromJavaString(String, boolean)
+        // code copied from
+        // org.eclipse.xtext.util.Strings.convertFromJavaString(String, boolean)
         char[] in = s.toCharArray();
         int off = 0;
         int len = s.length();

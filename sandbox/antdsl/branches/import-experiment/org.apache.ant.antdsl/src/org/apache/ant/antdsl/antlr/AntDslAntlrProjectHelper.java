@@ -31,16 +31,29 @@ import org.apache.tools.ant.Project;
 public class AntDslAntlrProjectHelper extends AbstractAntDslProjectHelper {
 
     @Override
-    protected void doParse(InputStream in, String buildFileName, Project project, AntDslContext context) throws IOException {
+    protected void doParse(InputStream in, String buildFileName, Project project, AntDslContext context)
+            throws IOException {
         AntDSLParser parser;
         try {
-            parser = new AntDSLParser(new CommonTokenStream(new AntDSLLexer(new ANTLRInputStream(in))));
+            AntDSLLexer lexer = new AntDSLLexer(new ANTLRInputStream(in));
+            parser = new AntDSLParser(new CommonTokenStream(lexer));
             parser.setProject(project);
             parser.setContext(context);
             parser.setProjectHelper(this);
 
             parser.project();
 
+            int nbErrors = lexer.getErrors().size() + parser.getErrors().size();
+            if (nbErrors > 0) {
+                project.log(nbErrors + " syntax error" + (nbErrors > 1 ? "s" : ""), Project.MSG_ERR);
+                for (String error : lexer.getErrors()) {
+                    project.log(error, Project.MSG_ERR);
+                }
+                for (String error : parser.getErrors()) {
+                    project.log(error, Project.MSG_ERR);
+                }
+                throw new BuildException("Syntax error while parsing the build file " + buildFileName);
+            }
         } catch (RecognitionException e) {
             throw new BuildException("Syntax error while parsing the build file " + buildFileName, e);
         } finally {

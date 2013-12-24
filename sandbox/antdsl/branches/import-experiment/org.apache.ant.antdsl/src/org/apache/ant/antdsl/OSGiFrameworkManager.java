@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +40,7 @@ import org.osgi.framework.wiring.BundleWiring;
 
 class OSGiFrameworkManager {
 
-	//@formatter:off
+    //@formatter:off
     private static final String ANT_PACKAGES =
             "org.apache.tools.ant,"
           + "org.apache.tools.ant.types,"
@@ -50,15 +51,16 @@ class OSGiFrameworkManager {
 
     private Framework framework;
 
-    private List<Bundle> bundles = new ArrayList<Bundle>();
-
     private GodClassLoader godClassLoader = new GodClassLoader();
 
-    OSGiFrameworkManager(File basedir) throws BundleException {
+    OSGiFrameworkManager(File basedir, boolean update) throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
-        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, AntPathManager.OSGI_STORAGE_LOCATION).getAbsolutePath());
-        configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
+        configMap.put(Constants.FRAMEWORK_STORAGE,
+                new File(basedir, AntPathManager.OSGI_STORAGE_LOCATION).getAbsolutePath());
+        if (update) {
+            configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
+        }
         framework = getFrameworkFactory().newFramework(configMap);
         framework.init();
     }
@@ -66,7 +68,8 @@ class OSGiFrameworkManager {
     private FrameworkFactory getFrameworkFactory() {
         Enumeration<URL> urls;
         try {
-            urls = OSGiFrameworkManager.class.getClassLoader().getResources("META-INF/services/org.osgi.framework.launch.FrameworkFactory");
+            urls = OSGiFrameworkManager.class.getClassLoader().getResources(
+                    "META-INF/services/org.osgi.framework.launch.FrameworkFactory");
         } catch (IOException e) {
             throw new BuildException(e);
         }
@@ -76,7 +79,7 @@ class OSGiFrameworkManager {
         URL url = null;
         ArrayList<URL> urlList = Collections.list(urls);
         for (URL candidate : urlList) {
-        	// we prefer using felix (equinox might be somewhere in the classpath too within Eclipse)
+            // we prefer using felix (equinox might be somewhere in the classpath too within Eclipse)
             if (candidate.toExternalForm().contains("felix")) {
                 url = candidate;
             }
@@ -108,18 +111,14 @@ class OSGiFrameworkManager {
         throw new BuildException("No OSGi framework factory found");
     }
 
-    void install(String bundleURI) throws BundleException {
-        if (bundleURI.startsWith("file:")) {
-            bundleURI = "reference:" + bundleURI;
+    void install(File bundle) throws BundleException {
+        String url;
+        try {
+            url = bundle.toURI().toURL().toExternalForm();
+        } catch (MalformedURLException e) {
+            throw new BuildException("Malformed bundle location: " + bundle + " (" + e.getMessage() + ")", e);
         }
-        Bundle bundle = framework.getBundleContext().installBundle(bundleURI);
-        if (!isFragment(bundle)) {
-            bundles.add(bundle);
-        }
-    }
-
-    private static boolean isFragment(Bundle bundle) {
-        return bundle.getHeaders().get(Constants.FRAGMENT_HOST) != null;
+        framework.getBundleContext().installBundle("reference:" + url);
     }
 
     void start() throws BundleException {
@@ -137,17 +136,10 @@ class OSGiFrameworkManager {
                 }
             }
         });
-        for (Bundle bundle : bundles) {
-            bundle.start();
-        }
     }
 
     GodClassLoader getGodClassLoader() {
         return godClassLoader;
-    }
-
-    List<Bundle> getBundles() {
-        return bundles;
     }
 
     /**
@@ -156,7 +148,7 @@ class OSGiFrameworkManager {
      * @return
      */
     ClassLoader getClassLoader(String resource, URL url) {
-        for (Bundle bundle : bundles) {
+        for (Bundle bundle : framework.getBundleContext().getBundles()) {
             BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
             int i = resource.lastIndexOf('/');
             String path = resource.substring(0, i);
@@ -193,7 +185,7 @@ class OSGiFrameworkManager {
 
         @Override
         public URL getResource(String name) {
-            for (Bundle bundle : bundles) {
+            for (Bundle bundle : framework.getBundleContext().getBundles()) {
                 BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 URL url = cl.getResource(name);
@@ -207,7 +199,7 @@ class OSGiFrameworkManager {
         @Override
         public Enumeration<URL> getResources(String name) throws IOException {
             List<URL> urls = new ArrayList<URL>();
-            for (Bundle bundle : bundles) {
+            for (Bundle bundle : framework.getBundleContext().getBundles()) {
                 BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 Enumeration<URL> resources = cl.getResources(name);
@@ -219,8 +211,8 @@ class OSGiFrameworkManager {
         }
 
         @Override
-        public Class< ? > loadClass(String name) throws ClassNotFoundException {
-            for (Bundle bundle : bundles) {
+        public Class<?> loadClass(String name) throws ClassNotFoundException {
+            for (Bundle bundle : framework.getBundleContext().getBundles()) {
                 BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
                 ClassLoader cl = wiring.getClassLoader();
                 try {
