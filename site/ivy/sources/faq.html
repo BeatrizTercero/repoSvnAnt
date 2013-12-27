@@ -96,6 +96,8 @@ him to use comp-build2596.jar instead of comp-build2595.jar, when you have alrea
 <p>Another solution is to setup a local repository for those modules that are not cleanly deployed on ibiblio. Using this local repository first and the ibiblio repository after is a good way to turn around the problems of ibiblio and still benefit from the huge number of artifacts that can be found.</p>
 <h2><a name="module-update"></a>When I update an ivy file in my repository ivy do not take the change into account. Is this normal ?</h2>
 <p>This the default behaviour of Apache Ivy, which relies on the revision and on its cache to avoid too many downloads. However, this can be changed on each resolver using the <em>checkmodified</em> attribute, or globally by setting <em>ivy.resolver.default.check.modified</em> variable to true.</p>
+<h2><a name="threaded-use"></a>When I use Ivy within an ant parallel task, I get surprising behavior. What's going on here?</h2>
+<p>The majority of Ivy's code is not written to be thread-safe. At this time, such usage is not supported behavior.</p>
 <h1>Misc</h1>
 <h2><a name="release-notes"></a>Where are the release notes ?</h2>
 <p>Release notes can be found in the [[doc:index documentation]].</p>
