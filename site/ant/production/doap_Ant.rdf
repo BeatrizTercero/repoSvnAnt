@@ -35,6 +35,13 @@
     <category rdf:resource="http://projects.apache.org/category/build-management" />
     <release>
       <Version>
+        <name>Apache Ant 1.9.3</name>
+        <created>2013-12-29</created>
+        <revision>1.9.3</revision>
+      </Version>
+    </release>
+    <release>
+      <Version>
         <name>Apache Ant 1.9.2</name>
         <created>2013-07-12</created>
         <revision>1.9.2</revision>
