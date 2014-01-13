@@ -99,6 +99,7 @@
 <li id="xooki-textual"><a href="../textual.html" >Text Conventions</a></li>
 <li id="xooki-principle"><a href="../principle.html" >How does it work ?</a></li>
 <li id="xooki-bestpractices"><a href="../bestpractices.html" >Best practices</a></li>
+<li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li>
 <li id="xooki-install"><a href="../install.html" >Installation</a></li>
 </ul></li>
 <li id="xooki-settings" class="submenu"><a href="../settings.html" >Settings Files</a><ul class="closed"><li id="xooki-settings/property"><a href="../settings/property.html" >property</a></li>
@@ -135,6 +136,7 @@
 <li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" >vfs resolver</a></li>
 <li id="xooki-resolver/jar"><a href="../resolver/jar.html" >Jar resolver</a></li>
 <li id="xooki-resolver/obr"><a href="../resolver/obr.html" >OSGi Bundle Repository</a></li>
+<li id="xooki-resolver/osgiagg"><a href="../resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
 </ul></li>
@@ -242,7 +244,7 @@
 </ul>
 The two are equivalent, it is only a matter of preference. However, do not mix both for one artifact.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> The artifact element has default values for all its attributes, so if you want to declare a default artifact you can just declare it like that:<pre>
 &lt;artifact /&gt;
-</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.4</span> This tag supports the 'packaging' attributes; complete documentation can be found in the <a href="../concept.html#packaging">concept page</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
 <thead>
     <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
@@ -258,6 +260,8 @@ The two are equivalent, it is only a matter of preference. However, do not mix b
         <td>No, defaults to defaultconf attribute value on parent publications element.</td></tr>
     <tr><td>url</td><td>a url at which this artifact can be found if it isn't located at the standard location in the repository <span class="since">since 1.4</span></td>
         <td>No, defaults to no url</td></tr>
+    <tr><td>packaging</td><td>a comma separated list of <a href="../concept.html#packaging">packaging</a> types <span class="since">since 2.4</span></td>
+        <td>No, defaults to no packaging</td></tr>
 </tbody>
 </table>
 <h1>Child elements</h1>
@@ -305,7 +309,7 @@ Declares an artifact foo, of type and extension 'jar' located at the url <a href
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2014 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

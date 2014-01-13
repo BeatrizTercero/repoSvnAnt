@@ -22,7 +22,7 @@
 	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
 	
 
-<title>vfs resolver | Apache Ivy&#153;</title>
+<title>Aggregated OSGi Repository | Apache Ivy&#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../style/style.css" />
   <script src="../js/jquery.pack.js" type="text/javascript"></script>
@@ -66,7 +66,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/vfs.html" class="current">vfs resolver</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/osgiagg.html" class="current">Aggregated OSGi Repository</a></span>
 		</div>
 		</td>
 	</tr>
@@ -132,10 +132,10 @@
 <li id="xooki-resolver/dual"><a href="../resolver/dual.html" >Dual resolver</a></li>
 <li id="xooki-resolver/sftp"><a href="../resolver/sftp.html" >sftp resolver</a></li>
 <li id="xooki-resolver/ssh"><a href="../resolver/ssh.html" >ssh resolver</a></li>
-<li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" class="current">vfs resolver</a></li>
+<li id="xooki-resolver/vfs"><a href="../resolver/vfs.html" >vfs resolver</a></li>
 <li id="xooki-resolver/jar"><a href="../resolver/jar.html" >Jar resolver</a></li>
 <li id="xooki-resolver/obr"><a href="../resolver/obr.html" >OSGi Bundle Repository</a></li>
-<li id="xooki-resolver/osgiagg"><a href="../resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
+<li id="xooki-resolver/osgiagg"><a href="../resolver/osgiagg.html" class="current">Aggregated OSGi Repository</a></li>
 <li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
 </ul></li>
@@ -235,35 +235,23 @@
 		<td valign="top">
 		<div id="main">
 
-		<h1 class="title">vfs resolver</h1>
+		<h1 class="title">Aggregated OSGi Repository</h1>
             
 <table class="resolver">
-<tr><td class="title">Tag</td><td class="value">vfs</td></tr>
-<tr><td class="title">Handle latest</td><td class="value">depend on vfs capacity, usually yes</td></tr>
-<tr><td class="title">Handle publish</td><td class="value">depend on vfs capacity, usually yes</td></tr>
-</table>
-<br/>
-<span class="tagdoc" id="ivysettings.resolvers.vfs">This resolver is certainly the most capable, since it relies on <a href="http://jakarta.apache.org/commons/vfs/">Apache commons VFS</a>, which gives an uniform access to <a href="http://jakarta.apache.org/commons/vfs/filesystems.html">a good number of file systems</a>, including ftp, webdav, zip, ...</span> <span class="since">since 1.4</span>
-
-<i>Note: commons vfs has not released a stable version yet, hence Ivy relies on a nightly build. Stability should thus be considered carefully before using this resolver in a production environment</i><br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
-This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of standard resolvers.<br class="xooki-br"/><h1>Child elements</h1>
-<table class="ivy-children">
-<thead>
-    <tr><th class="ivy-chld">Element</th><th class="ivy-chld-desc">Description</th><th class="ivy-chld-card">Cardinality</th></tr>
-</thead>
-<tbody>
-    <tr><td>ivy</td><td>defines a pattern for ivy files, using the pattern attribute</td>
-        <td>0..n</td></tr>
-    <tr><td>artifact</td><td>defines a pattern for artifacts, using the pattern attribute</td>
-        <td>1..n</td></tr>
-</tbody>
+<tr><td class="title">Tag</td><td class="value">osgi-agg</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
 </table>
 
-<h1>Example</h1>
+<span class="since">since 2.4</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.osgi-agg">This resolver is one of the resolver which supports <a href="../osgi.html">OSGi&#153;</a> dependencies.<br class="xooki-br"/><br class="xooki-br"/>This resolvers is like a classic <a href="">chain</a> resolver, but which better support OSGi metadata.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of composite resolvers.<br class="xooki-br"/><br class="xooki-br"/><h1>Elements</h1>
+As sub element, this resolver accept any kind of OSGi resolver: <a href="../obr.html">obr</a>, <a href="../updatesite.html">updatesite</a>, or any other <tt>osgi-agg</tt>.<br class="xooki-br"/><br class="xooki-br"/><h1>Examples</h1>
 <pre>
-&lt;vfs name="vfs-resolver"&gt;<br class="xooki-br"/>  &lt;ivy pattern="s<a href="ftp://username:password@host/[organisation]/[module]/[revision]/ivy.xml">ftp://username:password@host/[organisation]/[module]/[revision]/ivy.xml</a>" /&gt;<br class="xooki-br"/>  &lt;artifact pattern="s<a href="ftp://username:password@host/[organisation]/[module]/[revision]/[artifact].[ext">ftp://username:password@host/[organisation]/[module]/[revision]/[artifact].[ext</a>]" /&gt;<br class="xooki-br"/>&lt;/vfs&gt; 
+&lt;updatesite name="ivyde-updatesite" url="<a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a>" /&gt;<br class="xooki-br"/>&lt;obr name="felix-repo" repoXmlURL="<a href="http://felix.apache.org/obr/releases.xml">http://felix.apache.org/obr/releases.xml</a>" /&gt;<br class="xooki-br"/>&lt;osgi-agg name="all-osgi"&gt;<br class="xooki-br"/>    &lt;resolver ref="ivyde-updatesite" /&gt;<br class="xooki-br"/>    &lt;resolver ref="felix-repo" /&gt;<br class="xooki-br"/>&lt;/osgi-agg&gt;
 </pre>
-Access ivy and artifacts files using sftp.<br class="xooki-br"/><br class="xooki-br"/>	
+An aggregated OSGi reporsory composed of the Apache IvyDE Eclipse update site and the Felix OBR.<br class="xooki-br"/>	
  		</div><!-- main -->
 		</td>
 	</tr>

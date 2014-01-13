@@ -783,7 +783,21 @@ As a dependency manager, Ivy has a lot of file related operations, which most of
 <li>In an Ivy file, paths are relative to the Ivy file itself (the only possible path in an Ivy file is for configurations declaration inclusion)</li>
 <li>In settings files, paths for file inclusion (namely properties file loading and settings inclusion) are relative to the directory in which the settings file is located. All other paths must be absolute unless explicitly noted.</li>
 <li>In Ivy Ant tasks and Ivy parameters or options, paths are relative to Ivy base directory, which when called from Ant is the same as your Ant basedir.</li>
-</ul><hr/><div class='toc-title toc-title-4'>Text Conventions</div><br class="xooki-br"/>Very often some concepts discussed in Ivy here, and especially those involving modules and dependencies, require to be discussed by text (e-mail, textual doc, console, ...), and so benefit from convention in this area.<br class="xooki-br"/><br class="xooki-br"/>The conventions have been adopted with Ivy 2.0 are the following:
+</ul>
+
+<h1><a name="packaging">Packaging</a></h1>
+
+Most of the artifacts found in a repository are jars. They can be downoaded and used as is. But some other kind of artifacts required some <i>unpacking</i> after being downloaded and before being used. Such artifacts can be zipped folders and packed jars. Ivy supports that kind of artifact with <b>packaging</b>.<br class="xooki-br"/><br class="xooki-br"/>A <i>packaged</i> artifact needs to be declared as such in the module descriptor via the attribute <a href="ivyfile/artifact.html">packaging</a>. The value of that attribute defined which kind of unpacking algorithm must be used. Here are the list of currently supported algorithms:
+<ul>
+    <li><tt>zip</tt>, <tt>jar</tt> or <tt>war</tt>: the artifact will be uncompressed as a folder</li>
+    <li><tt>pack200</tt>: the artifact will be unpacked to a file via the <a href="http://docs.oracle.com/javase/7/docs/technotes/tools/share/pack200.html">pack200</a> algorithm</li>
+</ul>
+
+So, if in an <tt>ivy.xml</tt>, there would be declared a such artifact:
+<pre>
+    &lt;artifact name="mymodule" type="jar" ext="jar.pack.gz" packaging="pack200" /&gt;
+</pre>
+A file <tt>mymodule-1.2.3.jar.pack.gz</tt> would be download into the cache, and also uncompressed in the cache to <tt>mymodule-1.2.3.jar</tt>. Then any post resolve task which supports it, like the <a href="use/cachepath.html">cachepath</a>, will use the uncompressed file instead of the orginal compressed file.<br class="xooki-br"/><br class="xooki-br"/>It is possible to chain packing algorithm. The attribute <a href="ivyfile/artifact.html">packaging</a> of a artifact expects a comma separated list of packing types, in packing order. For instance, an artifact '<tt>mymodule-1.2.3.jar.pack.gz</tt>' can have the packaging '<tt>jar,pack200</tt>', so it would be uncompressed as a folder '<tt>mymodule-1.2.3</tt>'.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>Text Conventions</div><br class="xooki-br"/>Very often some concepts discussed in Ivy here, and especially those involving modules and dependencies, require to be discussed by text (e-mail, textual doc, console, ...), and so benefit from convention in this area.<br class="xooki-br"/><br class="xooki-br"/>The conventions have been adopted with Ivy 2.0 are the following:
 <table>
 <thead style="font-weight:700;">
 <tr>
@@ -892,7 +906,15 @@ On the other hand, using inline dependencies is very useful when:
 </ul>
 <h1>Hire an expert</h1>
 Build and dependency management is often given too low a priority in the software development world. We often see build management implemented by developers when they have time. Even if this may seem like a time and money savings in the short term, it often turns out to be a very bad choice in the long term. Building software is not a simple task, when you want to ensure automatic, tested, fully reproducible builds, releases and installations. On the other hand, once a good build system fitting your very specific needs is setup, it can then only rely on a few people with a good understanding of what is going on, with a constant quality ensured. <br class="xooki-br"/><br class="xooki-br"/>Therefore hiring a build and dependency expert to analyse and improve your build and release system is most of the time a very good choice.<br class="xooki-br"/><br class="xooki-br"/><h1>Feedback</h1>
-These best practices reflect our own experience, but we do not pretend to own the unique truth about dependency management or even Ivy use.<br class="xooki-br"/><br class="xooki-br"/>So feel free to comment on this page to add your own experience feedback, suggestions or opinion.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Installation</div><br class="xooki-br"/>There are basically two ways to install Ivy: either manually or automatically.<br class="xooki-br"/><h1>Manually</h1>
+These best practices reflect our own experience, but we do not pretend to own the unique truth about dependency management or even Ivy use.<br class="xooki-br"/><br class="xooki-br"/>So feel free to comment on this page to add your own experience feedback, suggestions or opinion.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Compatibility</div><br class="xooki-br"/><h1>JVM compability</h1>
+
+Up to Ivy 2.3.x, a minimum of Java 1.4 is required.<br class="xooki-br"/><br class="xooki-br"/>Since Ivy 2.4.0, a minimum of Java 5 is required.<br class="xooki-br"/><br class="xooki-br"/><h1>Apache Ant</h1>
+
+Ivy doesn't require much of Ant and should run correctly on pretty old versions. But it is recommended to use at least Ant 1.6.<br class="xooki-br"/><br class="xooki-br"/><h1>Other optional dependencies</h1>
+
+The required versions of the Apache HttpClient, Jsch or any optional dependency are to be checked against Ivy's dependency descriptor. In Ivy's source, check for the ivy.xml file at the root. Or the pom.xml of <tt>org.apache.ivy#ivy</tt> in the Maven Central repository.<br class="xooki-br"/><br class="xooki-br"/><h1>Environment / Configuration Requirements</h1>
+
+Ivy does not at this time support multithreaded use. It thus should not be used with the ant <tt>&lt;parallel&gt;</tt> task.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Installation</div><br class="xooki-br"/>There are basically two ways to install Ivy: either manually or automatically.<br class="xooki-br"/><h1>Manually</h1>
 Download the version you want here, unpack the downloaded zip file wherever you want, and copy the ivy jar file into your ant lib directory (ANT_HOME/lib).<br class="xooki-br"/><br class="xooki-br"/>If you use ant 1.6.0 or superior, you can then simply go to the src/example/hello-ivy dir and run ant: if the build is successful, you have successfully installed Ivy!<br class="xooki-br"/><br class="xooki-br"/>If you use ant 1.5.1 or superior, you have to modify the build files in the examples:<br class="xooki-br"/>- remove the namespace section at their head: xmlns:ivy="antlib:org.apache.ivy.ant" <br class="xooki-br"/>- add taskdefs for ivy tasks:
 <pre>
   &lt;taskdef name="ivy-configure" classname="org.apache.ivy.ant.IvyConfigure"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-resolve" classname="org.apache.ivy.ant.IvyResolve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-publish" classname="org.apache.ivy.ant.IvyPublish"/&gt; 
@@ -2444,7 +2466,22 @@ A simple repository configured to use the Felix OBR.<br class="xooki-br"/><hr />
 <pre>
 &lt;obr name="my-osgi-repo" repoXmlFile="${ivy.settings.dir}/obr/obr.xml" requirementStrategy="first" /&gt;
 </pre>
-A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Eclipse updatesite</div>
+A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Aggregated OSGi Repository</div>
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">osgi-agg</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
+
+<span class="since">since 2.4</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.osgi-agg">This resolver is one of the resolver which supports <a href="../osgi.html">OSGi&#153;</a> dependencies.<br class="xooki-br"/><br class="xooki-br"/>This resolvers is like a classic <a href="">chain</a> resolver, but which better support OSGi metadata.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of composite resolvers.<br class="xooki-br"/><br class="xooki-br"/><h1>Elements</h1>
+As sub element, this resolver accept any kind of OSGi resolver: <a href="../obr.html">obr</a>, <a href="../updatesite.html">updatesite</a>, or any other <tt>osgi-agg</tt>.<br class="xooki-br"/><br class="xooki-br"/><h1>Examples</h1>
+<pre>
+&lt;updatesite name="ivyde-updatesite" url="<a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a>" /&gt;<br class="xooki-br"/>&lt;obr name="felix-repo" repoXmlURL="<a href="http://felix.apache.org/obr/releases.xml">http://felix.apache.org/obr/releases.xml</a>" /&gt;<br class="xooki-br"/>&lt;osgi-agg name="all-osgi"&gt;<br class="xooki-br"/>    &lt;resolver ref="ivyde-updatesite" /&gt;<br class="xooki-br"/>    &lt;resolver ref="felix-repo" /&gt;<br class="xooki-br"/>&lt;/osgi-agg&gt;
+</pre>
+An aggregated OSGi reporsory composed of the Apache IvyDE Eclipse update site and the Felix OBR.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Eclipse updatesite</div>
 <table class="resolver">
 <tr><td class="title">Tag</td><td class="value">updatesite</td></tr>
 <tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
@@ -3343,7 +3380,7 @@ Thus if you have a module which publishes no artifacts (a sort of virtual module
 </ul>
 The two are equivalent, it is only a matter of preference. However, do not mix both for one artifact.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> The artifact element has default values for all its attributes, so if you want to declare a default artifact you can just declare it like that:<pre>
 &lt;artifact /&gt;
-</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.4</span> This tag supports the 'packaging' attributes; complete documentation can be found in the <a href="../concept.html#packaging">concept page</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
 <thead>
     <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
@@ -3359,6 +3396,8 @@ The two are equivalent, it is only a matter of preference. However, do not mix b
         <td>No, defaults to defaultconf attribute value on parent publications element.</td></tr>
     <tr><td>url</td><td>a url at which this artifact can be found if it isn't located at the standard location in the repository <span class="since">since 1.4</span></td>
         <td>No, defaults to no url</td></tr>
+    <tr><td>packaging</td><td>a comma separated list of <a href="../concept.html#packaging">packaging</a> types <span class="since">since 2.4</span></td>
+        <td>No, defaults to no packaging</td></tr>
 </tbody>
 </table>
 <h1>Child elements</h1>
@@ -3997,6 +4036,7 @@ NB: among every listed files or artifacts, only the actually OSGi bundles will b
     <tr><td>resolverName</td><td>the name of the resolver from which the jars should be to gathered</td><td>No</td></tr>
     <tr><td>cacheName</td><td>the name of the cache from which the jars should be to gathered</td><td>No</td></tr>
     <tr><td>baseDir</td><td>the folder into which the jars should be gather recursively</td><td>No</td></tr>
+    <tr><td>sourceType</td><td>if used as a post resolve task, 'sourceType' define the type of artifacts which should be considered as source artifacts (defaults to 'source,sources,src')</td><td>No</td></tr>
     <tr><td>encoding</td><td>The encoding of the resulting xml file</td><td>No. Defaults to <tt>UTF-8</tt></td></tr>
     <tr><td>indent</td><td>Specify if the xml result file should be indented</td><td>No. Defaults to <tt>true</tt></td></tr>
     <tr><td>quiet</td><td>Log as debug rather than warning the rejected jars as they are illformed</td><td>No. Defaults to <tt>false</tt></td></tr>
@@ -4524,6 +4564,8 @@ The module to install should be available in a resolver, and will be installed i
     	<td>No, 'ivy.instance' is taken by default.</td></tr>
     <tr><td>haltonfailure</td><td>true to fail build on unresolved dependencies <span class="since">since 2.0</span></td>
         <td>No, defaults to true</td></tr>
+    <tr><td>installOriginalMetadata</td><td>true to install original metadata (if available). If the module has been originally resolved from a m2 repository, the original metadata is the original POM file <span class="since">since 2.4</span></td>
+        <td>No, defaults to false</td></tr>
 </tbody>
 </table>
 <h1>Examples</h1>
@@ -5785,7 +5827,7 @@ Update the file version.properties with the version of the next release so that 
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2014 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>

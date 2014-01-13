@@ -99,6 +99,7 @@
 <li id="xooki-textual"><a href="textual.html" >Text Conventions</a></li>
 <li id="xooki-principle"><a href="principle.html" >How does it work ?</a></li>
 <li id="xooki-bestpractices"><a href="bestpractices.html" >Best practices</a></li>
+<li id="xooki-compatibility"><a href="compatibility.html" >Compatibility</a></li>
 <li id="xooki-install"><a href="install.html" >Installation</a></li>
 </ul></li>
 <li id="xooki-settings" class="submenu"><a href="settings.html" >Settings Files</a><ul class="closed"><li id="xooki-settings/property"><a href="settings/property.html" >property</a></li>
@@ -135,6 +136,7 @@
 <li id="xooki-resolver/vfs"><a href="resolver/vfs.html" >vfs resolver</a></li>
 <li id="xooki-resolver/jar"><a href="resolver/jar.html" >Jar resolver</a></li>
 <li id="xooki-resolver/obr"><a href="resolver/obr.html" >OSGi Bundle Repository</a></li>
+<li id="xooki-resolver/osgiagg"><a href="resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-resolver/updatesite"><a href="resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="resolver/mirrored.html" >Mirrored Resolver</a></li>
 </ul></li>
@@ -183,12 +185,15 @@
 <li id="xooki-use/buildnumber"><a href="use/buildnumber.html" >buildnumber</a></li>
 <li id="xooki-use/cachefileset"><a href="use/cachefileset.html" >cachefileset</a></li>
 <li id="xooki-use/cachepath"><a href="use/cachepath.html" >cachepath</a></li>
+<li id="xooki-use/checkdepsupdate"><a href="use/checkdepsupdate.html" >checkdepsupdate</a></li>
 <li id="xooki-use/cleancache"><a href="use/cleancache.html" >cleancache</a></li>
 <li id="xooki-use/configure"><a href="use/configure.html" >configure</a></li>
 <li id="xooki-use/convertmanifest"><a href="use/convertmanifest.html" >convertmanifest</a></li>
 <li id="xooki-use/convertpom"><a href="use/convertpom.html" >convertpom</a></li>
 <li id="xooki-use/deliver"><a href="use/deliver.html" >deliver</a></li>
+<li id="xooki-use/dependencytree"><a href="use/dependencytree.html" >dependencytree</a></li>
 <li id="xooki-use/findrevision"><a href="use/findrevision.html" >findrevision</a></li>
+<li id="xooki-use/fixdeps"><a href="use/fixdeps.html" >fixdeps</a></li>
 <li id="xooki-use/info"><a href="use/info.html" >info</a></li>
 <li id="xooki-use/install"><a href="use/install.html" >install</a></li>
 <li id="xooki-use/listmodules"><a href="use/listmodules.html" >listmodules</a></li>
@@ -214,7 +219,6 @@
 </ul></li>
 <li id="xooki-dev" class="submenu"><a href="dev.html" >Developer doc</a><ul class="closed"><li id="xooki-extend"><a href="extend.html" >Extending Ivy</a></li>
 <li id="xooki-dev/makerelease"><a href="dev/makerelease.html" >Making a release</a></li>
-<li id="xooki-dev/updatesite"><a href="dev/updatesite.html" >Updating the updatesite</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -249,6 +253,7 @@ Ivy patterns are used in many dependency resolvers and ivy tasks, and are a simp
 The tokens available depends on where the pattern is used (will it be evaluated with artifacts or modules, for instance).<br class="xooki-br"/>But here are all the tokens currently available:
 <ul>
 <li>[organisation]</li> the organisation name
+<li>[orgPath] <span class="since">(since 2.3)</span></li> the organisation name where '.' has been replaced by '/'. This can be used to configure maven2-like repositories. 
 <li>[module]</li> the module name
 <li>[branch]</li> the branch name
 <li>[revision]</li> the revision name
@@ -325,6 +330,20 @@ As a dependency manager, Ivy has a lot of file related operations, which most of
 <li>In settings files, paths for file inclusion (namely properties file loading and settings inclusion) are relative to the directory in which the settings file is located. All other paths must be absolute unless explicitly noted.</li>
 <li>In Ivy Ant tasks and Ivy parameters or options, paths are relative to Ivy base directory, which when called from Ant is the same as your Ant basedir.</li>
 </ul>
+
+<h1><a name="packaging">Packaging</a></h1>
+
+Most of the artifacts found in a repository are jars. They can be downoaded and used as is. But some other kind of artifacts required some <i>unpacking</i> after being downloaded and before being used. Such artifacts can be zipped folders and packed jars. Ivy supports that kind of artifact with <b>packaging</b>.<br class="xooki-br"/><br class="xooki-br"/>A <i>packaged</i> artifact needs to be declared as such in the module descriptor via the attribute <a href="ivyfile/artifact.html">packaging</a>. The value of that attribute defined which kind of unpacking algorithm must be used. Here are the list of currently supported algorithms:
+<ul>
+    <li><tt>zip</tt>, <tt>jar</tt> or <tt>war</tt>: the artifact will be uncompressed as a folder</li>
+    <li><tt>pack200</tt>: the artifact will be unpacked to a file via the <a href="http://docs.oracle.com/javase/7/docs/technotes/tools/share/pack200.html">pack200</a> algorithm</li>
+</ul>
+
+So, if in an <tt>ivy.xml</tt>, there would be declared a such artifact:
+<pre>
+    &lt;artifact name="mymodule" type="jar" ext="jar.pack.gz" packaging="pack200" /&gt;
+</pre>
+A file <tt>mymodule-1.2.3.jar.pack.gz</tt> would be download into the cache, and also uncompressed in the cache to <tt>mymodule-1.2.3.jar</tt>. Then any post resolve task which supports it, like the <a href="use/cachepath.html">cachepath</a>, will use the uncompressed file instead of the orginal compressed file.<br class="xooki-br"/><br class="xooki-br"/>It is possible to chain packing algorithm. The attribute <a href="ivyfile/artifact.html">packaging</a> of a artifact expects a comma separated list of packing types, in packing order. For instance, an artifact '<tt>mymodule-1.2.3.jar.pack.gz</tt>' can have the packaging '<tt>jar,pack200</tt>', so it would be uncompressed as a folder '<tt>mymodule-1.2.3</tt>'.<br class="xooki-br"/><br class="xooki-br"/>
  		</div><!-- main -->
 		</td>
 	</tr>
@@ -347,7 +366,7 @@ As a dependency manager, Ivy has a lot of file related operations, which most of
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2011 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2014 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>
