@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project default="antunit"
+         xmlns:au="antlib:org.apache.ant.antunit"
+         xmlns:cmp="antlib:org.apache.ant.compress">
+
+  <import file="antunit-base.xml" />
+
+  <target name="setUp">
+    <mkdir dir="${output}"/>
+    <mkdir dir="${input}"/>
+  </target>
+
+  <target name="testAgainstAntlibCpioTaskBinary" depends="setUp">
+    <cmp:cpio destfile="${input}/test.cpio">
+      <fileset dir="."/>
+    </cmp:cpio>
+    <cmp:uncpio src="${input}/test.cpio" dest="${output}"/>
+    <au:assertFileExists file="${output}/uncpio-test.xml"/>
+    <au:assertFilesMatch
+       actual="${output}/uncpio-test.xml"
+       expected="uncpio-test.xml"
+       />
+  </target>
+
+  <target name="testAgainstAntlibCpioTaskOldAscii" depends="setUp">
+    <cmp:cpio destfile="${input}/test.cpio" format="odc">
+      <fileset dir="."/>
+    </cmp:cpio>
+    <cmp:uncpio src="${input}/test.cpio" dest="${output}"/>
+    <au:assertFileExists file="${output}/uncpio-test.xml"/>
+    <au:assertFilesMatch
+       actual="${output}/uncpio-test.xml"
+       expected="uncpio-test.xml"
+       />
+  </target>
+
+  <target name="testAgainstAntlibCpioTaskNewAscii" depends="setUp">
+    <cmp:cpio destfile="${input}/test.cpio" format="new-ascii">
+      <fileset dir="."/>
+    </cmp:cpio>
+    <cmp:uncpio src="${input}/test.cpio" dest="${output}"/>
+    <au:assertFileExists file="${output}/uncpio-test.xml"/>
+    <au:assertFilesMatch
+       actual="${output}/uncpio-test.xml"
+       expected="uncpio-test.xml"
+       />
+  </target>
+
+  <!--target name="testAgainstAntlibCpioTaskCRC" depends="setUp">
+    <cmp:cpio destfile="${input}/test.cpio" format="crc">
+      <fileset dir="."/>
+    </cmp:cpio>
+    <cmp:uncpio src="${input}/test.cpio" dest="${output}"/>
+    <au:assertFileExists file="${output}/uncpio-test.xml"/>
+    <au:assertFilesMatch
+       actual="${output}/uncpio-test.xml"
+       expected="uncpio-test.xml"
+       />
+  </target-->
+
+  <target name="testAgainstNativeCpioBinary" depends="setUp">
+    <cmp:uncpio src="../resources/asf-logo.gif.bin.cpio" dest="${output}" />
+    <au:assertFileExists file="${output}/asf-logo.gif"/>
+    <au:assertFilesMatch
+       actual="${output}/asf-logo.gif"
+       expected="../resources/asf-logo.gif"
+       />
+  </target>
+
+  <target name="testAgainstNativeCpioOldAscii" depends="setUp">
+    <cmp:uncpio src="../resources/asf-logo.gif.odc.cpio" dest="${output}" />
+    <au:assertFileExists file="${output}/asf-logo.gif"/>
+    <au:assertFilesMatch
+       actual="${output}/asf-logo.gif"
+       expected="../resources/asf-logo.gif"
+       />
+  </target>
+
+  <target name="testAgainstNativeCpioNewAscii" depends="setUp">
+    <cmp:uncpio src="../resources/asf-logo.gif.new.cpio" dest="${output}" />
+    <au:assertFileExists file="${output}/asf-logo.gif"/>
+    <au:assertFilesMatch
+       actual="${output}/asf-logo.gif"
+       expected="../resources/asf-logo.gif"
+       />
+  </target>
+
+  <target name="testAgainstNativeCpioCRC" depends="setUp">
+    <cmp:uncpio src="../resources/asf-logo.gif.crc.cpio" dest="${output}" />
+    <au:assertFileExists file="${output}/asf-logo.gif"/>
+    <au:assertFilesMatch
+       actual="${output}/asf-logo.gif"
+       expected="../resources/asf-logo.gif"
+       />
+  </target>
+
+  <target name="testResourceCollection" depends="setUp">
+    <zip destfile="${input}/test.zip">
+      <fileset dir="../resources" includes="*.cpio"/>
+    </zip>
+    <cmp:uncpio dest="${output}">
+      <zipfileset src="${input}/test.zip">
+        <include name="*.cpio"/>
+      </zipfileset>
+    </cmp:uncpio>
+    <au:assertFileExists file="${output}/asf-logo.gif"/>
+    <au:assertFilesMatch
+       actual="${output}/asf-logo.gif"
+       expected="../resources/asf-logo.gif"
+       />
+  </target>
+</project>
