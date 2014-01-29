@@ -68,10 +68,10 @@
 
       <a name="compress"/>
       <subsection name="Apache Compress Antlib&amp;#x2122;">
-        <p>The Apache Compress Antlib offers tasks and types for additional
-        archive formats like CPIO, XZ, Pack200, LZMA, ARJ, 7z and AR supported
-        by <a href="http://commons.apache.org/compress/">Apache
-        Commons Compress</a>.</p>
+        <p>The Apache Compress Antlib offers tasks and types for
+        additional archive formats like CPIO, XZ, Pack200, LZMA, ARJ, 7z, Snappy,
+        Unix dump, .Z and AR supported by
+        <a href="http://commons.apache.org/compress/">Apache Commons Compress</a>.</p>
         <table>
           <tr>
             <th>Homepage:</th>
@@ -99,7 +99,7 @@
           </tr>
           <tr>
             <th>Latest Release:</th>
-            <td>1.3 released on November 7, 2013</td>
+            <td>1.4 released on January 29, 2014</td>
           </tr>
         </table>
       </subsection>

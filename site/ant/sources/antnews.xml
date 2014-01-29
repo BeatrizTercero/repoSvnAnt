@@ -36,16 +36,19 @@
       The main point of the release is a fix of the speed of the exec task. See bugzilla report 54128.</p>
 
   </section>
-  <section name="Apache Compress Antlib 1.3">
-    <h3>November 7, 2013 - Apache Compress Antlib 1.3 Released</h3>
+  <section name="Compress Ant Library 1.4">
+    <h3>January 29, 2014 - Apache Compress Ant Library 1.4
+    Available</h3>
 
-    <p>The Apache Compress Antlib 1.3 is now available for download as <a
-    href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a> or
-    <a href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
+    <p>Apache Compress Ant Library 1.4 is now available for
+    download as <a
+    href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a>
+    or <a
+    href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
     release.</p>
 
-    <p>This release adapts to the 1.6 release of Apache Commons
-    Compress and now adds support for the ARJ, LZMA and 7z
+    <p>This release adapts to the 1.7 release of Apache Commons
+    Compress and now adds read-only support for the Snappy and .Z
     formats.</p>
   </section>
 
