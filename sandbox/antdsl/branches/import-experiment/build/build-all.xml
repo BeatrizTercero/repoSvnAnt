@@ -22,31 +22,46 @@
 
     <target name="clean">
         <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl" />
-        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.ui/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl.ui" />
-        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.feature/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl.feature" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests/build.xml" target="clean" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests" />
         <ant antfile="${antdsl-root.dir}/p2repo/build.xml" target="clean" dir="${antdsl-root.dir}/p2repo" />
     </target>
 
     <target name="build-all">
         <!-- first, let's generate the code -->
         <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl/build.xml" target="generate-antlr" dir="${antdsl-root.dir}/org.apache.ant.antdsl" />
-        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl/build.xml" target="generate-xtext" dir="${antdsl-root.dir}/org.apache.ant.antdsl" />
+
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext/build.xml" target="generate-xtext" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext" />
 
         <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl">
             <property name="antdsl.version.full" value="${antdsl.version.full}" />
         </ant>
 
-        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.ui/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl.ui">
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext">
             <property name="antdsl.version.full" value="${antdsl.version.full}" />
         </ant>
 
-        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.feature/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl.feature">
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui">
+            <property name="antdsl.version.full" value="${antdsl.version.full}" />
+        </ant>
+
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests/build.xml" target="install" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests">
             <property name="antdsl.version.full" value="${antdsl.version.full}" />
         </ant>
 
         <ant antfile="${antdsl-root.dir}/p2repo/build.xml" target="generate-snapshots-repo" dir="${antdsl-root.dir}/p2repo">
             <property name="antdsl.version.full" value="${antdsl.version.full}" />
         </ant>
+    </target>
+
+    <target name="update-deps">
+        <ant antfile="${antdsl-root.dir}/target-platform/build.xml" target="update-deps" dir="${antdsl-root.dir}/target-platform" />
+        <ant antfile="${antdsl-root.dir}/target-platform/build.xml" target="populate-target-platform" dir="${antdsl-root.dir}/target-platform" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl/build.xml" target="update-deps" dir="${antdsl-root.dir}/org.apache.ant.antdsl" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext/build.xml" target="update-deps" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui/build.xml" target="update-deps" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.ui" />
+        <ant antfile="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests/build.xml" target="update-deps" dir="${antdsl-root.dir}/org.apache.ant.antdsl.xtext.tests" />
     </target>
 
 </project>

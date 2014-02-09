@@ -16,16 +16,9 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<ivy-module version="2.0">
-    <info organisation="org.apache.ant.antdsl" module="antdsl-xtext-ui">
-        <extends organisation="bundle" module="org.apache.ant.antdsl.xtext.ui" revision="1.0.0" location="META-INF/MANIFEST.MF"/>
-    </info>
-    <configurations>
-        <conf name="compile" extends="default" />
-        <conf name="runtime" extends="default" />
-    </configurations>
-    <dependencies>
-        <!-- fragment -->
-        <dependency org="bundle" name="org.eclipse.swt.cocoa.macosx.x86_64" rev="[3,)" conf="*->default" />
-    </dependencies>
-</ivy-module>
+<project name="antdsl-xtext-tests" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <import file="../build/common-build.xml" />
+    <import file="../build/common-build-plugin.xml" />
+
+</project>

@@ -17,48 +17,24 @@
    under the License.    
 -->
 <ivy-module version="2.0">
-    <info organisation="org.apache.ant" module="ant-dsl">
-        <extends organisation="bundle" module="org.apache.ant.antdsl" revision="1.0.0" location="META-INF/MANIFEST.MF"/>
+    <info organisation="org.apache.ant" module="antdsl-xtext">
+        <extends organisation="bundle" module="org.apache.ant.antdsl.xtext" revision="1.0.0" location="META-INF/MANIFEST.MF"/>
     </info>
     <configurations>
-        <conf name="compile" extends="generate" />
+        <conf name="compile" extends="default" />
         <conf name="runtime" extends="default" />
-        <conf name="generate" extends="optional" />
+        <conf name="generate" extends="runtime" />
     </configurations>
     <dependencies>
-        <!-- ambiguity fix -->
-        <dependency org="bundle" name="org.apache.log4j" rev="1.2.15.v201005080500" conf="default->default" />
-        <dependency org="bundle" name="org.apache.commons.logging" rev="1.1.1.v201101211721" conf="default->default" />
-        <dependency org="bundle" name="com.ibm.icu" rev="4.4.2.v20110823" conf="default->default" />
-        <dependency org="bundle" name="org.eclipse.xtext.xbase.lib" rev="2.4.2.v201306120542" conf="default->default" />
-        <dependency org="bundle" name="org.eclipse.emf.mwe.utils" rev="1.3.0.v201306110341" conf="default->default" />
-        <dependency org="bundle" name="org.eclipse.ui.forms" rev="3.5.200.v20120521-2329" conf="default->default" />
-        <dependency org="bundle" name="org.eclipse.equinox.util" rev="1.0.400.v20120917-192807" conf="default->default" />
-
-        <!-- force use of this version over the OTDT one -->
+        <!-- force use of this version over the OTDT one >
         <dependency org="bundle" name="org.eclipse.jdt.core" rev="3.8.3.v20130121-145325" conf="*->default" force="true" />
         <dependency org="bundle" name="org.eclipse.jdt.compiler.apt" rev="1.0.600.v20130116-050536" conf="*->default" force="true" />
-        <dependency org="bundle" name="org.eclipse.jdt.compiler.tool" rev="1.0.200.v20130116-050536" conf="*->default" force="true" />
+        <dependency org="bundle" name="org.eclipse.jdt.compiler.tool" rev="1.0.200.v20130116-050536" conf="*->default" force="true" /-->
 
-        <!-- some optional dependency we do need -->
-        <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="2.4.0+" conf="generate->default" />
-
-        <!-- FIXME: we need to get this from a real OSGi repo with OSGi coordinates -->
-        <dependency org="org.apache.felix" name="org.apache.felix.framework" rev="4.0.3" conf="default->default,sources" />
-        <dependency org="org.apache.ant" name="ant" rev="1.9.2" conf="default->default,sources" />
-        <exclude org="bundle" module="org.apache.ant" conf="*" />
-
-        <!-- provided -->
-        <exclude org="package" module="javax.xml.parsers" />
-        <exclude org="package" module="javax.xml.transform" />
-        <exclude org="package" module="javax.xml.transform.dom" />
-        <exclude org="package" module="javax.xml.transform.stream" />
-        <exclude org="package" module="org.xml.sax" />
-        <exclude org="package" module="org.xml.sax.helpers" />
-        <exclude org="package" module="org.xml.sax.ext" />
-        <exclude org="package" module="org.w3c.dom" />
-        <exclude org="package" module="org.w3c.dom.css" />
-        <exclude org="package" module="org.w3c.dom.events" />
-        <exclude org="package" module="javax.annotation" />
+        <!-- for generation -->
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.launch" rev="[2.5,3.0)" conf="generate->default" />
+        <dependency org="bundle" name="org.eclipse.emf.mwe2.lib" rev="[2.5,3.0)" conf="generate->default" />
+        <dependency org="bundle" name="org.eclipse.xtext.generator" rev="[2.5,3.0)" conf="generate->default" />
+        <dependency org="bundle" name="org.eclipse.emf.codegen.ecore" rev="[2.9,3.0)" conf="generate->default" />
     </dependencies>
 </ivy-module>

@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.    
 -->
-<project name="antdsl-ui" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="antdsl-xtext-ui" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <import file="../build/common-build.xml" />
     <import file="../build/common-build-plugin.xml" />

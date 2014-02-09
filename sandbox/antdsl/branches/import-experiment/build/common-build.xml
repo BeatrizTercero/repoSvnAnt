@@ -46,15 +46,17 @@
     <target name="-check-build-deps">
         <condition property="build-deps.exist">
             <and>
-                <available file="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" />
-
-                <available file="${build-deps.dir}/antlr3-task/ant-antlr3.jar" />
+                <available file="${build-deps.dir}/antlr-3.5.1.jar" />
+                <available file="${build-deps.dir}/antlr-runtime-3.5.1.jar" />
+                <available file="${build-deps.dir}/stringtemplate-4.0.2.jar" />
 
                 <available file="${build-deps.dir}/ivy-${ivy.version}.jar" />
 
                 <available file="${build-deps.dir}/antlr-generator-3.2.0.jar" />
 
                 <available file="${build-deps.dir}/ant-contrib-20020829.jar" />
+
+                <available file="${build-deps.dir}/bnd-2.2.0.jar" />
             </and>
         </condition>
         <mkdir dir="${user.home}/.ivy2/lib/" />
@@ -65,26 +67,38 @@
 
         <get src="https://builds.apache.org/pview/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${build-deps.dir}/ivy-${ivy.version}.jar" usetimestamp="true" />
 
-        <get src="http://www.antlr3.org/download/antlr-3.5-complete-no-st3.jar" dest="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" usetimestamp="true" />
+        <get src="http://central.maven.org/maven2/org/antlr/antlr/3.5.1/antlr-3.5.1.jar" dest="${build-deps.dir}/antlr-3.5.1.jar" usetimestamp="true" />
+        <get src="http://central.maven.org/maven2/org/antlr/antlr-runtime/3.5.1/antlr-runtime-3.5.1.jar" dest="${build-deps.dir}/antlr-runtime-3.5.1.jar" usetimestamp="true" />
+        <get src="http://central.maven.org/maven2/org/antlr/stringtemplate/4.0.2/stringtemplate-4.0.2.jar" dest="${build-deps.dir}/stringtemplate-4.0.2.jar" usetimestamp="true" />
 
         <get src="http://download.itemis.com/antlr-generator-3.2.0.jar" dest="${build-deps.dir}/antlr-generator-3.2.0.jar" usetimestamp="true" />
         <copy file="${build-deps.dir}/antlr-generator-3.2.0.jar" tofile="${antdsl-root.dir}/org.apache.ant.antdsl/.antlr-generator-3.2.0.jar" />
 
-        <get src="http://www.antlr.org/share/1169924912745/antlr3-task.zip" dest="${build-deps.dir}/antlr3-task.zip" usetimestamp="true" />
-        <unzip src="${build-deps.dir}/antlr3-task.zip" dest="${build-deps.dir}" />
+        <get src="http://central.maven.org/maven2/ant-contrib/ant-contrib/20020829/ant-contrib-20020829.jar" dest="${build-deps.dir}/ant-contrib-20020829.jar" usetimestamp="true" />
 
-        <get src="http://repo1.maven.org/maven2/ant-contrib/ant-contrib/20020829/ant-contrib-20020829.jar" dest="${build-deps.dir}/ant-contrib-20020829.jar" usetimestamp="true" />
+        <get src="http://central.maven.org/maven2/biz/aQute/bnd/bnd/2.2.0/bnd-2.2.0.jar" dest="${build-deps.dir}/bnd-2.2.0.jar" usetimestamp="true" />
     </target>
 
     <target name="init" depends="-download-build-deps">
-        <taskdef name="antlr3" classname="org.apache.tools.ant.antlr.ANTLR3">
-            <classpath>
-                <pathelement path="${build-deps.dir}/antlr-3.5-complete-no-st3.jar" />
-                <pathelement path="${build-deps.dir}/antlr3-task/ant-antlr3.jar" />
-            </classpath>
-        </taskdef>
+        <macrodef name="antlr">
+            <attribute name="target" />
+            <attribute name="outputdirectory" />
+            <sequential>
+                <java classname="org.antlr.Tool" classpath="${build-deps.dir}/antlr-3.5.1.jar;${build-deps.dir}/antlr-runtime-3.5.1.jar" failonerror="true">
+                    <classpath>
+                        <path location="${build-deps.dir}/antlr-3.5.1.jar" />
+                        <path location="${build-deps.dir}/antlr-runtime-3.5.1.jar" />
+                        <path location="${build-deps.dir}/stringtemplate-4.0.2.jar" />
+                    </classpath>
+                    <arg value="-o" />
+                    <arg value="@{outputdirectory}" />
+                    <arg value="@{target}" />
+                </java>
+            </sequential>
+        </macrodef>
         <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${build-deps.dir}/ivy-${ivy.version}.jar" />
         <taskdef resource="net/sf/antcontrib/antcontrib.properties" uri="antlib:net.sf.antcontrib" classpath="${build-deps.dir}/ant-contrib-20020829.jar" />
+        <taskdef resource="aQute/bnd/ant/taskdef.properties" uri="antlib:aQute.bnd" classpath="${build-deps.dir}/bnd-2.2.0.jar" />
     </target>
 
     <target name="ivy:configure" depends="init">

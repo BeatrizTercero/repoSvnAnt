@@ -25,19 +25,20 @@
     </target>
 
     <target name="retrieve-eclipse" depends="init,ivy:configure">
-        <ivy:resolve type="jar" uncompress="true" resolveId="eclipse.resolve">
-            <dependency org="bundle" name="org.eclipse.equinox.launcher" rev="1.3+" />
-            <dependency org="bundle" name="org.eclipse.core.runtime" rev="3.8+" />
-            <dependency org="bundle" name="org.eclipse.equinox.ds" rev="1.4+" />
-            <dependency org="bundle" name="org.eclipse.equinox.p2.publisher.eclipse" rev="1.1+" />
-            <dependency org="bundle" name="org.eclipse.equinox.p2.updatesite" rev="1.0+" />
+        <ivy:resolve type="jar" resolveId="eclipse.resolve">
+            <dependency org="bundle" name="org.eclipse.equinox.launcher" rev="[1.3,2.0)" conf="default" />
+            <dependency org="bundle" name="org.eclipse.core.runtime" rev="[3.8,4.0)" conf="default" />
+            <dependency org="bundle" name="org.eclipse.equinox.ds" rev="[1.4,2.0)" conf="default" />
+            <dependency org="bundle" name="org.eclipse.equinox.p2.publisher.eclipse" rev="[1.1,2.0)" conf="default" />
+            <dependency org="bundle" name="org.eclipse.equinox.p2.updatesite" rev="[1.0,2.0)" conf="default" />
             <!-- provided by the jvm -->
             <exclude org="package" module="org.xml.sax" />
             <exclude org="package" module="org.xml.sax.ext" />
             <exclude org="package" module="org.xml.sax.helpers" />
+            <exclude org="package" module="org.w3c.dom" />
             <exclude org="package" module="javax.xml.parsers" />
         </ivy:resolve>
-        <ivy:retrieve resolveid="eclipse.resolve" conf="*" type="jar" pattern="target/eclipse/plugins/[artifact]_[revision].[ext]" uncompress="true" sync="true" />
+        <ivy:retrieve resolveid="eclipse.resolve" conf="*" type="jar" pattern="target/eclipse/plugins/[artifact]_[revision].[ext]" sync="true" />
     </target>
 
     <target name="generate-snapshots-repo" depends="retrieve-eclipse">

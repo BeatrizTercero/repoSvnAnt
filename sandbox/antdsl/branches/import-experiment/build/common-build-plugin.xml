@@ -26,23 +26,23 @@
 
     <target name="clean-gen" description="Clean generated files">
         <delete dir="${basedir}/src-gen" />
-        <delete dir="${basedir}/xtend-gen" />
         <mkdir dir="${basedir}/src-gen" />
-        <mkdir dir="${basedir}/xtend-gen" />
     </target>
 
     <target name="ivy:resolve" depends="init,ivy:configure">
         <property name="ivy.resolve.confs" value="compile,runtime" />
-        <ivy:resolve file="${basedir}/ivy.xml" conf="${ivy.resolve.confs}" type="jar,bundle" uncompress="true" />
-        <ivy:cachepath pathid="compile.classpath" conf="compile" type="jar,bundle" uncompress="true" osgi="true" />
-        <ivy:cachepath pathid="runtime.classpath" conf="runtime" type="jar,bundle" uncompress="true" osgi="true" />
+        <ivy:resolve file="${basedir}/ivy.xml" conf="${ivy.resolve.confs}" type="jar,bundle" />
+        <ivy:cachepath pathid="compile.classpath" conf="compile" type="jar,bundle" osgi="true" />
+        <ivy:cachepath pathid="runtime.classpath" conf="runtime" type="jar,bundle" osgi="true" />
     </target>
 
     <target name="update-deps" depends="init,ivy:configure" description="Update dependencies (to be called on ivy-manifest.xml or MANIFEST.MF change)">
-        <ivy:resolve file="${basedir}/ivy-manifest.xml" conf="*" type="jar" uncompress="true" resolveId="update-deps" />
+        <property name="ivy.update-deps.confs" value="compile,runtime" />
+        <ivy:resolve file="${basedir}/ivy-manifest.xml" conf="${ivy.update-deps.confs}" type="jar" resolveId="update-deps" />
         <ivy:fixdeps tofile="${basedir}/ivy.xml" resolveId="update-deps">
             <keep org="bundle" module="org.apache.ant.antdsl" />
-            <keep org="bundle" module="org.apache.ant.antdsl.ui" />
+            <keep org="bundle" module="org.apache.ant.antdsl.xtext" />
+            <keep org="bundle" module="org.apache.ant.antdsl.xtext.ui" />
         </ivy:fixdeps>
     </target>
 

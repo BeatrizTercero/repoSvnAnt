@@ -20,32 +20,21 @@
 
     <settings defaultResolver="all" defaultLatestStrategy="latest-osgi" />
 
-    <property name="caches.basedir" value="${ivy.settings.dir}/repo-caches" />
+    <property name="caches.basedir" value="${ivy.settings.dir}/../repo-caches" />
 
-    <caches resolutionCacheDir="${caches.basedir}/resolution-cache">
-        <cache name="eclipse-juno" basedir="${caches.basedir}/eclipse-juno" />
-        <cache name="xtext" basedir="${caches.basedir}/xtext" />
-        <cache name="itemis" basedir="${caches.basedir}/itemis" />
-        <cache name="ivyde-snapshots" basedir="${caches.basedir}/ivyde-snapshots" />
+    <caches resolutionCacheDir="${caches.basedir}/resolution-cache" useOrigin="true">
         <cache name="snapshots" basedir="${caches.basedir}/snapshots" />
+        <cache name="target-platform" basedir="${caches.basedir}/target-platform" />
     </caches>
 
     <resolvers>
         <obr name="snapshots" repoXmlFile="${ivy.settings.dir}/../p2repo/dist/snapshots/obr.xml" cache="snapshots" requirementStrategy="first" />
-        <updatesite name="eclipse-juno" url="http://download.eclipse.org/releases/juno" cache="eclipse-juno" requirementStrategy="first" />
-        <updatesite name="xtext" url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/" cache="xtext" requirementStrategy="first" />
-        <updatesite name="itemis" url="http://download.itemis.com/updates/milestones" cache="itemis" requirementStrategy="first" />
-        <updatesite name="ivyde-snapshots" url="https://builds.apache.org/job/IvyDE-updatesite/lastSuccessfulBuild/artifact/trunk/build/" cache="ivyde-snapshots" requirementStrategy="first" />
-        <ibiblio name="maven2" m2compatible="true"/>
+        <obr name="target-platform" repoXmlFile="${ivy.settings.dir}/../target-platform/obr.xml" cache="target-platform" requirementStrategy="first" />
 
-        <chain name="all" returnFirst="true">
+        <osgi-agg name="all" requirementStrategy="first">
             <resolver ref="snapshots" />
-            <resolver ref="xtext" />
-            <resolver ref="itemis" />
-            <resolver ref="ivyde-snapshots" />
-            <resolver ref="eclipse-juno" />
-            <resolver ref="maven2" />
-        </chain>
+            <resolver ref="target-platform" />
+        </osgi-agg>
 
     </resolvers>
 

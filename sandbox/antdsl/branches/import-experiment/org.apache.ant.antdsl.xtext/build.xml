@@ -22,7 +22,7 @@
     <import file="../build/common-build-plugin.xml" />
 
     <target name="ivy:resolve" depends="antdsl-common-build-plugin.ivy:resolve">
-        <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" uncompress="true" osgi="true" />
+        <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" osgi="true" />
     </target>
 
     <target name="generate-xtext" depends="ivy:resolve" description="Generate XText and Ecore files for the full plugin">

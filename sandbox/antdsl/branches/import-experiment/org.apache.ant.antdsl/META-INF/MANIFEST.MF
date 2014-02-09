@@ -5,11 +5,8 @@ Bundle-Vendor: Apache Software Fundation
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.apache.ant.antdsl; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.antlr.runtime,
- org.apache.ant;bundle-version="1.8.3",
- org.apache.ivy;bundle-version="2.4.0",
- org.eclipse.osgi;bundle-version="3.8.2"
-Import-Package: org.osgi.framework;version="1.7.0"
+Import-Package: org.apache.ivy,
+ org.osgi.framework, org.apache.tools.ant, org.antlr.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.apache.ant.antdsl,
  org.apache.ant.antdsl.antlr,

@@ -131,8 +131,8 @@ class AntPathManager {
         for (ArtifactDownloadReport adr : report.getAllArtifactsReports()) {
             if (artifactfilter.accept(adr.getArtifact())) {
                 File f = adr.getLocalFile();
-                if (uncompress && adr.getUncompressedLocalDir() != null) {
-                    f = adr.getUncompressedLocalDir();
+                if (uncompress && adr.getUnpackedLocalFile() != null) {
+                    f = adr.getUnpackedLocalFile();
                 }
                 addToPath(antPath, f, osgi);
             }
@@ -227,7 +227,6 @@ class AntPathManager {
         ResolveReport report;
         try {
             ResolveOptions options = new ResolveOptions();
-            options.setUncompress(true);
             report = ivy.resolve(ivyFile, options);
         } catch (ParseException e) {
             throw new BuildException("The ivy file '" + ivyFile + "' could not be parsed", e);

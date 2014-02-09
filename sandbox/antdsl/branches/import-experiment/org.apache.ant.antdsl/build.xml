@@ -22,12 +22,12 @@
     <import file="../build/common-build-plugin.xml" />
 
     <target name="ivy:resolve" depends="antdsl-common-build-plugin.ivy:resolve">
-        <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" uncompress="true" osgi="true" />
+        <ivy:cachepath pathid="generate.classpath" conf="generate" type="jar" osgi="true" />
     </target>
 
     <target name="generate-antlr" depends="init" description="Generate the simple ANTLR parser">
         <mkdir dir="${basedir}/src/org/apache/ant/antdsl/antlr" />
-        <antlr3 target="${basedir}/src/org/apache/ant/antdsl/AntDSL.g" outputdirectory="${basedir}/src/org/apache/ant/antdsl/antlr" />
+        <antlr target="${basedir}/src/org/apache/ant/antdsl/AntDSL.g" outputdirectory="${basedir}/src/org/apache/ant/antdsl/antlr" />
     </target>
 
     <target name="test-antlr" description="Test the run of an antdsl file with Xtext-generated parser">
