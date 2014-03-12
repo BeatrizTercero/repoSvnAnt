@@ -26,10 +26,10 @@
 
     <section name="Mailing Lists">
 
-      <p>Please read the <a
-      href="http://jakarta.apache.org/site/mail.html">guidelines of
-      the Jakarta Project</a> before subscribing and posting to any of
-      the lists below.  They apply to Apache Ant's lists as well.</p>
+      <p>Please refer to the <a
+      href="http://www.apache.org/dev/#mail">Mailing Lists</a> section of the www.apache.org web site
+      concerning email etiquette and other email related topics.
+      This applies to Apache Ant's lists as well.</p>
 
       <p>The user and dev list are subscriber only lists, this means
       you have to subscribe before you can post to the list.  Please
