@@ -227,7 +227,7 @@
   <html lang="en">
     <!-- GENERATED FILE, DO NOT EDIT, EDIT THE XML FILE IN xdocs INSTEAD! -->
     <head>
-      <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+      <META http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>$project.getChild("title").getText() - $root.getChild("properties").getChild("title").getText()</title>
         <link type="text/css" href="$relativePath/page.css" rel="stylesheet">
   #set ($authors = $root.getChild("properties").getChildren("author"))

@@ -76,12 +76,12 @@
              velocityPropertiesFile="${velocity.props}">
         </anakia>
         <fixcrlf srcdir="${docs.dest}" includes="**/*.html"
-                 encoding="iso-8859-1" outputencoding="iso-8859-1"/>
+                 encoding="iso-8859-1" outputencoding="utf-8"/>
     </target>
 
     <target name="fixcrlf" if="onwindows">
         <fixcrlf srcDir="${docs.dest}" eol="dos" includes="*.html"
-                 encoding="iso-8859-1" outputencoding="iso-8859-1"/>
+                 encoding="iso-8859-1" outputencoding="utf-8"/>
     </target>
 
     <target name="docs" if="AnakiaTask.present" depends="anakia,fixcrlf" description="Create XDocs.">
