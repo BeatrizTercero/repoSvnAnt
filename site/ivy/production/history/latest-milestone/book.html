@@ -24,7 +24,7 @@
 	
 
 	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
-<title>Documentation (2.3.0) | Apache Ivy&#153;</title>
+<title>Documentation (2.4.0-rc1) | Apache Ivy&#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../../style/print-style.css" />
 
@@ -47,7 +47,7 @@
 </table>
 
 		<div id="main">
-            <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (2.3.0)</div><br class="xooki-br"/>Welcome to the official Ivy documentation.<br class="xooki-br"/><br class="xooki-br"/><h1>What is Ivy?</h1>
+            <div id="xooki-messages" onclick="xooki.html.hide('xooki-messages')" style="zIndex:999;display:none;position:absolute;top:30px;padding:10px;border-style:solid;background:#eeeeee;"></div><div class='toc-title toc-title-1'>Documentation (2.4.0-rc1)</div><br class="xooki-br"/>Welcome to the official Ivy documentation.<br class="xooki-br"/><br class="xooki-br"/><h1>What is Ivy?</h1>
 Ivy is a tool for managing (recording, tracking, resolving and reporting) project dependencies. It is characterized by the following:<br class="xooki-br"/><ol>
 <li>flexibility and configurability - Ivy is essentially process agnostic and is not tied to any methodology or structure. Instead it provides the necessary flexibility and configurability to be adapted to a broad range of dependency management and build processes.</li>
 
@@ -69,22 +69,22 @@ The developers's doc is useful for users who would like to extend Ivy or build i
 <hr/><div class='toc-title toc-title-2'>Release Notes</div><br class="xooki-br"/><h2>Announcement</h2>
 
 <pre>
-Jan 20, 2013 - The Apache Ivy project is pleased to announce its 2.3.0 release.<br class="xooki-br"/><br class="xooki-br"/>Apache Ivy is a tool for managing (recording, tracking, resolving and<br class="xooki-br"/>reporting) project dependencies, characterized by flexibility,<br class="xooki-br"/>configurability, and tight integration with Apache Ant.<br class="xooki-br"/><br class="xooki-br"/>Key features of this 2.3.0 release are<br class="xooki-br"/>* improved Ant support with some new Ant tasks and enhancements to existing tasks<br class="xooki-br"/>* improved Maven2 compatibility<br class="xooki-br"/>* some new resolvers<br class="xooki-br"/>* numerous bug fixes as documented in Jira and in the release notes<br class="xooki-br"/><br class="xooki-br"/>In addition, experimental OSGI support has been added to the Ivy core.<br class="xooki-br"/><br class="xooki-br"/>You can download this 2.3.0 release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a><br class="xooki-br"/><br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVY">https://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/><br class="xooki-br"/>More information can be found on the website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/">http://ant.apache.org/ivy/</a><br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/>Maarten Coene
+March 23, 2014 - The Ivy project is pleased to announce its 2.4.0-RC1 release.<br class="xooki-br"/><br class="xooki-br"/>Ivy is a tool for managing (recording, tracking, resolving and<br class="xooki-br"/>reporting) project dependencies, characterized by flexibility,<br class="xooki-br"/>configurability, and tight integration with Apache Ant.<br class="xooki-br"/><br class="xooki-br"/>Key features of this 2.4.0-RC1 release are<br class="xooki-br"/>* some new Ant tasks<br class="xooki-br"/>* improved OSGI support<br class="xooki-br"/>* numerous bug fixes as documented in Jira and in the release notes<br class="xooki-br"/><br class="xooki-br"/>As a release candidate version, we strongly encourage the use of this version for <br class="xooki-br"/>testing and validation. From now on, features are frozen until final 2.4.0 version, <br class="xooki-br"/>only bug fixes will be applied before 2.4.0. If no outstanding bugs are reported <br class="xooki-br"/>with this release candidate, it will promoted to 2.4.0 about three weeks after this<br class="xooki-br"/>release candidate. <br class="xooki-br"/><br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVY">https://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/><br class="xooki-br"/>Download the 2.4.0-RC1 release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a><br class="xooki-br"/><br class="xooki-br"/>More information can be found on the Ivy website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/">http://ant.apache.org/ivy/</a><br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/>Maarten Coene
 </pre>
 
 <h2>Release Notes</h2>
 
 CONTENTS<br class="xooki-br"/>1. What is Apache Ivy?<br class="xooki-br"/>2. How to Get Involved<br class="xooki-br"/>3. How to Report Issues<br class="xooki-br"/>4. Committers and Contributors for this release<br class="xooki-br"/>5. List of Changes in this Release   <br class="xooki-br"/>   <br class="xooki-br"/>   <br class="xooki-br"/><h3>1. What is Apache Ivy?</h3>
 
-Apache Ivy is a tool for managing (recording, tracking, resolving and reporting) <br class="xooki-br"/>project dependencies. <br class="xooki-br"/>It is characterized by the following:<br class="xooki-br"/><br class="xooki-br"/>   1. flexibility and configurability <br class="xooki-br"/>        Apache Ivy is essentially process agnostic and is not tied to any <br class="xooki-br"/>        methodology or structure. <br class="xooki-br"/>        Instead it provides the necessary flexibility and configurability <br class="xooki-br"/>        to be adapted to a broad range of dependency management and build <br class="xooki-br"/>        processes.<br class="xooki-br"/>   2. tight integration with Apache Ant<br class="xooki-br"/>        while available as a standalone tool, Apache Ivy works particularly well <br class="xooki-br"/>        with Apache Ant providing a number of powerful Ant tasks ranging <br class="xooki-br"/>        from dependency resolution to dependency reporting and publication.<br class="xooki-br"/><br class="xooki-br"/><h3>2. How to Get Involved</h3> 
+Apache Ivy is a tool for managing (recording, tracking, resolving and reporting) <br class="xooki-br"/>project dependencies. <br class="xooki-br"/>It is characterized by the following:<br class="xooki-br"/><br class="xooki-br"/>   1. flexibility and configurability <br class="xooki-br"/>        Apache Ivy is essentially process agnostic and is not tied to any <br class="xooki-br"/>        methodology or structure. <br class="xooki-br"/>        Instead it provides the necessary flexibility and configurability <br class="xooki-br"/>        to be adapted to a broad range of dependency management and build <br class="xooki-br"/>        processes.<br class="xooki-br"/>   2. tight integration with Apache Ant<br class="xooki-br"/>        while available as a standalone tool, Apache Ivy works particularly well <br class="xooki-br"/>        with Apache Ant providing a number of powerful Ant tasks ranging <br class="xooki-br"/>        from dependency resolution to dependency reporting and publication.<br class="xooki-br"/><br class="xooki-br"/><h3>2. How to Get Involved</h3>
 
 The Apache Ivy project really needs and appreciates any contributions, <br class="xooki-br"/>including documentation help, source code and feedback.  If you are interested<br class="xooki-br"/>in contributing, please visit <a href="http://ant.apache.org/ivy/get-involved.html">http://ant.apache.org/ivy/get-involved.html</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>3. How to Report Issues</h3>
 
 The Apache Ivy project uses JIRA for issue tracking.  Please report any <br class="xooki-br"/>issues you find at <a href="http://issues.apache.org/jira/browse/IVY">http://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/><br class="xooki-br"/><h3>4. Committers and Contributors for this Release</h3>
 
-Here is the list of people who have contributed source code and documentation<br class="xooki-br"/>to this release. Many thanks to all of them, and also to the whole Ivy community<br class="xooki-br"/>contributing ideas and feedback, and promoting the use of Ivy. The list would be too<br class="xooki-br"/>long, but Ivy couldn't be what it is without you!<br class="xooki-br"/><br class="xooki-br"/> Committers<br class="xooki-br"/>    Matt Benson<br class="xooki-br"/>    Jean-Louis Boudart<br class="xooki-br"/>    Maarten Coene<br class="xooki-br"/>    Xavier Hanin<br class="xooki-br"/>    Nicolas Lalevee<br class="xooki-br"/>    Jon Schneider<br class="xooki-br"/>    Gilles Scokart<br class="xooki-br"/><br class="xooki-br"/> Contributors<br class="xooki-br"/>    Arnold Blaasmo<br class="xooki-br"/>    Ed Burcher<br class="xooki-br"/>    Joseph Boyd<br class="xooki-br"/>    Wei Chen<br class="xooki-br"/>    Robin Fernandes<br class="xooki-br"/>    Wolfgang Frank<br class="xooki-br"/>    Mitch Gitman<br class="xooki-br"/>    Payam Hekmat<br class="xooki-br"/>    Stepan Koltsov<br class="xooki-br"/>    Thomas Kurpick<br class="xooki-br"/>    Ales Nosek<br class="xooki-br"/>    Douglas Palmer<br class="xooki-br"/>    Carl Quinn<br class="xooki-br"/>    Torkild U. Resheim<br class="xooki-br"/>    Jens Rohloff<br class="xooki-br"/>    Ben Schmidt<br class="xooki-br"/>    Nihal Sinha<br class="xooki-br"/>    Sven Zethelius<br class="xooki-br"/><br class="xooki-br"/>For the list of people who have contributed since Ivy inception, see CHANGES.txt file.<br class="xooki-br"/><br class="xooki-br"/><h3>5. List of Changes in this Release</h3>
+Here is the list of people who have contributed source code and documentation<br class="xooki-br"/>to this release. Many thanks to all of them, and also to the whole Ivy community<br class="xooki-br"/>contributing ideas and feedback, and promoting the use of Ivy. The list would be too<br class="xooki-br"/>long, but Ivy couldn't be what it is without you!<br class="xooki-br"/><br class="xooki-br"/> Committers<br class="xooki-br"/>    Jean-Louis Boudart<br class="xooki-br"/>    Maarten Coene<br class="xooki-br"/>    Charles Duffy<br class="xooki-br"/>    Nicolas Lalevee<br class="xooki-br"/>    Antoine Levy Lambert<br class="xooki-br"/><br class="xooki-br"/> Contributors<br class="xooki-br"/>    Gregory Amerson<br class="xooki-br"/>    Mykhailo Delegan<br class="xooki-br"/>    Tony Likhite<br class="xooki-br"/>    Carsten Pfeiffer<br class="xooki-br"/>    Yanus Poluektovich<br class="xooki-br"/>    Frederic Riviere<br class="xooki-br"/>    Gene Smith<br class="xooki-br"/>    Erwin Tratar<br class="xooki-br"/><br class="xooki-br"/>For the list of people who have contributed since Ivy inception, see CHANGES.txt file.<br class="xooki-br"/><br class="xooki-br"/><h3>5. List of Changes in this Release</h3>
 
-For a full release history of Ivy see the file CHANGES.txt<br class="xooki-br"/><br class="xooki-br"/>For details about the following changes, check our JIRA install at <br class="xooki-br"/><a href="http://issues.apache.org/jira/browse/ivy">http://issues.apache.org/jira/browse/ivy</a><br class="xooki-br"/><br class="xooki-br"/>List of changes since Ivy 2.2.0:<br class="xooki-br"/>- DOCUMENTATION: Bad example in Project dependencies Tutorial (<a href="https://issues.apache.org/jira/browse/IVY-1263">IVY-1263</a>)<br class="xooki-br"/>- DOCUMENTATION: remove deprecated defaultCache setting from examples (<a href="https://issues.apache.org/jira/browse/IVY-1273">IVY-1273</a>) (thanks to Joseph Boyd)<br class="xooki-br"/>- DOCUMENTATION: link to FAQ is incorrect in distribution files (<a href="https://issues.apache.org/jira/browse/IVY-793">IVY-793</a>) (thanks to Joseph Boyd)<br class="xooki-br"/>- DOCUMENTATION: The tag version-matchers is missing attribute in documentation (<a href="https://issues.apache.org/jira/browse/IVY-1292">IVY-1292</a>) (thanks to Per Arnold Blaasmo)<br class="xooki-br"/>- DOCUMENTATION: wrong default resolver documented on the 'How does it work' page (<a href="https://issues.apache.org/jira/browse/IVY-1265">IVY-1265</a>)<br class="xooki-br"/>- DOCUMENTATION: Correct outdated links to configuration pages (<a href="https://issues.apache.org/jira/browse/IVY-1266">IVY-1266</a>)<br class="xooki-br"/>- DOCUMENTATION: Documentation and Implementation mismatch of makepom (<a href="https://issues.apache.org/jira/browse/IVY-1383">IVY-1383</a>) (thanks to Thomas Kurpick)<br class="xooki-br"/>- DOCUMENTATION: added link to extra beginners guide (<a href="https://issues.apache.org/jira/browse/IVY-1381">IVY-1381</a>)<br class="xooki-br"/><br class="xooki-br"/>- NEW: [orgPath] can now be used as token in ivy/artifact patterns<br class="xooki-br"/>- NEW: New Ant datatype ivy:resources, an Ant resource collection like ivy:cachepath or ivy:cachefileset (<a href="https://issues.apache.org/jira/browse/IVY-334">IVY-334</a>)<br class="xooki-br"/>- NEW: ivy:resolve and post resole task can now have inlined dependencies declaration.<br class="xooki-br"/>- NEW: Import Bushel into Ivy core (<a href="https://issues.apache.org/jira/browse/IVY-1241">IVY-1241</a>)<br class="xooki-br"/>- NEW: An new resolver 'mirroredurl' which can handle a list of mirrored URL repositories (<a href="https://issues.apache.org/jira/browse/IVY-468">IVY-468</a>)<br class="xooki-br"/>- NEW: Support for a jar resolver (<a href="https://issues.apache.org/jira/browse/IVY-1312">IVY-1312</a>)<br class="xooki-br"/><br class="xooki-br"/>- IMPROVEMENT: ivy:install task does not allow specification of conf (<a href="https://issues.apache.org/jira/browse/IVY-1313">IVY-1313</a>) (thanks to Nihal Sinha)<br class="xooki-br"/>- IMPROVEMENT: ivy:makepom ignores the artifact type in generated dependencies (<a href="https://issues.apache.org/jira/browse/IVY-1229">IVY-1229</a>) (thanks to Douglas Palmer)<br class="xooki-br"/>- IMPROVEMENT: ivy:makepom now honors exclusion of artifacts in generated pom files (<a href="https://issues.apache.org/jira/browse/IVY-1294">IVY-1294</a>) (thanks to Jens Rohloff)<br class="xooki-br"/>- IMPROVEMENT: Added support for dynamic revisions in <extends> tag (<a href="https://issues.apache.org/jira/browse/IVY-1281">IVY-1281</a>)<br class="xooki-br"/>- IMPROVEMENT: ivy:makepom child element dependency should support the type and classifier attributes (<a href="https://issues.apache.org/jira/browse/IVY-1262">IVY-1262</a>)<br class="xooki-br"/>- IMPROVEMENT: ivy:retrieve can now create a path or fileset containing the retrieved artifacts (<a href="https://issues.apache.org/jira/browse/IVY-1235">IVY-1235</a>)<br class="xooki-br"/>- IMPROVEMENT: Improve diagnostics in ssh resolver (<a href="https://issues.apache.org/jira/browse/IVY-1267">IVY-1267</a>) (thanks to Stepan Koltsov)<br class="xooki-br"/>- IMPROVEMENT: ivy:retrieve now accepts a nested mapper type.<br class="xooki-br"/><br class="xooki-br"/>- FIX: Ivy generates wrong revision in URL for Maven snapshots (<a href="https://issues.apache.org/jira/browse/IVY-1396">IVY-1396</a>)<br class="xooki-br"/>- FIX: Maven2: resolve failure when parent has <dependencyManagement> with dependency in 'import' scope (<a href="https://issues.apache.org/jira/browse/IVY-1376">IVY-1376</a>)<br class="xooki-br"/>- FIX: IvyPublish fails when using extend tags with no explicit location attribute (<a href="https://issues.apache.org/jira/browse/IVY-1391">IVY-1391</a>)<br class="xooki-br"/>- FIX: *.lck files created by "artifact-lock" lock strategy are not cleaned up if ivy quits abruptly (<a href="https://issues.apache.org/jira/browse/IVY-1388">IVY-1388</a>) (thanks to Wei Chen)<br class="xooki-br"/>- FIX: Ivy default cache path with non-ASCII character lets it crash (<a href="https://issues.apache.org/jira/browse/IVY-1378">IVY-1378</a>)<br class="xooki-br"/>- FIX: latest.integration isn't resolved against a Maven snapshot repository (when uniqueVersion = true) (<a href="https://issues.apache.org/jira/browse/IVY-1036">IVY-1036</a>)<br class="xooki-br"/>- FIX: Resolve does not deliver all dependent artifacts (<a href="https://issues.apache.org/jira/browse/IVY-1366">IVY-1366</a>) (thanks to Wolfgang Frank)<br class="xooki-br"/>- FIX: Ivy descriptors are merged incorrectly when there is an <exclude> element (<a href="https://issues.apache.org/jira/browse/IVY-1356">IVY-1356</a>)<br class="xooki-br"/>- FIX: SimpleDateFormat is not thread safe (<a href="https://issues.apache.org/jira/browse/IVY-1373">IVY-1373</a>)<br class="xooki-br"/>- FIX: Maven 'hk2-jar' packaging is now supported (<a href="https://issues.apache.org/jira/browse/IVY-1357">IVY-1357</a>)<br class="xooki-br"/>- FIX: Maven 'orbit' and 'pear' packaging is now supported (<a href="https://issues.apache.org/jira/browse/IVY-899">IVY-899</a>)<br class="xooki-br"/>- FIX: Memory leak and infinite loop in ModuleId.java (<a href="https://issues.apache.org/jira/browse/IVY-1362">IVY-1362</a>)<br class="xooki-br"/>- FIX: Unnecessary warning when parent ivy.xml is not found (<a href="https://issues.apache.org/jira/browse/IVY-1346">IVY-1346</a>)<br class="xooki-br"/>- FIX: StackOverflowError when using <extends> and ../ivy.xml is not the parent ivy.xml (<a href="https://issues.apache.org/jira/browse/IVY-1437">IVY-1437</a>)<br class="xooki-br"/>- FIX: NullPointerExeption in AbstractOSGiResolver (<a href="https://issues.apache.org/jira/browse/IVY-1343">IVY-1343</a>) (thanks to Thomas Kurpick)<br class="xooki-br"/>- FIX: Delivered ivy descriptor inconsistent with resolve report / retrieve and other post-resolve actions (<a href="https://issues.apache.org/jira/browse/IVY-1300">IVY-1300</a>) (thanks to Ed Burcher)<br class="xooki-br"/>- FIX: The Updatesite resolver is downloading Eclipse features instead of Eclipse bundle/plugin<br class="xooki-br"/>- FIX: ivy:buildlist task confused by extends feature using two parents (<a href="https://issues.apache.org/jira/browse/IVY-1363">IVY-1363</a>) (thanks to Mitch Gitman and Jean-Louis Boudart)<br class="xooki-br"/>- FIX: ivy.xml extends feature complains about Windows filesystem path (<a href="https://issues.apache.org/jira/browse/IVY-1359">IVY-1359</a>) (thanks to Mitch Gitman and Jean-Louis Boudart)<br class="xooki-br"/>- FIX: buildlist task chokes on absolute path to parent Ivy module (<a href="https://issues.apache.org/jira/browse/IVY-1364">IVY-1364</a>) (thanks to Mitch Gitman and Jean-Louis Boudart)<br class="xooki-br"/>- FIX: The ignore circular dependency strategy is clobbering the warn strategy (<a href="https://issues.apache.org/jira/browse/IVY-1353">IVY-1353</a>) (Thanks to Carl Quinn)<br class="xooki-br"/>- FIX: Buildnumber and IvyFindRevision Ant tasks should honour defaultBranch setting (<a href="https://issues.apache.org/jira/browse/IVY-1344">IVY-1344</a>) (Thanks to Ales Nosek)<br class="xooki-br"/>- FIX: ApacheURLLister.retrieveListing() fails if the encoding of the URL list is different from the default encoding (<a href="https://issues.apache.org/jira/browse/IVY-1060">IVY-1060</a>) (Thanks to Robin Fernandes)<br class="xooki-br"/>- FIX: global exclude rules is not applying to root ivy files<br class="xooki-br"/>- FIX: Exclude doesn't work when there is some circular dependencies (<a href="https://issues.apache.org/jira/browse/IVY-1309">IVY-1309</a>)<br class="xooki-br"/>- FIX: Impossible to get artifacts when data has not been loaded for multiple dynamic revisions (<a href="https://issues.apache.org/jira/browse/IVY-1333">IVY-1333</a>)<br class="xooki-br"/>- FIX: Ivy didn't properly handle some file: URLs (<a href="https://issues.apache.org/jira/browse/IVY-1340">IVY-1340</a>)<br class="xooki-br"/>- FIX: fallback mechanism didn't work properly for private configurations<br class="xooki-br"/>- FIX: /localivy target does not work when building Ivy jar (<a href="https://issues.apache.org/jira/browse/IVY-1338">IVY-1338</a>) (thanks to Ben Schmidt)<br class="xooki-br"/>- FIX: The showprogress=false attribute of ivy:resolve doesn't do what it should (<a href="https://issues.apache.org/jira/browse/IVY-1052">IVY-1052</a>) (thanks to Joseph Boyd)<br class="xooki-br"/>- FIX: extends ignores defaultconfmapping/defaultconf/confmappingoverride attributes from parent's configurations and dependencies tags (<a href="https://issues.apache.org/jira/browse/IVY-1213">IVY-1213</a>)<br class="xooki-br"/>- FIX: NullPointerException when providing empty password to <credentials> (<a href="https://issues.apache.org/jira/browse/IVY-1335">IVY-1335</a>)<br class="xooki-br"/>- FIX: [originalname] not expanded for source and javadoc types during publish in ivy:install (<a href="https://issues.apache.org/jira/browse/IVY-1324">IVY-1324</a>)<br class="xooki-br"/>- FIX: cannot resolve from repositories that return HTTP 204 in response to an HTTP HEAD request (<a href="https://issues.apache.org/jira/browse/IVY-1328">IVY-1328</a>)<br class="xooki-br"/>- FIX: extra attributes lost from info when ivy file is merged with parent (<a href="https://issues.apache.org/jira/browse/IVY-1206">IVY-1206</a>)<br class="xooki-br"/>- FIX: ivy:report ant task intermittently "cannot compile stylesheet" (<a href="https://issues.apache.org/jira/browse/IVY-1325">IVY-1325</a>)<br class="xooki-br"/>- FIX: Maven 'eclipse-plugin', 'jbi-component' and 'jbi-shared-library' packaging is now mapped to 'jar' extension (<a href="https://issues.apache.org/jira/browse/IVY-899">IVY-899</a>)<br class="xooki-br"/>- FIX: Infinite loop in latest-compatible conflict manager (<a href="https://issues.apache.org/jira/browse/IVY-1233">IVY-1233</a>) (thanks to Payam Hekmat and Sven Zethelius)<br class="xooki-br"/>- FIX: extends section of ivy.xml info does not replace variable in location tag (<a href="https://issues.apache.org/jira/browse/IVY-1287">IVY-1287</a>)<br class="xooki-br"/>- FIX: Valid Path does not work for Filesystem Resolver (<a href="https://issues.apache.org/jira/browse/IVY-1268">IVY-1268</a>)<br class="xooki-br"/>- FIX: quiet="true" does not surpress download 'dots' on packager resolver (<a href="https://issues.apache.org/jira/browse/IVY-1269">IVY-1269</a>)<br class="xooki-br"/>- FIX: Dynamic version resolution result can be incorrect when ivy metadata contains extra attributes (<a href="https://issues.apache.org/jira/browse/IVY-1236">IVY-1236</a>)<br class="xooki-br"/>- FIX: NullPointerException in FileUtil#forceDelete.<br class="xooki-br"/>- FIX: XmlModuleDescriptorUpdater is a mess that produces broken xmls in many cases (<a href="https://issues.apache.org/jira/browse/IVY-1010">IVY-1010</a>)<br class="xooki-br"/>- FIX: ivy.xml that contains UTF-8 encoded umlauts cannot be bigger than 10000 bytes (<a href="https://issues.apache.org/jira/browse/IVY-1253">IVY-1253</a>)<br class="xooki-br"/>- FIX: Can not use a v[revision] in an artifact pattern of a filesystem resolver (<a href="https://issues.apache.org/jira/browse/IVY-1238">IVY-1238</a>)<br class="xooki-br"/>- FIX: Cached ivy.xml is invalid if the description contains the ampersand entity (&amp;) (<a href="https://issues.apache.org/jira/browse/IVY-1237">IVY-1237</a>)<br class="xooki-br"/>- FIX: Couldn't authenticate against sites having the same address as the proxy server (<a href="https://issues.apache.org/jira/browse/IVY-1234">IVY-1234</a>)<br class="xooki-br"/>- FIX: OutOfMemoryError when uploading large files using commons-httpclient (<a href="https://issues.apache.org/jira/browse/IVY-1197">IVY-1197</a>) (thanks to Torkild U. Resheim)<br class="xooki-br"/>- FIX: Only the last dependency descriptor is taken into account on the same module (<a href="https://issues.apache.org/jira/browse/IVY-1240">IVY-1240</a>)<br class="xooki-br"/>- FIX: UseCacheOnly doesn't respect the cache configuration in the ivysettings (<a href="https://issues.apache.org/jira/browse/IVY-1227">IVY-1227</a>)<br class="xooki-br"/>- FIX: UseCacheOnly is influenced by the TTL on cached metadata (<a href="https://issues.apache.org/jira/browse/IVY-1243">IVY-1243</a>)<br class="xooki-br"/>- FIX: ConcurrentModificationException on ivy settings loading (<a href="https://issues.apache.org/jira/browse/IVY-1250">IVY-1250</a>)<br class="xooki-br"/>- FIX: Module inheritance sometimes fails to locate parent descriptor in deliver process (<a href="https://issues.apache.org/jira/browse/IVY-1248">IVY-1248</a>)<br class="xooki-br"/>- FIX: <cachefileset> on an empty configuration produces a very slow-to-evaluate fileset (<a href="https://issues.apache.org/jira/browse/IVY-1272">IVY-1272</a>)<br class="xooki-br"/>- FIX: Ivy does not apply overridden properties to m2 parent dependency versions specified using properties (<a href="https://issues.apache.org/jira/browse/IVY-1299">IVY-1299</a>)<br class="xooki-br"/>- FIX: Ivy does not apply overridden properties to m2 parent dependency versions specified using dependencyManagement properties (<a href="https://issues.apache.org/jira/browse/IVY-1301">IVY-1301</a>)<br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Tutorials</div><br class="xooki-br"/>The best way to learn is to practice! That's what the Ivy tutorials will help you to do, to discover some of the great Ivy <a href="../../features.html">features</a>.<br class="xooki-br"/><br class="xooki-br"/>For the first tutorial you won't even have to install Ivy (assuming you have Ant and a JDK properly installed), and it shouldn't take more than 30 seconds.<br class="xooki-br"/><br class="xooki-br"/><b>First Tutorial</b><br class="xooki-br"/><ol>
+For a full release history of Ivy see the file CHANGES.txt<br class="xooki-br"/><br class="xooki-br"/>For details about the following changes, check our JIRA install at <br class="xooki-br"/><a href="http://issues.apache.org/jira/browse/ivy">http://issues.apache.org/jira/browse/ivy</a><br class="xooki-br"/><br class="xooki-br"/>List of changes since Ivy 2.3.0:<br class="xooki-br"/><br class="xooki-br"/>- DOCUMENTATION: Broken link in <dependency> documentation (<a href="https://issues.apache.org/jira/browse/IVY-1405">IVY-1405</a>)<br class="xooki-br"/>- DOCUMENTATION: Explicitly document that threaded use is not supported.<br class="xooki-br"/><br class="xooki-br"/>- NEW: the buildobr task can now work a set of resolved artifacts: useful for managing an OSGi target platform<br class="xooki-br"/>- NEW: fixdeps task: serializes transitively resolved dependencies into an ivy.xml file<br class="xooki-br"/>- NEW: IvyDependencyTree task : display a dependency tree on the console<br class="xooki-br"/>- NEW: Support Conditional Setting of a Property (<a href="https://issues.apache.org/jira/browse/IVY-1367">IVY-1367</a>)<br class="xooki-br"/>- NEW: Exposing some parent metadata (organisation, module, revision, branch) as properties (<a href="https://issues.apache.org/jira/browse/IVY-1288">IVY-1288</a>)<br class="xooki-br"/>- NEW: symlinkmass feature based on symlink feature of ivy:retrieve (<a href="https://issues.apache.org/jira/browse/IVY-1252">IVY-1252</a>) (Thanks to Gene Smith)<br class="xooki-br"/>- NEW: Agent authentication for SSH and SFTP transports (<a href="https://issues.apache.org/jira/browse/IVY-1421">IVY-1421</a>)<br class="xooki-br"/>- NEW: New OSGi resolver 'osgi-agg': a chain resolver dedicated to better handle OSGi dependencies<br class="xooki-br"/>- NEW: Add support for "packed" artifacts: .pack.gz bundles in an OSGi P2 repository for instance<br class="xooki-br"/><br class="xooki-br"/>- IMPROVEMENT: New LockStrategy available based on NIO FileLocks (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>)<br class="xooki-br"/>- IMPROVEMENT: Optional <include> ivysettings directives (<a href="https://issues.apache.org/jira/browse/IVY-1392">IVY-1392</a>) (thanks to Yanus Poluektovich)<br class="xooki-br"/>- IMPROVEMENT: add support for source bundles from p2 repositories<br class="xooki-br"/>- IMPROVEMENT: add support for source URI from OBR repositories<br class="xooki-br"/>- IMPROVEMENT: Also copy original metadata artifact (e.g. POM) on ivy:install (<a href="https://issues.apache.org/jira/browse/IVY-1431">IVY-1431</a>) (Thanks to Erwin Tratar)<br class="xooki-br"/>- IMPROVEMENT: useOrigin will do avoid copy with url resolvers configured with a 'file:/' URL<br class="xooki-br"/>- IMPROVEMENT: add support for source artifacts in buildobr task<br class="xooki-br"/>- IMPROVEMENT: add possibility to configure the User-Agent http header by setting a property http.agent (Thanks to Tony Likhite)<br class="xooki-br"/><br class="xooki-br"/>- FIX: In IvyDE, Ivy fails to parse ivy-settings.xml file if it contains <pgp> element (thanks to Gregory Amerson) (<a href="https://issues.apache.org/jira/browse/IVY-1441">IVY-1441</a>)<br class="xooki-br"/>- FIX: ParseException when "Bundle-Description" is present in OSGi MANIFEST.MF (<a href="https://issues.apache.org/jira/browse/IVY-1438">IVY-1438</a>)<br class="xooki-br"/>- FIX: NIO FileLocker released locks too early (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>) (thanks to Charles Duffy)<br class="xooki-br"/>- FIX: Ssh Resolver doesn't work with Java 7 (<a href="https://issues.apache.org/jira/browse/IVY-1408">IVY-1408</a>) (thanks to Mykhailo Delegan)<br class="xooki-br"/>- FIX: Parsing publication date in Ant tasks not thread-safe (<a href="https://issues.apache.org/jira/browse/IVY-1412">IVY-1412</a>)<br class="xooki-br"/>- FIX: NullPointerException when using httpclient and server doesn't return content-type header (<a href="https://issues.apache.org/jira/browse/IVY-1400">IVY-1400</a>) (thanks to Frederic Riviere)<br class="xooki-br"/>- FIX: Properly handle evicted nodes in ResolveReport<br class="xooki-br"/>- FIX: Artifact repository locking did not correctly handle threaded use (<a href="https://issues.apache.org/jira/browse/IVY-1454">IVY-1454</a>) (thanks to Carsten Pfeiffer)<br class="xooki-br"/>- FIX: Better support for "Bundle-RequiredExecutionEnvironment" from an OSGi MANIFEST.MF<br class="xooki-br"/>- FIX: When inheriting a module descriptor, also merge the exclude rules<br class="xooki-br"/>- FIX: Correct application of mediators (ie. override) during conflict resolution (<a href="https://issues.apache.org/jira/browse/IVY-1455">IVY-1455</a>)<br class="xooki-br"/>- FIX: Fix revision number mapping across namespaces (<a href="https://issues.apache.org/jira/browse/IVY-1423">IVY-1423</a>)<br class="xooki-br"/>- FIX: fix a NPE when loading a composite P2 repository with no children<br class="xooki-br"/>- FIX: fix missing configuration when fixdeps is used with a partial resolve<br class="xooki-br"/>- FIX: XmlModuleDescriptorWritter doesn't support fully extra infos elements (<a href="https://issues.apache.org/jira/browse/IVY-1457">IVY-1457</a>)<br class="xooki-br"/><hr/><div class='toc-title toc-title-2'>Tutorials</div><br class="xooki-br"/>The best way to learn is to practice! That's what the Ivy tutorials will help you to do, to discover some of the great Ivy <a href="../../features.html">features</a>.<br class="xooki-br"/><br class="xooki-br"/>For the first tutorial you won't even have to install Ivy (assuming you have Ant and a JDK properly installed), and it shouldn't take more than 30 seconds.<br class="xooki-br"/><br class="xooki-br"/><b>First Tutorial</b><br class="xooki-br"/><ol>
 <li>Make sure you have <a href="http://ant.apache.org/">ant</a> 1.6.0 or greater and a <a href="http://java.sun.com">jdk</a> properly installed</li>
 <li>Copy <a href="samples/build.xml">this build file</a> in an empty directory on your local filesystem (and make sure you name it build.xml)</li>
 <li>Open a console in this directory and run "ant". That's it!</li>
@@ -125,101 +125,11 @@ The corresponding build file contains a set of targets, allowing you to resolve 
 As you can see, it's very easy to call Ivy to resolve and retrieve dependencies: all you need if Ivy is properly <a href="../../history/latest-milestone/install.html">installed</a> is to define an XML namespace in your Ant file (xmlns:ivy="antlib:org.apache.ivy.ant"). Then all the <a href="../../history/latest-milestone/ant.html">Ivy ant tasks</a> will be available in this namespace.<br class="xooki-br"/><br class="xooki-br"/>Here we use only one task: the <a href="../../history/latest-milestone/use/retrieve.html">retrieve</a> task. With no attributes, it will use default settings and look for a file named <tt>ivy.xml</tt> for the dependency definitions. That's exactly what we want, so we need nothing more than that.<br class="xooki-br"/><br class="xooki-br"/>Note that in this case we define a <tt>resolve</tt> target and call the <tt><a href="../../history/latest-milestone/use/retrieve.html">retrieve</a></tt> task. This may sound confusing, actually the retrieve task performs a <a href="../../history/latest-milestone/use/resolve.html">resolve</a> (which resolves dependencies and downloads them to a cache) followed by a retrieve (a copy of those file to a local project directory). Check the <a href="../../history/latest-milestone/principle.html">How does it work ?</a> page for details about that.<br class="xooki-br"/><h1>Running the project</h1>
 OK, now that we have seen the files involved, let's run the sample to see what happens. Open a shell (or command line) window, and enter the <tt>hello-ivy</tt> example directory.<br class="xooki-br"/>Then, at the command prompt, run <tt>ant</tt>:
 <div class="shell"><pre>
-[ivy@apache:/ivy/hello-ivy]$ ant 
-Buildfile: /ivy/hello-ivy/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
-[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-javadoc.jar ...
-[ivy:retrieve] ................................... (467kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(javadoc) (1154ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0-sources.jar ...
-[ivy:retrieve] .................. (245kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar(source) (764ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ............... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (484ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-javadoc.jar ...
-[ivy:retrieve] ....... (92kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(javadoc) (375ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0.jar ...
-[ivy:retrieve] ..... (29kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar (171ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.0/commons-cli-1.0-sources.jar ...
-[ivy:retrieve] ...... (48kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.0!commons-cli.jar(source) (281ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar ...
-[ivy:retrieve] .... (21kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0!commons-logging.jar (249ms)
-[ivy:retrieve] :: resolution report :: resolve 1326ms :: artifacts dl 3541ms
-[ivy:retrieve] 	:: evicted modules:
-[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   4   |   3   |   3   |   1   ||   7   |   7   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	7 artifacts copied, 0 already retrieved (1069kB/78ms)
-
-run:
-    [mkdir] Created dir: /ivy/hello-ivy/build
-    [javac] Compiling 1 source file to /ivy/hello-ivy/build
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-
-BUILD SUCCESSFUL
-Total time: 6 seconds
 
 </pre></div>
 <h1>What happened ?</h1>
 Without any settings, Ivy retrieves files from the maven 2 repository. That's what happened here. <br class="xooki-br"/>The resolve task has found the commons-lang and commons-cli modules in the maven 2 repository, identified that commons-cli depends on commons-logging and so resolved it as a transitive dependency. Then Ivy has downloaded all corresponding artifacts in its cache (by default in your user home, in a .ivy2/cache directory). Finally, the retrieve task copies the resolved jars from the ivy cache to the default library directory of the project: the lib dir (you can change this easily by setting the pattern attribute on the <a href="../../history/latest-milestone/use/retrieve.html">retrieve</a> task).<br class="xooki-br"/><br class="xooki-br"/>You might say that the task took a long time just to write out a "Hello Ivy!" message. But remember that a lot of time was spent downloading the required files from the web. Let's try to run it again:
 <div class="shell"><pre>
-[ivy@apache:/ivy/hello-ivy]$ ant 
-Buildfile: /ivy/hello-ivy/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in public
-[ivy:retrieve] 	found commons-cli#commons-cli;1.0 in public
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0 in public
-[ivy:retrieve] :: resolution report :: resolve 171ms :: artifacts dl 0ms
-[ivy:retrieve] 	:: evicted modules:
-[ivy:retrieve] 	commons-lang#commons-lang;1.0 by [commons-lang#commons-lang;2.0] in [default]
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   4   |   0   |   0   |   1   ||   7   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 7 already retrieved (0kB/16ms)
-
-run:
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 Great! The cache was used, so no download was needed and the build was instantaneous.<br class="xooki-br"/><br class="xooki-br"/>And now, if you want to generate a report detailing all the dependencies of your module, you can call the report target, and check the generated file in the build directory. You should obtain something looking like <a href="../samples/apache-hello-ivy-default.html">this</a>.<br class="xooki-br"/><br class="xooki-br"/>As you can see, using Ivy to resolve dependencies stored in the maven 2 repository is extremely easy. Now you can go on with the next tutorials to learn more about <a href="../../history/latest-milestone/tutorial/conf.html">how to use module configurations</a> which is a very powerful Ivy specific feature. Other tutorials are also available where you will learn how to use Ivy settings to leverage a possibly complex enterprise repository. It may also be a good time to start reading the <a href="../../history/latest-milestone/reference.html">reference documentation</a>, and especially the introduction material which gives a good overview of Ivy. The <a href="../../history/latest-milestone/bestpractices.html">best practices</a> page is also a must read to start thinking about how to use Ant+Ivy to build a clean and robust build system.<hr/><div class='toc-title toc-title-3'>Adjusting default settings</div><br class="xooki-br"/>Ivy comes bundled with some default settings which makes it pretty simple to use in a typical environment. This tutorial, which is close to a reference document, explains what those default settings are and how they can be adjusted to your needs. <br class="xooki-br"/><br class="xooki-br"/>To fully understand the concept of settings and what you can do with them, we suggest reading other tutorials related to settings (like <a href="../../history/latest-milestone/tutorial/multiple.html">Multiple Resolvers</a> and <a href="../../history/latest-milestone/tutorial/dual.html">Dual Resolver</a>) or the <a href="../../history/latest-milestone/settings.html">Settings Files</a> reference documentation.<br class="xooki-br"/><br class="xooki-br"/><h1>Concept</h1>
@@ -344,44 +254,6 @@ In almost all examples, we provide a clean target as default target. Since most 
 <h2>step 3: run the project</h2>
 Go to <tt>chained-resolvers</tt> project directory. And simply run <tt>ant</tt>.<br class="xooki-br"/>
 <div class="shell"><pre>
-[ivy@apache:/ivy/chained-resolvers/chainedresolvers-project]$ ant 
-Buildfile: /ivy/chained-resolvers/chainedresolvers-project/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/chained-resolvers/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#chained-resolvers;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in ibiblio
-[ivy:retrieve] 	found org.apache#test;1.0 in libraries
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ...................... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (484ms)
-[ivy:retrieve] downloading /ivy/chained-resolvers/settings/repository/test-1.0.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#test;1.0!test.jar (15ms)
-[ivy:retrieve] :: resolution report :: resolve 749ms :: artifacts dl 499ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   2   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#chained-resolvers
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (166kB/32ms)
-
-run:
-    [mkdir] Created dir: /ivy/chained-resolvers/chainedresolvers-project/build
-    [javac] /ivy/chained-resolvers/chainedresolvers-project/build.xml:58: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 1 source file to /ivy/chained-resolvers/chainedresolvers-project/build
-     [java] standard message :example world !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Example World !
-     [java] upperCased by test.StringUtils : EXAMPLE WORLD !
-
-BUILD SUCCESSFUL
-Total time: 3 seconds
 
 </pre></div></div>
 
@@ -435,51 +307,6 @@ This will clean up the entire project directory tree (compiled classes and retri
 <h2>step 3 : run the project</h2>
 Go to the project directory. And simply run <tt>ant</tt>.
 <div class="shell"><pre>
-[ivy@apache:/ivy/dual/project]$ ant 
-Buildfile: /ivy/dual/project/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dual/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#hello-ivy;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-httpclient#commons-httpclient;2.0.2 in ivys
-[ivy:retrieve] 	found commons-logging#commons-logging;1.0.4 in ibiblio
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in ibiblio
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-httpclient/commons-httpclient/2.0.2/commons-httpclient-2.0.2.jar ...
-[ivy:retrieve] ........................... (220kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-httpclient#commons-httpclient;2.0.2!commons-httpclient.jar (655ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] .............. (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (452ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar ...
-[ivy:retrieve] ...... (37kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.4!commons-logging.jar (187ms)
-[ivy:retrieve] :: resolution report :: resolve 203ms :: artifacts dl 1310ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   3   |   3   |   1   |   0   ||   3   |   3   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#hello-ivy
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (423kB/31ms)
-
-run:
-    [mkdir] Created dir: /ivy/dual/project/build
-    [javac] Compiling 1 source file to /ivy/dual/project/build
-     [java] standard message : hello ivy !
-     [java] capitalized by org.apache.commons.lang.WordUtils : Hello Ivy !
-     [java] head status code with httpclient: 200
-     [java] now check if httpclient dependency on commons-logging has been realized
-     [java] found logging class in classpath: interface org.apache.commons.logging.Log
-
-BUILD SUCCESSFUL
-Total time: 3 seconds
 
 </pre></div></div>
 <br/>
@@ -551,48 +378,6 @@ This will clean up the entire project directory tree. You can do this each time 
 <h2>step 3: publication of dependee project</h2>
 Go to <tt>dependee</tt> directory  and publish the project
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ...................... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (468ms)
-[ivy:retrieve] :: resolution report :: resolve 234ms :: artifacts dl 468ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   0   |   0   ||   1   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (165kB/16ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/dependee/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/dependee/build/classes
-
-jar:
-[propertyfile] Creating new property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 1 :: release :: Thu Jan 10 14:34:36 CET 2013
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-1.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-1.xml
-     [echo] project dependee released with version 1
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 What we see here:
@@ -614,46 +399,6 @@ Both are just copies of the files found in the current project, or more precisel
 <h2>step 4: running the depender project</h2>
 Go to directory depender and run <tt>ant</tt>
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;1 in projects
-[ivy:retrieve] 	[1] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-1.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;1!dependee.jar (0ms)
-[ivy:retrieve] :: resolution report :: resolve 140ms :: artifacts dl 16ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   1   |   1   |   0   ||   2   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/16ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 1 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 What we see here:
@@ -668,43 +413,6 @@ What we see here:
 <h2>step 5: new version of dependee project</h2>
 Like we did before in step 3, publish the dependee project again. This will result in a new version of the project being published.
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] :: resolution report :: resolve 62ms :: artifacts dl 16ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 1 already retrieved (0kB/0ms)
-
-compile:
-
-jar:
-[propertyfile] Updating property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-   [delete] Deleting: /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 2 :: release :: Thu Jan 10 14:34:40 CET 2013
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-2.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-2.xml
-     [echo] project dependee released with version 2
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 Now if you look in your repository folder, you will find 2 versions of the dependee project.<br class="xooki-br"/>Let's look at it:
@@ -720,46 +428,6 @@ What should we expect if we run the depender project again? It should:
 </ul>
 Let's try it!!
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;2 in projects
-[ivy:retrieve] 	[2] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-2.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;2!dependee.jar (0ms)
-[ivy:retrieve] :: resolution report :: resolve 140ms :: artifacts dl 0ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   1   |   1   |   0   ||   2   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/16ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 2 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 OK, we got what we expected as the <tt>run</tt> target shows that we are using version 2 of the main class of the dependee project. If we take a look at the resolve target results, we see that one artifact has been downloaded to the ivy cache. In fact, this file is the same version 2 of the dependee project that is in the repository, but now all future retrievals will pull it from your ivy-cache directory.
@@ -838,36 +506,11 @@ This target is used when you don't want to use your local version of a module an
 Generates both an html report and a graphml report.<br class="xooki-br"/><br class="xooki-br"/>For example, to generate a graph like the one shown at the beginning of this tutorial, you just have to follow the instructions given <a href="../../history/latest-milestone/yed.html">here</a> with the graphml file you will find in <pre>projects/console/build/</pre> after having called report in the console project, and that's it, you have a clear overview of all your app dependencies!<br class="xooki-br"/><br class="xooki-br"/><h1>Playing with the projects</h1>
 You can play with this tutorial by using regular Ant commands. Begin in the base directory of the tutorial (src/example/multi-project), and run ant -p:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project]$ ant -p
-Buildfile: /ivy/multi-project/build.xml
-
-Main targets:
-
- clean        clean tutorial: delete repository, ivy cache, and all projects
- clean-all    clean all projects
- publish-all  compile, jar and publish all projects in the right order
 
 </pre></div>
 
 This gives you an idea of what you can do here. To make sure you have at least one version of all your modules published in your repository (required to build modules having dependencies on the others), you can run <tt>ant publish-all</tt> (example log <a href="log/multi-project-general-publishall.txt">here</a>).<br class="xooki-br"/><br class="xooki-br"/>You will see that Ivy calls the publish target on all the modules, following the order of the dependencies, so that a dependee is always built and published before its depender. Feel free to make changes in the source code of a module (changing a method name for instance) and in the module using the method, then call publish-all to see how the change in the dependee is compiled first, published, and then available to the depender which can compile successfully.<br class="xooki-br"/><br class="xooki-br"/>Then you can go in one of the example project directories (like projects/find for instance), and run <tt>ant -p</tt>:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project/projects/find]$ ant -p
-Buildfile: /ivy/multi-project/projects/find/build.xml
-
-Main targets:
-
- clean          --> clean the project
- clean-build    --> clean the project built files
- clean-lib      --> clean the project libraries directory (dependencies)
- clean-local    --> cleans the local repository for the current module
- compile        --> compile the project
- jar            --> make a jar file for this project
- publish        --> publish this project in the ivy repository
- publish-local  --> publish this project in the local ivy repository
- report         --> generates a report of dependencies
- resolve        --> resolve and retrieve dependencies with ivy
- run            --> compile and run the project
-Default target: compile
 
 </pre></div>
 
@@ -884,74 +527,6 @@ The first project we'll look at in this tutorial is filter-framework. In order t
 As you can see, we defined 4 configurations, with 3 being public and 1 private. (the  junit dependency for testing).<br class="xooki-br"/>The 2 implementation configurations, <b>homemade-impl</b> and <b>cc-impl</b> extend the <b>api</b> configuration so that all artifacts defined in <b>api</b> will also be part of the extending configuration.<br class="xooki-br"/><br class="xooki-br"/>In the publications tag, we defined the artifacts we produce (jars in this case) and we assign them to a configuration. When others use our library they will have a flexible way to ask for what they need.<br class="xooki-br"/><br class="xooki-br"/><h2>See it in action</h2>
 The filter-framework project is built using Ant. Open a shell in the root directory of the project and type <tt>ant</tt>.
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/filter-framework]$ ant 
-Buildfile: /ivy/configurations/multi-projects/filter-framework/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#filter-framework;working@apache
-[ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] 	found junit#junit;3.8 in public
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar ...
-[ivy:retrieve] ..................................... (546kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-collections#commons-collections;3.1!commons-collections.jar (1341ms)
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit/3.8/junit-3.8.jar ...
-[ivy:retrieve] .......... (118kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] junit#junit;3.8!junit.jar (406ms)
-[ivy:retrieve] :: resolution report :: resolve 842ms :: artifacts dl 1779ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|        api       |   0   |   0   |   0   |   0   ||   0   |   0   |
-	|   homemade-impl  |   0   |   0   |   0   |   0   ||   0   |   0   |
-	|      cc-impl     |   1   |   1   |   1   |   0   ||   1   |   1   |
-	|       test       |   2   |   2   |   2   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#filter-framework
-[ivy:retrieve] 	confs: [api, homemade-impl, cc-impl, test]
-[ivy:retrieve] 	3 artifacts copied, 0 already retrieved (1211kB/62ms)
-
-build:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/distrib
-    [javac] Compiling 4 source files to /ivy/configurations/multi-projects/filter-framework/build
-    [javac] Note: Some input files use unchecked or unsafe operations.
-    [javac] Note: Recompile with -Xlint:unchecked for details.
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-api.jar
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-hmimpl.jar
-      [jar] Building jar: /ivy/configurations/multi-projects/filter-framework/distrib/filter-ccimpl.jar
-
-test:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build/test-report
-    [mkdir] Created dir: /ivy/configurations/multi-projects/filter-framework/build/test-classes
-    [javac] /ivy/configurations/multi-projects/filter-framework/build.xml:82: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-    [javac] Compiling 3 source files to /ivy/configurations/multi-projects/filter-framework/build/test-classes
-    [junit] Running filter.ccimpl.CCFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,063 sec
-    [junit] Running filter.hmimpl.HMFilterTest
-    [junit] Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 0,063 sec
-
-publish:
-[ivy:publish] :: delivering :: org.apache#filter-framework;working@apache :: 1.3 :: release :: Thu Jan 10 14:34:51 CET 2013
-[ivy:publish] 	delivering ivy file to /ivy/configurations/multi-projects/filter-framework/distrib/ivy.xml
-[ivy:publish] :: publishing :: org.apache#filter-framework
-[ivy:publish] 	published filter-api to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-api.jar
-[ivy:publish] 	published filter-hmimpl to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-hmimpl.jar
-[ivy:publish] 	published filter-ccimpl to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/jars/filter-ccimpl.jar
-[ivy:publish] 	published ivy to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part/ivys/ivy.xml
-[ivy:publish] 	publish commited: moved /home/ivy/.ivy2/local/org.apache/filter-framework/1.3.part 
-[ivy:publish] 		to /home/ivy/.ivy2/local/org.apache/filter-framework/1.3
-     [echo] project filter-framework released with version 1.3
-
-BUILD SUCCESSFUL
-Total time: 8 seconds
 
 </pre></div>
 The Ant default target is publish. This target uses Ivy to publish our library binaries to a local repository. Since we do not specify any repository path, the default one is used. (<tt>${home.dir}/.ivy2/local/org.apache/filter-framework/</tt>) At this point, we are ready to use our library.<br class="xooki-br"/><br class="xooki-br"/><h1>The application project</h1>
@@ -981,89 +556,11 @@ When we call this target, Ivy will do a resolve using our <tt>ivy.xml</tt> file 
 As you can see, for each configuration we have now a set of jars.<br class="xooki-br"/><br class="xooki-br"/>Let's try to launch our app.<br class="xooki-br"/><br class="xooki-br"/><h2>See it in action</h2>
 Use Ant to run the application. The default Ant target is <i>run-cc</i> and will launch the application using the Apache commons-collections implementation.
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/myapp]$ ant 
-Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	found org.apache#filter-framework;1.3 in local
-[ivy:retrieve] 	[1.3] org.apache#filter-framework;latest.integration
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-ccimpl.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-ccimpl.jar (0ms)
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-hmimpl.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-hmimpl.jar (62ms)
-[ivy:retrieve] downloading /home/ivy/.ivy2/local/org.apache/filter-framework/1.3/jars/filter-api.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#filter-framework;1.3!filter-api.jar (16ms)
-[ivy:retrieve] :: resolution report :: resolve 172ms :: artifacts dl 78ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|       build      |   1   |   1   |   1   |   0   ||   1   |   1   |
-	|   noexternaljar  |   1   |   1   |   1   |   0   ||   2   |   2   |
-	|  withexternaljar |   2   |   1   |   1   |   0   ||   3   |   2   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#myapp
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	6 artifacts copied, 0 already retrieved (552kB/140ms)
-
-build:
-    [mkdir] Created dir: /ivy/configurations/multi-projects/myapp/build
-    [javac] Compiling 1 source file to /ivy/configurations/multi-projects/myapp/build
-
-run-cc:
-     [java] Filtering with:class filter.ccimpl.CCFilter
-     [java] Result :[two, tree]
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 Launching the application using the homemade implementation is also straightforward.<br class="xooki-br"/>type <tt>ant run-hm</tt>
 
 <div class="shell"><pre>
-[ivy@apache:/ivy/configurations/multi-projects/myapp]$ ant run-hm
-Buildfile: /ivy/configurations/multi-projects/myapp/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: url = jar:file:///home/ivy/ivy.jar!/org/apache/ivy/core/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#myapp;working@apache
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	found org.apache#filter-framework;1.3 in local
-[ivy:retrieve] 	[1.3] org.apache#filter-framework;latest.integration
-[ivy:retrieve] 	found commons-collections#commons-collections;3.1 in public
-[ivy:retrieve] :: resolution report :: resolve 109ms :: artifacts dl 16ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|       build      |   1   |   1   |   0   |   0   ||   1   |   0   |
-	|   noexternaljar  |   1   |   1   |   0   |   0   ||   2   |   0   |
-	|  withexternaljar |   2   |   1   |   0   |   0   ||   3   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#myapp
-[ivy:retrieve] 	confs: [build, noexternaljar, withexternaljar]
-[ivy:retrieve] 	0 artifacts copied, 6 already retrieved (0kB/15ms)
-
-build:
-
-run-hm:
-     [java] Filtering with:class filter.hmimpl.HMFilter
-     [java] Result :[two, tree]
-
-BUILD SUCCESSFUL
-Total time: 1 second
 </pre></div>
 Nice! We got the same result, but we can see that the implementation classes are different.<br class="xooki-br"/><br class="xooki-br"/><h1>Conclusion</h1>
 <b>You should use configurations as often as possible.</b> Configurations are a very important concept in Ivy. They allow you to group artifacts and give the group a meaning. When you write ivy files for projects that are intended for use by others, use configurations to allow people to get only what they need, without having to specify them one by one in their own dependency list. <br class="xooki-br"/><hr/><div class='toc-title toc-title-3'>Building a repository</div><br class="xooki-br"/>The <a href="use/install.html">install</a> Ant task lets you copy a module or a set of modules from one repository to another. This is very useful to build and maintain an enterprise or team repository. If you don't want to give access to the public maven 2 repository to the developers on your team (to keep control over which modules are in use in your company or your team for instance), it can sometimes become tiresome to answer the developers request to add new modules or new versions by hand.<br class="xooki-br"/><br class="xooki-br"/>Fortunately the <a href="use/install.html">install</a> task is here to help: you can use specific settings for your repository maintenance build which will be used to maintain your target enterprise repository. These settings will point to another repository (for instance the maven 2 public repository) so that you will just have to ask Ivy to install the modules you want with a simple command line.<br class="xooki-br"/><br class="xooki-br"/>To demonstrate this, we will first use a basic ivy settings file to show how it works, and then we will use the advanced <a href="../../history/latest-milestone/settings/namespaces.html">namespaces</a> features to demonstrate how to deal with naming mismatches between the source and target repository.<br class="xooki-br"/><br class="xooki-br"/><h1>The project used</h1>
@@ -1085,57 +582,10 @@ Let's have a look at the <em>maven2</em> target.
 </pre>
 Pretty simple, we call the [[ant:install] task with the settings we have loaded using <a href="use/settings.html">ivy:settings</a> as usual. We then set the source and destination repositories using the <i>from</i> and <i>to</i> attributes. We used Ant properties for these values here, which helps ease the maintenance of the script, but it's basically the name of our resolvers: 'libraries' for the source and 'my-repository' for the destination.<br class="xooki-br"/><br class="xooki-br"/>Here is the Ant call output :
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2:
-[ivy:install] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-basic.xml
-[ivy:install] :: installing commons-lang#commons-lang;1.0 ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found commons-lang#commons-lang;1.0 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar ...
-[ivy:install] ...................... (170kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-lang#commons-lang;1.0!commons-lang.jar(javadoc) (624ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar ...
-[ivy:install] ....... (62kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-lang#commons-lang;1.0!commons-lang.jar (328ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 952ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 The trace tells us that the module definition was found using the "libraries" resolver and that the corresponding artifact was downloaded from the maven 2 repository. Then both were published to the filesystem repository (my-repository).<br class="xooki-br"/><br class="xooki-br"/>Let's have a look at our repository :
 <div class="shell"><pre>
-[ivy@apache:/]$ find /ivy/build-a-ivy-repository/myrepository/no-namespace -type f -print
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/ivys/ivy-1.0.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/jars/commons-lang-1.0.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/commons-lang/commons-lang/javadocs/commons-lang-1.0.jar.sha1
 
 </div>
 We can see that we now have the commons-lang module version 1.0 in our repository, with a generated ivy.xml file, its jar, and all the md5 and sha1 checksums for future consistency checks when developers use this repository to resolve modules.<br class="xooki-br"/><br class="xooki-br"/><h1>install a module with dependencies</h1>
@@ -1146,283 +596,12 @@ Now let's say that we want to be sure all the dependencies of the module we inst
 
 If you call this target, you will see that Ivy installs not only the hibernate module but also its dependencies:
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2-deps
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2-deps:
-[ivy:install] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-basic.xml
-[ivy:install] :: installing org.hibernate#hibernate;3.2.5.ga ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found org.hibernate#hibernate;3.2.5.ga in libraries
-[ivy:install] 	found net.sf.ehcache#ehcache;1.2.3 in libraries
-[ivy:install] 	found commons-logging#commons-logging;1.0.4 in libraries
-[ivy:install] 	found commons-collections#commons-collections;2.1 in libraries
-[ivy:install] 	found javax.transaction#jta;1.0.1B in libraries
-[ivy:install] 	found asm#asm-attrs;1.5.3 in libraries
-[ivy:install] 	found dom4j#dom4j;1.6.1 in libraries
-[ivy:install] 	found antlr#antlr;2.7.6 in libraries
-[ivy:install] 	found cglib#cglib;2.1_3 in libraries
-[ivy:install] 	found asm#asm;1.5.3 in libraries
-[ivy:install] 	found commons-collections#commons-collections;2.1.1 in libraries
-[ivy:install] 	found ant#ant;1.6.5 in libraries
-[ivy:install] 	found swarmcache#swarmcache;1.0RC2 in libraries
-[ivy:install] 	found commons-logging#commons-logging;1.0.2 in libraries
-[ivy:install] 	found jgroups#jgroups-all;2.2.8 in libraries
-[ivy:install] 	found jboss#jboss-cache;1.2.2 in libraries
-[ivy:install] 	found jboss#jboss-system;4.0.2 in libraries
-[ivy:install] 	found jboss#jboss-common;4.0.2 in libraries
-[ivy:install] 	found slide#webdavlib;2.0 in libraries
-[ivy:install] 	found xerces#xercesImpl;2.6.2 in libraries
-[ivy:install] 	found jboss#jboss-minimal;4.0.2 in libraries
-[ivy:install] 	found jboss#jboss-j2se;200504122039 in libraries
-[ivy:install] 	found concurrent#concurrent;1.3.4 in libraries
-[ivy:install] 	found jgroups#jgroups-all;2.2.7 in libraries
-[ivy:install] 	found c3p0#c3p0;0.9.1 in libraries
-[ivy:install] 	found javax.security#jacc;1.0 in libraries
-[ivy:install] 	found opensymphony#oscache;2.1 in libraries
-[ivy:install] 	found proxool#proxool;0.8.3 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga-sources.jar ...
-[ivy:install] ...........................................
-[ivy:install] ...............................
-[ivy:install] .. (1470kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar(source) (3323ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga-javadoc.jar ...
-[ivy:install] ...................................
-[ivy:install] .............................
-[ivy:install] ............................
-[ivy:install] ...................................
-[ivy:install] ...............................
-[ivy:install] .........................
-[ivy:install] ......................
-[ivy:install] ...............................
-[ivy:install] ................................
-[ivy:install] ..........................................
-[ivy:install] ............... (7352kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar(javadoc) (16380ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/org/hibernate/hibernate/3.2.5.ga/hibernate-3.2.5.ga.jar ...
-[ivy:install] .......................................
-[ivy:install] ........................................
-[ivy:install] ..............................
-[ivy:install] ... (2202kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] org.hibernate#hibernate;3.2.5.ga!hibernate.jar (4867ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar ...
-[ivy:install] .................. (203kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] net.sf.ehcache#ehcache;1.2.3!ehcache.jar (546ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar ...
-[ivy:install] ...... (37kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.4!commons-logging.jar (187ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar ...
-[ivy:install] ..... (16kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] asm#asm-attrs;1.5.3!asm-attrs.jar (156ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar ...
-[ivy:install] ........................ (306kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] dom4j#dom4j;1.6.1!dom4j.jar (765ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/antlr/antlr/2.7.6/antlr-2.7.6.jar ...
-[ivy:install] .......................... (433kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] antlr#antlr;2.7.6!antlr.jar (1060ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/cglib/cglib/2.1_3/cglib-2.1_3.jar ...
-[ivy:install] ...................... (275kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] cglib#cglib;2.1_3!cglib.jar (702ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/asm/asm/1.5.3/asm-1.5.3.jar ...
-[ivy:install] ..... (25kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] asm#asm;1.5.3!asm.jar (156ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar ...
-[ivy:install] .................. (171kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-collections#commons-collections;2.1.1!commons-collections.jar (687ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-collections/commons-collections/2.1/commons-collections-2.1.jar ...
-[ivy:install] ................. (161kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-collections#commons-collections;2.1!commons-collections.jar (452ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/ant/ant/1.6.5/ant-1.6.5.jar ...
-[ivy:install] .....................................
-[ivy:install] ............. (1009kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] ant#ant;1.6.5!ant.jar (2247ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/swarmcache/swarmcache/1.0RC2/swarmcache-1.0RC2.jar ...
-[ivy:install] ..... (29kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] swarmcache#swarmcache;1.0RC2!swarmcache.jar (327ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-cache/1.2.2/jboss-cache-1.2.2.jar ...
-[ivy:install] ........................... (365kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-cache;1.2.2!jboss-cache.jar (983ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jgroups/jgroups-all/2.2.8/jgroups-all-2.2.8.jar ...
-[ivy:install] .................................
-[ivy:install] ............................
-[ivy:install] ................ (1573kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jgroups#jgroups-all;2.2.8!jgroups-all.jar (4976ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/c3p0/c3p0/0.9.1/c3p0-0.9.1.jar ...
-[ivy:install] ............................................. (594kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] c3p0#c3p0;0.9.1!c3p0.jar (1373ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/opensymphony/oscache/2.1/oscache-2.1.jar ...
-[ivy:install] ......... (111kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] opensymphony#oscache;2.1!oscache.jar (546ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/proxool/proxool/0.8.3/proxool-0.8.3.jar ...
-[ivy:install] ............................. (464kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] proxool#proxool;0.8.3!proxool.jar (1154ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.2/commons-logging-1.0.2.jar ...
-[ivy:install] ..... (25kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.2!commons-logging.jar (218ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-system/4.0.2/jboss-system-4.0.2.jar ...
-[ivy:install] ...................... (227kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-system;4.0.2!jboss-system.jar (687ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-common/4.0.2/jboss-common-4.0.2.jar ...
-[ivy:install] ........................... (457kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-common;4.0.2!jboss-common.jar (1123ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-minimal/4.0.2/jboss-minimal-4.0.2.jar ...
-[ivy:install] ................. (163kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-minimal;4.0.2!jboss-minimal.jar (468ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jboss/jboss-j2se/200504122039/jboss-j2se-200504122039.jar ...
-[ivy:install] ........................ (350kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jboss#jboss-j2se;200504122039!jboss-j2se.jar (1107ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/concurrent/concurrent/1.3.4/concurrent-1.3.4.jar ...
-[ivy:install] ....................... (184kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] concurrent#concurrent;1.3.4!concurrent.jar (500ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/jgroups/jgroups-all/2.2.7/jgroups-all-2.2.7.jar ...
-[ivy:install] .......................................
-[ivy:install] ..................................
-[ivy:install] ............ (1613kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] jgroups#jgroups-all;2.2.7!jgroups-all.jar (3619ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/slide/webdavlib/2.0/webdavlib-2.0.jar ...
-[ivy:install] ............ (128kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] slide#webdavlib;2.0!webdavlib.jar (390ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar ...
-[ivy:install] .................................
-[ivy:install] .............. (986kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] xerces#xercesImpl;2.6.2!xercesImpl.jar (2340ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar
-[ivy:install] 	published hibernate to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml
-[ivy:install] 	published ehcache to /ivy/build-a-ivy-repository/myrepository/no-namespace/net.sf.ehcache/ehcache/jars/ehcache-1.2.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/net.sf.ehcache/ehcache/ivys/ivy-1.2.3.xml
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/javax.transaction/jta/ivys/ivy-1.0.1B.xml
-[ivy:install] 	published commons-logging to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/jars/commons-logging-1.0.4.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/ivys/ivy-1.0.4.xml
-[ivy:install] 	published asm-attrs to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm-attrs/jars/asm-attrs-1.5.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm-attrs/ivys/ivy-1.5.3.xml
-[ivy:install] 	published dom4j to /ivy/build-a-ivy-repository/myrepository/no-namespace/dom4j/dom4j/jars/dom4j-1.6.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/dom4j/dom4j/ivys/ivy-1.6.1.xml
-[ivy:install] 	published antlr to /ivy/build-a-ivy-repository/myrepository/no-namespace/antlr/antlr/jars/antlr-2.7.6.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/antlr/antlr/ivys/ivy-2.7.6.xml
-[ivy:install] 	published cglib to /ivy/build-a-ivy-repository/myrepository/no-namespace/cglib/cglib/jars/cglib-2.1_3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/cglib/cglib/ivys/ivy-2.1_3.xml
-[ivy:install] 	published asm to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm/jars/asm-1.5.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/asm/asm/ivys/ivy-1.5.3.xml
-[ivy:install] 	published commons-collections to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/jars/commons-collections-2.1.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/ivys/ivy-2.1.1.xml
-[ivy:install] 	published commons-collections to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/jars/commons-collections-2.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-collections/commons-collections/ivys/ivy-2.1.xml
-[ivy:install] 	published ant to /ivy/build-a-ivy-repository/myrepository/no-namespace/ant/ant/jars/ant-1.6.5.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/ant/ant/ivys/ivy-1.6.5.xml
-[ivy:install] 	published swarmcache to /ivy/build-a-ivy-repository/myrepository/no-namespace/swarmcache/swarmcache/jars/swarmcache-1.0RC2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/swarmcache/swarmcache/ivys/ivy-1.0RC2.xml
-[ivy:install] 	published jboss-cache to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-cache/jars/jboss-cache-1.2.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-cache/ivys/ivy-1.2.2.xml
-[ivy:install] 	published jgroups-all to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/jars/jgroups-all-2.2.8.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/ivys/ivy-2.2.8.xml
-[ivy:install] 	published c3p0 to /ivy/build-a-ivy-repository/myrepository/no-namespace/c3p0/c3p0/jars/c3p0-0.9.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/c3p0/c3p0/ivys/ivy-0.9.1.xml
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/javax.security/jacc/ivys/ivy-1.0.xml
-[ivy:install] 	published oscache to /ivy/build-a-ivy-repository/myrepository/no-namespace/opensymphony/oscache/jars/oscache-2.1.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/opensymphony/oscache/ivys/ivy-2.1.xml
-[ivy:install] 	published proxool to /ivy/build-a-ivy-repository/myrepository/no-namespace/proxool/proxool/jars/proxool-0.8.3.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/proxool/proxool/ivys/ivy-0.8.3.xml
-[ivy:install] 	published commons-logging to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/jars/commons-logging-1.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/commons-logging/commons-logging/ivys/ivy-1.0.2.xml
-[ivy:install] 	published jboss-system to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-system/jars/jboss-system-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-system/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-common to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-common/jars/jboss-common-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-common/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-minimal to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-minimal/jars/jboss-minimal-4.0.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-minimal/ivys/ivy-4.0.2.xml
-[ivy:install] 	published jboss-j2se to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-j2se/jars/jboss-j2se-200504122039.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jboss/jboss-j2se/ivys/ivy-200504122039.xml
-[ivy:install] 	published concurrent to /ivy/build-a-ivy-repository/myrepository/no-namespace/concurrent/concurrent/jars/concurrent-1.3.4.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/concurrent/concurrent/ivys/ivy-1.3.4.xml
-[ivy:install] 	published jgroups-all to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/jars/jgroups-all-2.2.7.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/jgroups/jgroups-all/ivys/ivy-2.2.7.xml
-[ivy:install] 	published webdavlib to /ivy/build-a-ivy-repository/myrepository/no-namespace/slide/webdavlib/jars/webdavlib-2.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/slide/webdavlib/ivys/ivy-2.0.xml
-[ivy:install] 	published xercesImpl to /ivy/build-a-ivy-repository/myrepository/no-namespace/xerces/xercesImpl/jars/xercesImpl-2.6.2.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/no-namespace/xerces/xercesImpl/ivys/ivy-2.6.2.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 51402ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   28  |   28  |   28  |   0   ||   30  |   28  |
-	---------------------------------------------------------------------
-[ivy:install] 
-[ivy:install] :: problems summary ::
-[ivy:install] :::: WARNINGS
-[ivy:install] 		[NOT FOUND  ] javax.transaction#jta;1.0.1B!jta.jar (0ms)
-[ivy:install] 	==== libraries: tried
-[ivy:install] 	  http://repo1.maven.org/maven2/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar
-[ivy:install] 		[NOT FOUND  ] javax.security#jacc;1.0!jacc.jar (0ms)
-[ivy:install] 	==== libraries: tried
-[ivy:install] 	  http://repo1.maven.org/maven2/javax/security/jacc/1.0/jacc-1.0.jar
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 		::              FAILED DOWNLOADS            ::
-[ivy:install] 		:: ^ see resolution messages for details  ^ ::
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 		:: javax.transaction#jta;1.0.1B!jta.jar
-[ivy:install] 		:: javax.security#jacc;1.0!jacc.jar
-[ivy:install] 		::::::::::::::::::::::::::::::::::::::::::::::
-[ivy:install] 
-[ivy:install] 
-[ivy:install] :: USE VERBOSE OR DEBUG MESSAGE LEVEL FOR MORE DETAILS
 
 </pre>
 </div>
 
 As you can see the installation has failed, if you look at the log you will see that there are missing artifacts on the source repository. This means that you will need to download those artifacts manually, and copy them to your destination repository to complete the installation. Fortunately Ivy uses a best effort algorithm during install, so that everything gets installed except the missing artifacts. (Note: these missing artifacts are not in the public maven repository due to licensing issues)<br class="xooki-br"/><br class="xooki-br"/>You may also have noticed that Ivy installed 2 different revisions of commons-logging (1.0.2, 1.0.4). This is due to the fact that we used the "no conflict" <a href="../../history/latest-milestone/settings/conflict-managers.html">conflict manager</a> in the ivysettings file.<br class="xooki-br"/><br class="xooki-br"/>We do not want to evict any modules because we are building our own repository. Indeed if we get both commons-logging 1.0.2 and 1.0.4 it's because some modules among the transitive dependencies of hibernate depend on 1.0.2 and others on 1.0.4. If we got only 1.0.4, the module depending on 1.0.2 would be inconsistent in your own repository (depending on a version you don't have installed). Thus developers using this module directly would run into a problem.<br class="xooki-br"/><br class="xooki-br"/>If you now have a closer look at your repository, you will probably notice that it isn't an exact replication of the original one. Let's have a look at the directory of one module:
 <div class="shell"><pre>
-[ivy@apache:/]$ find /ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate -type f -print
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/ivys/ivy-3.2.5.ga.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/jars/hibernate-3.2.5.ga.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/javadocs/hibernate-3.2.5.ga.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar.md5
-/ivy/build-a-ivy-repository/myrepository/no-namespace/org.hibernate/hibernate/sources/hibernate-3.2.5.ga.jar.sha1
 
 </pre>
 </div>
@@ -1431,58 +610,11 @@ As you can see there is no pom here (pom is the module metadata format used by m
 In this section, you will learn how to build a <strong>professional</strong> repository. What is a <strong>professional</strong> repository? Our vision is to say that a good quality repository must follow clear rules about projects naming and must offer correct, useable, configurations and verified project descriptors. In order to achieve those goals, we think that you have to build your own repository.<br class="xooki-br"/>We have seen in the previous example, that we could use some public repositories to begin to build our own repository. Nevertheless, the result is not always the expected one, especially concerning the naming rules used.<br class="xooki-br"/><br class="xooki-br"/>This problem is pretty normal when you have an existing repository, and want to benefit from large public repositories which do not follow the same naming conventions. It also shows up because many public repositories do not use a  consistent naming scheme. For example, why don't all the apache commons modules use the org.apache.commons organization? Well.. for historical reasons. But if you setup your own repository, you may not want to suffer from the mistakes of history.<br class="xooki-br"/><br class="xooki-br"/>Fortunately, Ivy has a very powerful answer to this problem: <a href="../../history/latest-milestone/settings/namespaces.html">namespaces</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Using namespaces</h1>
 If you look at the repository built with the <a href="../../history/latest-milestone/tutorial/build-repository/basic.html">previous tutorial</a>, you will see exactly what we were talking about: all apache commons modules use their own name as their organization.<br class="xooki-br"/><br class="xooki-br"/>So let's see what Ivy can do using namespaces (we will dig into details later):
 <div class="shell"><pre>
-[ivy@apache:/ivy/build-a-ivy-repository]$ ant maven2-namespace
-Buildfile: /ivy/build-a-ivy-repository/build.xml
-
-load-ivy:
-
-init-ivy:
-
-maven2-namespace:
-[ivy:install] :: Apache Ivy 2.3.0 - 20130110142753 :: http://ant.apache.org/ivy/ ::
-[ivy:install] :: loading settings :: file = /ivy/build-a-ivy-repository/settings/ivysettings-advanced.xml
-[ivy:install] :: installing apache#commons-lang;1.0 ::
-[ivy:install] :: resolving dependencies ::
-[ivy:install] 	found apache#commons-lang;1.0 in libraries
-[ivy:install] :: downloading artifacts to cache ::
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0.jar ...
-[ivy:install] .................. (62kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar (234ms)
-[ivy:install] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/1.0/commons-lang-1.0-javadoc.jar ...
-[ivy:install] ......... (170kB)
-[ivy:install] .. (0kB)
-[ivy:install] 	[SUCCESSFUL ] apache#commons-lang;1.0!commons-lang.jar(javadoc) (468ms)
-[ivy:install] :: installing in my-repository ::
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
-[ivy:install] 	published commons-lang to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
-[ivy:install] 	published ivy to /ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
-[ivy:install] :: install resolution report ::
-[ivy:install] :: resolution report :: resolve 0ms :: artifacts dl 702ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   1   |   0   ||   2   |   2   |
-	---------------------------------------------------------------------
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 
 Now if we look at our repository, it seems to look fine.
 <div class="shell"><pre>
-$ find /ivy/build-a-ivy-repository/myrepository/advanced -type f -print
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/ivys/ivy-1.0.xml.sha1
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/jars/commons-lang-1.0.jar.sha1
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.md5
-/ivy/build-a-ivy-repository/myrepository/advanced/apache/commons-lang/javadocs/commons-lang-1.0.jar.sha1
 
 </pre></div>
 We can even have a look at the commons-lang ivy file in our repository:
@@ -1527,6 +659,8 @@ This part introduces the main concepts used in Ivy: dependency resolvers, variab
 As the title suggests, here you will find an explanation of how Ivy does work internally, which can help to better understand and customize its use.
 <li><a href="../../history/latest-milestone/install.html">Installation</a></li>
 This part describes how to install Ivy.
+<li>running</li>
+This part describes possibility to control the behavior of Ivy at run time
 </ul>
 <li><a href="../../history/latest-milestone/settings.html">Settings Files</a></li>
 This part is dedicated to the specification of the settings file of Ivy (usually called ivysettings.xml). It also gives the list of built-in dependency resolvers available in Ivy.
@@ -1669,7 +803,21 @@ As a dependency manager, Ivy has a lot of file related operations, which most of
 <li>In an Ivy file, paths are relative to the Ivy file itself (the only possible path in an Ivy file is for configurations declaration inclusion)</li>
 <li>In settings files, paths for file inclusion (namely properties file loading and settings inclusion) are relative to the directory in which the settings file is located. All other paths must be absolute unless explicitly noted.</li>
 <li>In Ivy Ant tasks and Ivy parameters or options, paths are relative to Ivy base directory, which when called from Ant is the same as your Ant basedir.</li>
-</ul><hr/><div class='toc-title toc-title-4'>Text Conventions</div><br class="xooki-br"/>Very often some concepts discussed in Ivy here, and especially those involving modules and dependencies, require to be discussed by text (e-mail, textual doc, console, ...), and so benefit from convention in this area.<br class="xooki-br"/><br class="xooki-br"/>The conventions have been adopted with Ivy 2.0 are the following:
+</ul>
+
+<h1><a name="packaging">Packaging</a></h1>
+
+Most of the artifacts found in a repository are jars. They can be downoaded and used as is. But some other kind of artifacts required some <i>unpacking</i> after being downloaded and before being used. Such artifacts can be zipped folders and packed jars. Ivy supports that kind of artifact with <b>packaging</b>.<br class="xooki-br"/><br class="xooki-br"/>A <i>packaged</i> artifact needs to be declared as such in the module descriptor via the attribute <a href="ivyfile/artifact.html">packaging</a>. The value of that attribute defined which kind of unpacking algorithm must be used. Here are the list of currently supported algorithms:
+<ul>
+    <li><tt>zip</tt>, <tt>jar</tt> or <tt>war</tt>: the artifact will be uncompressed as a folder</li>
+    <li><tt>pack200</tt>: the artifact will be unpacked to a file via the <a href="http://docs.oracle.com/javase/7/docs/technotes/tools/share/pack200.html">pack200</a> algorithm</li>
+</ul>
+
+So, if in an <tt>ivy.xml</tt>, there would be declared a such artifact:
+<pre>
+    &lt;artifact name="mymodule" type="jar" ext="jar.pack.gz" packaging="pack200" /&gt;
+</pre>
+A file <tt>mymodule-1.2.3.jar.pack.gz</tt> would be download into the cache, and also uncompressed in the cache to <tt>mymodule-1.2.3.jar</tt>. Then any post resolve task which supports it, like the <a href="use/cachepath.html">cachepath</a>, will use the uncompressed file instead of the orginal compressed file.<br class="xooki-br"/><br class="xooki-br"/>It is possible to chain packing algorithm. The attribute <a href="ivyfile/artifact.html">packaging</a> of a artifact expects a comma separated list of packing types, in packing order. For instance, an artifact '<tt>mymodule-1.2.3.jar.pack.gz</tt>' can have the packaging '<tt>jar,pack200</tt>', so it would be uncompressed as a folder '<tt>mymodule-1.2.3</tt>'.<br class="xooki-br"/><br class="xooki-br"/><hr/><div class='toc-title toc-title-4'>Text Conventions</div><br class="xooki-br"/>Very often some concepts discussed in Ivy here, and especially those involving modules and dependencies, require to be discussed by text (e-mail, textual doc, console, ...), and so benefit from convention in this area.<br class="xooki-br"/><br class="xooki-br"/>The conventions have been adopted with Ivy 2.0 are the following:
 <table>
 <thead style="font-weight:700;">
 <tr>
@@ -1778,7 +926,15 @@ On the other hand, using inline dependencies is very useful when:
 </ul>
 <h1>Hire an expert</h1>
 Build and dependency management is often given too low a priority in the software development world. We often see build management implemented by developers when they have time. Even if this may seem like a time and money savings in the short term, it often turns out to be a very bad choice in the long term. Building software is not a simple task, when you want to ensure automatic, tested, fully reproducible builds, releases and installations. On the other hand, once a good build system fitting your very specific needs is setup, it can then only rely on a few people with a good understanding of what is going on, with a constant quality ensured. <br class="xooki-br"/><br class="xooki-br"/>Therefore hiring a build and dependency expert to analyse and improve your build and release system is most of the time a very good choice.<br class="xooki-br"/><br class="xooki-br"/><h1>Feedback</h1>
-These best practices reflect our own experience, but we do not pretend to own the unique truth about dependency management or even Ivy use.<br class="xooki-br"/><br class="xooki-br"/>So feel free to comment on this page to add your own experience feedback, suggestions or opinion.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Installation</div><br class="xooki-br"/>There are basically two ways to install Ivy: either manually or automatically.<br class="xooki-br"/><h1>Manually</h1>
+These best practices reflect our own experience, but we do not pretend to own the unique truth about dependency management or even Ivy use.<br class="xooki-br"/><br class="xooki-br"/>So feel free to comment on this page to add your own experience feedback, suggestions or opinion.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Compatibility</div><br class="xooki-br"/><h1>JVM compability</h1>
+
+Up to Ivy 2.3.x, a minimum of Java 1.4 is required.<br class="xooki-br"/><br class="xooki-br"/>Since Ivy 2.4.0, a minimum of Java 5 is required.<br class="xooki-br"/><br class="xooki-br"/><h1>Apache Ant</h1>
+
+Ivy doesn't require much of Ant and should run correctly on pretty old versions. But it is recommended to use at least Ant 1.6.<br class="xooki-br"/><br class="xooki-br"/><h1>Other optional dependencies</h1>
+
+The required versions of the Apache HttpClient, Jsch or any optional dependency are to be checked against Ivy's dependency descriptor. In Ivy's source, check for the ivy.xml file at the root. Or the pom.xml of <tt>org.apache.ivy#ivy</tt> in the Maven Central repository.<br class="xooki-br"/><br class="xooki-br"/><h1>Environment / Configuration Requirements</h1>
+
+Ivy does not at this time support multithreaded use. It thus should not be used with the ant <tt>&lt;parallel&gt;</tt> task.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Installation</div><br class="xooki-br"/>There are basically two ways to install Ivy: either manually or automatically.<br class="xooki-br"/><h1>Manually</h1>
 Download the version you want <a href="../../download.html">here</a>, unpack the downloaded zip file wherever you want, and copy the ivy jar file into your ant lib directory (ANT_HOME/lib).<br class="xooki-br"/><br class="xooki-br"/>If you use ant 1.6.0 or superior, you can then simply go to the src/example/hello-ivy dir and run ant: if the build is successful, you have successfully installed Ivy!<br class="xooki-br"/><br class="xooki-br"/>If you use ant 1.5.1 or superior, you have to modify the build files in the examples:<br class="xooki-br"/>- remove the namespace section at their head: xmlns:ivy="antlib:org.apache.ivy.ant" <br class="xooki-br"/>- add taskdefs for ivy tasks:
 <pre>
   &lt;taskdef name="ivy-configure" classname="org.apache.ivy.ant.IvyConfigure"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-resolve" classname="org.apache.ivy.ant.IvyResolve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-publish" classname="org.apache.ivy.ant.IvyPublish"/&gt; 
@@ -1871,6 +1027,8 @@ The optional override attribute enables you to avoid overriding the previous val
         <td>Yes</td></tr>
     <tr><td>override</td><td>true if the previous value (if any) of the variable should overriden, false otherwise</td>
         <td>No, defaults to true</td></tr>
+    <tr><td>ifset</td><td>the variable will be set only if the provided 'ifset' variable is already set (Since 2.4)</td><td>No</td></tr>
+    <tr><td>unlessset</td><td>the variable will not be set unless the provided 'unlessset' variable is set (Since 2.4)</td><td>No</td></tr>
 </tbody>
 </table>
 <h1>Examples</h1>
@@ -1881,7 +1039,11 @@ Sets the variable myvar to the value myvalue.<br class="xooki-br"/><hr/>
 <pre>
 &lt;property name="myvar" value="myvalue" override="false"/&gt;
 </pre>
-Sets the variable myvar to the value myvalue only if myvar has not been set yet.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>properties</div><br class="xooki-br"/><b>Tag:</b> properties<br/>
+Sets the variable myvar to the value myvalue only if myvar has not been set yet.<br class="xooki-br"/><hr/>
+<pre>
+ &lt;properties environment="env"/&gt;<br class="xooki-br"/> &lt;property name="ivy.repos.server" value="${env.IVY_SERVER}" override="false" ifset="env.IVY_SERVER" /&gt;<br class="xooki-br"/> &lt;property name="ivy.repos.server" value="<a href="http://ivy:8081">http://ivy:8081</a>" override="false"/&gt;
+</pre>
+If the environment variable is set, it takes precedence over of default value.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>properties</div><br class="xooki-br"/><b>Tag:</b> properties<br/>
 <br/>
 <span class="tagdoc" id="ivysettings.properties">Loads a properties file into ivy variables.</span> See the variables chapter above for details about ivy variables.<br class="xooki-br"/><br class="xooki-br"/><span class="since">Since 2.0</span>: it is possible to access environment variables. This can be done by specifying the environment attribute. This attribute specifies the prefix which can be used to access these environment variables. For instance, if you specify environment="env", you can access the PATH environment variable with the env.PATH property name.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
@@ -1946,6 +1108,8 @@ The included ivysettings file has to be a complete well formed ivysettings file,
         <td>Yes, unless file is specified</td></tr>
     <tr><td>file</td><td>a path to the ivysettings file to include</td>
         <td>Yes, unless url is specified</td></tr>
+    <tr><td>optional</td><td>indicates whether Ivy should throw an error if the specified file doesn't exist. <span class="since">(Since 2.4)</span>.</td>
+        <td>No, default to false</td></tr>
 </tbody>
 </table>
 <h1>Examples</h1>
@@ -2073,10 +1237,11 @@ Same as before, but this time the key '123ABC45' is used to generate the detache
 
 <span class="tagdoc" id="ivysettings.lock-strategies">Defines a list of lock strategies usable in Ivy.</span>
 
-A lock strategy is used by a cache manager to decide when and how locking should be performed (see settings/cache to see how to configure the lock strategy to use).<br class="xooki-br"/><br class="xooki-br"/>Two lock strategies are registered by default:
+A lock strategy is used by a cache manager to decide when and how locking should be performed (see settings/cache to see how to configure the lock strategy to use).<br class="xooki-br"/><br class="xooki-br"/>The following strategies are registered by default:
 <ul>
-<li><b>no-lock</b></li> This lock strategy actually performs no locking at all, and thus should not be used in an environment where the cache is shared by multiple processes. <br class="xooki-br"/><br class="xooki-br"/>This strategy is implemented by (<a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/java/org/apache/ivy/plugins/lock/NoLockStrategy.java">NoLockStrategy</a>)<br class="xooki-br"/><br class="xooki-br"/>
-<li><b>artifact-lock</b></li> This strategy acquires a lock whenever a module descriptor or an artifact is downloaded to the cache, which makes a good solution when you want to share your repository cache.<br class="xooki-br"/><br class="xooki-br"/>Note that this strategy is based on file locking, performed by default using the java.io.File.createNewFile() atomicity (which is documented as atomic in the javadoc, but not recommended to perform locks). A java.nio.FileLock based implementation is also provided, but according to our tests the createNewFile based one performs better and more reliably. We heavily recommend making your own testing in your target environment before relying on this lock strategy for heavily concurrent operations.<br class="xooki-br"/><br class="xooki-br"/>This strategy is implemented by (<a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/java/org/apache/ivy/plugins/lock/ArtifactLockStrategy.java">ArtifactLockStrategy</a>)
+<li><b>no-lock</b></li> This lock strategy actually performs no locking at all, and thus should not be used in an environment where the cache is shared by multiple processes.<br class="xooki-br"/>
+<li><b>artifact-lock</b></li> This strategy acquires a lock whenever a module descriptor or an artifact is downloaded to the cache, which makes a good solution when you want to share your repository cache.<br class="xooki-br"/>Note that this strategy is based on file locking, performed by default using the java.io.File.createNewFile() atomicity (which is documented as atomic in the javadoc, but not recommended to perform locks). <br class="xooki-br"/>
+<li><b>artifact-lock-nio (<span class="since">since 2.4</span>)</b></li> Like the <i>artifact-lock</i>-strategy, this one also acquires a lock whenever a module descriptor or artifact is downloaded to the cache. But here the implementation is done with a java.nio.FileLock.
 </ul>
 
 The child tag used for the lock strategy must be equal to a name of a lock strategy type (added with the typedef tag).<br class="xooki-br"/><br class="xooki-br"/><h1>Child elements</h1>
@@ -3321,7 +2486,22 @@ A simple repository configured to use the Felix OBR.<br class="xooki-br"/><hr />
 <pre>
 &lt;obr name="my-osgi-repo" repoXmlFile="${ivy.settings.dir}/obr/obr.xml" requirementStrategy="first" /&gt;
 </pre>
-A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Eclipse updatesite</div>
+A local repository which is trusted to always provide correct dependency for the <tt>Import-Package</tt> requirements.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Aggregated OSGi Repository</div>
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">osgi-agg</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
+</table>
+
+<span class="since">since 2.4</span>
+
+<span class="tagdoc" id="ivysettings.resolvers.osgi-agg">This resolver is one of the resolver which supports <a href="../osgi.html">OSGi&#153;</a> dependencies.<br class="xooki-br"/><br class="xooki-br"/>This resolvers is like a classic <a href="">chain</a> resolver, but which better support OSGi metadata.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+This resolver shares the <a href="../settings/resolvers.html#common">common attributes</a> of composite resolvers.<br class="xooki-br"/><br class="xooki-br"/><h1>Elements</h1>
+As sub element, this resolver accept any kind of OSGi resolver: <a href="../obr.html">obr</a>, <a href="../updatesite.html">updatesite</a>, or any other <tt>osgi-agg</tt>.<br class="xooki-br"/><br class="xooki-br"/><h1>Examples</h1>
+<pre>
+&lt;updatesite name="ivyde-updatesite" url="<a href="http://www.apache.org/dist/ant/ivyde/updatesite">http://www.apache.org/dist/ant/ivyde/updatesite</a>" /&gt;<br class="xooki-br"/>&lt;obr name="felix-repo" repoXmlURL="<a href="http://felix.apache.org/obr/releases.xml">http://felix.apache.org/obr/releases.xml</a>" /&gt;<br class="xooki-br"/>&lt;osgi-agg name="all-osgi"&gt;<br class="xooki-br"/>    &lt;resolver ref="ivyde-updatesite" /&gt;<br class="xooki-br"/>    &lt;resolver ref="felix-repo" /&gt;<br class="xooki-br"/>&lt;/osgi-agg&gt;
+</pre>
+An aggregated OSGi reporsory composed of the Apache IvyDE Eclipse update site and the Felix OBR.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-5'>Eclipse updatesite</div>
 <table class="resolver">
 <tr><td class="title">Tag</td><td class="value">updatesite</td></tr>
 <tr><td class="title">Handle latest</td><td class="value">yes</td></tr>
@@ -4220,7 +3400,7 @@ Thus if you have a module which publishes no artifacts (a sort of virtual module
 </ul>
 The two are equivalent, it is only a matter of preference. However, do not mix both for one artifact.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> The artifact element has default values for all its attributes, so if you want to declare a default artifact you can just declare it like that:<pre>
 &lt;artifact /&gt;
-</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+</pre>If this is the only artifact declared, then it's equivalent to having no publication section at all.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> It is possible to give a url at which artifacts can be found. This is not mandatory, and even not recommended. This is only a convenient way to deal with an existing repository with a bad layout, but should not be avoided in an enterprise repository.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> This tag supports <a href="../concept.html#extra">extra attributes</a>.<br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.4</span> This tag supports the 'packaging' attributes; complete documentation can be found in the <a href="../concept.html#packaging">concept page</a>.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
 <thead>
     <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
@@ -4236,6 +3416,8 @@ The two are equivalent, it is only a matter of preference. However, do not mix b
         <td>No, defaults to defaultconf attribute value on parent publications element.</td></tr>
     <tr><td>url</td><td>a url at which this artifact can be found if it isn't located at the standard location in the repository <span class="since">since 1.4</span></td>
         <td>No, defaults to no url</td></tr>
+    <tr><td>packaging</td><td>a comma separated list of <a href="../concept.html#packaging">packaging</a> types <span class="since">since 2.4</span></td>
+        <td>No, defaults to no packaging</td></tr>
 </tbody>
 </table>
 <h1>Child elements</h1>
@@ -4333,7 +3515,7 @@ To map the windows and linux configurations (the one which have the attribute ax
 </ul>
 
 If you prefer more verbose mapping declaration, everything is also possible with sub elements mapping declaration. <br class="xooki-br"/><br class="xooki-br"/><h2>Artifact restriction</h2>
-Moreover, the dependency element also supports an artifact restriction feature (since 0.6).<br class="xooki-br"/>See <a href="#dependency-artifact">dependency artifact restriction</a> for details.<br class="xooki-br"/><br class="xooki-br"/><h2>Forcing revision</h2>
+Moreover, the dependency element also supports an artifact restriction feature (since 0.6).<br class="xooki-br"/>See <a href="../ivyfile/dependency-artifact.html">dependency artifact</a> for details.<br class="xooki-br"/><br class="xooki-br"/><h2>Forcing revision</h2>
 Finally, the dependency element also supports an a force attribute (since 0.8), which gives an indication<br class="xooki-br"/>to conflicts manager to force the revision of a dependency to the one given here.<br class="xooki-br"/>See <a href="../ivyfile/conflicts.html">conflicts manager</a> for details. <br class="xooki-br"/><br class="xooki-br"/><span class="since">since 1.4</span> this tag supports <a href="../concept.html#extra">extra attributes</a><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ivy-attributes">
 <thead>
@@ -4854,7 +4036,17 @@ Builds a list of build.xml files sorted according to the ivy.xml files found in 
 <pre>
     &lt;ivy:buildlist reference="build-path" ivyfilepath="ivy/ivy.xml" leaf="mymodule"&gt;<br class="xooki-br"/>      &lt;fileset dir="projects" includes="**/build.xml"/&gt;<br class="xooki-br"/>    &lt;/ivy:buildlist&gt;
 </pre>
-Builds a list of build.xml files sorted according to the ivy.xml files found in an ivy directory relative to those build files. Only build.xml files of modules which have dependencies (direct or transitive) on mymodule are put in the result list.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildobr</div><br class="xooki-br"/><span class="since">since 2.3</span> From a bunch of jar artifacts, generate an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/>
+Builds a list of build.xml files sorted according to the ivy.xml files found in an ivy directory relative to those build files. Only build.xml files of modules which have dependencies (direct or transitive) on mymodule are put in the result list.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildobr</div><br class="xooki-br"/><span class="since">since 2.3</span> From a set of jar artifacts, this task generates an OBR (OSGi Bundle Repository) descriptor. It could be then used by the <a href="../resolver/obr.html">obr resolver</a>.<br class="xooki-br"/><br class="xooki-br"/>The set of jars which will be described by the OBR can be defined in 4 exclusive ways:
+<ul>
+<li>via an Ivy resolver: every jar listed by the resolver will be taken into account</li>
+<li>by defining a root directory: every jar found recursively in that folder will be taken into account</li>
+<li>via the name of an Ivy cache: every artifact contained in the cache will be taken into account</li>
+<li><span class="since">since 2.4</span> via a resolve: this task is a <a href="use/postresolvetask.html">post resolve task</a> (with all the behaviour and attributes common to all post resolve tasks), thus ever artifact which has been resolved will be taken into account; it is especially useful for building a <a href="../osgi/target-platform.html">target platform</a></li>
+</ul>
+
+NB: among every listed files or artifacts, only the actually OSGi bundles will be described by the OBR descriptor; the other files are ignored. <br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+
+<span class="since">since 2.4</span> This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/>
 <table class="ant">
 <thead>
     <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
@@ -4863,7 +4055,8 @@ Builds a list of build.xml files sorted according to the ivy.xml files found in 
     <tr><td>out</td><td>the location of the descriptor file to generate</td><td>Yes</td></tr>
     <tr><td>resolverName</td><td>the name of the resolver from which the jars should be to gathered</td><td>No</td></tr>
     <tr><td>cacheName</td><td>the name of the cache from which the jars should be to gathered</td><td>No</td></tr>
-    <tr><td>baseDir</td><td>the folder into whicch the jars should be gather recursively</td><td>No</td></tr>
+    <tr><td>baseDir</td><td>the folder into which the jars should be gather recursively</td><td>No</td></tr>
+    <tr><td>sourceType</td><td>if used as a post resolve task, 'sourceType' define the type of artifacts which should be considered as source artifacts (defaults to 'source,sources,src')</td><td>No</td></tr>
     <tr><td>encoding</td><td>The encoding of the resulting xml file</td><td>No. Defaults to <tt>UTF-8</tt></td></tr>
     <tr><td>indent</td><td>Specify if the xml result file should be indented</td><td>No. Defaults to <tt>true</tt></td></tr>
     <tr><td>quiet</td><td>Log as debug rather than warning the rejected jars as they are illformed</td><td>No. Defaults to <tt>false</tt></td></tr>
@@ -4882,7 +4075,11 @@ Configure an Ivy settings and builds an OBR descriptor from jars resolved by the
 <pre>
     &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr cacheName="my-cache" out="${basedir}/target/repo-eclipse.xml" /&gt;
 </pre>
-Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildnumber</div><br class="xooki-br"/><span class="since">since 1.4</span>
+Configure an Ivy settings and builds an OBR descriptor from jars contained in the defined cache.<br class="xooki-br"/><br class="xooki-br"/><hr/>
+<pre>
+    &lt;ivy:configure file="ivysettings.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:resolve file="ivy.xml" /&gt;<br class="xooki-br"/>    &lt;ivy:buildobr out="${basedir}/target-platform-obr.xml" /&gt;
+</pre>
+Launch a resolve and then build an obr.xml describing the resolved artifacts.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>buildnumber</div><br class="xooki-br"/><span class="since">since 1.4</span>
 The buildnumber task is similar to the ant buildnumber task, except that it uses ivy repository to find what is the latest version and calculate a new one for you.<br class="xooki-br"/><br class="xooki-br"/>When called it sets four properties according to what has been found.<br class="xooki-br"/>These properties are:
 <ul>
 <li>ivy.revision</li> the last revision found in the repository
@@ -4998,7 +4195,44 @@ Same as before but will use the original location for local artifacts, and the c
 <pre>
 &lt;ivy:cachepath organisation="emma" module="emma" revision="2.0.4217" inline="true" conf="ant" pathid="emma.classpath"/&gt;<br class="xooki-br"/>&lt;taskdef resource="emma_ant.properties" classpathref="emma.classpath" /&gt; 
 </pre>
-Resolves the emma module in version 2.0.4217, constructs an ant path with the corresponding artifacts, and then define the emma tasks using this path.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>cleancache</div><br class="xooki-br"/><span class="since">since 2.0</span>
+Resolves the emma module in version 2.0.4217, constructs an ant path with the corresponding artifacts, and then define the emma tasks using this path.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>checkdepsupdate</div><br class="xooki-br"/>Display dependency updates on the console. This task can also show transitive dependencies updates and detect missing or new dependencies if you update dependencies.<br class="xooki-br"/><br class="xooki-br"/>This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/><br class="xooki-br"/>Please prefer the use of retrieve + standard ant path creation, which make your build more independent from ivy (once artifacts are properly retrieved, ivy is not required any more).<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+
+<table class="ant">
+<thead>
+    <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>revisionToCheck</td><td>target revision to check</td>
+        <td>No. Defaults to 'latest.integration'</td></tr>
+    <tr><td>download</td><td>specify if artifact should be downloaded when new updates are found</td>
+        <td>No. Defaults to 'false'</td></tr>
+    <tr><td>checkIfChanged</td><td>When set to true, the resolve will compare the result with the last resolution done on this module, with those configurations in order to define the property ivy.deps.changed.  Put it to false may provides slightly better performance.</td><td>No, default to 'false'</td></tr>
+    <tr><td>showTransitive</td><td>set to true if you want to see potential updates on transitive dependencies</td>
+        <td>No. Defaults to 'false'</td></tr>
+</tbody>
+</table>
+
+<h1>Example</h1>
+Suppose we have two dependencies one called <i>mydep</i> in revision 1.0 and one called <i>myotherdependency</i> in revision 2.0.<br class="xooki-br"/><i>mydep</i> has a transitive dependency on <i>mytransitivedependency</i> in revision 2.2.<br class="xooki-br"/><br class="xooki-br"/>Then:
+<pre>
+&lt;checkdepsupdate /&gt;
+</pre>
+will display the following updates in the console:
+<pre>
+Dependencies updates available :<br class="xooki-br"/>   mycompany#mydep    1.0 -&gt; 2.0<br class="xooki-br"/>   mycompany#myotherdependency  2.0 -&gt; 2.2
+</pre>
+
+Same example with transitive dependencies :
+<pre>
+&lt;checkdepsupdate showTransitive="true" /&gt;
+</pre>
+will display the following updates in the console:
+<pre>
+Dependencies updates available :<br class="xooki-br"/>   mycompany#mydep    1.0 -&gt; 2.0<br class="xooki-br"/>   mycompany#myotherdependency  2.0 -&gt; 2.2<br class="xooki-br"/>   mycompany##mytransitivedependency (transitive)    2.2 -&gt; 2.4
+</pre>
+
+
+	<hr/><div class='toc-title toc-title-4'>cleancache</div><br class="xooki-br"/><span class="since">since 2.0</span>
 Cleans the Ivy cache.<br class="xooki-br"/><br class="xooki-br"/>This task is roughly equivalent to:
 <pre>
 &lt;delete dir="${ivy.cache.dir}" /&gt;
@@ -5141,7 +4375,36 @@ Deliver an ivy file without the private configurations:
 <pre>
 &lt;deliver conf="*(public)" /&gt; 
 </pre>
-<hr/><div class='toc-title toc-title-4'>findrevision</div><br class="xooki-br"/><span class="since">since 1.4</span>
+<hr/><div class='toc-title toc-title-4'>dependencytree</div><br class="xooki-br"/>Display a dependency tree on the console.<br class="xooki-br"/><br class="xooki-br"/>This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/><br class="xooki-br"/>Please prefer the use of retrieve + standard ant path creation, which make your build more independent from ivy (once artifacts are properly retrieved, ivy is not required any more).<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+
+<table class="ant">
+<thead>
+    <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>showEvicted</td><td>specify if evicted modules should be printed</td>
+        <td>No. Defaults to false</td></tr>
+    <tr><td>conf</td><td>a comma separated list of the configurations to take in consideration in the  dependency tree</td>
+        <td>No. Defaults to the configurations resolved by the last resolve call, or * if no resolve was explicitly called</td></tr>
+    <tr><td>haltonfailure</td><td>true to halt the build on ivy failure, false to continue</td><td>No. Defaults to true</td></tr>
+    <tr><td>validate</td><td>true to force ivy files validation against ivy.xsd, false to force no validation</td>
+        <td>No. Defaults to default ivy value (as configured in configuration file)</td></tr>
+    <tr><td>settingsRef</td><td>A reference to the ivy settings that must be used by this task <b>(since 2.0)</b></td><td>No, 'ivy.instance' is taken by default.</td></tr>
+    <tr><td>overwrite</td><td>Overwrite the value of the property if it already exist <b>(since 2.0)</b>.  Before 2.0, the properties were always overwritten.</td><td>No, 'false' by default.</td></tr>
+</tbody>
+</table>
+
+<h1>Example</h1>
+Suppose we have two dependencies one called <i>mydep</i> in revision 2.0 and one called <i>myotherdependency</i> in revision 2.2.<br class="xooki-br"/><i>mydep</i> has a transitive dependency on <i>mytransitivedependency</i> in revision 2.2.<br class="xooki-br"/><br class="xooki-br"/>Then:
+<pre>
+&lt;dependencytree /&gt;
+</pre>
+will display the following tree in the console:
+<pre>
+Dependency tree for foobar<br class="xooki-br"/>+- org#mydep;2.0<br class="xooki-br"/>   \- org#mytransitivedependency;2.2<br class="xooki-br"/>\- org#myotherdependency;2.2");
+</pre>
+
+	<hr/><div class='toc-title toc-title-4'>findrevision</div><br class="xooki-br"/><span class="since">since 1.4</span>
 Finds the latest revision of a module matching a given version constraint.<br class="xooki-br"/><br class="xooki-br"/>A version constraint is what is used when declaring a <a href="../ivyfile/dependency.html">dependency</a> on a module.<br class="xooki-br"/>If the module is not found the property is not set.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
 <table class="ant">
 <thead>
@@ -5170,7 +4433,48 @@ finds the latest version of ivy available in the repository and sets the propert
 <pre>
 &lt;ivy:findrevision organisation="apache" module="ivy" revision="1.0+"/&gt;
 </pre>
-same as above but only with 1.0 sub versions.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>info</div><br class="xooki-br"/><span class="since">since 1.4</span>
+same as above but only with 1.0 sub versions.<br class="xooki-br"/><br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>fixdeps</div><br class="xooki-br"/><span class="since">since 2.4</span>
+The <tt>fixdeps</tt> task serializes transitively resolved dependencies into an ivy.xml file. <br class="xooki-br"/><br class="xooki-br"/>The dependencies declared in an ivy.xml can be specified as range of revisions. And the transitive dependencies too. As new versions of modules can be added to the repository anytime, resolved versions of ranges can change over time. It is then safer to resolve a range once and stick with the resolved revision. This way a resolve process is highly reproductible.<br class="xooki-br"/><br class="xooki-br"/>It is especially useful in a very dynamic environment like the <a href="../osgi.html">OSGi</a> one.<br class="xooki-br"/><br class="xooki-br"/>In a multi project environment some dependencies still need to be maintained loose: the one between the projects. These dependencies, as soon as they are declared in the original ivy.xml, can be kept from being fixed. In order to do so, use the inner element <tt>keep</tt>.<br class="xooki-br"/><br class="xooki-br"/>The recommended setup is then to:
+<ul>
+<li>have an <tt>ivy-spec.xml</tt> in your project which specifies the dependencies, with ranges if needed</li>
+<li>have an Ant target which resolve the <tt>ivy-spec.xml</tt> and call <tt>fixdeps</tt> to generate an <tt>ivy.xml</tt>. This target should then only be called after <tt>ivy-spec.xml</tt> is modified. The generated <tt>ivy.xml</tt> can safely be shared in a version control repository (svn, git,...).</li>
+<li>make the entire build workflow based on the resolve of the generated <tt>ivy.xml</tt></li>
+</ul>
+
+This is a <a href="use/postresolvetask.html">post resolve task</a>, with all the behaviour and attributes common to all post resolve tasks.<br class="xooki-br"/><br class="xooki-br"/><h1>Attributes</h1>
+<table class="ant">
+<thead>
+    <tr><th class="ant-att">Attribute</th><th class="ant-desc">Description</th><th class="ant-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>tofile</td><td>The location of the ivy file to generate</td>
+        <td>Yes</td></tr>
+</tbody>
+</table>
+
+<h1>Child elements</h1>
+
+<table class="ant">
+<thead>
+    <tr><th class="ant-att">Element</th><th class="ant-desc">Description</th><th class="ant-req">Cardinality</th></tr>
+</thead>
+<tbody>
+    <tr><td>keep</td><td>declares a dependency to keep from being fixed, and keep its original declaration from the original ivy.xml<br class="xooki-br"/>    <br/>These elements takes two attributes: <ul><li>org</li> the organization<li>module</li>the name of the module</ul></td>
+        <td>0..n</td></tr>
+</tbody>
+</table>
+
+<h1>Examples</h1>
+
+<pre>
+&lt;ivy:fixdeps tofile="ivy-fixed.xml" /&gt;
+</pre>
+Simple fix of some dependencies.<br class="xooki-br"/><br class="xooki-br"/><hr/>
+
+<pre>
+&lt;ivy:fixdeps tofile="ivy-fixed.xml"&gt;<br class="xooki-br"/>    &lt;keep org="com.acme" module="mymodule" /&gt;<br class="xooki-br"/>&lt;/ivy:fixdeps&gt;
+</pre>
+Fix of the dependencies but keep the dependency on <tt>com.acme#mymodule</tt> as defined in the original ivy.xml.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>info</div><br class="xooki-br"/><span class="since">since 1.4</span>
 The info task ease the access to some essential data contained in an ivy file without performing a dependency resolution.<br class="xooki-br"/><br class="xooki-br"/>The information is retrieved by setting ant properties:
 <table class="ant">
 <thead>
@@ -5280,6 +4584,8 @@ The module to install should be available in a resolver, and will be installed i
     	<td>No, 'ivy.instance' is taken by default.</td></tr>
     <tr><td>haltonfailure</td><td>true to fail build on unresolved dependencies <span class="since">since 2.0</span></td>
         <td>No, defaults to true</td></tr>
+    <tr><td>installOriginalMetadata</td><td>true to install original metadata (if available). If the module has been originally resolved from a m2 repository, the original metadata is the original POM file <span class="since">since 2.4</span></td>
+        <td>No, defaults to false</td></tr>
 </tbody>
 </table>
 <h1>Examples</h1>
@@ -5625,7 +4931,20 @@ set to the comma separated list of configurations resolved
 <li>ivy.deps.changed.${resolveId}</li>
 </ul>
 
-When ivy has finished the resolve task, it outputs a summary of what has been resolved. This summary looks like this:
+<b>Since 2.4</b><br class="xooki-br"/>If current module extends other modules 
+<ul>
+<li>ivy.parents.count</li>
+number of parents module
+<li>ivy.parent[index].organisation</li>
+set to the organisation name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].module</li>
+set to the module name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].revision</li>
+set to the revision name found in the parent ivyfile which was used for resolve
+<li>ivy.parent[index].branch</li>
+set to the branch name found in the parent ivyfile which was used for resolve
+</ul>
+Where <i>index</i> represent the index of extends module.<br class="xooki-br"/><br class="xooki-br"/>When ivy has finished the resolve task, it outputs a summary of what has been resolved. This summary looks like this:
 <pre>
 ---------------------------------------------------------------------<br class="xooki-br"/>|                  |            modules            ||   artifacts   |<br class="xooki-br"/>|       conf       | number| search|dwnlded|evicted|| number|dwnlded|<br class="xooki-br"/>---------------------------------------------------------------------<br class="xooki-br"/>|      default     |   4   |   0   |   0   |   0   ||   4   |   0   |<br class="xooki-br"/>---------------------------------------------------------------------
 </pre>
@@ -5821,7 +5140,8 @@ Build a resource collection of every artifacts of the configurations "api" and "
 <li><b>always</b></li> always overwrite the destination file
 <li><b>never</b></li> never overwrite the destination file
 </ul></td><td>No. Defaults to 'newer'.</td></tr>
-    <tr><td>symlink</td><td>true to create symbolic links, false to copy the artifacts. The destination of the symbolic links depends on the value of the useOrigin attribute <span class="since">(since 2.0)</span></td><td>No. Defaults to false</td></tr>
+    <tr><td>symlink</td><td>true to create symbolic links, false to copy the artifacts.<br class="xooki-br"/>    The destination of the symbolic links depends on the value of the useOrigin attribute.<br class="xooki-br"/>    (requires "ln" to be a valid command, and to support the options -s and -f (works on UNIX/Linux, on other systems you may need to script "ln")<br class="xooki-br"/>    <span class="since">(since 2.0)</span></td><td>No. Defaults to false</td></tr>
+    <tr><td>symlinkmass</td><td>true to create symbolic links in mass, false to copy the artifacts.<br class="xooki-br"/>    "symlinkmass" overrides "symlink" if both are set to "true".<br class="xooki-br"/>    "symlinkmass" will create the same symbolic links "symlink" does, but with a single process call to "sh" with batched "ln" commands passed in as standard input (works on UNIX/Linux, on other systems you may need to script it)<br class="xooki-br"/>    Far large lists of resolved jars, this can be dramatically faster.<br class="xooki-br"/>    The destination of the symbolic links depends on the value of the useOrigin attribute.<br class="xooki-br"/>    The events "StartRetrieveArtifactEvent" and EndRetrieveEvent are NOT fired by this activity, because it is not clear when they should be called.<br class="xooki-br"/>    <span class="since">(since 2.4)</span></td><td>No. Defaults to false</td></tr>
     <tr><td>settingsRef</td><td>A reference to the ivy settings that must be used by this task <span class="since">(since 2.0)</span></td><td>No, 'ivy.instance' is taken by default.</td></tr></tbody>
     <tr><td>log</td><td>the log setting to use during the resolve and retrieve process. <span class="since">(since 2.0)</span><br/>
 Available options are the same as for <a href="use/resolve.html">resolve</a> when used to trigger resolve automatically (see <a href="use/postresolvetask.html">postresolvetask</a>), or the following for the retrieve process only:
@@ -6043,7 +5363,7 @@ Contrary to ant properties, ivy variables are mutable. But a problem with this i
 </tbody>
 </table>
 
-	<hr/><div class='toc-title toc-title-3'>Using standalone</div><br class="xooki-br"/>Ivy can be used as a standalone program very easily. All you need is a java 1.4+ runtime environment (JRE)!<br class="xooki-br"/><br class="xooki-br"/>Then here is how to call it:
+	<hr/><div class='toc-title toc-title-3'>Using standalone</div><br class="xooki-br"/>Ivy can be used as a standalone program very easily. All you need is a Java 5+ runtime environment (JRE)!<br class="xooki-br"/><br class="xooki-br"/>Then here is how to call it:
 <pre>
 java -jar ivy.jar -?
 </pre>
@@ -6337,17 +5657,16 @@ In few steps, we will setup a build to compile and publish an OSGi bundle.<br cl
   </tr>
 </table>
 
-<hr />
-<center><b>TODO - WORK IN PROGRESS</b></center>
-<hr />
+The concept of "target platform" is a concept introduced by Eclipse&#153; to describe the set of bundle which will run together in an OSGi&#153; environement. Then when developping an OSGi bundle, we expect it to run in a such "target platform".<br class="xooki-br"/><br class="xooki-br"/>When developping a single OSGi bundle, a single ivy.xml (together with the use of the <a href="../use/fixdeps.html">fixdeps</a> task) is sufficent to describe precisely how the bundle requirements.<br class="xooki-br"/><br class="xooki-br"/>But when developping several bundles, it will be error prone to declare for each bundle its dependencies. Because once deployed in an OSGi environement, the bindings are sensitive to the available bundles. So when developping, we must ensure that the set of bundles will be the same set as the one at deploy time.<br class="xooki-br"/><br class="xooki-br"/>The concept of "target platform" is a perfect fit to describe the set of bundles to resolve against. Here is a recipe to handle it with just Ant+Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A Target Platform Project</h1>
 
-Building an OSGi&#153; bundle with standard tools like <tt>javac</tt> and a classpath computed by Apache Ivy&#153; can be erroneous as these tools doesn't take into account the package visibility enforced by the OSGi metadata. Then switching to OSGi dedicated tools like the Eclipse&#153; JDT can be prefered. This kind of tools still need a "target platform", a set of jars against to compile and then later run. A target platform can be easily managed with Ivy and its OSGi capabilities.<br class="xooki-br"/>
-<ul>Some links of interest:<br class="xooki-br"/>  <li><a href="../resolver/obr.html">OSGi Bundle Repository Resolver</a></li>
-  <li><a href="../resolver/updatesite.html">Eclipse updatesite Resolver</a></li>
-  <li><a href="../use/retrieve.html">Ant ivy:retrieve task</a></li>
+First you need a project (basically a folder) in which you will manage your target platform. In this project you'll need 3 files:
+<ul>
+<li>an <a href="../samples/target-platform/ivy.xml">ivy.xml</a> in which you will describe the bundles you need,</li>
+<li>an <a href="../samples/target-platform/ivysettings.xml">ivysettings.xml</a> which will describe where to download bundles from,</li>
+<li>and a <a href="../samples/target-platform/build.xml">build.xml</a> with which you'll manage your target platform.</li>
 </ul>
 
-	<hr/><div class='toc-title toc-title-4'>Apache Felix Sigil</div><br class="xooki-br"/><br class="xooki-br"/>Another initiative to manage OSGi&#153; dependencies is the project <a href="http://felix.apache.org/site/apache-felix-sigil.html">Apache Felix Sigil&#153;</a>. Sigil can used also together with Ivy. We will try to explain here the different approach taken there compared to the build-in OSGi capabilities of Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A different approach</h1>
+In the build there is a first important target: <tt>'update-dependencies'</tt>. Since the OSGi dependencies are very sensible to the available resources to resolve against, it is important to make the resolve as tight and reproductible as possible. First this target will do a resolve with the <tt>ivy.xml</tt>: a resolve which is very sensible to the content of the remote repo, thus not much reproductible. And it is will generate an <tt>ivy-fixed.xml</tt> from the resolved depedencies: this Ivy file contains only fixed non transitive dependencies (see the <a href="../use/fixdeps.html">fixdeps</a> task for further info). With that <tt>ivy-fixed.xml</tt> file, resolves are then reproductible and will always generate the same set of artifacts.<br class="xooki-br"/><br class="xooki-br"/>Once generated, it is recommended to share that <tt>ivy-fixed.xml</tt> file into you version control system (subversion, git, etc...). The target <tt>'update-dependencies'</tt> is then to be launched each time you edit the <tt>ivy.xml</tt>, when you want to change the content of your target platform.<br class="xooki-br"/><br class="xooki-br"/>The second target <tt>'generate-target-platform'</tt> will generate an <tt>obr.xml</tt>, a OSGi Bundle repository descriptor. This file will list every artifact wich has been resolved by the <tt>ivy-fixed.xml</tt>. Then each of your bundles you develop will do its resolve against that <tt>obr.xml</tt> (see the <a href="../resolver/obr.html">obr resolver</a>).<br class="xooki-br"/><br class="xooki-br"/>The generated <tt>obr.xml</tt> contains paths to the local filesystem, so it is recommended to not share it between developpers.<br class="xooki-br"/><br class="xooki-br"/>If it is required to develop your plugin with the Eclipse PDE plugin, you can then use the alternative target <tt>generate-retrieved-target-platform</tt>. It has the same principle than the <tt>'generate-target-platform'</tt> but the artifacts are also retrieved in a single folder, just like are plugins in an Eclipse install. That way you can define your target platform within Eclipse quite easily.<br class="xooki-br"/><br class="xooki-br"/>	<hr/><div class='toc-title toc-title-4'>Apache Felix Sigil</div><br class="xooki-br"/><br class="xooki-br"/>Another initiative to manage OSGi&#153; dependencies is the project <a href="http://felix.apache.org/site/apache-felix-sigil.html">Apache Felix Sigil&#153;</a>. Sigil can used also together with Ivy. We will try to explain here the different approach taken there compared to the build-in OSGi capabilities of Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A different approach</h1>
 
 Apache Felix Sigil is at its core about managing OSGi dependencies, not directly related to Ivy. Most of it core feature is about the implementation of the not yet released OBR (OSGi Bundle Repository) specification. It then provides integration layers with sevral tools so human being can actually use the OBR API. As "layer" there is an Eclipse plugin, and there are the Ant/Ivy tasks and resolver.<br class="xooki-br"/><br class="xooki-br"/>On the other hand the build in OSGi capabilities in Ivy are targeted against users already familiar with Ivy and their <a href="http://ant.apache.org/ivy/links.html">tools</a> like <a href="http://ant.apache.org/ivy/ivyde">Apache IvyDE&#153;</a>. So with a minimum of effort, they can get OSGi dependency management.<br class="xooki-br"/><br class="xooki-br"/><h1>Resulting differences</h1>
 
@@ -6365,8 +5684,8 @@ All you need is
 <em>We recommend either ant 1.6.5 or 1.7.0</em>
 <li><a href="http://junit.org">junit</a> 3.8.2 jar in your ant lib</li>
 <em> this is not required if you use ant 1.7</em>
-<li>a <a href="http://java.sun.com/">jdk</a> 1.4 or greater</li>
-<em>Build instructions have been successfully tested with sun jdk 1.4.2, 1.5.0 and 1.6.0</em>
+<li>a <a href="http://java.sun.com/">jdk</a> 1.5 or greater</li>
+<em>Build instructions have been successfully tested with sun jdk 1.5.0 and 1.6.0</em>
 </ul>
 
 <h2>Procedure</h2>
@@ -6413,12 +5732,12 @@ The Ivy project comes with settings for the <a href="http://eclipse-cs.sourcefor
 
 Before trying to implement your own, we encourage you to check if the solution to your problem cannot be addressed by existing features, or by <a href="../../links.html">contributed ones</a>. Do not hesitate to ask for help on the <a href="../../mailing-lists.html">Mailing lists</a>.<br class="xooki-br"/><br class="xooki-br"/>If you still don't find what you need, then you'll have to develop your own plugin or find someone who could do that for you.<br class="xooki-br"/><br class="xooki-br"/>All ivy plug-ins use the same code patterns as ant specific tasks for parameters. This means that if you want to have a "myattribute" of type String, you just have to declare a method called setMyattribute(String val) on your plug-in. The same applies to child tags, you just have to follow Ant specifications.<br class="xooki-br"/><br class="xooki-br"/>All pluggable code in Ivy is located in the <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/java/org/apache/ivy/plugins">org.apache.ivy.plugins</a> package. In each package you will find an interface that you must implement to provide a new plugin. We usually also provide an abstract class easing the implementation and making your code more independent of interface changes. We heavily recommend using these abstract classes as a base class.<br class="xooki-br"/><br class="xooki-br"/>To understand how your implementation can be done, we suggest looking at existing implementations we provide, it's the best way to get started.<br class="xooki-br"/>	<hr/><div class='toc-title toc-title-3'>Making a release</div><br class="xooki-br"/><h1>Making a release</h1>
 <h2>Requirements</h2>
-Requirements for making a release are similar to the requirements for building from source, except that sun jdk 1.6 and ant 1.7 are required.<br class="xooki-br"/><h2>Procedure</h2>
+Requirements for making a release are similar to the requirements for building from source, except that JDK 1.6+ and Apache Ant 1.9+ are required.<br class="xooki-br"/><h2>Procedure</h2>
 <h3>1. Check the files which needs to be updated for the release.</h3>
 On the trunk, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>RELEASE_NOTES<br class="xooki-br"/>CHANGES<br class="xooki-br"/>README<br class="xooki-br"/><h3>2. Create a release branch</h3>
-This will allow to work separately from other developers, in case you need any last modification.
+This will allow to work separately from other developers, in case you need any last modification. For a release we have 2 branches. For instance, suppose we create a 2.0.0-beta1 release. We have a branch for the code for all 2.0.x releases, this is the '2.0.x' branch. From this branch we will create the release branch which is for a specific release. It is possible that the 2.0.x branch has already been created when releasing a previous version, in that case the creation of this branch can be skipped.
 <pre>
-svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk">https://svn.apache.org/repos/asf/ant/ivy/core/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Creating a release branch for 2.0.0-beta1."
+svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk">https://svn.apache.org/repos/asf/ant/ivy/core/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>      -m "Creating a 2.0.x branch."<br class="xooki-br"/>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Creating a release branch for 2.0.0-beta1."
 </pre>
 <h3>3. Check out the branch</h3>
 <pre>
@@ -6454,12 +5773,7 @@ Here is a ruby script you can use to sign the files:
 <pre>
 require 'find'<br class="xooki-br"/><br class="xooki-br"/>Find.find('build/distrib') do |f| <br class="xooki-br"/>    `gpg --armor --output #{f}.asc --detach-sig #{f}` if File.file?(f) && ['.zip', '.gz', '.jar', '.pom'].include?(File.extname(f))<br class="xooki-br"/>end
 </pre>
-Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/>When you're done upload the content of the distrib directory to a publicly accessible web site, your apache personal site being a good location for this. Make sure you include some kind of disclaimer somewhere to inform people the release is not approved yet.<br class="xooki-br"/><br class="xooki-br"/>You can for example add a HEADER.html like this:
-<pre>
-&lt;h2&gt;WARNING: files available here are NOT an Apache approved release yet.&lt;/h2&gt;
-</pre>
-
-<h3>11. Prepare the Eclipse update site</h3>
+Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/><h3>11. Prepare the Eclipse update site</h3>
 
 To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
 As soon as you are happy with the artifacts to be released, it is time to tag the svn repo
@@ -6474,23 +5788,19 @@ xooki -r790212 <a href="https://svn.apache.org/repos/asf/ant/ivy/site/xooki/">ht
 
 And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h3>Publish the release candidate</h3>
 
-<ul>Two choices here:<br class="xooki-br"/>  <li>commit them into the dev dist area: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a></li>
-  <li>or simply put it in your <tt>public_html</tt> folder on people.apache.org so it will be avalaible at <a href="http://people.apache.org/~$LOGIN/$RELEASENAME">http://people.apache.org/~$LOGIN/$RELEASENAME</a></li>
-</ul>
-
-<h3>13. Call for a vote to approve the release</h3>
+All artifacts in <tt>build/distrib</tt> except the <tt>maven2</tt> folder needs to be published on the 'dist' svn of the ASF, in the <b>dev</b> part.<br class="xooki-br"/><br class="xooki-br"/>The artifacts should be pushed in that svn folder: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/><h3>13. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
 <pre>
-Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>You can download it from this URL: ${url}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
+Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>The svn tag of this release is: <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag">https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag</a>}<br class="xooki-br"/><br class="xooki-br"/>The artifacts has been published to: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in</a>}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
 </pre>
 <h3>14. Publish the release</h3>
 
-If the release is approved, it's now time to make it public. The apache dist is manage by svnpubsub, so releases should be committed into <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>If the release candidate has been staged into the dev area, then just do:
+If the release is approved, it's now time to make it public. The artifacts in the <i>dev</i> part needs to be moved into the <i>release</i> one:
 <pre>
 $ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION</a>
 </pre>
 
-If the candidate has been published on people.apache.org, just directly commit the artifacts into the subversion repository <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a> <br class="xooki-br"/><br class="xooki-br"/>In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
+In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
 Add a link to the released version documentation in the web site. <br class="xooki-br"/><br class="xooki-br"/>To do so, you need to:<br class="xooki-br"/><ol>
 <li>add a svn externals reference to the documentation</li>
 edit the svn properties of site/history, and in the svn:externals property, add a line like this one:
@@ -6508,14 +5818,13 @@ You can also edit the title of the main documentation node pointing to latest-mi
 Then you can update the release notes page of the imported documentation if necessary, to include the announcement for example.<br class="xooki-br"/><br class="xooki-br"/>It's time to update the download image used on the home page and the download page. Use site/images/ivy-dl.xcf as a basis if you have <a href="http://www.gimp.org/">gimp</a> installed. Then you can update the home page to refer to this image, and add a news item announcing the new version. Update also the download page with the new image and update the links to the download location (using a search/replace on the html source is recommended for this).<br class="xooki-br"/><br class="xooki-br"/>All site editing being done, commit your changes.<br class="xooki-br"/><br class="xooki-br"/>And now let's generate the site and deploy it:<br class="xooki-br"/><ol>
     <li>generate the part of the site for the new version:</li>
 <pre>
-ant generate-history-ivy -Dhistory.version=2.0.0-beta1
+ant generate-history -Dhistory.version=2.0.0-beta1
 </pre>
 <u>WARNING:</u> that target is modifiying the toc.json in the imported branch so that the generated html have a proper version declared in the toc. You should not commit that change. Once the site has been generated, you may want to revert the changes so you won't commit it by mistake. (TODO: process to improve so we shouldn't worry).<br class="xooki-br"/>    <li>generate the website with the new toc:</li>
 <pre>
-ant /all generate-site-ivy
+ant /all generate-site
 </pre>
-    <li>you should verify that the site generated in target is OK. And once your happy with it, commit the changes in target (some svn add might be needed !)</li>
-    <li>deploy the website: go on people.apache.org and <tt>svn up /www/ant.apache.org/ivy/</tt></li>
+    <li>you should verify that the site generated in the production directory is OK. And once your happy with it, commit the changes (some svn add might be needed !)</li>
 </ol>
 
 <h3>16. Deploy the Eclipse updatesite</h3>
@@ -6529,7 +5838,7 @@ Update the file version.properties with the version of the next release so that 
 
 <div id="footer-message" class="footer">
     <hr />
-    <i>Copyright &#169; 2013 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
+    <i>Copyright &#169; 2014 The Apache Software Foundation, Licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache License, Version 2.0</a>.</i><br />
     <i>Apache Ivy, Apache Ant, Ivy, Ant, Apache, the Apache Ivy logo, the Apache Ant logo and the Apache feather logo are trademarks of The Apache Software Foundation.</i><br />
     <i>All other marks mentioned may be trademarks or registered trademarks of their respective owners. </i>
 </div>
