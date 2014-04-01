@@ -370,11 +370,36 @@ This target is used when you don't want to use your local version of a module an
 Generates both an html report and a graphml report.<br class="xooki-br"/><br class="xooki-br"/>For example, to generate a graph like the one shown at the beginning of this tutorial, you just have to follow the instructions given <a href="../../../history/latest-milestone/yed.html">here</a> with the graphml file you will find in <pre>projects/console/build/</pre> after having called report in the console project, and that's it, you have a clear overview of all your app dependencies!<br class="xooki-br"/><br class="xooki-br"/><h1>Playing with the projects</h1>
 You can play with this tutorial by using regular Ant commands. Begin in the base directory of the tutorial (src/example/multi-project), and run ant -p:
 <div class="shell"><pre>
+[ivy@apache:/ivy/multi-project]$ ant -p
+Buildfile: /ivy/multi-project/build.xml
+
+Main targets:
+
+ clean        clean tutorial: delete repository, ivy cache, and all projects
+ clean-all    clean all projects
+ publish-all  compile, jar and publish all projects in the right order
 
 </pre></div>
 
 This gives you an idea of what you can do here. To make sure you have at least one version of all your modules published in your repository (required to build modules having dependencies on the others), you can run <tt>ant publish-all</tt> (example log <a href="log/multi-project-general-publishall.txt">here</a>).<br class="xooki-br"/><br class="xooki-br"/>You will see that Ivy calls the publish target on all the modules, following the order of the dependencies, so that a dependee is always built and published before its depender. Feel free to make changes in the source code of a module (changing a method name for instance) and in the module using the method, then call publish-all to see how the change in the dependee is compiled first, published, and then available to the depender which can compile successfully.<br class="xooki-br"/><br class="xooki-br"/>Then you can go in one of the example project directories (like projects/find for instance), and run <tt>ant -p</tt>:
 <div class="shell"><pre>
+[ivy@apache:/ivy/multi-project/projects/find]$ ant -p
+Buildfile: /ivy/multi-project/projects/find/build.xml
+
+Main targets:
+
+ clean          --> clean the project
+ clean-build    --> clean the project built files
+ clean-lib      --> clean the project libraries directory (dependencies)
+ clean-local    --> cleans the local repository for the current module
+ compile        --> compile the project
+ jar            --> make a jar file for this project
+ publish        --> publish this project in the ivy repository
+ publish-local  --> publish this project in the local ivy repository
+ report         --> generates a report of dependencies
+ resolve        --> resolve and retrieve dependencies with ivy
+ run            --> compile and run the project
+Default target: compile
 
 </pre></div>
 
