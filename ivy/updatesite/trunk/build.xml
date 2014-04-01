@@ -117,6 +117,7 @@ ${ASL2-header}
         </concat>
         <echo append="true" file="${dist.release.dir}/compositeArtifacts.xml"><![CDATA[</repository>
 ]]></echo>
+    	<fixcrlf file="${dist.release.dir}/compositeArtifacts.xml" />
 
         <echo file="${dist.release.dir}/compositeContent.xml"><![CDATA[<?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
@@ -132,6 +133,7 @@ ${ASL2-header}
         </concat>
         <echo append="true" file="${dist.release.dir}/compositeContent.xml"><![CDATA[</repository>
 ]]></echo>
+        <fixcrlf file="${dist.release.dir}/compositeContent.xml" />
     </target>
 
     <!-- ========================================
