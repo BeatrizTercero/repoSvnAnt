@@ -1,8 +1,9 @@
-  <children size='8'>
+  <children size='9'>
     <child location='ivyde-2.2.0.final-201311091524-RELEASE'/>
     <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivyde-2.2.0.beta1'/>
     <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivyde-2.1.0'/>
     <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivyde-2.0.0'/>
+    <child location='ivy-2.4.0.cr1_20140315220245'/>
     <child location='ivy-2.3.0.final_20130110142753'/>
     <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivy-2.2.0'/>
     <child location='http://archive.apache.org/dist/ant/ivyde/updatesite/ivy-2.1.0'/>
