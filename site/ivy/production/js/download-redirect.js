@@ -16,6 +16,6 @@
    specific language governing permissions and limitations
    under the License.
 */
-if (m = /(http:.*\/)download.html([^\/]*)/.exec(window.location.toString())) {
+if (m = /(https?:.*\/)download.html([^\/]*)/.exec(window.location.toString())) {
     window.location.href = m[1] + "download.cgi" + m[2];
 }
