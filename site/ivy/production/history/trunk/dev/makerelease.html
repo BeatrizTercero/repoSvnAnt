@@ -239,12 +239,12 @@
 		<h1 class="title">Making a release</h1>
             <br class="xooki-br"/><h1>Making a release</h1>
 <h2>Requirements</h2>
-Requirements for making a release are similar to the requirements for building from source, except that sun jdk 1.6 and ant 1.7 are required.<br class="xooki-br"/><h2>Procedure</h2>
+Requirements for making a release are similar to the requirements for building from source, except that JDK 1.6+ and Apache Ant 1.9+ are required.<br class="xooki-br"/><h2>Procedure</h2>
 <h3>1. Check the files which needs to be updated for the release.</h3>
 On the trunk, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>RELEASE_NOTES<br class="xooki-br"/>CHANGES<br class="xooki-br"/>README<br class="xooki-br"/><h3>2. Create a release branch</h3>
-This will allow to work separately from other developers, in case you need any last modification.
+This will allow to work separately from other developers, in case you need any last modification. For a release we have 2 branches. For instance, suppose we create a 2.0.0-beta1 release. We have a branch for the code for all 2.0.x releases, this is the '2.0.x' branch. From this branch we will create the release branch which is for a specific release. It is possible that the 2.0.x branch has already been created when releasing a previous version, in that case the creation of this branch can be skipped.
 <pre>
-svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk">https://svn.apache.org/repos/asf/ant/ivy/core/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Creating a release branch for 2.0.0-beta1."
+svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk">https://svn.apache.org/repos/asf/ant/ivy/core/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>      -m "Creating a 2.0.x branch."<br class="xooki-br"/>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Creating a release branch for 2.0.0-beta1."
 </pre>
 <h3>3. Check out the branch</h3>
 <pre>
@@ -280,12 +280,7 @@ Here is a ruby script you can use to sign the files:
 <pre>
 require 'find'<br class="xooki-br"/><br class="xooki-br"/>Find.find('build/distrib') do |f| <br class="xooki-br"/>    `gpg --armor --output #{f}.asc --detach-sig #{f}` if File.file?(f) && ['.zip', '.gz', '.jar', '.pom'].include?(File.extname(f))<br class="xooki-br"/>end
 </pre>
-Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/>When you're done upload the content of the distrib directory to a publicly accessible web site, your apache personal site being a good location for this. Make sure you include some kind of disclaimer somewhere to inform people the release is not approved yet.<br class="xooki-br"/><br class="xooki-br"/>You can for example add a HEADER.html like this:
-<pre>
-&lt;h2&gt;WARNING: files available here are NOT an Apache approved release yet.&lt;/h2&gt;
-</pre>
-
-<h3>11. Prepare the Eclipse update site</h3>
+Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/><h3>11. Prepare the Eclipse update site</h3>
 
 To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
 As soon as you are happy with the artifacts to be released, it is time to tag the svn repo
@@ -300,23 +295,19 @@ xooki -r790212 <a href="https://svn.apache.org/repos/asf/ant/ivy/site/xooki/">ht
 
 And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h3>Publish the release candidate</h3>
 
-<ul>Two choices here:<br class="xooki-br"/>  <li>commit them into the dev dist area: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> </li>
-  <li>or simply put it in your <tt>public_html</tt> folder on people.apache.org so it will be avalaible at <a href="http://people.apache.org/~$LOGIN/$RELEASENAME">http://people.apache.org/~$LOGIN/$RELEASENAME</a> </li>
-</ul>
-
-<h3>13. Call for a vote to approve the release</h3>
+All artifacts in <tt>build/distrib</tt> except the <tt>maven2</tt> folder needs to be published on the 'dist' svn of the ASF, in the <b>dev</b> part.<br class="xooki-br"/><br class="xooki-br"/>The artifacts should be pushed in that svn folder: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/><h3>13. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
 <pre>
-Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>You can download it from this URL: ${url}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
+Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>The svn tag of this release is: <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag">https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag</a>}<br class="xooki-br"/><br class="xooki-br"/>The artifacts has been published to: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in</a>}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
 </pre>
 <h3>14. Publish the release</h3>
 
-If the release is approved, it's now time to make it public. The apache dist is manage by svnpubsub, so releases should be committed into <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/>If the release candidate has been staged into the dev area, then just do:
+If the release is approved, it's now time to make it public. The artifacts in the <i>dev</i> part needs to be moved into the <i>release</i> one:
 <pre>
 $ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION</a>
 </pre>
 
-If the candidate has been published on people.apache.org, just directly commit the artifacts into the subversion repository <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a> <br class="xooki-br"/><br class="xooki-br"/>In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
+In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>15. Update the web site</h3>
 Add a link to the released version documentation in the web site. <br class="xooki-br"/><br class="xooki-br"/>To do so, you need to:<br class="xooki-br"/><ol>
 <li>add a svn externals reference to the documentation</li>
 edit the svn properties of site/history, and in the svn:externals property, add a line like this one:
