@@ -38,7 +38,9 @@ import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 import org.osgi.framework.wiring.BundleWiring;
 
-class OSGiFrameworkManager {
+class OSGiClasspathManager extends ClasspathManager {
+
+    private static final String OSGI_STORAGE_LOCATION = AntPathManager.CACHE_LOCATION + "/.osgi-storage";
 
     //@formatter:off
     private static final String ANT_PACKAGES =
@@ -53,11 +55,10 @@ class OSGiFrameworkManager {
 
     private GodClassLoader godClassLoader = new GodClassLoader();
 
-    OSGiFrameworkManager(File basedir, boolean update) throws BundleException {
+    OSGiClasspathManager(File basedir, boolean update) throws BundleException {
         Map<String, String> configMap = new HashMap<String, String>();
         configMap.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, ANT_PACKAGES);
-        configMap.put(Constants.FRAMEWORK_STORAGE,
-                new File(basedir, AntPathManager.OSGI_STORAGE_LOCATION).getAbsolutePath());
+        configMap.put(Constants.FRAMEWORK_STORAGE, new File(basedir, OSGI_STORAGE_LOCATION).getAbsolutePath());
         if (update) {
             configMap.put(Constants.FRAMEWORK_STORAGE_CLEAN, "true");
         }
@@ -68,7 +69,7 @@ class OSGiFrameworkManager {
     private FrameworkFactory getFrameworkFactory() {
         Enumeration<URL> urls;
         try {
-            urls = OSGiFrameworkManager.class.getClassLoader().getResources(
+            urls = OSGiClasspathManager.class.getClassLoader().getResources(
                     "META-INF/services/org.osgi.framework.launch.FrameworkFactory");
         } catch (IOException e) {
             throw new BuildException(e);
@@ -111,6 +112,26 @@ class OSGiFrameworkManager {
         throw new BuildException("No OSGi framework factory found");
     }
 
+    @Override
+    public void start(boolean update, List<File> antPath) {
+        if (update) {
+            for (File file : antPath) {
+                try {
+                    install(file);
+                } catch (BundleException e) {
+                    throw new BuildException("Unable to install the bundle " + file.getAbsolutePath() + " ("
+                            + e.getMessage() + ")", e);
+                }
+            }
+        }
+
+        try {
+            start();
+        } catch (BundleException e) {
+            throw new BuildException("Unable to start the OSGi framework (" + e.getMessage() + ")", e);
+        }
+    }
+
     void install(File bundle) throws BundleException {
         String url;
         try {
@@ -138,7 +159,8 @@ class OSGiFrameworkManager {
         });
     }
 
-    GodClassLoader getGodClassLoader() {
+    @Override
+    public ClassLoader getMainClassLoader() {
         return godClassLoader;
     }
 
@@ -147,7 +169,8 @@ class OSGiFrameworkManager {
      * 
      * @return
      */
-    ClassLoader getClassLoader(String resource, URL url) {
+    @Override
+    public ClassLoader getClassLoader(String resource, URL url) {
         for (Bundle bundle : framework.getBundleContext().getBundles()) {
             BundleWiring wiring = (BundleWiring) bundle.adapt(BundleWiring.class);
             int i = resource.lastIndexOf('/');

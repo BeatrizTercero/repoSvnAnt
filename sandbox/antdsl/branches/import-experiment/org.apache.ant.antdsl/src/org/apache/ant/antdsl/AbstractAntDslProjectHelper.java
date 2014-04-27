@@ -65,13 +65,15 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
     public static final String REFID_FUNCTION_REGISTRY = "antdsl.function.registry";
 
-    public static final String REFID_OSGI_FRAMEWORK_MANAGER = "antdsl.osgi.framework.manager";
+    public static final String REFID_CLASSPATH_MANAGER = "antdsl.classpath.manager";
 
     public static final String REFID_RELOAD_BUNDLES = "antdsl.reload.bundles";
 
     public static final String REFID_CLASSLOADER_STACK = "antdsl.classloader.stack";
 
     public static final String REFID_ANT_PATH = "antdsl.path";
+
+    private static final String PROP_CLASSPATH_MANAGER = "antdsl.classpath-manager";
 
     public String getDefaultBuildFile() {
         return "build.ant";
@@ -175,8 +177,8 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         }
     }
 
-    private OSGiFrameworkManager getOSGiFrameworkManager(Project p) {
-        return p.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
+    private ClasspathManager getClasspathManager(Project p) {
+        return p.getReference(REFID_CLASSPATH_MANAGER);
     }
 
     private Stack<ClassLoader> getClassloaderStack(Project p) {
@@ -324,36 +326,30 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
         project.addTarget("", context.getImplicitTarget());
         context.setCurrentTarget(context.getImplicitTarget());
 
+        AntPathManager.loadProperties(project);
+
         List<File> antPath = new ArrayList<File>();
         boolean update = AntPathManager.readAntPath(project, antPath);
 
-        OSGiFrameworkManager osgiFrameworkManager = project.getReference(REFID_OSGI_FRAMEWORK_MANAGER);
-        if (osgiFrameworkManager == null) {
-            try {
-                osgiFrameworkManager = new OSGiFrameworkManager(project.getBaseDir(), update);
-            } catch (BundleException e) {
-                throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
-            }
-            project.addReference(REFID_OSGI_FRAMEWORK_MANAGER, osgiFrameworkManager);
-        }
-        getClassloaderStack(project).push(osgiFrameworkManager.getGodClassLoader());
-
-        if (update) {
-            for (File file : antPath) {
+        ClasspathManager classpathManager = project.getReference(REFID_CLASSPATH_MANAGER);
+        if (classpathManager == null) {
+            String classpathManagerType = project.getProperty(PROP_CLASSPATH_MANAGER);
+            if (classpathManagerType == null || classpathManagerType.equals("flat")) {
+                classpathManager = new FlatClasspathManager();
+            } else if (classpathManagerType.equals("osgi")) {
                 try {
-                    osgiFrameworkManager.install(file);
+                    classpathManager = new OSGiClasspathManager(project.getBaseDir(), update);
                 } catch (BundleException e) {
-                    throw new BuildException("Unable to install the bundle " + file.getAbsolutePath() + " ("
-                            + e.getMessage() + ")", e);
+                    throw new BuildException("Unable to boot the OSGi framwork (" + e.getMessage() + ")", e);
                 }
+            } else {
+                throw new BuildException("Unsupported classpath manager: " + classpathManagerType);
             }
+            project.addReference(REFID_CLASSPATH_MANAGER, classpathManager);
         }
+        getClassloaderStack(project).push(classpathManager.getMainClassLoader());
 
-        try {
-            osgiFrameworkManager.start();
-        } catch (BundleException e) {
-            throw new BuildException("Unable to start the OSGi framework (" + e.getMessage() + ")", e);
-        }
+        classpathManager.start(update, antPath);
     }
 
     private String getTargetPrefix(AntXMLContext context) {
@@ -399,7 +395,7 @@ public abstract class AbstractAntDslProjectHelper extends ProjectHelper {
 
         ProjectHelper subHelper = ProjectHelperRepository.getInstance().getProjectHelperForBuildFile(urlResource);
 
-        ClassLoader childCl = getOSGiFrameworkManager(project).getClassLoader(buildModule, buildUrl);
+        ClassLoader childCl = getClasspathManager(project).getClassLoader(buildModule, buildUrl);
         if (childCl == null) {
             throw new RuntimeException("Unable to find the classloader of the resource " + buildUrl);
         }

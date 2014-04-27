@@ -42,6 +42,7 @@ import org.apache.ivy.util.filter.FilterHelper;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.util.FileUtils;
 
 class AntPathManager {
@@ -50,14 +51,35 @@ class AntPathManager {
 
     private static final String IVY_FIXED_XML_LOCATION = "ant/ivy-fixed.xml";
 
-    private static final String ANT_PATH_LOCATION = "ant/ant.path";
+    private static final String BUILD_PROPERTIES_LOCATION = "ant/build.properties";
 
-    static final String OSGI_STORAGE_LOCATION = "ant/osgi-storage";
+    private static final String LOCAL_BUILD_PROPERTIES_LOCATION = "ant/local.build.properties";
+
+    static final String CACHE_LOCATION = "ant/.cache";
+
+    private static final String ANT_PATH_LOCATION = CACHE_LOCATION + "/ant.path";
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private AntPathManager() {
         // Utility class
+    }
+
+    static void loadProperties(Project project) {
+        File localPropFile = new File(project.getBaseDir(), LOCAL_BUILD_PROPERTIES_LOCATION);
+        if (localPropFile.exists()) {
+            Property property = new Property();
+            property.setProject(project);
+            property.setFile(localPropFile);
+            property.execute();
+        }
+        File propFile = new File(project.getBaseDir(), BUILD_PROPERTIES_LOCATION);
+        if (propFile.exists()) {
+            Property property = new Property();
+            property.setProject(project);
+            property.setFile(propFile);
+            property.execute();
+        }
     }
 
     static boolean readAntPath(Project project, List<File> antPath) {
