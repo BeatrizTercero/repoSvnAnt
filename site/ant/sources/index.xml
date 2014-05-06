@@ -57,14 +57,16 @@
           Foundation</a>.</p>
   </section>
 
-  <section name="Apache Ant 1.9.3">
-    <h3>December 29, 2013 - Apache Ant 1.9.3 Released</h3>
-    <p>Apache Ant 1.9.3 is now available for download as source or
+  <section name="Apache Ant 1.9.4">
+    <h3>May 5, 2014 - Apache Ant 1.9.4 Released</h3>
+    <p>Apache Ant 1.9.4 is now available for download as source or
       binary from
       <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
 
-    <p>Ant 1.9.3 contains several bug fixes and improvements compared to Ant 1.9.2.
-      The main point of the release is a fix of the speed of the exec task. See bugzilla report 54128.</p>
+    <p>Ant 1.9.4 contains several bug fixes and improvements compared to Ant 1.9.3,
+      including the initial support for Java 1.9,
+      the possibility to run JUnit tests in multiple threads (when they are forked)
+      and the refactoring of Ant's own test suite which is now based on JUnit 4.</p>
 
   </section>
 

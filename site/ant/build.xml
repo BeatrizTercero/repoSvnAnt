@@ -75,7 +75,7 @@
              templatePath="${templ.path}"
              velocityPropertiesFile="${velocity.props}">
         </anakia>
-        <fixcrlf srcdir="${docs.dest}" includes="**/*.html"
+        <fixcrlf srcdir="${docs.dest}" includes="**/*.html" excludes="manual/**"
                  encoding="iso-8859-1" outputencoding="utf-8"/>
     </target>
 

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!--
    Licensed to the Apache Software Foundation (ASF) under one or more
    contributor license agreements.  See the NOTICE file distributed with
@@ -242,6 +242,10 @@
           <tr>
             <td>1.9.3</td>
             <td>29 December 2013</td>
+          </tr>
+          <tr>
+            <td>1.9.4</td>
+            <td>05 May 2014</td>
           </tr>
         </table>
       </answer>
