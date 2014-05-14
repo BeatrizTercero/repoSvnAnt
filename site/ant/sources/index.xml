@@ -138,21 +138,19 @@
       the <a href="http://ant.apache.org/ivy/">Ivy home page</a>.</p>
   </section>
 
-  <section name="Compress Ant Library 1.4">
-    <h3>January 29, 2014 - Apache Compress Ant Library 1.4
-    Available</h3>
+    <section name="Apache AntUnit 1.3">
+      <h3>May 14, 2014 - Apache AntUnit 1.3 Released</h3>
 
-    <p>Apache Compress Ant Library 1.4 is now available for
-    download as <a
-    href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a>
-    or <a
-    href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
-    release.</p>
+      <p>Apache AntUnit 1.3 is now available for download as <a
+      href="http://ant.apache.org/antlibs/bindownload.cgi">binary</a>
+      or <a
+      href="http://ant.apache.org/antlibs/srcdownload.cgi">source</a>
+      release.</p>
 
-    <p>This release adapts to the 1.7 release of Apache Commons
-    Compress and now adds read-only support for the Snappy and .Z
-    formats.</p>
-  </section>
+      <p>This release adds new assertions that deal with non-file
+      resources better than the existing ones and provides additional
+      access to the log created during tests.</p>
+    </section>
 
   <section name="Documentation">
 
