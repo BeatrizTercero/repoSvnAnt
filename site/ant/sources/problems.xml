@@ -97,8 +97,8 @@ Detected OS: Windows NT<br></br>
 parsing buildfile D:\ant\build.xml
 with URI = file:D:/ant/build.xml<br></br>
 Project base dir set to: D:\ant<br></br>
-&#160;&#160;[property] Loading Environment env.<br></br>
-&#160;&#160;[property] Loading D:\ant\conf.properties<br></br>
+  [property] Loading Environment env.<br></br>
+  [property] Loading D:\ant\conf.properties<br></br>
 Build sequence for target &#39;debug&#39; is [debug]<br></br>
 Complete build sequence is [debug, gensrc, compile, jar, test]<br></br>
 . . .<br></br>

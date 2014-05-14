@@ -230,7 +230,7 @@
         This is the original description:</p>
         <source>
         Das Build-Tool Ant ist das Open-Source-Werkzeug, das den Entwicklungsprozess einer Java-
-        oder J2EE-Anwendung wesentlich vereinfacht. Gesteuert durch XML-basierte Skripte fï¿½hrt es
+        oder J2EE-Anwendung wesentlich vereinfacht. Gesteuert durch XML-basierte Skripte f&#xfc;hrt es
         nahezu alle Aufgaben aus, die nach dem Kodieren einer Anwendung anfallen.</source>
         <p>Some topics:</p>
             <ul>
@@ -471,7 +471,7 @@
         </table>
       </subsection>
 
-      <subsection name="Programmieren für Ant">
+      <subsection name="Programmieren f&#xfc;r Ant">
         <p>This article describes the main topics of programming your own tasks.
         Description is done on five examples.</p>
         <p>This article is written in German and published in
