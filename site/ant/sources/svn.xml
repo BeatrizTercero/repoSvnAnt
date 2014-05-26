@@ -36,35 +36,20 @@ svn co http://svn.apache.org/repos/asf/ant/[project]/trunk/ ant-[project]</sourc
       <p>Modules available for access are:</p>
 
       <ul>
-        <li><a href="http://svn.apache.org/viewvc/ant/core/trunk/">ant</a> - The &quot;main&quot; Ant module.<br/>
-         http://svn.apache.org/repos/asf/ant/core/trunk/
-        </li>
-        <li><a href="http://svn.apache.org/viewvc/ant/ivy/core/trunk/">Ivy</a> - The &quot;main&quot; Ivy module.<br/>
-         http://svn.apache.org/repos/asf/ant/ivy/core/trunk/
-        </li>
-        <li><a href="http://svn.apache.org/viewvc/ant/ivy/ivyde/trunk/">IvyDE</a>
-         - Eclipse Plugin for Ivy.<br/>
-         http://svn.apache.org/repos/asf/ant/ivy/ivyde/trunk/
-        </li>
-        <li><a href="http://svn.apache.org/viewvc/ant/antlibs/antunit/trunk/">antunit</a> Test framework for Ant.<br/>
-            http://svn.apache.org/repos/asf/ant/antlibs/antunit/trunk/</li>
-        <li><a href="http://svn.apache.org/viewvc/ant/antlibs/dotnet/trunk/">Dotnet antlib</a> Contains Nant, Nunit, ...<br/>
-            http://svn.apache.org/repos/asf/ant/antlibs/dotnet/trunk/</li>
-        <li><a href="http://svn.apache.org/viewvc/ant/antlibs/svn/trunk/">svn antlib</a> Contains tasks to interact with Subversion repositories.<br/>
-            http://svn.apache.org/repos/asf/ant/antlibs/svn/trunk/</li>
         <li><a href="http://svn.apache.org/viewvc/ant/sandbox/">sandbox</a> - New developments. Contains currently gendoc.<br/>
             http://svn.apache.org/repos/asf/ant/sandbox/
+        </li>
+        <li>
+          <a href="http://svn.apache.org/viewvc/ant/site/">ant-site</a> <br/>
+          http://svn.apache.org/repos/asf/ant/site/
         </li>
       </ul>
 
       <p>If you are not familiar with Subversion, <a
-      href="http://jakarta.apache.org/site/cvsindex.html">Jakarta's
+      href="http://www.apache.org/dev/version-control.html">Apache Software Foundation's
       source repositories page</a> may hold many helpful hints.</p>
 
-      <p>Nightly snapshots of the SVN tree are available at
-        <a href="http://svn.apache.org/snapshots/ant/">http://svn.apache.org/snapshots/ant/</a>.</p>
-
-      <p>A nice view of the source history is available through
+            <p>A nice view of the source history is available through
       <a href="http://fisheye6.atlassian.com/browse/ant">Cenqua's Fisheye instance</a>.</p>
          
 

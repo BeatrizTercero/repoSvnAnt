@@ -76,7 +76,7 @@
              velocityPropertiesFile="${velocity.props}">
         </anakia>
         <fixcrlf srcdir="${docs.dest}" includes="**/*.html" excludes="manual/**"
-                 encoding="iso-8859-1" outputencoding="utf-8"/>
+                 encoding="utf-8" outputencoding="utf-8"/>
     </target>
 
     <target name="fixcrlf" if="onwindows">
