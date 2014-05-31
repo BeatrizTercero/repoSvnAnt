@@ -40,12 +40,12 @@
             <td><a href="./antunit/index.html">http://ant.apache.org/antlibs/antunit/</a></td>
           </tr>
           <tr>
-            <th>SVN URL:</th>
-            <td><a href="https://svn.apache.org/repos/asf/ant/antlibs/antunit/trunk/">https://svn.apache.org/repos/asf/ant/antlibs/antunit/trunk/</a></td>
+            <th>GIT URL:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-antunit.git">https://git-wip-us.apache.org/repos/asf/ant-antlibs-antunit.git</a></td>
           </tr>
           <tr>
-            <th>ViewSVN:</th>
-            <td><a href="http://svn.apache.org/viewvc/ant/antlibs/antunit/trunk/">http://svn.apache.org/viewvc/ant/antlibs/antunit/trunk/</a></td>
+            <th>ViewGIT:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-antunit.git;a=summary">https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-antunit.git;a=summary</a></td>
           </tr>
           <tr>
             <th>Ant compatibility:</th>
@@ -78,12 +78,12 @@
             <td><a href="./compress/index.html">http://ant.apache.org/antlibs/compress/</a></td>
           </tr>
           <tr>
-            <th>SVN URL:</th>
-            <td><a href="https://svn.apache.org/repos/asf/ant/antlibs/compress/trunk/">https://svn.apache.org/repos/asf/ant/antlibs/compress/trunk/</a></td>
+            <th>GIT URL:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-compress.git">https://git-wip-us.apache.org/repos/asf/ant-antlibs-compress.git</a></td>
           </tr>
           <tr>
-            <th>ViewSVN:</th>
-            <td><a href="http://svn.apache.org/viewvc/ant/antlibs/compress/trunk/">http://svn.apache.org/viewvc/ant/antlibs/compress/trunk/</a></td>
+            <th>ViewGIT:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-compress.git;a=summary">https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-compress.git;a=summary</a></td>
           </tr>
           <tr>
             <th>Ant compatibility:</th>
@@ -121,12 +121,12 @@
             <td><a href="./dotnet/index.html">http://ant.apache.org/antlibs/dotnet/</a></td>
           </tr>
           <tr>
-            <th>SVN URL:</th>
-            <td><a href="https://svn.apache.org/repos/asf/ant/antlibs/dotnet/trunk/">https://svn.apache.org/repos/asf/ant/antlibs/dotnet/trunk/</a></td>
+            <th>GIT URL:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-dotnet.git">https://git-wip-us.apache.org/repos/asf/ant-antlibs-dotnet.git</a></td>
           </tr>
           <tr>
-            <th>ViewSVN:</th>
-            <td><a href="http://svn.apache.org/viewvc/ant/antlibs/dotnet/trunk/">http://svn.apache.org/viewvc/ant/antlibs/dotnet/trunk/</a></td>
+            <th>ViewGIT:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-dotnet.git;a=summary">https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-dotnet.git;a=summary</a></td>
           </tr>
           <tr>
             <th>Ant compatibility:</th>
@@ -159,12 +159,12 @@
             <td><a href="./props/index.html">http://ant.apache.org/antlibs/props/</a></td>
           </tr>
           <tr>
-            <th>SVN URL:</th>
-            <td><a href="https://svn.apache.org/repos/asf/ant/antlibs/props/trunk/">https://svn.apache.org/repos/asf/ant/antlibs/props/trunk/</a></td>
+            <th>GIT URL:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-props.git">https://git-wip-us.apache.org/repos/asf/ant-antlibs-props.git</a></td>
           </tr>
           <tr>
-            <th>ViewSVN:</th>
-            <td><a href="http://svn.apache.org/viewvc/ant/antlibs/props/trunk/">http://svn.apache.org/viewvc/ant/antlibs/props/trunk/</a></td>
+            <th>ViewGIT:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-props.git">https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-props.git;a=summary</a></td>
           </tr>
           <tr>
             <th>Ant compatibility:</th>
@@ -194,12 +194,12 @@
 
         <table>
           <tr>
-            <th>SVN URL:</th>
-            <td><a href="http://svn.apache.org/repos/asf/ant/antlibs/vss/trunk/">http://svn.apache.org/repos/asf/ant/antlibs/vss/trunk/</a></td>
+            <th>GIT URL:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf/ant-antlibs-vss.git">https://git-wip-us.apache.org/repos/asf/ant-antlibs-vss.git</a></td>
           </tr>
           <tr>
-            <th>ViewSVN:</th>
-            <td><a href="http://svn.apache.org/viewvc/ant/antlibs/vss/trunk/">http://svn.apache.org/viewvc/ant/antlibs/vss/trunk/</a></td>
+            <th>ViewGIT:</th>
+            <td><a href="https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-vss.git;a=summary">https://git-wip-us.apache.org/repos/asf?p=ant-antlibs-vss.git;a=summary</a></td>
           </tr>
           <tr>
             <th>Ant compatibility:</th>
