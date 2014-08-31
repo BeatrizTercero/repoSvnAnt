@@ -31,7 +31,7 @@ one of our mirrors.  It is good practice to
 <a href="[location]#Verify Releases">verify the integrity</a>
 of the distribution files, especially if you are using one of our
 mirror sites.  In order to do this you must use the signatures from
-our <a href="http://www.apache.org/dist/ant/antlibs/">main distribution
+our <a href="https://www.apache.org/dist/ant/antlibs/">main distribution
 directory</a>.</p>
 
 <p>Antlibs are distributed as <code>zip</code>, <code>tar.gz</code> and
@@ -42,7 +42,7 @@ Thus they must be untarred with a GNU compatible version of
 <code>tar</code>.</p>
 
 <p>If you do not see the file you need in the links below, please see
-the <a href="http://www.apache.org/dist/ant/antlibs/">master distribution
+the <a href="https://www.apache.org/dist/ant/antlibs/">master distribution
 directory</a> or, preferably, its <a href="[preferred]/ant/antlibs/">mirror</a>.</p>
 
 </section>
@@ -89,24 +89,24 @@ mirrors for a few days.</div>
 <ul>
 <li><code>.zip</code> archive:
 <a href="[preferred]/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip">apache-ant-dotnet-1.1-src.zip</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.sha1">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.sha1">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.zip.md5">MD5</a>]</li>
 
 <li><code>.tar.gz</code> archive:
 <a href="[preferred]/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz">apache-ant-dotnet-1.1-src.tar.gz</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.sha1">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.sha1">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.gz.md5">MD5</a>]</li>
 
 <li><code>.tar.bz2</code> archive:
 <a href="[preferred]/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2">apache-ant-dotnet-1.1-src.tar.bz2</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.sha1">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.sha1">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/dotnet/source/apache-ant-dotnet-1.1-src.tar.bz2.md5">MD5</a>]</li>
 </ul>
 </li>
 
@@ -114,24 +114,24 @@ mirrors for a few days.</div>
 <ul>
 <li><code>.zip</code> archive:
 <a href="[preferred]/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip">apache-ant-antunit-1.3-src.zip</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.zip.md5">MD5</a>]</li>
 
 <li><code>.tar.gz</code> archive:
 <a href="[preferred]/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz">apache-ant-antunit-1.3-src.tar.gz</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.gz.md5">MD5</a>]</li>
 
 <li><code>.tar.bz2</code> archive:
 <a href="[preferred]/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2">apache-ant-antunit-1.3-src.tar.bz2</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/antunit/source/apache-ant-antunit-1.3-src.tar.bz2.md5">MD5</a>]</li>
 </ul>
 </li>
 
@@ -139,24 +139,24 @@ mirrors for a few days.</div>
 <ul>
 <li><code>.zip</code> archive:
 <a href="[preferred]/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip">apache-ant-compress-1.4-src.zip</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.zip.md5">MD5</a>]</li>
 
 <li><code>.tar.gz</code> archive:
 <a href="[preferred]/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz">apache-ant-compress-1.4-src.tar.gz</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.gz.md5">MD5</a>]</li>
 
 <li><code>.tar.bz2</code> archive:
 <a href="[preferred]/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2">apache-ant-compress-1.4-src.tar.bz2</a>
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.asc">PGP</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.sha1">SHA1</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.sha512">SHA512</a>]
-[<a href="http://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.md5">MD5</a>]</li>
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.asc">PGP</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.sha1">SHA1</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.sha512">SHA512</a>]
+[<a href="https://www.apache.org/dist/ant/antlibs/compress/source/apache-ant-compress-1.4-src.tar.bz2.md5">MD5</a>]</li>
 </ul>
 </li>
 </ul>
@@ -178,10 +178,10 @@ files using the PGP signature or the SHA1 or MD5 checksums.  The
 checksums are not as strong indicators as the PGP signature.</p>
 
 <p>The PGP signatures can be verified using PGP or GPG.  First
-download the <a href="http://www.apache.org/dist/ant/KEYS">KEYS</a>
+download the <a href="https://www.apache.org/dist/ant/KEYS">KEYS</a>
 as well as the <code>asc</code> signature file for the particular
 distribution.  Make sure you get these files from the <a
-href="http://www.apache.org/dist/ant/antlibs/">main distribution
+href="https://www.apache.org/dist/ant/antlibs/">main distribution
 directory</a>, rather than from a mirror. Then verify the signatures
 using</p>
 
