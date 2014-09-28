@@ -464,10 +464,10 @@ baseLocation=${basedir}/dependencies/${jenkins.download.sdk.name}
 
     <target name="jenkins-find-ivyde-zip">
         <!-- get the last successful version -->
-        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/version.properties" dest="${basedir}/dependencies/ivyde-jenkins-version.properties" verbose="yes" />
+        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/dist/version.properties" dest="${basedir}/dependencies/ivyde-jenkins-version.properties" verbose="yes" />
         <property file="${basedir}/dependencies/ivyde-jenkins-version.properties" />
         <!-- get the actual zip -->
-        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/trunk/dist/apache-ivyde-${ivyde.build.version}.zip" dest="${basedir}/dependencies/apache-ivyde-jenkins.zip" verbose="yes" />
+        <get src="${jenkins.baseUrl}/job/IvyDE/lastSuccessfulBuild/artifact/dist/apache-ivyde-${ivyde.build.version}.zip" dest="${basedir}/dependencies/apache-ivyde-jenkins.zip" verbose="yes" />
         <property name="ivyde.zip" value="${basedir}/dependencies/apache-ivyde-jenkins.zip" />
     </target>
 
