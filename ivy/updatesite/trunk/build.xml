@@ -458,7 +458,7 @@ baseLocation=${basedir}/dependencies/${jenkins.download.sdk.name}
     </target>
 
     <target name="jenkins-find-ivy-jar">
-        <get src="${jenkins.baseUrl}/job/Ivy/lastSuccessfulBuild/artifact/trunk/build/artifact/jars/ivy.jar" dest="${basedir}/dependencies/ivy-jenkins.jar" verbose="yes" />
+        <get src="${jenkins.baseUrl}/job/Ivy/lastSuccessfulBuild/artifact/build/artifact/jars/ivy.jar" dest="${basedir}/dependencies/ivy-jenkins.jar" verbose="yes"/>
         <property name="ivy.jar" value="${basedir}/dependencies/ivy-jenkins.jar" />
     </target>
 
