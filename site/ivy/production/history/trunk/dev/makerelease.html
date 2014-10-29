@@ -241,14 +241,14 @@
 <h2>Requirements</h2>
 Requirements for making a release are similar to the requirements for building from source, except that JDK 1.6+ and Apache Ant 1.9+ are required.<br class="xooki-br"/><h2>Procedure</h2>
 <h3>1. Check the files which needs to be updated for the release.</h3>
-On the trunk, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>RELEASE_NOTES<br class="xooki-br"/>CHANGES<br class="xooki-br"/>README<br class="xooki-br"/><h3>2. Create a release branch</h3>
+On the master, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>RELEASE_NOTES<br class="xooki-br"/>CHANGES<br class="xooki-br"/>README<br class="xooki-br"/><h3>2. Create a release branch</h3>
 This will allow to work separately from other developers, in case you need any last modification. For a release we have 2 branches. For instance, suppose we create a 2.0.0-beta1 release. We have a branch for the code for all 2.0.x releases, this is the '2.0.x' branch. From this branch we will create the release branch which is for a specific release. It is possible that the 2.0.x branch has already been created when releasing a previous version, in that case the creation of this branch can be skipped.
 <pre>
-svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk">https://svn.apache.org/repos/asf/ant/ivy/core/trunk</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>      -m "Creating a 2.0.x branch."<br class="xooki-br"/>svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.x</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Creating a release branch for 2.0.0-beta1."
+git branch 2.0.x master<br class="xooki-br"/>git branch 2.0.0-beta1 2.0.x
 </pre>
 <h3>3. Check out the branch</h3>
 <pre>
-svn co <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> ivy-2.0.0-beta1
+git checkout 2.0.0-beta1
 </pre>
 <h3>4. Add Ivy xsd file.</h3>
 You need to store the current ivy xml schema in the documentation, so that it will later be accessible on public web site. To do so, run the following command in the directory in which you checked out the release branch:
@@ -259,11 +259,11 @@ ant -f build-release.xml release-xsd
 <h3>5. Add release note page in the documentation.</h3>
 Open the file doc/index.html with your favorite browser, and click on the plus button in the upper right. Choose "Release Notes" as title, and "release-notes" as page id. <br class="xooki-br"/><br class="xooki-br"/>Then edit the page (hit the first button at the upper right), and copy the content of the RELEASE_NOTES file. You can also add the announcement for the release if it's already ready.<br class="xooki-br"/><br class="xooki-br"/>Move the page up in the TOC using the arrow button in the toolbar at the upper right, so that it's the first child page under the "Documentation" page.<br class="xooki-br"/><br class="xooki-br"/>If you take the time to make the content of the release notes more "xooki compliant" (by removing unnecessary end of lines and adding h2 h3 and h4 tags), the page could then look like something like that:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/history/2.0.0-alpha-1.html">http://ant.apache.org/ivy/history/2.0.0-alpha-1.html</a><br class="xooki-br"/><br class="xooki-br"/><h3>6. Commit your changes</h3>
 <pre>
-svn status<br class="xooki-br"/>svn add doc/ivy.xsd<br class="xooki-br"/>svn add doc/release-notes.html<br class="xooki-br"/>svn ci -m "update templates, add release notes and ivy.xsd in documentation."
+git add doc/ivy.xsd<br class="xooki-br"/>git add doc/release-notes.html<br class="xooki-br"/>git commit -m "update templates, add release notes and ivy.xsd in documentation."
 </pre>
 <h3>7. Check that you have no pending modifications</h3>
 <pre>
-svn status
+git status
 </pre>
 If your working copy is clean, you can launch the release script. If it isn't, make sure to clean it properly. Sometimes you may need to call ant clean-all if you have started to work with ant builds. If you are confused about your working copy state, delete it and check it out again.<br class="xooki-br"/><h3>8. Launch the release script</h3>
 <pre>
@@ -282,18 +282,13 @@ require 'find'<br class="xooki-br"/><br class="xooki-br"/>Find.find('build/distr
 </pre>
 Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/><h3>11. Prepare the Eclipse update site</h3>
 
-To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Tag the svn repository</h3>
+To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Create the tag</h3>
 As soon as you are happy with the artifacts to be released, it is time to tag the svn repo
 <pre>
-svn copy <a href="https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/branches/2.0.0-beta1</a> \<br class="xooki-br"/>           <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1">https://svn.apache.org/repos/asf/ant/ivy/core/tags/2.0.0-beta1</a> \<br class="xooki-br"/>      -m "Tag release 2.0.0-beta1."
+git tag 2.0.0-beta1
 </pre>
 
-And don't forget to set the svn:external on doc/xooki to a fixed revision. Edit the svn:external property on the folder doc/xooki in the tag and set it to the revision of the commit of the tag. It should look like:
-<pre>
-xooki -r790212 <a href="https://svn.apache.org/repos/asf/ant/ivy/site/xooki/">https://svn.apache.org/repos/asf/ant/ivy/site/xooki/</a>
-</pre>
-
-And commit that modification.<br class="xooki-br"/><br class="xooki-br"/><h3>Publish the release candidate</h3>
+<h3>Publish the release candidate</h3>
 
 All artifacts in <tt>build/distrib</tt> except the <tt>maven2</tt> folder needs to be published on the 'dist' svn of the ASF, in the <b>dev</b> part.<br class="xooki-br"/><br class="xooki-br"/>The artifacts should be pushed in that svn folder: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/><h3>13. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
