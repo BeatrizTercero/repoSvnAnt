@@ -80,6 +80,7 @@
 
     <target name="checkout-history" description="Checkout the specific history version into the site source">
         <fail unless="history.version" message="missing property history.version" />
+        <property name="target.history.folder" value="${history.version}" />
 
         <delete dir="${work.dir}/ant-ivy" failonerror="false" />
         <mkdir dir="${work.dir}" />
@@ -87,9 +88,10 @@
             <arg line="clone http://git.apache.org/ant-ivy.git" />
         </exec>
         <exec executable="git" failonerror="true" dir="${work.dir}/ant-ivy">
-            <arg line="checkout ${history.version}" />
+            <arg line="checkout -q ${history.version}" />
         </exec>
-        <copy todir="${sources.dir}/history/${history.version}" overwrite="true">
+        <delete dir="${sources.dir}/history/${target.history.folder}" failonerror="false" />
+        <copy todir="${sources.dir}/history/${target.history.folder}" overwrite="true">
             <fileset dir="${work.dir}/ant-ivy/doc" />
         </copy>
     </target>
