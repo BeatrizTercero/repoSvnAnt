@@ -20,6 +20,7 @@
 
     <property name="sources.dir" value="${basedir}/sources" />
     <property name="target.dir" value="${basedir}/production" />
+    <property name="work.dir" value="${basedir}/work" />
 
     <import file="../common-xooki-build.xml" />
 
@@ -75,6 +76,22 @@
             </fileset>
         </xooki:generate>
         <generate-printdoc version="latest-milestone" />
+    </target>
+
+    <target name="checkout-history" description="Checkout the specific history version into the site source">
+        <fail unless="history.version" message="missing property history.version" />
+
+        <delete dir="${work.dir}/ant-ivy" failonerror="false" />
+        <mkdir dir="${work.dir}" />
+        <exec executable="git" failonerror="true" dir="${work.dir}">
+            <arg line="clone http://git.apache.org/ant-ivy.git" />
+        </exec>
+        <exec executable="git" failonerror="true" dir="${work.dir}/ant-ivy">
+            <arg line="checkout ${history.version}" />
+        </exec>
+        <copy todir="${sources.dir}/history/${history.version}" overwrite="true">
+            <fileset dir="${work.dir}/ant-ivy/doc" />
+        </copy>
     </target>
 
     <target name="generate-history" description="Generate the part of the website of a specific history version">
