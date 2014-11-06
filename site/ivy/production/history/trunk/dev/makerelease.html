@@ -82,7 +82,8 @@
 		<h2>Apache Ivy&#153;</h2>
 
 		<div class="content"><ul id="treemenu" class="treeview">
-<li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-tutorial" class="submenu"><a href="../tutorial.html" >Tutorials</a><ul class="closed"><li id="xooki-tutorial/start"><a href="../tutorial/start.html" >Quick Start</a></li>
+<li id="xooki-index" class="submenu"><a href="../index.html" >Documentation (trunk)</a><ul class="open"><li id="xooki-release-notes"><a href="../release-notes.html" >Release Notes</a></li>
+<li id="xooki-tutorial" class="submenu"><a href="../tutorial.html" >Tutorials</a><ul class="closed"><li id="xooki-tutorial/start"><a href="../tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-tutorial/defaultconf"><a href="../tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-tutorial/multiple"><a href="../tutorial/multiple.html" >Multiple Resolvers</a></li>
 <li id="xooki-tutorial/dual"><a href="../tutorial/dual.html" >Dual Resolver</a></li>
@@ -241,7 +242,7 @@
 <h2>Requirements</h2>
 Requirements for making a release are similar to the requirements for building from source, except that JDK 1.6+ and Apache Ant 1.9+ are required.<br class="xooki-br"/><h2>Procedure</h2>
 <h3>1. Check the files which needs to be updated for the release.</h3>
-On the master, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>RELEASE_NOTES<br class="xooki-br"/>CHANGES<br class="xooki-br"/>README<br class="xooki-br"/><h3>2. Check out a clean copy of the branch</h3>
+On the master, check that files which require update for the release are up to date.<br class="xooki-br"/>This includes particularly:<br class="xooki-br"/>doc/release-notes.html<br class="xooki-br"/><h3>2. Check out a clean copy of the branch</h3>
 Run the following git command to checkout the branch, revert any change and remove untracked and ignored files:
 <pre>
 git checkout 2.0.x<br class="xooki-br"/>git reset --hard<br class="xooki-br"/>git clean -d -x -f
@@ -252,17 +253,16 @@ You need to store the current ivy xml schema in the documentation, so that it wi
 ant -f build-release.xml release-xsd
 </pre>
 
-<h3>4. Add release note page in the documentation.</h3>
-Open the file doc/index.html with your favorite browser, and click on the plus button in the upper right. Choose "Release Notes" as title, and "release-notes" as page id. <br class="xooki-br"/><br class="xooki-br"/>Then edit the page (hit the first button at the upper right), and copy the content of the RELEASE_NOTES file. You can also add the announcement for the release if it's already ready.<br class="xooki-br"/><br class="xooki-br"/>Move the page up in the TOC using the arrow button in the toolbar at the upper right, so that it's the first child page under the "Documentation" page.<br class="xooki-br"/><br class="xooki-br"/>If you take the time to make the content of the release notes more "xooki compliant" (by removing unnecessary end of lines and adding h2 h3 and h4 tags), the page could then look like something like that:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/history/2.0.0-alpha-1.html">http://ant.apache.org/ivy/history/2.0.0-alpha-1.html</a><br class="xooki-br"/><br class="xooki-br"/>And commit your changes:
+And commit your changes in the branch:
 <pre>
-git add doc/ivy.xsd<br class="xooki-br"/>git add doc/release-notes.html<br class="xooki-br"/>git commit -m "update templates, add release notes and ivy.xsd in documentation."
+git add doc/ivy.xsd<br class="xooki-br"/>git commit -m "release the ivy.xsd"
 </pre>
-<h3>5. Launch the release script</h3>
+<h3>4. Launch the release script</h3>
 <pre>
 ant -f build-release.xml release
 </pre>
-The status should be release only for final releases, and milestone for any other intermediate release.<br class="xooki-br"/>If the release script is successful, release artifacts will be waiting for you in the build/distrib directory.<br class="xooki-br"/><h3>6. Verify the release</h3>
-Check that all zips can be opened correctly, and that running 'ant' after unzipping the source distribution works properly.<br class="xooki-br"/>You can also do a smoke test with the generated ivy.jar, to see if it is able to resolve properly a basic module (for instance you can run some tutorials provided in the src/example directory in all distributions).<br class="xooki-br"/><h3>7. Sign and upload the artifacts</h3>
+The status should be release only for final releases, and milestone for any other intermediate release.<br class="xooki-br"/>If the release script is successful, release artifacts will be waiting for you in the build/distrib directory.<br class="xooki-br"/><h3>5. Verify the release</h3>
+Check that all zips can be opened correctly, and that running 'ant' after unzipping the source distribution works properly.<br class="xooki-br"/>You can also do a smoke test with the generated ivy.jar, to see if it is able to resolve properly a basic module (for instance you can run some tutorials provided in the src/example directory in all distributions).<br class="xooki-br"/><h3>6. Sign and upload the artifacts</h3>
 It's now time to sign the release artifacts and upload them to a location accessible by other Apache commiters.<br class="xooki-br"/><br class="xooki-br"/>Here is a simple way to sign the files using gnupg:
 <pre>
 gpg --armor --output file.zip.asc --detach-sig file.zip
@@ -272,9 +272,9 @@ Here is a ruby script you can use to sign the files:
 <pre>
 require 'find'<br class="xooki-br"/><br class="xooki-br"/>Find.find('build/distrib') do |f| <br class="xooki-br"/>    `gpg --armor --output #{f}.asc --detach-sig #{f}` if File.file?(f) && ['.zip', '.gz', '.jar', '.pom'].include?(File.extname(f))<br class="xooki-br"/>end
 </pre>
-Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/><h3>8. Prepare the Eclipse update site</h3>
+Be prepared to enter your passphrase several times if you use this script, gpg will ask for your passphrase for each file to sign.<br class="xooki-br"/><br class="xooki-br"/><h3>7. Prepare the Eclipse update site</h3>
 
-To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>9. Create the tag</h3>
+To be able to test the release within IvyDE, it can be deployed in the IvyDE update site. See <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a> to know how to process.<br class="xooki-br"/><br class="xooki-br"/><h3>8. Create the tag</h3>
 As soon as you are happy with the artifacts to be released, it is time to tag the release
 <pre>
 git tag 2.0.0-beta1
@@ -282,19 +282,19 @@ git tag 2.0.0-beta1
 
 <h3>Publish the release candidate</h3>
 
-All artifacts in <tt>build/distrib</tt> except the <tt>maven2</tt> folder needs to be published on the 'dist' svn of the ASF, in the <b>dev</b> part.<br class="xooki-br"/><br class="xooki-br"/>The artifacts should be pushed in that svn folder: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/><h3>10. Call for a vote to approve the release</h3>
+All artifacts in <tt>build/distrib</tt> except the <tt>maven2</tt> folder needs to be published on the 'dist' svn of the ASF, in the <b>dev</b> part.<br class="xooki-br"/><br class="xooki-br"/>The artifacts should be pushed in that svn folder: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a><br class="xooki-br"/><br class="xooki-br"/><h3>9. Call for a vote to approve the release</h3>
 Cast a vote to approve the release on the dev@ant.apache.org mailing list.<br class="xooki-br"/><br class="xooki-br"/>Here is an example:
 <pre>
 Subject: [VOTE] Ivy ${version} Release<br class="xooki-br"/><br class="xooki-br"/>I have built a release candidate for Ivy ${version}<br class="xooki-br"/><br class="xooki-br"/>The svn tag of this release is: <a href="https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag">https://svn.apache.org/repos/asf/ant/ivy/core/tags/${version}@${svn-rev-of-the-tag</a>}<br class="xooki-br"/><br class="xooki-br"/>The artifacts has been published to: <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION@${svn-rev-of-the-check-in</a>}<br class="xooki-br"/><br class="xooki-br"/>Do you vote for the release of these binaries?<br class="xooki-br"/><br class="xooki-br"/>[ ] Yes<br class="xooki-br"/>[ ] No<br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/><br class="xooki-br"/>${me}, Ivy ${version} release manager
 </pre>
-<h3>11. Publish the release</h3>
+<h3>10. Publish the release</h3>
 
 If the release is approved, it's now time to make it public. The artifacts in the <i>dev</i> part needs to be moved into the <i>release</i> one:
 <pre>
 $ svn mv <a href="https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/dev/ant/ivy/$VERSION</a> <a href="https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION">https://dist.apache.org/repos/dist/release/ant/ivy/$VERSION</a>
 </pre>
 
-In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>12. Update the web site</h3>
+In order to keep the main dist area of a reasonable size, old releases should be removed. They will disapear from the main dist but will still be available via the <a href="http://archive.apache.org/dist/ant/ivy/">archive</a>. To do so, just use the <tt>svn rm</tt> command against the artifacts or folders to remove.<br class="xooki-br"/><br class="xooki-br"/><h3>11. Update the web site</h3>
 
 It's time to update the download image used on the home page and the download page. Use site/images/ivy-dl.xcf as a basis if you have <a href="http://www.gimp.org/">gimp</a> installed. Then you can update the home page to refer to this image, and add a news item announcing the new version. Update also the download page with the new image and update the links to the download location (using a search/replace on the html source is recommended for this).<br class="xooki-br"/><br class="xooki-br"/>The just release documentation should be added to the site. To do so, you need to:<br class="xooki-br"/><ol>
 <li>edit the toc.json file in the site component of Ivy</li>
@@ -320,13 +320,13 @@ ant /all generate-site
 You should verify that the site generated in the production directory is OK. You can open the files with your prefered web browser like it was deployed.<br class="xooki-br"/><br class="xooki-br"/>And once your happy with it, commit the changes in the source directory, and in the production directoy to get it actually deployed via svnpubsub.<br class="xooki-br"/><br class="xooki-br"/>Tip: lot's of files might need to be 'added' to svn. An handy command to <tt>add</tt> any file which is not yet under version control is the following one:
 <pre>svn add --force sources</pre>
 
-<h3>13. Deploy the Eclipse updatesite</h3>
+<h3>12. Deploy the Eclipse updatesite</h3>
 
-If the Eclipse update site has already been prepared to include that new Ivy release, it is now needed to be deployed. Then follow the deployment instruction on <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>14. Announce</h3>
-Announce the release on the dev@ant.a.o, ivy-user@ant.a.o, user@ant.apache.org and announce@apache.org mailing lists.<br class="xooki-br"/>You can also announce the release on popular web sites, like freshmeat.net (xavier is the owner of the Ivy project on freshmeat), javalobby.org, theserverside.com, dzone.com, ...<br class="xooki-br"/><h3>15. Update this doc</h3>
-If you feel like anything is missing or misleading in this release doc, update it as soon as you encounter the problem.<br class="xooki-br"/><h3>16. Merge your modifications back to the trunk if necessary.</h3>
-Modifications on the template files do not need to be merged, but if you had troubles during your release you may want to merge your fixes back to the trunk.<br class="xooki-br"/><h3>17. Prepare next release</h3>
-Update the file version.properties with the version of the next release so that anyone building from the trunk will obtain jar with the correct version number.<br class="xooki-br"/><br class="xooki-br"/>Release the version in <a href="https://issues.apache.org/jira/browse/IVY">jira</a>, and create a new unreleased version for the next planned version.
+If the Eclipse update site has already been prepared to include that new Ivy release, it is now needed to be deployed. Then follow the deployment instruction on <a href="http://ant.apache.org/ivy/ivyde/history/trunk/dev/updatesite.html">that page</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>13. Announce</h3>
+Announce the release on the dev@ant.a.o, ivy-user@ant.a.o, user@ant.apache.org and announce@apache.org mailing lists.<br class="xooki-br"/>You can also announce the release on popular web sites, like freshmeat.net (xavier is the owner of the Ivy project on freshmeat), javalobby.org, theserverside.com, dzone.com, ...<br class="xooki-br"/><h3>14. Update this doc</h3>
+If you feel like anything is missing or misleading in this release doc, update it as soon as you encounter the problem.<br class="xooki-br"/><h3>15. Merge your modifications back to the master if necessary.</h3>
+Modifications on the template files do not need to be merged, but if you had troubles during your release you may want to merge your fixes back to the trunk.<br class="xooki-br"/><h3>16. Prepare next release</h3>
+In the master branch, update the file version.properties with the version of the next release so that anyone building from the trunk will obtain jar with the correct version number.<br class="xooki-br"/><br class="xooki-br"/>If the version just release is a final one (not an alpha, beta or rc), the list of changes should be emptied in doc/release-notes.html, and update there the next expected version. The announcement in the file should also be changed accordingly to the next expected version.<br class="xooki-br"/><br class="xooki-br"/>Release the version in <a href="https://issues.apache.org/jira/browse/IVY">jira</a>, and create a new unreleased version for the next planned version.
  		</div><!-- main -->
 		</td>
 	</tr>
