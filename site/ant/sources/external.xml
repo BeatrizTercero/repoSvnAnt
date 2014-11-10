@@ -3983,6 +3983,31 @@
       <a href="manual/tasksoverview.html#scm">built in</a>. But some are available as
       external libraries. Here a list of task libraries we are aware of:</p>
 
+      <subsection name="ant-git-tasks">
+
+        <p>These are tasks that allow users to access Git
+          functionality from within Ant build scripts.</p>
+
+        <table class="externals">
+          <tr>
+            <th>Compatibility:</th>
+            <td>Ant 1.7 and later</td>
+          </tr>
+          <tr>
+            <th>URL:</th>
+            <td><a href="https://github.com/rimerosolutions/ant-git-tasks">https://github.com/rimerosolutions/ant-git-tasks</a></td>
+          </tr>
+          <tr>
+            <th>Contact:</th>
+            <td><a href="mailto:rimerosolutions@gmail.org">rimerosolutions@gmail.org</a></td>
+          </tr>
+          <tr>
+            <th>License:</th>
+            <td>Apache License version 2.0</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="ANT4HG">
 
          <p>These are tasks that allow users to access Mercurial
