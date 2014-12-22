@@ -19,11 +19,10 @@
 -->
 <html>
 <head>
-	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
 	<script type="text/javascript">var xookiConfig = {level: 1};</script>	
 	
 
-<title>Managing a target platform | Apache Ivy&#153;</title>
+<title>Bintray Resolver | Apache Ivy&#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="../style/style.css" />
   <script src="../js/jquery.pack.js" type="text/javascript"></script>
@@ -67,7 +66,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../osgi.html" >OSGi</a> &gt; <a href="../osgi/target-platform.html" class="current">Managing a target platform</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../index.html" >Documentation (trunk)</a> &gt; <a href="../reference.html" >Reference</a> &gt; <a href="../settings.html" >Settings Files</a> &gt; <a href="../settings/resolvers.html" >resolvers</a> &gt; <a href="../resolver/bintray.html" class="current">Bintray Resolver</a></span>
 		</div>
 		</td>
 	</tr>
@@ -103,7 +102,7 @@
 <li id="xooki-compatibility"><a href="../compatibility.html" >Compatibility</a></li>
 <li id="xooki-install"><a href="../install.html" >Installation</a></li>
 </ul></li>
-<li id="xooki-settings" class="submenu"><a href="../settings.html" >Settings Files</a><ul class="closed"><li id="xooki-settings/property"><a href="../settings/property.html" >property</a></li>
+<li id="xooki-settings" class="submenu"><a href="../settings.html" >Settings Files</a><ul class="open"><li id="xooki-settings/property"><a href="../settings/property.html" >property</a></li>
 <li id="xooki-settings/properties"><a href="../settings/properties.html" >properties</a></li>
 <li id="xooki-settings/settings"><a href="../settings/settings.html" >settings</a></li>
 <li id="xooki-settings/include"><a href="../settings/include.html" >include</a></li>
@@ -125,7 +124,7 @@
 </ul></li>
 <li id="xooki-settings/macrodef" class="submenu"><a href="../settings/macrodef.html" >macrodef</a><ul class="closed"><li id="xooki-settings/macrodef/attribute"><a href="../settings/macrodef/attribute.html" >attribute</a></li>
 </ul></li>
-<li id="xooki-settings/resolvers" class="submenu"><a href="../settings/resolvers.html" >resolvers</a><ul class="closed"><li id="xooki-resolver/ivyrep"><a href="../resolver/ivyrep.html" >IvyRep Resolver</a></li>
+<li id="xooki-settings/resolvers" class="submenu"><a href="../settings/resolvers.html" >resolvers</a><ul class="open"><li id="xooki-resolver/ivyrep"><a href="../resolver/ivyrep.html" >IvyRep Resolver</a></li>
 <li id="xooki-resolver/ibiblio"><a href="../resolver/ibiblio.html" >IBiblio Resolver</a></li>
 <li id="xooki-resolver/packager"><a href="../resolver/packager.html" >Packager resolver</a></li>
 <li id="xooki-resolver/filesystem"><a href="../resolver/filesystem.html" >File System resolver</a></li>
@@ -140,7 +139,7 @@
 <li id="xooki-resolver/osgiagg"><a href="../resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-resolver/updatesite"><a href="../resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-resolver/mirrored"><a href="../resolver/mirrored.html" >Mirrored Resolver</a></li>
-<li id="xooki-resolver/bintray"><a href="../resolver/bintray.html" >Bintray Resolver</a></li>
+<li id="xooki-resolver/bintray"><a href="../resolver/bintray.html" class="current">Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-settings/conflict-managers"><a href="../settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-settings/modules" class="submenu"><a href="../settings/modules.html" >modules</a><ul class="closed"><li id="xooki-settings/module"><a href="../settings/module.html" >module</a></li>
@@ -212,10 +211,10 @@
 <li id="xooki-use/var"><a href="../use/var.html" >var</a></li>
 </ul></li>
 <li id="xooki-standalone"><a href="../standalone.html" >Using standalone</a></li>
-<li id="xooki-osgi" class="submenu"><a href="../osgi.html" >OSGi</a><ul class="open"><li id="xooki-osgi/osgi-mapping"><a href="../osgi/osgi-mapping.html" >OSGi mapping</a></li>
+<li id="xooki-osgi" class="submenu"><a href="../osgi.html" >OSGi</a><ul class="closed"><li id="xooki-osgi/osgi-mapping"><a href="../osgi/osgi-mapping.html" >OSGi mapping</a></li>
 <li id="xooki-osgi/eclipse-plugin"><a href="../osgi/eclipse-plugin.html" >Building an Eclipse plugin</a></li>
 <li id="xooki-osgi/standard-osgi"><a href="../osgi/standard-osgi.html" >Building a standard OSGi bundle</a></li>
-<li id="xooki-osgi/target-platform"><a href="../osgi/target-platform.html" class="current">Managing a target platform</a></li>
+<li id="xooki-osgi/target-platform"><a href="../osgi/target-platform.html" >Managing a target platform</a></li>
 <li id="xooki-osgi/sigil"><a href="../osgi/sigil.html" >Apache Felix Sigil</a></li>
 </ul></li>
 </ul></li>
@@ -238,26 +237,41 @@
 		<td valign="top">
 		<div id="main">
 
-		<h1 class="title">Managing a target platform</h1>
-            <br class="xooki-br"/>
-<table class="notice">
-  <tr>
-    <td style="vertical-align: top"><img src="../images/warning.png" style="float:left;" /></td>
-    <td>
-    Note that this feature is considered as <b>experimental</b>. It should work with simple configuration but may not in complex ones. If you have any issue with that feature, you are welcomed to come discussed your use case on the <a href="http://ant.apache.org/ivy/mailing-lists.html">ivy-user</a> mailing list, or discuss about implementation issues or improvement you may have found on <a href="http://ant.apache.org/ivy/mailing-lists.html">ant-dev</a>.<br class="xooki-br"/>    </td>
-  </tr>
+		<h1 class="title">Bintray Resolver</h1>
+            
+<table class="resolver">
+<tr><td class="title">Tag</td><td class="value">bintray</td></tr>
+<tr><td class="title">Handle latest</td><td class="value">yes, at least if the repository server is apache based</td></tr>
+<tr><td class="title">Handle publish</td><td class="value">no</td></tr>
 </table>
 
-The concept of "target platform" is a concept introduced by Eclipse&#153; to describe the set of bundle which will run together in an OSGi&#153; environement. Then when developping an OSGi bundle, we expect it to run in a such "target platform".<br class="xooki-br"/><br class="xooki-br"/>When developping a single OSGi bundle, a single ivy.xml (together with the use of the <a href="../use/fixdeps.html">fixdeps</a> task) is sufficent to describe precisely how the bundle requirements.<br class="xooki-br"/><br class="xooki-br"/>But when developping several bundles, it will be error prone to declare for each bundle its dependencies. Because once deployed in an OSGi environement, the bindings are sensitive to the available bundles. So when developping, we must ensure that the set of bundles will be the same set as the one at deploy time.<br class="xooki-br"/><br class="xooki-br"/>The concept of "target platform" is a perfect fit to describe the set of bundles to resolve against. Here is a recipe to handle it with just Ant+Ivy.<br class="xooki-br"/><br class="xooki-br"/><h1>A Target Platform Project</h1>
+<span class="tagdoc" id="ivysettings.resolvers.ibiblio">This resolver uses Bintray DaaS (Distribution as a Service) platform to retrieve artifacts.</span>
 
-First you need a project (basically a folder) in which you will manage your target platform. In this project you'll need 3 files:
-<ul>
-<li>an <a href="../samples/target-platform/ivy.xml">ivy.xml</a> in which you will describe the bundles you need,</li>
-<li>an <a href="../samples/target-platform/ivysettings.xml">ivysettings.xml</a> which will describe where to download bundles from,</li>
-<li>and a <a href="../samples/target-platform/build.xml">build.xml</a> with which you'll manage your target platform.</li>
-</ul>
+<h1>Attributes</h1>
+<table class="ivy-attributes">
+<thead>
+    <tr><th class="ivy-att">Attribute</th><th class="ivy-att-desc">Description</th><th class="ivy-att-req">Required</th></tr>
+</thead>
+<tbody>
+    <tr><td>subject</td><td>Bintray username of a repository owner.</td>
+        <td>No, defaults to JCenter</td></tr>
+    <tr><td>repo</td><td>User's repository name.</td>
+        <td>No, defaults to JCenter</td></tr>
+</tbody>
+</table>
 
-In the build there is a first important target: <tt>'update-dependencies'</tt>. Since the OSGi dependencies are very sensible to the available resources to resolve against, it is important to make the resolve as tight and reproductible as possible. First this target will do a resolve with the <tt>ivy.xml</tt>: a resolve which is very sensible to the content of the remote repo, thus not much reproductible. And it is will generate an <tt>ivy-fixed.xml</tt> from the resolved depedencies: this Ivy file contains only fixed non transitive dependencies (see the <a href="../use/fixdeps.html">fixdeps</a> task for further info). With that <tt>ivy-fixed.xml</tt> file, resolves are then reproductible and will always generate the same set of artifacts.<br class="xooki-br"/><br class="xooki-br"/>Once generated, it is recommended to share that <tt>ivy-fixed.xml</tt> file into you version control system (subversion, git, etc...). The target <tt>'update-dependencies'</tt> is then to be launched each time you edit the <tt>ivy.xml</tt>, when you want to change the content of your target platform.<br class="xooki-br"/><br class="xooki-br"/>The second target <tt>'generate-target-platform'</tt> will generate an <tt>obr.xml</tt>, a OSGi Bundle repository descriptor. This file will list every artifact wich has been resolved by the <tt>ivy-fixed.xml</tt>. Then each of your bundles you develop will do its resolve against that <tt>obr.xml</tt> (see the <a href="../resolver/obr.html">obr resolver</a>).<br class="xooki-br"/><br class="xooki-br"/>The generated <tt>obr.xml</tt> contains paths to the local filesystem, so it is recommended to not share it between developpers.<br class="xooki-br"/><br class="xooki-br"/>If it is required to develop your plugin with the Eclipse PDE plugin, you can then use the alternative target <tt>generate-retrieved-target-platform</tt>. It has the same principle than the <tt>'generate-target-platform'</tt> but the artifacts are also retrieved in a single folder, just like are plugins in an Eclipse install. That way you can define your target platform within Eclipse quite easily.<br class="xooki-br"/><br class="xooki-br"/>	
+<h1>Examples</h1>
+<pre>
+&lt;bintray /&gt;
+</pre>
+
+A default, defines a <a href="https://bintray.com/bintray/jcenter">JCenter</a> (<a href="http://jcenter.bintray.com/">http://jcenter.bintray.com/</a>) resolver. <br class="xooki-br"/>In most circumstances you won't need any other resolvers as JCenter is already a super-set of many other repositories, including Maven Central.<br class="xooki-br"/><br class="xooki-br"/><hr/>
+
+<pre>
+&lt;bintray subject="dsowerby" repo="maven"/&gt;<br class="xooki-br"/>&lt;bintray subject="igelgrun" repo="batrak"/&gt;
+</pre>
+
+Defines two resolvers to use a <a href="https://bintray.com/dsowerby/maven">repository</a> "maven" of user "dsowerby" (<a href="https://dl.bintray.com/dsowerby/maven/">https://dl.bintray.com/dsowerby/maven/</a>) <br class="xooki-br"/>and <a href="https://bintray.com/igelgrun/batrak">repository</a> "batrak" of user "igelgrun" (<a href="https://dl.bintray.com/igelgrun/batrak/">https://dl.bintray.com/igelgrun/batrak/</a>).<br class="xooki-br"/>
  		</div><!-- main -->
 		</td>
 	</tr>
@@ -288,3 +302,4 @@ In the build there is a first important target: <tt>'update-dependencies'</tt>. 
 </div><!-- body -->
 </body>
 </html>
+
