@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a> &gt; <a href="../../history/latest-milestone/reference.html" >Reference</a> &gt; <a href="../../history/latest-milestone/ant.html" class="current">Ant Tasks</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0)</a> &gt; <a href="../../history/latest-milestone/reference.html" >Reference</a> &gt; <a href="../../history/latest-milestone/ant.html" class="current">Ant Tasks</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="closed"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -151,6 +151,7 @@
 <li id="xooki-history/latest-milestone/resolver/osgiagg"><a href="../../history/latest-milestone/resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-history/latest-milestone/resolver/updatesite"><a href="../../history/latest-milestone/resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-history/latest-milestone/resolver/mirrored"><a href="../../history/latest-milestone/resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-history/latest-milestone/resolver/bintray"><a href="../../history/latest-milestone/resolver/bintray.html" >Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-history/latest-milestone/settings/conflict-managers"><a href="../../history/latest-milestone/settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-history/latest-milestone/settings/modules" class="submenu"><a href="../../history/latest-milestone/settings/modules.html" >modules</a><ul class="closed"><li id="xooki-history/latest-milestone/settings/module"><a href="../../history/latest-milestone/settings/module.html" >module</a></li>
@@ -234,7 +235,8 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0/index.html" >2.4.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
@@ -305,7 +307,7 @@ Combined with the antlib definition in the project namespace, it will load Ivy c
 <pre>
   &lt;taskdef name="ivy-configure" classname="org.apache.ivy.ant.IvyConfigure"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-resolve" classname="org.apache.ivy.ant.IvyResolve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/&gt;<br class="xooki-br"/>  &lt;taskdef name="ivy-deliver" classname="org.apache.ivy.ant.IvyDeliver"/&gt; <br class="xooki-br"/>  &lt;taskdef name="ivy-publish" classname="org.apache.ivy.ant.IvyPublish"/&gt;
 </pre>
-<em>Note: the tasks listed above are non exhaustive. For a complete list of tasks with the corresponding classes, see the <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/java/org/apache/ivy/ant/antlib.xml">antlib.xml</a> file in svn or the version you use.</em><br class="xooki-br"/><br class="xooki-br"/>Then you can use the tasks, but check their name, following samples assume you use the ivy namespace (ivy:xxx tasks), whereas with ant 1.5 you cannot use namespace, and should therefore use ivy-xxx tasks if you have followed the taskdefs above.<br class="xooki-br"/><br class="xooki-br"/>If you use an ant version lower than 1.5.1, you can not use the ivy tasks... you should then call ivy as any external program.<br class="xooki-br"/><h1>Calling ivy from ant: first steps</h1>
+<em>Note: the tasks listed above are non exhaustive. For a complete list of tasks with the corresponding classes, see the <a href="https://git-wip-us.apache.org/repos/asf?p=ant-ivy.git;a=blob;f=src/java/org/apache/ivy/ant/antlib.xml">antlib.xml</a> file in git or the version you use.</em><br class="xooki-br"/><br class="xooki-br"/>Then you can use the tasks, but check their name, following samples assume you use the ivy namespace (ivy:xxx tasks), whereas with ant 1.5 you cannot use namespace, and should therefore use ivy-xxx tasks if you have followed the taskdefs above.<br class="xooki-br"/><br class="xooki-br"/>If you use an ant version lower than 1.5.1, you can not use the ivy tasks... you should then call ivy as any external program.<br class="xooki-br"/><h1>Calling ivy from ant: first steps</h1>
 Once your build file is ok to call ivy tasks, the simplest way to use ivy is to call the ivy retrieve task with no parameters:
 <pre>
 &lt;ivy:retrieve /&gt;
@@ -326,7 +328,7 @@ To understand more accurately the behaviour of ivy tasks, one should know that a
 <pre>
 ivy.project.dir = ${basedir}<br class="xooki-br"/>ivy.lib.dir = ${ivy.project.dir}/lib<br class="xooki-br"/>ivy.build.artifacts.dir = ${ivy.project.dir}/build/artifacts<br class="xooki-br"/>ivy.distrib.dir = ${ivy.project.dir}/distrib<br class="xooki-br"/>	<br class="xooki-br"/>ivy.resolver.default.check.modified = false<br class="xooki-br"/>ivy.default.always.check.exact.revision = true<br class="xooki-br"/><br class="xooki-br"/>ivy.configurations = *<br class="xooki-br"/>ivy.resolve.default.type.filter = *<br class="xooki-br"/>ivy.status = integration<br class="xooki-br"/>ivy.dep.file = ivy.xml<br class="xooki-br"/>ivy.settings.file = ivysettings.xml<br class="xooki-br"/>ivy.retrieve.pattern = ${ivy.lib.dir}/[artifact]-[revision].[ext]<br class="xooki-br"/>ivy.deliver.ivy.pattern = ${ivy.distrib.dir}/[type]s/[artifact]-[revision].[ext]<br class="xooki-br"/>ivy.publish.src.artifacts.pattern = ${ivy.distrib.dir}/[type]s/[artifact]-[revision].[ext]<br class="xooki-br"/><br class="xooki-br"/>ivy.report.output.pattern = [organisation]-[module]-[conf].[ext]<br class="xooki-br"/><br class="xooki-br"/>ivy.buildlist.ivyfilepath = ivy.xml<br class="xooki-br"/><br class="xooki-br"/>ivy.checksums=sha1,md5
 </pre>
-<em>For the latest version of these properties, you can check the <a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/java/org/apache/ivy/core/settings/ivy.properties">svn version</a>.</em><br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.0</span> After calling the first Ivy task, the property ivy.version will be available and contains the version of the used Ivy library. <br class="xooki-br"/><br class="xooki-br"/><h1>Ivy tasks attributes : generalities</h1>
+<em>For the latest version of these properties, you can check the <a href="https://git-wip-us.apache.org/repos/asf?p=ant-ivy.git;a=blob;f=src/java/org/apache/ivy/core/settings/ivy.properties">git version</a>.</em><br class="xooki-br"/><br class="xooki-br"/><span class="since">since 2.0</span> After calling the first Ivy task, the property ivy.version will be available and contains the version of the used Ivy library. <br class="xooki-br"/><br class="xooki-br"/><h1>Ivy tasks attributes : generalities</h1>
 Some tasks attributes values may be given through different places. The three possible places are :<br class="xooki-br"/><ol>
 <li>task attribute</li>
 <li>ivy instance</li>

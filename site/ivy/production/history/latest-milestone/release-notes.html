@@ -19,9 +19,9 @@
 -->
 <html>
 <head>
-    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
-    <script type="text/javascript">var xookiConfig = {level: 0};</script>   
-    
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	<script type="text/javascript">var xookiConfig = {level: 0};</script>	
+	
 
 <title>Release Notes | Apache Ivy &#153;</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a> &gt; <a href="../../history/latest-milestone/release-notes.html" class="current">Release Notes</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0)</a> &gt; <a href="../../history/latest-milestone/release-notes.html" class="current">Release Notes</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" class="current">Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../history/latest-milestone/index.html" >Documentation (2.4.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../history/latest-milestone/release-notes.html" class="current">Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="closed"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -151,6 +151,7 @@
 <li id="xooki-history/latest-milestone/resolver/osgiagg"><a href="../../history/latest-milestone/resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-history/latest-milestone/resolver/updatesite"><a href="../../history/latest-milestone/resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-history/latest-milestone/resolver/mirrored"><a href="../../history/latest-milestone/resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-history/latest-milestone/resolver/bintray"><a href="../../history/latest-milestone/resolver/bintray.html" >Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-history/latest-milestone/settings/conflict-managers"><a href="../../history/latest-milestone/settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-history/latest-milestone/settings/modules" class="submenu"><a href="../../history/latest-milestone/settings/modules.html" >modules</a><ul class="closed"><li id="xooki-history/latest-milestone/settings/module"><a href="../../history/latest-milestone/settings/module.html" >module</a></li>
@@ -234,7 +235,8 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0/index.html" >2.4.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
@@ -297,25 +299,158 @@
 		<div id="main">
 
 		<h1 class="title">Release Notes</h1>
-            <br class="xooki-br"/><h2>Announcement</h2>
+            <br class="xooki-br"/><br class="xooki-br"/><h2>Announcement</h2>
 
 <pre>
-March 23, 2014 - The Ivy project is pleased to announce its 2.4.0-RC1 release.<br class="xooki-br"/><br class="xooki-br"/>Ivy is a tool for managing (recording, tracking, resolving and<br class="xooki-br"/>reporting) project dependencies, characterized by flexibility,<br class="xooki-br"/>configurability, and tight integration with Apache Ant.<br class="xooki-br"/><br class="xooki-br"/>Key features of this 2.4.0-RC1 release are<br class="xooki-br"/>* some new Ant tasks<br class="xooki-br"/>* improved OSGI support<br class="xooki-br"/>* numerous bug fixes as documented in Jira and in the release notes<br class="xooki-br"/><br class="xooki-br"/>As a release candidate version, we strongly encourage the use of this version for <br class="xooki-br"/>testing and validation. From now on, features are frozen until final 2.4.0 version, <br class="xooki-br"/>only bug fixes will be applied before 2.4.0. If no outstanding bugs are reported <br class="xooki-br"/>with this release candidate, it will promoted to 2.4.0 about three weeks after this<br class="xooki-br"/>release candidate. <br class="xooki-br"/><br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVY">https://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/><br class="xooki-br"/>Download the 2.4.0-RC1 release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a><br class="xooki-br"/><br class="xooki-br"/>More information can be found on the Ivy website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/">http://ant.apache.org/ivy/</a><br class="xooki-br"/><br class="xooki-br"/>Regards,<br class="xooki-br"/>Maarten Coene
+December 26, 2014 - The Apache Ivy project is pleased to announce its 2.4.0 release.<br class="xooki-br"/> <br class="xooki-br"/>Apache Ivy is a tool for managing (recording, tracking, resolving and<br class="xooki-br"/>reporting) project dependencies, characterized by flexibility,<br class="xooki-br"/>configurability, and tight integration with Apache Ant.<br class="xooki-br"/><br class="xooki-br"/>Key features of this 2.4.0 release are<br class="xooki-br"/>* some new Ant tasks<br class="xooki-br"/>* improved OSGI support<br class="xooki-br"/>* a Bintray resolver<br class="xooki-br"/>* numerous bug fixes as documented in Jira and in the release notes<br class="xooki-br"/> <br class="xooki-br"/>You can download this 2.4.0 release at:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/download.cgi">http://ant.apache.org/ivy/download.cgi</a><br class="xooki-br"/> <br class="xooki-br"/>Issues should be reported to:<br class="xooki-br"/><a href="https://issues.apache.org/jira/browse/IVY">https://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/> <br class="xooki-br"/>More information can be found on the website:<br class="xooki-br"/><a href="http://ant.apache.org/ivy/">http://ant.apache.org/ivy/</a>
 </pre>
+ 
+<h2>List of Changes in this Release</h2>
+ 
+For details about the following changes, check our JIRA install at <br class="xooki-br"/><a href="http://issues.apache.org/jira/browse/ivy">http://issues.apache.org/jira/browse/ivy</a><br class="xooki-br"/> <br class="xooki-br"/>List of changes since Ivy 2.3.0:<br class="xooki-br"/><br class="xooki-br"/>- NEW: the buildobr task can now work a set of resolved artifacts: useful for managing an OSGi target platform<br class="xooki-br"/>- NEW: fixdeps task: serializes transitively resolved dependencies into an ivy.xml file<br class="xooki-br"/>- NEW: IvyDependencyTree task : display a dependency tree on the console<br class="xooki-br"/>- NEW: Support Conditional Setting of a Property (<a href="https://issues.apache.org/jira/browse/IVY-1367">IVY-1367</a>)<br class="xooki-br"/>- NEW: Exposing some parent metadata (organisation, module, revision, branch) as properties (<a href="https://issues.apache.org/jira/browse/IVY-1288">IVY-1288</a>)<br class="xooki-br"/>- NEW: symlinkmass feature based on symlink feature of ivy:retrieve (<a href="https://issues.apache.org/jira/browse/IVY-1252">IVY-1252</a>) (Thanks to Gene Smith)<br class="xooki-br"/>- NEW: Agent authentication for SSH and SFTP transports (<a href="https://issues.apache.org/jira/browse/IVY-1421">IVY-1421</a>)<br class="xooki-br"/>- NEW: New OSGi resolver 'osgi-agg': a chain resolver dedicated to better handle OSGi dependencies<br class="xooki-br"/>- NEW: Add support for "packed" artifacts: .pack.gz bundles in an OSGi P2 repository for instance<br class="xooki-br"/>- NEW: Ivy Bintray resolver (<a href="https://issues.apache.org/jira/browse/IVY-1474">IVY-1474</a>) (Thanks to Evgeny Goldin)<br class="xooki-br"/><br class="xooki-br"/>- IMPROVEMENT: Generate POMs with /xsd/maven-4.0.0.xsd reference instead of old /maven-v4_0_0.xsd (<a href="https://issues.apache.org/jira/browse/IVY-1491">IVY-1491</a>) (thanks to Hervé Boutemy)<br class="xooki-br"/>- IMPROVEMENT: Add support for packed jar within an OSGi bundle<br class="xooki-br"/>- IMPROVEMENT: ModuleRules.getRule is O(n) leading to resolution slowness (<a href="https://issues.apache.org/jira/browse/IVY-1465">IVY-1465</a>) (Thanks to Zhong Wang aka Kewpie)<br class="xooki-br"/>- IMPROVEMENT: ivy:makepom will generate an exclusion when transitive=false on a dependency (<a href="https://issues.apache.org/jira/browse/IVY-1470">IVY-1470</a>)<br class="xooki-br"/>- IMPROVEMENT: New LockStrategy available based on NIO FileLocks (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>)<br class="xooki-br"/>- IMPROVEMENT: Optional <include> ivysettings directives (<a href="https://issues.apache.org/jira/browse/IVY-1392">IVY-1392</a>) (thanks to Yanus Poluektovich)<br class="xooki-br"/>- IMPROVEMENT: add support for source bundles from p2 repositories<br class="xooki-br"/>- IMPROVEMENT: add support for source URI from OBR repositories<br class="xooki-br"/>- IMPROVEMENT: Also copy original metadata artifact (e.g. POM) on ivy:install (<a href="https://issues.apache.org/jira/browse/IVY-1431">IVY-1431</a>) (Thanks to Erwin Tratar)<br class="xooki-br"/>- IMPROVEMENT: useOrigin will do avoid copy with url resolvers configured with a 'file:/' URL<br class="xooki-br"/>- IMPROVEMENT: add support for source artifacts in buildobr task<br class="xooki-br"/>- IMPROVEMENT: add possibility to configure the User-Agent http header by setting a property http.agent (Thanks to Tony Likhite)<br class="xooki-br"/> <br class="xooki-br"/>- FIX: impossible to get artifacts when data has not been loaded. (<a href="https://issues.apache.org/jira/browse/IVY-1399">IVY-1399</a>) (Thanks to David Turner)<br class="xooki-br"/>- FIX: regression introduced by <a href="https://issues.apache.org/jira/browse/IVY-1457">IVY-1457</a>, dependency management wasn't properly handled introducing lots of resolution failures<br class="xooki-br"/>- FIX: The SSH resolvers fails if the un-required jsch jar is missing (<a href="https://issues.apache.org/jira/browse/IVY-1471">IVY-1471</a>)<br class="xooki-br"/>- FIX: failed to resolve dynamic revisions in some cases for URL repositories (<a href="https://issues.apache.org/jira/browse/IVY-1472">IVY-1472</a>)<br class="xooki-br"/>- FIX: ClassCastException in Eclipse 4.4.1 (<a href="https://issues.apache.org/jira/browse/IVY-1487">IVY-1487</a>) (Thanks to Carsten Pfeiffer)<br class="xooki-br"/>- FIX: NullPointerException when accessing charset to invalid URL (<a href="https://issues.apache.org/jira/browse/IVY-1452">IVY-1452</a>) (Thanks to Frédéric Riviere)<br class="xooki-br"/>- FIX: Can't resolve wildcard dependencies when remote artifact server does not set content-type header (<a href="https://issues.apache.org/jira/browse/IVY-1493">IVY-1493</a>) (Thanks to Andrew Bernhagen)<br class="xooki-br"/>- FIX: In IvyDE, Ivy fails to parse ivy-settings.xml file if it contains <pgp> element (thanks to Gregory Amerson) (<a href="https://issues.apache.org/jira/browse/IVY-1441">IVY-1441</a>)<br class="xooki-br"/>- FIX: ParseException when "Bundle-Description" is present in OSGi MANIFEST.MF (<a href="https://issues.apache.org/jira/browse/IVY-1438">IVY-1438</a>)<br class="xooki-br"/>- FIX: NIO FileLocker released locks too early (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>) (thanks to Charles Duffy)<br class="xooki-br"/>- FIX: Ssh Resolver doesn't work with Java 7 (<a href="https://issues.apache.org/jira/browse/IVY-1408">IVY-1408</a>) (thanks to Mykhailo Delegan)<br class="xooki-br"/>- FIX: Parsing publication date in Ant tasks not thread-safe (<a href="https://issues.apache.org/jira/browse/IVY-1412">IVY-1412</a>)<br class="xooki-br"/>- FIX: NullPointerException when using httpclient and server doesn't return content-type header (<a href="https://issues.apache.org/jira/browse/IVY-1400">IVY-1400</a>) (thanks to Frederic Riviere)<br class="xooki-br"/>- FIX: Properly handle evicted nodes in ResolveReport<br class="xooki-br"/>- FIX: Artifact repository locking did not correctly handle threaded use (<a href="https://issues.apache.org/jira/browse/IVY-1454">IVY-1454</a>) (thanks to Carsten Pfeiffer)<br class="xooki-br"/>- FIX: Better support for "Bundle-RequiredExecutionEnvironment" from an OSGi MANIFEST.MF<br class="xooki-br"/>- FIX: When inheriting a module descriptor, also merge the exclude rules<br class="xooki-br"/>- FIX: Correct application of mediators (ie. override) during conflict resolution (<a href="https://issues.apache.org/jira/browse/IVY-1455">IVY-1455</a>)<br class="xooki-br"/>- FIX: Fix revision number mapping across namespaces (<a href="https://issues.apache.org/jira/browse/IVY-1423">IVY-1423</a>)<br class="xooki-br"/>- FIX: fix a NPE when loading a composite P2 repository with no children<br class="xooki-br"/>- FIX: fix missing configuration when fixdeps is used with a partial resolve<br class="xooki-br"/>- FIX: XmlModuleDescriptorWritter doesn't support fully extra infos elements (<a href="https://issues.apache.org/jira/browse/IVY-1457">IVY-1457</a>)<br class="xooki-br"/> <br class="xooki-br"/>- DOCUMENTATION: Broken link in <dependency> documentation (<a href="https://issues.apache.org/jira/browse/IVY-1405">IVY-1405</a>)<br class="xooki-br"/>- DOCUMENTATION: Explicitly document that threaded use is not supported.<br class="xooki-br"/><br class="xooki-br"/><h2>Committers and Contributors</h2>
 
-<h2>Release Notes</h2>
+Here is the list of people who have contributed source code and documentation up to this release. Many thanks to all of them, and also to the whole IvyDE community contributing ideas and feedback, and promoting the use of Apache Ivy !<br class="xooki-br"/>
+<ul>Committers
+<li>Matt Benson</li>
+<li>Jean-Louis Boudart</li>
+<li>Maarten Coene</li>
+<li>Charles Duffy</li>
+<li>Xavier Hanin</li>
+<li>Nicolas Lalevee</li>
+<li>Jon Schneider</li>
+<li>Gilles Scokart</li>
+</ul>
 
-CONTENTS<br class="xooki-br"/>1. What is Apache Ivy?<br class="xooki-br"/>2. How to Get Involved<br class="xooki-br"/>3. How to Report Issues<br class="xooki-br"/>4. Committers and Contributors for this release<br class="xooki-br"/>5. List of Changes in this Release   <br class="xooki-br"/>   <br class="xooki-br"/>   <br class="xooki-br"/><h3>1. What is Apache Ivy?</h3>
+<ul>Contributors:
+<li>Ingo Adler</li>
+<li>alex322</li>
+<li>Mathieu Anquetin</li>
+<li>Andreas Axelsson</li>
+<li>Stephane Bailliez</li>
+<li>Karl Baum</li>
+<li>Andrew Bernhagen</li>
+<li>Mikkel Bjerg</li>
+<li>Per Arnold Blaasmo</li>
+<li>Jeffrey Blattman</li>
+<li>Jasper Blues</li>
+<li>Jim Bonanno</li>
+<li>Joseph Boyd</li>
+<li>Dave Brosius</li>
+<li>Matthieu Brouillard</li>
+<li>Carlton Brown</li>
+<li>Mirko Bulovic</li>
+<li>Ed Burcher</li>
+<li>Jamie Burns</li>
+<li>Wei Chen</li>
+<li>Chris Chilvers</li>
+<li>Kristian Cibulskis</li>
+<li>Andrea Bernardo Ciddio</li>
+<li>Archie Cobbs</li>
+<li>Flavio Coutinho da Costa</li>
+<li>Stefan De Boey</li>
+<li>Mykhailo Delegan</li>
+<li>Charles Duffy</li>
+<li>Martin Eigenbrodt</li>
+<li>Stephen Evanchik</li>
+<li>Robin Fernandes</li>
+<li>Gregory Fernandez</li>
+<li>Danno Ferrin</li>
+<li>Benjamin Francisoud</li>
+<li>Wolfgang Frank</li>
+<li>Jacob Grydholt Jensen</li>
+<li>John Gibson</li>
+<li>Mitch Gitman</li>
+<li>Evgeny Goldin</li>
+<li>Scott Goldstein</li>
+<li>Pierre Hägnestrand</li>
+<li>Scott Hebert</li>
+<li>Tobias Himstedt</li>
+<li>Aaron Hachez</li>
+<li>Ben Hale</li>
+<li>Stephen Haberman</li>
+<li>Peter Hayes</li>
+<li>Scott Hebert</li>
+<li>Payam Hekmat</li>
+<li>Achim Huegen</li>
+<li>Matt Inger</li>
+<li>Anders Jacobsson</li>
+<li>Anders Janmyr</li>
+<li>Steve Jones</li>
+<li>Christer Jonsson</li>
+<li>Michael Kebe</li>
+<li>Matthias Kilian</li>
+<li>Alexey Kiselev</li>
+<li>Gregory Kisling</li>
+<li>Stepan Koltsov</li>
+<li>Heschi Kreinick</li>
+<li>Sebastian Krueger</li>
+<li>Thomas Kurpick</li>
+<li>Tat Leung</li>
+<li>Costin Leau</li>
+<li>Antoine Levy-Lambert</li>
+<li>Tony Likhite</li>
+<li>Andrey Lomakin</li>
+<li>William Lyvers</li>
+<li>Sakari Maaranen</li>
+<li>Jan Materne</li>
+<li>Markus M. May</li>
+<li>Abel Muino</li>
+<li>J. Lewis Muir</li>
+<li>Stephen Nesbitt</li>
+<li>Joshua Nichols</li>
+<li>Bernard Niset</li>
+<li>Ales Nosek</li>
+<li>David Maplesden</li>
+<li>Glen Marchesani</li>
+<li>Phil Messenger</li>
+<li>Steve Miller</li>
+<li>Mathias Muller</li>
+<li>Randy Nott</li>
+<li>Peter Oxenham</li>
+<li>Douglas Palmer</li>
+<li>Jesper Pedersen</li>
+<li>Emmanuel Pellereau</li>
+<li>Carsten Pfeiffer</li>
+<li>Yanus Poluektovich</li>
+<li>Roshan Punnoose</li>
+<li>Jean-Baptiste Quenot</li>
+<li>Carl Quinn</li>
+<li>Damon Rand</li>
+<li>Geoff Reedy</li>
+<li>Torkild U. Resheim</li>
+<li>Christian Riege</li>
+<li>Frederic Riviere</li>
+<li>Jens Rohloff</li>
+<li>Andreas Sahlbach</li>
+<li>Brian Sanders</li>
+<li>Adrian Sandor</li>
+<li>Michael Scheetz</li>
+<li>Ben Schmidt</li>
+<li>Ruslan Shevchenko</li>
+<li>John Shields</li>
+<li>Nihal Sinha</li>
+<li>Gene Smith</li>
+<li>Simon Steiner</li>
+<li>Johan Stuyts</li>
+<li>John Tinetti</li>
+<li>Erwin Tratar</li>
+<li>Jason Trump</li>
+<li>David Turner</li>
+<li>Tjeerd Verhagen</li>
+<li>Richard Vowles</li>
+<li>Sven Walter</li>
+<li>James P. White</li>
+<li>Tom Widmer</li>
+<li>John Williams</li>
+<li>Chris Wood</li>
+<li>Patrick Woodworth</li>
+<li>Jaroslaw Wypychowski</li>
+<li>Sven Zethelius</li>
+<li>Aleksey Zhukov</li>
+<li>Zhong Wang</li>
+</ul>
 
-Apache Ivy is a tool for managing (recording, tracking, resolving and reporting) <br class="xooki-br"/>project dependencies. <br class="xooki-br"/>It is characterized by the following:<br class="xooki-br"/><br class="xooki-br"/>   1. flexibility and configurability <br class="xooki-br"/>        Apache Ivy is essentially process agnostic and is not tied to any <br class="xooki-br"/>        methodology or structure. <br class="xooki-br"/>        Instead it provides the necessary flexibility and configurability <br class="xooki-br"/>        to be adapted to a broad range of dependency management and build <br class="xooki-br"/>        processes.<br class="xooki-br"/>   2. tight integration with Apache Ant<br class="xooki-br"/>        while available as a standalone tool, Apache Ivy works particularly well <br class="xooki-br"/>        with Apache Ant providing a number of powerful Ant tasks ranging <br class="xooki-br"/>        from dependency resolution to dependency reporting and publication.<br class="xooki-br"/><br class="xooki-br"/><h3>2. How to Get Involved</h3>
-
-The Apache Ivy project really needs and appreciates any contributions, <br class="xooki-br"/>including documentation help, source code and feedback.  If you are interested<br class="xooki-br"/>in contributing, please visit <a href="http://ant.apache.org/ivy/get-involved.html">http://ant.apache.org/ivy/get-involved.html</a>.<br class="xooki-br"/><br class="xooki-br"/><h3>3. How to Report Issues</h3>
-
-The Apache Ivy project uses JIRA for issue tracking.  Please report any <br class="xooki-br"/>issues you find at <a href="http://issues.apache.org/jira/browse/IVY">http://issues.apache.org/jira/browse/IVY</a><br class="xooki-br"/><br class="xooki-br"/><h3>4. Committers and Contributors for this Release</h3>
-
-Here is the list of people who have contributed source code and documentation<br class="xooki-br"/>to this release. Many thanks to all of them, and also to the whole Ivy community<br class="xooki-br"/>contributing ideas and feedback, and promoting the use of Ivy. The list would be too<br class="xooki-br"/>long, but Ivy couldn't be what it is without you!<br class="xooki-br"/><br class="xooki-br"/> Committers<br class="xooki-br"/>    Jean-Louis Boudart<br class="xooki-br"/>    Maarten Coene<br class="xooki-br"/>    Charles Duffy<br class="xooki-br"/>    Nicolas Lalevee<br class="xooki-br"/>    Antoine Levy Lambert<br class="xooki-br"/><br class="xooki-br"/> Contributors<br class="xooki-br"/>    Gregory Amerson<br class="xooki-br"/>    Mykhailo Delegan<br class="xooki-br"/>    Tony Likhite<br class="xooki-br"/>    Carsten Pfeiffer<br class="xooki-br"/>    Yanus Poluektovich<br class="xooki-br"/>    Frederic Riviere<br class="xooki-br"/>    Gene Smith<br class="xooki-br"/>    Erwin Tratar<br class="xooki-br"/><br class="xooki-br"/>For the list of people who have contributed since Ivy inception, see CHANGES.txt file.<br class="xooki-br"/><br class="xooki-br"/><h3>5. List of Changes in this Release</h3>
-
-For a full release history of Ivy see the file CHANGES.txt<br class="xooki-br"/><br class="xooki-br"/>For details about the following changes, check our JIRA install at <br class="xooki-br"/><a href="http://issues.apache.org/jira/browse/ivy">http://issues.apache.org/jira/browse/ivy</a><br class="xooki-br"/><br class="xooki-br"/>List of changes since Ivy 2.3.0:<br class="xooki-br"/><br class="xooki-br"/>- DOCUMENTATION: Broken link in <dependency> documentation (<a href="https://issues.apache.org/jira/browse/IVY-1405">IVY-1405</a>)<br class="xooki-br"/>- DOCUMENTATION: Explicitly document that threaded use is not supported.<br class="xooki-br"/><br class="xooki-br"/>- NEW: the buildobr task can now work a set of resolved artifacts: useful for managing an OSGi target platform<br class="xooki-br"/>- NEW: fixdeps task: serializes transitively resolved dependencies into an ivy.xml file<br class="xooki-br"/>- NEW: IvyDependencyTree task : display a dependency tree on the console<br class="xooki-br"/>- NEW: Support Conditional Setting of a Property (<a href="https://issues.apache.org/jira/browse/IVY-1367">IVY-1367</a>)<br class="xooki-br"/>- NEW: Exposing some parent metadata (organisation, module, revision, branch) as properties (<a href="https://issues.apache.org/jira/browse/IVY-1288">IVY-1288</a>)<br class="xooki-br"/>- NEW: symlinkmass feature based on symlink feature of ivy:retrieve (<a href="https://issues.apache.org/jira/browse/IVY-1252">IVY-1252</a>) (Thanks to Gene Smith)<br class="xooki-br"/>- NEW: Agent authentication for SSH and SFTP transports (<a href="https://issues.apache.org/jira/browse/IVY-1421">IVY-1421</a>)<br class="xooki-br"/>- NEW: New OSGi resolver 'osgi-agg': a chain resolver dedicated to better handle OSGi dependencies<br class="xooki-br"/>- NEW: Add support for "packed" artifacts: .pack.gz bundles in an OSGi P2 repository for instance<br class="xooki-br"/><br class="xooki-br"/>- IMPROVEMENT: New LockStrategy available based on NIO FileLocks (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>)<br class="xooki-br"/>- IMPROVEMENT: Optional <include> ivysettings directives (<a href="https://issues.apache.org/jira/browse/IVY-1392">IVY-1392</a>) (thanks to Yanus Poluektovich)<br class="xooki-br"/>- IMPROVEMENT: add support for source bundles from p2 repositories<br class="xooki-br"/>- IMPROVEMENT: add support for source URI from OBR repositories<br class="xooki-br"/>- IMPROVEMENT: Also copy original metadata artifact (e.g. POM) on ivy:install (<a href="https://issues.apache.org/jira/browse/IVY-1431">IVY-1431</a>) (Thanks to Erwin Tratar)<br class="xooki-br"/>- IMPROVEMENT: useOrigin will do avoid copy with url resolvers configured with a 'file:/' URL<br class="xooki-br"/>- IMPROVEMENT: add support for source artifacts in buildobr task<br class="xooki-br"/>- IMPROVEMENT: add possibility to configure the User-Agent http header by setting a property http.agent (Thanks to Tony Likhite)<br class="xooki-br"/><br class="xooki-br"/>- FIX: In IvyDE, Ivy fails to parse ivy-settings.xml file if it contains <pgp> element (thanks to Gregory Amerson) (<a href="https://issues.apache.org/jira/browse/IVY-1441">IVY-1441</a>)<br class="xooki-br"/>- FIX: ParseException when "Bundle-Description" is present in OSGi MANIFEST.MF (<a href="https://issues.apache.org/jira/browse/IVY-1438">IVY-1438</a>)<br class="xooki-br"/>- FIX: NIO FileLocker released locks too early (<a href="https://issues.apache.org/jira/browse/IVY-1424">IVY-1424</a>) (thanks to Charles Duffy)<br class="xooki-br"/>- FIX: Ssh Resolver doesn't work with Java 7 (<a href="https://issues.apache.org/jira/browse/IVY-1408">IVY-1408</a>) (thanks to Mykhailo Delegan)<br class="xooki-br"/>- FIX: Parsing publication date in Ant tasks not thread-safe (<a href="https://issues.apache.org/jira/browse/IVY-1412">IVY-1412</a>)<br class="xooki-br"/>- FIX: NullPointerException when using httpclient and server doesn't return content-type header (<a href="https://issues.apache.org/jira/browse/IVY-1400">IVY-1400</a>) (thanks to Frederic Riviere)<br class="xooki-br"/>- FIX: Properly handle evicted nodes in ResolveReport<br class="xooki-br"/>- FIX: Artifact repository locking did not correctly handle threaded use (<a href="https://issues.apache.org/jira/browse/IVY-1454">IVY-1454</a>) (thanks to Carsten Pfeiffer)<br class="xooki-br"/>- FIX: Better support for "Bundle-RequiredExecutionEnvironment" from an OSGi MANIFEST.MF<br class="xooki-br"/>- FIX: When inheriting a module descriptor, also merge the exclude rules<br class="xooki-br"/>- FIX: Correct application of mediators (ie. override) during conflict resolution (<a href="https://issues.apache.org/jira/browse/IVY-1455">IVY-1455</a>)<br class="xooki-br"/>- FIX: Fix revision number mapping across namespaces (<a href="https://issues.apache.org/jira/browse/IVY-1423">IVY-1423</a>)<br class="xooki-br"/>- FIX: fix a NPE when loading a composite P2 repository with no children<br class="xooki-br"/>- FIX: fix missing configuration when fixdeps is used with a partial resolve<br class="xooki-br"/>- FIX: XmlModuleDescriptorWritter doesn't support fully extra infos elements (<a href="https://issues.apache.org/jira/browse/IVY-1457">IVY-1457</a>)<br class="xooki-br"/>
+	
  		</div><!-- main -->
 		</td>
 	</tr>

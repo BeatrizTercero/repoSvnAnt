@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/dependence.html" class="current">Project dependencies</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/dependence.html" class="current">Project dependencies</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="open"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -151,6 +151,7 @@
 <li id="xooki-history/latest-milestone/resolver/osgiagg"><a href="../../../history/latest-milestone/resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-history/latest-milestone/resolver/updatesite"><a href="../../../history/latest-milestone/resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-history/latest-milestone/resolver/mirrored"><a href="../../../history/latest-milestone/resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-history/latest-milestone/resolver/bintray"><a href="../../../history/latest-milestone/resolver/bintray.html" >Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-history/latest-milestone/settings/conflict-managers"><a href="../../../history/latest-milestone/settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-history/latest-milestone/settings/modules" class="submenu"><a href="../../../history/latest-milestone/settings/modules.html" >modules</a><ul class="closed"><li id="xooki-history/latest-milestone/settings/module"><a href="../../../history/latest-milestone/settings/module.html" >module</a></li>
@@ -234,7 +235,8 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0/index.html" >2.4.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
@@ -360,48 +362,6 @@ This will clean up the entire project directory tree. You can do this each time 
 <h2>step 3: publication of dependee project</h2>
 Go to <tt>dependee</tt> directory  and publish the project
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.4.0-rc1 - 20140315220245 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-lang/commons-lang/2.0/commons-lang-2.0.jar ...
-[ivy:retrieve] ..................... (165kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] commons-lang#commons-lang;2.0!commons-lang.jar (1052ms)
-[ivy:retrieve] :: resolution report :: resolve 409ms :: artifacts dl 1056ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   1   |   0   |   0   ||   1   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (165kB/26ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/dependee/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/dependee/build/classes
-
-jar:
-[propertyfile] Creating new property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 1 :: release :: Sat Mar 15 22:10:28 CET 2014
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-1.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-1.xml
-     [echo] project dependee released with version 1
-
-BUILD SUCCESSFUL
-Total time: 3 seconds
 
 </pre></div>
 What we see here:
@@ -423,46 +383,6 @@ Both are just copies of the files found in the current project, or more precisel
 <h2>step 4: running the depender project</h2>
 Go to directory depender and run <tt>ant</tt>
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.4.0-rc1 - 20140315220245 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;1 in projects
-[ivy:retrieve] 	[1] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-1.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;1!dependee.jar (9ms)
-[ivy:retrieve] :: resolution report :: resolve 123ms :: artifacts dl 14ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   1   |   1   |   0   ||   2   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/29ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 1 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 What we see here:
@@ -477,43 +397,6 @@ What we see here:
 <h2>step 5: new version of dependee project</h2>
 Like we did before in step 3, publish the dependee project again. This will result in a new version of the project being published.
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/dependee]$ ant publish
-Buildfile: /ivy/dependence/dependee/build.xml
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.4.0-rc1 - 20140315220245 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#dependee;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] :: resolution report :: resolve 179ms :: artifacts dl 4ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   1   |   0   |   0   |   0   ||   1   |   0   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#dependee
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	0 artifacts copied, 1 already retrieved (0kB/3ms)
-
-compile:
-
-jar:
-[propertyfile] Updating property file: /ivy/dependence/dependee/build/classes/version.properties
-      [jar] Building jar: /ivy/dependence/dependee/build/dependee.jar
-
-publish:
-   [delete] Deleting: /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: delivering :: org.apache#dependee;working@apache :: 2 :: release :: Sat Mar 15 22:10:33 CET 2014
-[ivy:publish] 	delivering ivy file to /ivy/dependence/dependee/build/ivy.xml
-[ivy:publish] :: publishing :: org.apache#dependee
-[ivy:publish] 	published dependee to /ivy/dependence/settings/repository/dependee-2.jar
-[ivy:publish] 	published ivy to /ivy/dependence/settings/repository/dependee-2.xml
-     [echo] project dependee released with version 2
-
-BUILD SUCCESSFUL
-Total time: 1 second
 
 </pre></div>
 Now if you look in your repository folder, you will find 2 versions of the dependee project.<br class="xooki-br"/>Let's look at it:
@@ -529,46 +412,6 @@ What should we expect if we run the depender project again? It should:
 </ul>
 Let's try it!!
 <div class="shell"><pre>
-[ivy@apache:/ivy/dependence/depender]$ ant 
-Buildfile: /ivy/dependence/depender/build.xml
-
-clean:
-
-resolve:
-[ivy:retrieve] :: Apache Ivy 2.4.0-rc1 - 20140315220245 :: http://ant.apache.org/ivy/ ::
-[ivy:retrieve] :: loading settings :: file = /ivy/dependence/settings/ivysettings.xml
-[ivy:retrieve] :: resolving dependencies :: org.apache#depender;working@apache
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	found org.apache#dependee;2 in projects
-[ivy:retrieve] 	[2] org.apache#dependee;latest.integration
-[ivy:retrieve] 	found commons-lang#commons-lang;2.0 in libraries
-[ivy:retrieve] downloading /ivy/dependence/settings/repository/dependee-2.jar ...
-[ivy:retrieve] .. (1kB)
-[ivy:retrieve] .. (0kB)
-[ivy:retrieve] 	[SUCCESSFUL ] org.apache#dependee;2!dependee.jar (10ms)
-[ivy:retrieve] :: resolution report :: resolve 190ms :: artifacts dl 14ms
-	---------------------------------------------------------------------
-	|                  |            modules            ||   artifacts   |
-	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
-	---------------------------------------------------------------------
-	|      default     |   2   |   1   |   1   |   0   ||   2   |   1   |
-	---------------------------------------------------------------------
-[ivy:retrieve] :: retrieving :: org.apache#depender
-[ivy:retrieve] 	confs: [default]
-[ivy:retrieve] 	2 artifacts copied, 0 already retrieved (167kB/9ms)
-
-compile:
-    [mkdir] Created dir: /ivy/dependence/depender/build/classes
-    [javac] Compiling 1 source file to /ivy/dependence/depender/build/classes
-
-run:
-     [java] you are using version 2 of class standalone.Main
-     [java] standard message : i am depending.Main and standalone.Main will do the job for me
-     [java]     [standalone.Main] capitalizing string "i am depending.Main and standalone.Main will do the job for me" using org.apache.commons.lang.WordUtils
-     [java] capitalized message : I Am Depending.main And Standalone.main Will Do The Job For Me
-
-BUILD SUCCESSFUL
-Total time: 2 seconds
 
 </pre></div>
 OK, we got what we expected as the <tt>run</tt> target shows that we are using version 2 of the main class of the dependee project. If we take a look at the resolve target results, we see that one artifact has been downloaded to the ivy cache. In fact, this file is the same version 2 of the dependee project that is in the repository, but now all future retrievals will pull it from your ivy-cache directory.

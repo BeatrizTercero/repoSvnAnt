@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/multiproject.html" class="current">Using Ivy in multiple projects environment</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a> &gt; <a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a> &gt; <a href="../../../history/latest-milestone/tutorial/multiproject.html" class="current">Using Ivy in multiple projects environment</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="open"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -151,6 +151,7 @@
 <li id="xooki-history/latest-milestone/resolver/osgiagg"><a href="../../../history/latest-milestone/resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-history/latest-milestone/resolver/updatesite"><a href="../../../history/latest-milestone/resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-history/latest-milestone/resolver/mirrored"><a href="../../../history/latest-milestone/resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-history/latest-milestone/resolver/bintray"><a href="../../../history/latest-milestone/resolver/bintray.html" >Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-history/latest-milestone/settings/conflict-managers"><a href="../../../history/latest-milestone/settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-history/latest-milestone/settings/modules" class="submenu"><a href="../../../history/latest-milestone/settings/modules.html" >modules</a><ul class="closed"><li id="xooki-history/latest-milestone/settings/module"><a href="../../../history/latest-milestone/settings/module.html" >module</a></li>
@@ -234,7 +235,8 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0/index.html" >2.4.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
@@ -312,11 +314,11 @@ For sure this is not aimed to demonstrate how to develop a complex app or give i
 Modules in yellow are the modules described in this tutorial, and modules in blue are external dependencies (we will see how to generate this graph later in this tutorial).<br class="xooki-br"/><br class="xooki-br"/>As you can see, we have here a pretty interesting set of modules with dependencies between each other, each depending on the latest version of the others.<br class="xooki-br"/><br class="xooki-br"/><h1>The example files</h1>
 The sources for this tutorial can be found in <tt>src/example/multi-project</tt> in the Ivy distribution. In this directory, you will find the following files:
 <ul>
-<li><a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/example/multi-project/build.xml">build.xml</a></li>This is a root build file which can be used to call targets on all modules, in the order of their dependencies (ensuring that a module is always built before any module depending on it, for instance)
+<li><a href="https://git-wip-us.apache.org/repos/asf?p=ant-ivy.git;a=blob;f=src/example/multi-project/build.xml">build.xml</a></li>This is a root build file which can be used to call targets on all modules, in the order of their dependencies (ensuring that a module is always built before any module depending on it, for instance)
 <li>common
 <ul>
-<li><a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/example/multi-project/common/common.xml">common.xml</a></li> the common build file imported by all build.xml files for each project. This build defines the targets which can be used in all projects.
-<li><a href="https://svn.apache.org/repos/asf/ant/ivy/core/trunk/src/example/multi-project/common/build.properties">build.properties</a></li>some properties common to all projects
+<li><a href="https://git-wip-us.apache.org/repos/asf?p=ant-ivy.git;a=blob;f=src/example/multi-project/common/common.xml">common.xml</a></li> the common build file imported by all build.xml files for each project. This build defines the targets which can be used in all projects.
+<li><a href="https://git-wip-us.apache.org/repos/asf?p=ant-ivy.git;a=blob;f=src/example/multi-project/common/build.properties">build.properties</a></li>some properties common to all projects
 </ul>
 </li>
 <li>projects</li>
@@ -370,36 +372,11 @@ This target is used when you don't want to use your local version of a module an
 Generates both an html report and a graphml report.<br class="xooki-br"/><br class="xooki-br"/>For example, to generate a graph like the one shown at the beginning of this tutorial, you just have to follow the instructions given <a href="../../../history/latest-milestone/yed.html">here</a> with the graphml file you will find in <pre>projects/console/build/</pre> after having called report in the console project, and that's it, you have a clear overview of all your app dependencies!<br class="xooki-br"/><br class="xooki-br"/><h1>Playing with the projects</h1>
 You can play with this tutorial by using regular Ant commands. Begin in the base directory of the tutorial (src/example/multi-project), and run ant -p:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project]$ ant -p
-Buildfile: /ivy/multi-project/build.xml
-
-Main targets:
-
- clean        clean tutorial: delete repository, ivy cache, and all projects
- clean-all    clean all projects
- publish-all  compile, jar and publish all projects in the right order
 
 </pre></div>
 
 This gives you an idea of what you can do here. To make sure you have at least one version of all your modules published in your repository (required to build modules having dependencies on the others), you can run <tt>ant publish-all</tt> (example log <a href="log/multi-project-general-publishall.txt">here</a>).<br class="xooki-br"/><br class="xooki-br"/>You will see that Ivy calls the publish target on all the modules, following the order of the dependencies, so that a dependee is always built and published before its depender. Feel free to make changes in the source code of a module (changing a method name for instance) and in the module using the method, then call publish-all to see how the change in the dependee is compiled first, published, and then available to the depender which can compile successfully.<br class="xooki-br"/><br class="xooki-br"/>Then you can go in one of the example project directories (like projects/find for instance), and run <tt>ant -p</tt>:
 <div class="shell"><pre>
-[ivy@apache:/ivy/multi-project/projects/find]$ ant -p
-Buildfile: /ivy/multi-project/projects/find/build.xml
-
-Main targets:
-
- clean          --> clean the project
- clean-build    --> clean the project built files
- clean-lib      --> clean the project libraries directory (dependencies)
- clean-local    --> cleans the local repository for the current module
- compile        --> compile the project
- jar            --> make a jar file for this project
- publish        --> publish this project in the ivy repository
- publish-local  --> publish this project in the local ivy repository
- report         --> generates a report of dependencies
- resolve        --> resolve and retrieve dependencies with ivy
- run            --> compile and run the project
-Default target: compile
 
 </pre></div>
 
