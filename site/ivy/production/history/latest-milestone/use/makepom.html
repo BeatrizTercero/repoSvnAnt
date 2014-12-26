@@ -67,7 +67,7 @@
         </div>
 
 		<div id="navcontainer">
-		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a> &gt; <a href="../../../history/latest-milestone/reference.html" >Reference</a> &gt; <a href="../../../history/latest-milestone/ant.html" >Ant Tasks</a> &gt; <a href="../../../history/latest-milestone/use/makepom.html" class="current">makepom</a></span>
+		<a href="http://www.apache.org/">Apache&#153;</a> &gt; <a href="http://ant.apache.org/">Apache Ant&#153;</a> &gt; <a href="http://ant.apache.org/ivy/">Apache Ivy&#153;</a> &gt; <span class="breadCrumb"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a> &gt; <a href="../../../history/latest-milestone/reference.html" >Reference</a> &gt; <a href="../../../history/latest-milestone/ant.html" >Ant Tasks</a> &gt; <a href="../../../history/latest-milestone/use/makepom.html" class="current">makepom</a></span>
 		</div>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 </ul></li>
 <li id="xooki-download" class="submenu"><a href="../../../download.html" >Download</a><ul class="closed"><li id="xooki-choose-distrib"><a href="../../../choose-distrib.html" >Choose distribution</a></li>
 </ul></li>
-<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0-rc1)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
+<li id="xooki-history/latest-milestone/index" class="submenu"><a href="../../../history/latest-milestone/index.html" >Documentation (2.4.0)</a><ul class="open"><li id="xooki-history/latest-milestone/release-notes"><a href="../../../history/latest-milestone/release-notes.html" >Release Notes</a></li>
 <li id="xooki-history/latest-milestone/tutorial" class="submenu"><a href="../../../history/latest-milestone/tutorial.html" >Tutorials</a><ul class="closed"><li id="xooki-history/latest-milestone/tutorial/start"><a href="../../../history/latest-milestone/tutorial/start.html" >Quick Start</a></li>
 <li id="xooki-history/latest-milestone/tutorial/defaultconf"><a href="../../../history/latest-milestone/tutorial/defaultconf.html" >Adjusting default settings</a></li>
 <li id="xooki-history/latest-milestone/tutorial/multiple"><a href="../../../history/latest-milestone/tutorial/multiple.html" >Multiple Resolvers</a></li>
@@ -151,6 +151,7 @@
 <li id="xooki-history/latest-milestone/resolver/osgiagg"><a href="../../../history/latest-milestone/resolver/osgiagg.html" >Aggregated OSGi Repository</a></li>
 <li id="xooki-history/latest-milestone/resolver/updatesite"><a href="../../../history/latest-milestone/resolver/updatesite.html" >Eclipse updatesite</a></li>
 <li id="xooki-history/latest-milestone/resolver/mirrored"><a href="../../../history/latest-milestone/resolver/mirrored.html" >Mirrored Resolver</a></li>
+<li id="xooki-history/latest-milestone/resolver/bintray"><a href="../../../history/latest-milestone/resolver/bintray.html" >Bintray Resolver</a></li>
 </ul></li>
 <li id="xooki-history/latest-milestone/settings/conflict-managers"><a href="../../../history/latest-milestone/settings/conflict-managers.html" >conflict-managers</a></li>
 <li id="xooki-history/latest-milestone/settings/modules" class="submenu"><a href="../../../history/latest-milestone/settings/modules.html" >modules</a><ul class="closed"><li id="xooki-history/latest-milestone/settings/module"><a href="../../../history/latest-milestone/settings/module.html" >module</a></li>
@@ -234,7 +235,8 @@
 </ul></li>
 </ul></li>
 <li id="xooki-history" class="submenu"><a href="../../../history.html" >History</a><ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/trunk/index.html" >Trunk</a></li>
-<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
+<li id="xooki-2.x" class="submenu">2.x<ul class="closed"><li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0/index.html" >2.4.0</a></li>
+<li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.4.0-rc1/index.html" >2.4.0-rc1</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.3.0/index.html" >2.3.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.2.0/index.html" >2.2.0</a></li>
 <li id="xooki-undefined"><a href="http://ant.apache.org/ivy/history/2.1.0/index.html" >2.1.0</a></li>
@@ -319,7 +321,7 @@ The ivy:makepom task defines following properties that can be used in the templa
 </ul>
 Note that each property can be given a value manually in the Ant build file. In that case, Ivy will use the value specified in the build file instead of the default value.<br class="xooki-br"/><br class="xooki-br"/>The default template that ships with Ivy looks like this:
 <pre>
-${ivy.pom.license}<br class="xooki-br"/>${ivy.pom.header}<br class="xooki-br"/>&lt;project xmlns="<a href="http://maven.apache.org/POM/4.0.0">http://maven.apache.org/POM/4.0.0</a>" xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>"<br class="xooki-br"/>    xsi:schemaLocation="<a href="http://maven.apache.org/POM/4.0.0">http://maven.apache.org/POM/4.0.0</a> <a href="http://maven.apache.org/maven-v4_0_0.xsd">http://maven.apache.org/maven-v4_0_0.xsd</a>"&gt;<br class="xooki-br"/><br class="xooki-br"/>  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>  &lt;groupId&gt;${ivy.pom.groupId}&lt;/groupId&gt;<br class="xooki-br"/>  &lt;artifactId&gt;${ivy.pom.artifactId}&lt;/artifactId&gt;<br class="xooki-br"/>  &lt;packaging&gt;${ivy.pom.packaging}&lt;/packaging&gt;<br class="xooki-br"/>  &lt;version&gt;${ivy.pom.version}&lt;/version&gt;<br class="xooki-br"/>  &lt;name&gt;${ivy.pom.name}&lt;/name&gt;<br class="xooki-br"/>  &lt;description&gt;${ivy.pom.description}&lt;/description&gt;<br class="xooki-br"/>  &lt;url&gt;${ivy.pom.url}&lt;/url&gt;<br class="xooki-br"/>&lt;/project&gt;
+${ivy.pom.license}<br class="xooki-br"/>${ivy.pom.header}<br class="xooki-br"/>&lt;project xmlns="<a href="http://maven.apache.org/POM/4.0.0">http://maven.apache.org/POM/4.0.0</a>" xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>"<br class="xooki-br"/>    xsi:schemaLocation="<a href="http://maven.apache.org/POM/4.0.0">http://maven.apache.org/POM/4.0.0</a> <a href="http://maven.apache.org/xsd/maven-4.0.0.xsd">http://maven.apache.org/xsd/maven-4.0.0.xsd</a>"&gt;<br class="xooki-br"/><br class="xooki-br"/>  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;<br class="xooki-br"/>  &lt;groupId&gt;${ivy.pom.groupId}&lt;/groupId&gt;<br class="xooki-br"/>  &lt;artifactId&gt;${ivy.pom.artifactId}&lt;/artifactId&gt;<br class="xooki-br"/>  &lt;packaging&gt;${ivy.pom.packaging}&lt;/packaging&gt;<br class="xooki-br"/>  &lt;version&gt;${ivy.pom.version}&lt;/version&gt;<br class="xooki-br"/>  &lt;name&gt;${ivy.pom.name}&lt;/name&gt;<br class="xooki-br"/>  &lt;description&gt;${ivy.pom.description}&lt;/description&gt;<br class="xooki-br"/>  &lt;url&gt;${ivy.pom.url}&lt;/url&gt;<br class="xooki-br"/>&lt;/project&gt;
 </pre>
 
 <h1>Attributes</h1>
