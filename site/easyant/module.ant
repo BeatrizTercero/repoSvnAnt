@@ -16,8 +16,8 @@
 -->
 <project xmlns:ea="antlib:org.apache.easyant" >
     
-    <property name="site.generate.directory" value="./production"/>
-    <property name="src.documentation.dir" value="./sources"/>
+    <property name="site.generate.directory" value="${basedir}/production"/>
+    <property name="src.documentation.dir" value="${basedir}/sources"/>
     <!-- this avoid creation of mispelled directory when xooki make resources processing -->
     <property name="target" value="target"/>
     <property name="xooki.resources.include.pattern" value="*.cgi,style/**,images/**,js/*"/>

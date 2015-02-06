@@ -84,20 +84,16 @@ To get information about the different kind of distributions, see [[choose-distr
 </table>
 
 <h2>Building from source</h2>
-What you can get here at the ASF is the latest sources from the Subversion repository:
+What you can get here at the ASF is the latest sources from the Git repository:
 <code>
-svn co https://svn.apache.org/repos/asf/incubator/easyant/core/trunk easyant
+git clone git://git.apache.org/ant-easyant-core.git
+git checkout 0.9-incubating
 </code>
 Then to build Apache EasyAnt from source, assuming you have Apache Ant&#153; 1.8.0+ and a jdk 1.5+ installed, then you only need to run the following command:
 <code>
 ant clean run -Dtarget=dist
 </code>
 Then you will find easyant-core.jar in <b>target/artifacts</b>.
-
-<h2>Snapshot build</h2>
-The Apache Software Foundation hosts an installation of the Jenkins CI-system where a continuous build of EasyAnt is available. Note that these are not official builds and they are not endorsed or even supported by the Apache EasyAnt team. But if you have problems with testing the latest (successful) build, you are welcome to post that on the mailinglist. 
-
-The project page of Apache EasyAnt on this Jenkins installation is: https://builds.apache.org/view/A-F/view/Ant/job/EasyAnt/. Here you can find links to the latest version of the jars.
 
 <h2><a name="VerifyReleases">Verify Releases</a></h2>
 It is essential that you verify the integrity of the downloaded files using the PGP signature or the SHA1 or MD5 checksums.  The checksums are not as strong indicators as the PGP signature.
