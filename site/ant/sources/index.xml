@@ -25,14 +25,6 @@
 
 <body>
 
-  <section name="Migration to Git">
-    <h3>May 23d, 2014 - Apache Ant's family of projects migrates to git on https://git-wip-us.apache.org/repos/asf</h3>
-    <p>The Apache Ant family of projects migrates to git hosted by the Apache Software Foundation's infrastructure on
-      https://git-wip-us.apache.org/repos/asf.</p><p>The source code of Apache Ant, Ivy, Ivyde, the Antlibs and EasyAnt
-    Are all migrated to Git.
-    We are keeping our web site in Subversion, as well as the sandbox.
-  </p>
-  </section>
   <section name="Apache Ant&amp;#x2122;">
 
     <p>Apache Ant is a Java library and command-line tool whose
@@ -65,16 +57,14 @@
           Foundation</a>.</p>
   </section>
 
-  <section name="Apache Ant 1.9.4">
-    <h3>May 5, 2014 - Apache Ant 1.9.4 Released</h3>
-    <p>Apache Ant 1.9.4 is now available for download as source or
+  <section name="Apache Ant 1.9.5">
+    <h3>Jun 3, 2015 - Apache Ant 1.9.5 Released</h3>
+    <p>Apache Ant 1.9.5 is now available for download as source or
       binary from
       <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
 
-    <p>Ant 1.9.4 contains several bug fixes and improvements compared to Ant 1.9.3,
-      including the initial support for Java 1.9,
-      the possibility to run JUnit tests in multiple threads (when they are forked)
-      and the refactoring of Ant's own test suite which is now based on JUnit 4.</p>
+    <p>Ant 1.9.5 contains several bug fixes and improvements compared to Ant 1.9.4,
+      most importantly bug in the &lt;tar&gt; family of tasks and types.</p>
 
   </section>
 
@@ -163,7 +153,7 @@
   <section name="Documentation">
 
 <p>
-You can view the documentation for the current release (Apache Ant 1.9.0)
+You can view the documentation for the current release (Apache Ant 1.9.5)
 <a href="manual/index.html">online</a>
 </p>
 

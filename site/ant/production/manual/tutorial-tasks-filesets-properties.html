@@ -385,13 +385,13 @@ too.</p>
         &lt;/path&gt;
     &lt;/find&gt;
 </pre>
-<p>On <b>*1</b> we rename only the vector. ItÃÂ¯ÃÂ¿ÃÂ½s just for better reading the source. On <b>*2</b>
+<p>On <b>*1</b> we rename only the vector. It�s just for better reading the source. On <b>*2</b>
 we have to provide the right method: an add<i>Name</i>(<i>Type</i> t). Therefore replace the
 fileset with path here. Finally we have to modify our buildfile on <b>*3</b> because our task
-doesnÃÂ¯ÃÂ¿ÃÂ½t support nested filesets any longer. So we wrap the fileset inside a path.</p>
+doesn�t support nested filesets any longer. So we wrap the fileset inside a path.</p>
 
 <p>And now we modify the testcase. Oh, not very much to do :-) Renaming the <tt>testMissingFileset()</tt>
-(not really a <i>must-be</i> but better itÃÂ¯ÃÂ¿ÃÂ½s named like the think it does) and update the
+(not really a <i>must-be</i> but better it�s named like the think it does) and update the
 <i>expected</i>-String in that method (now a <tt>path not set</tt> message is expected). The more complex
 test cases base on the buildscript. So the targets <tt>testFileNotPresent</tt> and <tt>testFilePresent</tt> have to be
 modified in the manner described above.</p>
@@ -761,7 +761,7 @@ cvs -d :pserver:anoncvs@cvs.apache.org:/home/cvspublic update                //4
 </pre></p>
 
 <p>We use the <i>-d</i> flag on <b>//1</b> to specify the cvs directory. You can
-specify the environment variable CVSROOT with that value and after that you havenÃÂ¯ÃÂ¿ÃÂ½t
+specify the environment variable CVSROOT with that value and after that you haven�t
 to use that flag any more. On <b>//2</b> we get the whole cvs tree of ant. (Sorry,
 but that uses a lot of time ... 10 up to 30 minutes are not unusual ... but this has
 to be done only once :-). A cvs update doesn't use a modulename but you have to be
