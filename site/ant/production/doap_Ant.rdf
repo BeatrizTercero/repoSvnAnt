@@ -36,6 +36,13 @@
     <release>
       <Version>
         <name>Apache Ant 1.9.5</name>
+        <created>2015-07-02</created>
+        <revision>1.9.6</revision>
+      </Version>
+    </release>
+    <release>
+      <Version>
+        <name>Apache Ant 1.9.5</name>
         <created>2015-06-03</created>
         <revision>1.9.5</revision>
       </Version>
