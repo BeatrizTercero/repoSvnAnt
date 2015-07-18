@@ -132,10 +132,10 @@
       </Version>
     </release>
     <repository>
-      <SVNRepository>
-        <location rdf:resource="http://svn.apache.org/repos/asf/ant"/>
-        <browse rdf:resource="http://svn.apache.org/viewvc/ant"/>
-      </SVNRepository>
+      <GITRepository>
+        <location rdf:resource="https://git-wip-us.apache.org/repos/asf/ant.git"/>
+        <browse rdf:resource="https://git-wip-us.apache.org/repos/asf/ant.git"/>
+      </GITRepository>
     </repository>
   </Project>
 </rdf:RDF>
