@@ -67,15 +67,13 @@
     version of Java.</p>
   </section>
   
-  <section name="Apache Ant 1.9.6">
-    <h3>Jul 2, 2015 - Apache Ant 1.9.6 Released</h3>
-    <p>Apache Ant 1.9.6 is now available for download as source or
+  <section name="Apache Ant 1.9.7">
+    <h3>Apr 12, 2016 - Apache Ant 1.9.7 Released</h3>
+    <p>Apache Ant 1.9.7 is now available for download as source or
       binary from
       <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>.</p>
 
-    <p>Ant 1.9.6 fixes a regression in the zip package introduced with
-    Ant 1.9.5.</p>
-
+    <p>Ant 1.9.7 contains several bug fixes and improvements compared to Ant 1.9.6.</p>
   </section>
 
   <section name="Apache IvyDE 2.2.0">
@@ -163,7 +161,7 @@
   <section name="Documentation">
 
 <p>
-You can view the documentation for the current release (Apache Ant 1.9.6)
+You can view the documentation for the current release (Apache Ant 1.9.7)
 <a href="manual/index.html">online</a>
 </p>
 
