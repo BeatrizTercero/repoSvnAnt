@@ -238,36 +238,69 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
     </tr>
             <tr><td colspan="6" class="title"><b>Apache Ant</b></td></tr>
                         <tr>
-      <td class="title">Ant Test Windows</td>
-      <td class="description">Build</td>
-      <td class="command">build.bat allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip</td>
+      <td class="title">Ant JDK-Matrix 1.9-branch</td>
+      <td class="description">Checks Ant 1.9-branch against several JDKs (1.5, 1.6, 1.7, 1.8) on several OS (Ubuntu, Windows)</td>
+      <td class="command">build.[bat|sh] allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ant-test-windows/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ant-test-windows/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ant-Build-Matrix-1.9.x/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ant-Build-Matrix-1.9.x/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
-      <td class="title">Ant JDK-Matrix</td>
-      <td class="description">Checks Ant Trunk against several JDKs (1.5, 1.6, 1.7) on several OS (Ubuntu Windows)</td>
-      <td class="command">build allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip</td>
+      <td class="title">Ant JDK-Matrix master-branch</td>
+      <td class="description">Checks Ant master-branch against several JDKs (1.8, OpenJDK 1.8) on several OS (Ubuntu Windows)</td>
+      <td class="command">build.[bat|sh] allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ant-Build-Matrix/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ant-Build-Matrix/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ant-Build-Matrix-master/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ant-Build-Matrix-master/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
       <td class="title">Checks Ant POMs by building Ant from the POMs.</td>
       <td class="description">Checks the POMs by building Ant by Maven</td>
-      <td class="command">maven src/etc/poms/pom.xml clean package</td>
+      <td class="command">maven src/etc/poms/pom.xml clean package -DskipTests</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ant_BuildFromPOMs/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ant_BuildFromPOMs/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ant_BuildFromPOMs/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ant_BuildFromPOMs/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
       <td class="title">Ant Nightly</td>
       <td class="description">Metric checks of Ant Trunk (Findbugs, RAT, Checkstyle)</td>
       <td class="command">ant allclean distribution | ant -f check.xml dumphtml findbugs rat</td>
+              <td class="when">nightly</td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ant_Nightly/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ant_Nightly/lastSuccessfulBuild/">last success</a></td>
+    </tr>
+                <tr><td colspan="6" class="title"><b>AntLibs</b></td></tr>
+                        <tr>
+      <td class="title">AntUnit</td>
+      <td class="description">Unit-Testing of Ant Tasks</td>
+      <td class="command"></td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ant_Nightly/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ant_Nightly/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-antunit/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-antunit/lastSuccessfulBuild/">last success</a></td>
+    </tr>
+                        <tr>
+      <td class="title">Compress</td>
+      <td class="description">Integration of Apache Commons Compress</td>
+      <td class="command"></td>
+              <td class="when">continuously</td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-compress/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-compress/lastSuccessfulBuild/">last success</a></td>
+    </tr>
+                        <tr>
+      <td class="title">Props</td>
+      <td class="description">Library of supplementary handlers for Ant properties resolution.</td>
+      <td class="command"></td>
+              <td class="when">continuously</td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-props/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-props/lastSuccessfulBuild/">last success</a></td>
+    </tr>
+                        <tr>
+      <td class="title">SVN</td>
+      <td class="description"></td>
+      <td class="command"></td>
+              <td class="when">continuously</td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-svn/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/AntLib-svn/lastSuccessfulBuild/">last success</a></td>
     </tr>
                 <tr><td colspan="6" class="title"><b>Apache Ivy</b></td></tr>
                         <tr>
@@ -275,24 +308,24 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
       <td class="description">current development</td>
       <td class="command">ant clean jar</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ivy/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ivy/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
       <td class="title">Ivy Core Trunk Checks</td>
       <td class="description">Metric checks of Ivy Trunk (Findbugs, RAT, Checkstyle)</td>
       <td class="command">ant findbugs checkstyle-internal | ant -file build-release.xml -Drat.failOnError=false rat</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ivy-check/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ivy-check/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy-check/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy-check/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
       <td class="title">Ivy Tests</td>
       <td class="description"></td>
       <td class="command"></td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/Ivy-tests/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/Ivy-tests/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy-tests/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/Ivy-tests/lastSuccessfulBuild/">last success</a></td>
     </tr>
                 <tr><td colspan="6" class="title"><b>Apache IvyDE</b></td></tr>
                         <tr>
@@ -300,16 +333,16 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
       <td class="description">current development</td>
       <td class="command">ant clean hudson-prepare | ant dist checkstyle rat</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/IvyDE/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/IvyDE/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/IvyDE/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/IvyDE/lastSuccessfulBuild/">last success</a></td>
     </tr>
                         <tr>
       <td class="title">Eclipse Updatesite</td>
       <td class="description">Update your Eclipse installation with the latest Ivy/IvyDE</td>
       <td class="command">ant hudson-prepare | ant hudson-build</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/IvyDE-updatesite/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/IvyDE-updatesite/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/IvyDE-updatesite/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/IvyDE-updatesite/lastSuccessfulBuild/">last success</a></td>
     </tr>
                 <tr><td colspan="6" class="title"><b>Apache EasyAnt</b></td></tr>
                         <tr>
@@ -317,8 +350,8 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
       <td class="description">current development</td>
       <td class="command">ant -Dbootstrap.fork=true -Dtarget=distribution clean run</td>
               <td class="when">continuously</td>
-            <td class="link"><a href="https://builds.apache.org/job/EasyAnt/lastBuild/">last build</a></td>
-      <td class="link"><a href="https://builds.apache.org/job/EasyAnt/lastSuccessfulBuild/">last success</a></td>
+            <td class="link"><a href="https://builds.apache.org/view/All/job/EasyAnt/lastBuild/">last build</a></td>
+      <td class="link"><a href="https://builds.apache.org/view/All/job/EasyAnt/lastSuccessfulBuild/">last success</a></td>
     </tr>
                 </table>
                                 <p>JetBrains is offering Ant the service of a Continuous Build on their TeamCity system.</p>

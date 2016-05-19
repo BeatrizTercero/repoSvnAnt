@@ -50,19 +50,34 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
 <a href="https://builds.apache.org/">use</a>.</p>
 
 <!-- TODO: insert the job commands  //job/@command  -->
-<hudson base="https://builds.apache.org">
+<hudson base="https://builds.apache.org/view/All">
     <project name="Apache Ant">
-        <job id="Ant-test-windows" title="Ant Test Windows" command="build.bat allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip">
-            <description>Build</description>
+        <job id="Ant-Build-Matrix-1.9.x" title="Ant JDK-Matrix 1.9-branch" command="build.[bat|sh] allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip">
+            <description>Checks Ant 1.9-branch against several JDKs (1.5, 1.6, 1.7, 1.8) on several OS (Ubuntu, Windows)</description>
         </job>
-        <job id="Ant-Build-Matrix" title="Ant JDK-Matrix" command="build allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip">
-            <description>Checks Ant Trunk against several JDKs (1.5, 1.6, 1.7) on several OS (Ubuntu Windows)</description>
+        <job id="Ant-Build-Matrix-master" title="Ant JDK-Matrix master-branch" command="build.[bat|sh] allclean test -Dignore.tests.failed=true -Doptional.jars.whenmanifestonly=skip">
+            <description>Checks Ant master-branch against several JDKs (1.8, OpenJDK 1.8) on several OS (Ubuntu Windows)</description>
         </job>
-        <job id="Ant_BuildFromPOMs" title="Checks Ant POMs by building Ant from the POMs." command="maven src/etc/poms/pom.xml clean package">
+        <job id="Ant_BuildFromPOMs" title="Checks Ant POMs by building Ant from the POMs." command="maven src/etc/poms/pom.xml clean package -DskipTests">
             <description>Checks the POMs by building Ant by Maven</description>
         </job>
         <job id="Ant_Nightly" title="Ant Nightly" command="ant allclean distribution | ant -f check.xml dumphtml findbugs rat">
             <description>Metric checks of Ant Trunk (Findbugs, RAT, Checkstyle)</description>
+            <when>nightly</when>
+        </job>
+    </project>
+    <project name="AntLibs">
+        <job id="AntLib-antunit" title="AntUnit" command="">
+            <description>Unit-Testing of Ant Tasks</description>
+        </job>
+        <job id="AntLib-compress" title="Compress" command="">
+            <description>Integration of Apache Commons Compress</description>
+        </job>
+        <job id="AntLib-props" title="Props" command="">
+            <description>Library of supplementary handlers for Ant properties resolution.</description>
+        </job>
+        <job id="AntLib-svn" title="SVN" command="">
+            <description></description>
         </job>
     </project>
     <project name="Apache Ivy">
