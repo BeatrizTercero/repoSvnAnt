@@ -125,7 +125,7 @@
 #macro ( configuration $conf $viewLink)
     #set ($id = $conf.getAttributeValue("id")                         )
     <tr>
-      <td class="title">$conf.getAttributeValue("title")</td>
+      <td class="title"><a href="$viewLink?&buildTypeId=$id">$conf.getAttributeValue("title")</a></td>
       <td class="description">$conf.getChild("description").getContent()</td>
       <td class="command">$conf.getAttributeValue("command")</td>
       #if ($conf.getChild("when"))
@@ -166,7 +166,7 @@
 #macro ( job $job $base)
     #set ($jobId = $job.getAttributeValue("id")                         )
     <tr>
-      <td class="title">$job.getAttributeValue("title")</td>
+      <td class="title"><a href="$base/job/$jobId/">$job.getAttributeValue("title")</a></td>
       <td class="description">$job.getChild("description").getContent()</td>
       <td class="command">$job.getAttributeValue("command")</td>
       #if ($job.getChild("when"))
