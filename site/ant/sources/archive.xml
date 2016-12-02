@@ -43,6 +43,8 @@
       </p>
     </section>
     <section name="List">
+      <p>Currently there isn't any archived subproject.</p>
+      <!-- just 'template'
       <ul>
         <li><b>subproject-1</b><br/>
           <a href="link-to-old-repo">code in git repository</a>,
@@ -55,6 +57,7 @@
           <a href="mail-archive">archive of the closed mailinglist</a>
         </li>
       </ul>
+      -->
     </section>
   </body>
 </document>
