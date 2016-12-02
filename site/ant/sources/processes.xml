@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<document>
+
+  <properties>
+    <title>Project Processes</title>
+    <author email="">Apache Ant PMC</author>
+  </properties>
+
+<body>
+  <section name="Apache Ant&amp;#x2122; Project Processes/Checklists">
+    <p>
+      Here we describe some of the processes we use. 
+    </p>
+    <ul>
+        <li><a href="#Retire a subproject or component">Retire a subproject or component</a></li>
+        <li><a href="#Reactivate a subproject or component">Reactivate a subproject or component</a></li>
+    </ul>
+  </section>
+
+
+
+  <section name="Retire a subproject or component">
+    <p>
+      The process starts by a format vote by the Ant PMC 
+      on the main development mailinglist.
+      Basically we have to announce it and make resources read-only. 
+    </p> 
+    <ul>
+      <li><a href="#Retire: Version Control">Version Control</a></li>
+      <li><a href="#Retire: Issue Tracker">Issue Tracker</a></li>
+      <li><a href="#Retire: Mailing List">Mailing List</a></li>
+      <li><a href="#Retire: Announcement">Announcement</a></li>
+      <li><a href="#Retire: Build Jobs">Build Jobs</a></li>
+      <li><a href="#Retire: Homepage">Homepage</a></li>
+      <li><a href="#Retire: Releases">Releases</a></li>
+      <li><a href="#Retire: Free Further Resources">Free Further Resources</a></li>
+    </ul>
+
+    <subsection name="Retire: Version Control">
+      <p>
+        Most of our source code is in git, only "site" and "sandbox" use subversion.
+        We place a marker RETIRED_PROJECT file on the top level. <br/>
+        Add a note at the top of a README file as well so it is immediately visible 
+        to people browsing the github mirror. Include a link to this page for
+        a possible future reactivation and a link to the vote result. <br/>  
+        Ask infra to make the repository read-only.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Issue Tracker">
+      <p>
+        If the subproject/component has its own issue tracker we have to close that.
+        It is enough to make it read-only, so these information are longer available.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Mailing List">
+      <p>
+        If the subproject/component has its own mailing list we have to close 
+        this. We should send a final email.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Announcement">
+      <p>
+        We have to announce the retirement of the subproject at dev@ant, 
+        announce@apache and the Ant main page.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Build Jobs">
+      <p>
+        All build jobs on Jenkins@Apache, TeamCity and Gump have to be deleted.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Homepage">
+      <p>
+        Add the retirement to the archive-page.
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Releases">
+      <p>
+        The last released artifacts, if any, should be removed from the Apache 
+        distribution server. To do so, remove any artifact related to the retired 
+        subproject in <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a>
+        (it is managed with subversion). 
+        Note: as every Apache release, nothing is deleted but everything is archived, 
+        the artifacts will still be available at <a href="https://archive.apache.org/dist/ant/">https://archive.apache.org/dist/ant/</a>
+        (or <a href="http://archive.apache.org/dist/incubator/">http://archive.apache.org/dist/incubator/</a>
+        for Incubator releases).
+      </p>
+    </subsection>
+
+    <subsection name="Retire: Free Further Resources">
+      <p>
+        Maybe a subproject locks further resources (update-site, ...). 
+        So we have to unblock them.   
+      </p>
+    </subsection>
+  </section>
+
+
+
+  <section name="Reactivate a subproject or component">
+    <p>
+      The process starts by a format vote by the Ant PMC 
+      on the main development mailinglist.
+      Basically we have to announce it and make resources read-write again. 
+    </p> 
+    <ul>
+      <li><a href="#Reactivate: Version Control">Version Control</a></li>
+      <li><a href="#Reactivate: Issue Tracker">Issue Tracker</a></li>
+      <li><a href="#Reactivate: Mailing List">Mailing List</a></li>
+      <li><a href="#Reactivate: Announcement">Announcement</a></li>
+      <li><a href="#Reactivate: Build Jobs">Build Jobs</a></li>
+      <li><a href="#Reactivate: Homepage">Homepage</a></li>
+      <li><a href="#Reactivate: Releases">Releases</a></li>
+      <li><a href="#Reactivate: Free Further Resources">Free Further Resources</a></li>
+    </ul>
+
+    <subsection name="Reactivate: Version Control">
+      <p>
+        Delete the marker file "RETIRED_PROJECT". <br/> 
+        Delete the note at the top of a README file as well so it is immediately 
+        visible to people browsing the github mirror. <br/>  
+        Ask infra to make the repository read-write again.
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Issue Tracker">
+      <p>
+        If the subproject/component has its own issue tracker we have to reopen that.
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Mailing List">
+      <p>
+        Because reopeing implies a smaller community we should use the main mailinglist
+        dev@ant. So reactivating a special list is not required and could be postponed
+        to a later PMC decision.
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Announcement">
+      <p>
+        Announce the reactivation of the subproject at dev@ant.
+        Decide about announcing the reactivation of the subproject at announce@apache.
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Build Jobs">
+      <p>
+        New build jobs on Jenkins@Apache, TeamCity and Gump could be created as
+        required. 
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Homepage">
+      <p>
+        Remove the component from the archive-page.
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Releases">
+      <p>
+        All earlier releases are available at <a href="https://archive.apache.org/dist/ant/">https://archive.apache.org/dist/ant/</a>.
+        We don't have to copy them back to <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a>.
+        But further releases are placed here. 
+      </p>
+    </subsection>
+
+    <subsection name="Reactivate: Free Further Resources">
+      <p>
+        Make existing read-only resources read-write again.
+        Further resources could be gained as required. 
+      </p>
+    </subsection>
+  </section>
+  
+</body>
+</document>

@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+        <html lang="en">
+    <!-- GENERATED FILE, DO NOT EDIT, EDIT THE XML FILE IN xdocs INSTEAD! -->
+    <head>
+      <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Apache Ant - Project Processes</title>
+        <link type="text/css" href="./page.css" rel="stylesheet">
+          <meta name="author" content="Apache Ant PMC">
+  <meta name="email" content="">
+      </head>
+
+    <body>
+      <p class="navpath">
+        <script src="./breadcrumbs.js" language="JavaScript" type="text/javascript"></script>
+      </p>
+
+      <div class="logobar">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left"><img border="0" alt="Apache Ant site" src="./images/group-logo.gif"></td>
+            <td align="center" width="100%"><img alt="Apache Ant logo" border="0" src="./images/project-logo.gif"></td>
+            <td align="right">
+              <form target="_blank" onsubmit="q.value = query.value + ' site:ant.apache.org'" action="http://www.google.com/search" method="get">
+                <table summary="search" border="0" cellspacing="0" cellpadding="0" bgcolor="#4C6C8F">
+                  <tr>
+                    <td colspan="3"><img height="10" width="1" alt="" src="./images/spacer.gif"></td>
+                  </tr>
+                  <tr>
+                    <td><img height="1" width="1" alt="" src="./images/spacer.gif"></td>
+                    <td nowrap="nowrap" class="searchcaption">
+                      <input name="q" type="hidden">
+                      <input size="15" id="query" type="text">
+                      <img height="1" width="5" alt="" src="./images/spacer.gif">
+                      <input name="Search" value="Search" type="submit">
+                      <br>
+                      the Apache Ant site
+                    </td>
+                    <td><img height="1" width="1" alt="" src="./images/spacer.gif"></td>
+                  </tr>
+                  <tr>
+                    <td><img alt="" border="0" height="10" width="9" src="./images/search-left.gif"></td>
+                    <td><img height="1" width="1" alt="" src="./images/spacer.gif"></td>
+                    <td><img alt="" border="0" height="10" width="9" src="./images/search-right.gif"></td>
+                  </tr>
+                </table>
+              </form>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+                  <div class="tab">
+              <table summary="tab bar" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                                  <td width="8"><img alt="" height="5" width="8" src="./images/spacer.gif"></td><td valign="bottom">
+                      <table summary="selected tab" style="height: 1.5em" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                        <td valign="top" width="5" bgcolor="#4C6C8F"><img height="5" width="5" alt="" src="./images/tabSel-left.gif"></td><td valign="middle" bgcolor="#4C6C8F"><font color="#ffffff" size="2" face="Arial, Helvetica, Sans-serif"><b>Home</b></font></td><td valign="top" width="5" bgcolor="#4C6C8F"><img height="5" width="5" alt="" src="./images/tabSel-right.gif"></td>
+                        </tr>
+                      </table>
+                    </td>
+                                    <td width="5"><img alt="" height="8" width="8" src="./images/spacer.gif"></td><td valign="bottom">
+                      <table summary="non selected tab" style="height: 1.4em" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td valign="top" width="5" bgcolor="#B2C4E0"><img height="5" width="5" alt="" src="./images/tab-left.gif"></td><td valign="middle" bgcolor="#B2C4E0"><a href="./projects/index.html"><font size="2" face="Arial, Helvetica, Sans-serif">Projects</font></a></td><td valign="top" width="5" bgcolor="#B2C4E0"><img height="5" width="5" alt="" src="./images/tab-right.gif"></td>
+                        </tr>
+                      </table>
+                    </td>
+                            </tr>
+              </table>
+            </div>
+
+      <div class="bluebar"></div>
+                    
+  <div class="menucontainer">
+    <div class="menu">
+      <ul>
+              <li class="menuheader">Apache Ant
+          <ul>
+                            <li>
+                                    <a href="./index.html">Welcome</a>
+                                </li>
+                            <li>
+                                    <a href="http://www.apache.org/licenses/LICENSE-2.0.html">License</a>
+                                </li>
+                            <li>
+                                    <a href="./antnews.html">News</a>
+                                </li>
+                            <li>
+                                    <a href="./security.html">Security Reports</a>
+                                </li>
+                      </ul>
+        </li>
+              <li class="menuheader">Documentation
+          <ul>
+                            <li>
+                                    <a href="./manual/index.html">Manual</a>
+                                </li>
+                            <li>
+                                    <a href="./projects.html">Related Projects</a>
+                                </li>
+                            <li>
+                                    <a href="./external.html">External Tools and Tasks</a>
+                                </li>
+                            <li>
+                                    <a href="./resources.html">Resources</a>
+                                </li>
+                            <li>
+                                    <a href="./faq.html">Frequently Asked Questions</a>
+                                </li>
+                            <li>
+                                    <a href="http://wiki.apache.org/ant/FrontPage">Wiki</a>
+                                </li>
+                            <li>
+                                    <a href="./problems.html">Having Problems?</a>
+                                </li>
+                      </ul>
+        </li>
+              <li class="menuheader">Download
+          <ul>
+                            <li>
+                                    <a href="http://ant.apache.org/bindownload.cgi">Binary Distributions</a>
+                                </li>
+                            <li>
+                                    <a href="http://ant.apache.org/srcdownload.cgi">Source Distributions</a>
+                                </li>
+                            <li>
+                                    <a href="http://ant.apache.org/manualdownload.cgi">Ant Manual</a>
+                                </li>
+                      </ul>
+        </li>
+              <li class="menuheader">Contributing
+          <ul>
+                            <li>
+                                    <a href="./mail.html">Mailing Lists</a>
+                                </li>
+                            <li>
+                                    <a href="./git.html">Git Repositories</a>
+                                </li>
+                            <li>
+                                    <a href="./svn.html">Subversion Repositories</a>
+                                </li>
+                            <li>
+                                    <a href="./nightlies.html">Nightly+Continuous Builds</a>
+                                </li>
+                            <li>
+                                    <a href="./bugs.html">Bug Database</a>
+                                </li>
+                            <li>
+                                    <a href="http://www.apache.org/security/">Security</a>
+                                </li>
+                      </ul>
+        </li>
+              <li class="menuheader">Sponsorship
+          <ul>
+                            <li>
+                                    <a href="http://www.apache.org/foundation/thanks.html">Thanks</a>
+                                </li>
+                            <li>
+                                    <a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a>
+                                </li>
+                      </ul>
+        </li>
+              <li class="menuheader">Project Management
+          <ul>
+                            <li>
+                                    <a href="./contributors.html">Contributors</a>
+                                </li>
+                            <li>
+                                    <a href="./mission.html">Apache Ant Mission</a>
+                                </li>
+                            <li>
+                                    <a href="./bylaws.html">Project Bylaws</a>
+                                </li>
+                            <li>
+                                    <a href="./legal.html">Legal</a>
+                                </li>
+                            <li>
+                                    <a href="./processes.html">Processes</a>
+                                </li>
+                            <li>
+                                    <a href="./archive.html">Archive</a>
+                                </li>
+                      </ul>
+        </li>
+            </ul>
+    </div>
+    <center>
+    <a href="http://www.apache.org/events/current-event.html"><img border="0" title="ApacheCon" alt="ApacheCon - logo" src="http://www.apache.org/events/current-event-125x125.png" style="width: 125px;height: 125px;"></a>
+    </center>
+    <img style="float: left" height="10" width="10" border="0" alt="" src="./images/menu-left.gif">
+    <img style="float: right" height="10" width="10" border="0" alt="" src="./images/menu-right.gif">
+  </div>
+      <div class="lightbluebar">&nbsp;</div>
+  <div class="main">
+  <div class="content">
+    <h1 class="title">Project Processes</h1>
+            <h3 class="section">
+      <a name="Apache Ant&amp;#x2122; Project Processes/Checklists"></a>
+      Apache Ant&#x2122; Project Processes/Checklists
+    </h3>
+                        <p>
+      Here we describe some of the processes we use. 
+    </p>
+                                <ul>
+        <li><a href="#Retire a subproject or component">Retire a subproject or component</a></li>
+        <li><a href="#Reactivate a subproject or component">Reactivate a subproject or component</a></li>
+    </ul>
+                        <h3 class="section">
+      <a name="Retire a subproject or component"></a>
+      Retire a subproject or component
+    </h3>
+                        <p>
+      The process starts by a format vote by the Ant PMC 
+      on the main development mailinglist.
+      Basically we have to announce it and make resources read-only. 
+    </p>
+                                <ul>
+      <li><a href="#Retire: Version Control">Version Control</a></li>
+      <li><a href="#Retire: Issue Tracker">Issue Tracker</a></li>
+      <li><a href="#Retire: Mailing List">Mailing List</a></li>
+      <li><a href="#Retire: Announcement">Announcement</a></li>
+      <li><a href="#Retire: Build Jobs">Build Jobs</a></li>
+      <li><a href="#Retire: Homepage">Homepage</a></li>
+      <li><a href="#Retire: Releases">Releases</a></li>
+      <li><a href="#Retire: Free Further Resources">Free Further Resources</a></li>
+    </ul>
+                                      <h4 class="subsection">
+        <a name="Retire: Version Control"></a>
+        Retire: Version Control
+      </h4>
+                        <p>
+        Most of our source code is in git, only "site" and "sandbox" use subversion.
+        We place a marker RETIRED_PROJECT file on the top level. <br />
+        Add a note at the top of a README file as well so it is immediately visible 
+        to people browsing the github mirror. Include a link to this page for
+        a possible future reactivation and a link to the vote result. <br />  
+        Ask infra to make the repository read-only.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Issue Tracker"></a>
+        Retire: Issue Tracker
+      </h4>
+                        <p>
+        If the subproject/component has its own issue tracker we have to close that.
+        It is enough to make it read-only, so these information are longer available.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Mailing List"></a>
+        Retire: Mailing List
+      </h4>
+                        <p>
+        If the subproject/component has its own mailing list we have to close 
+        this. We should send a final email.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Announcement"></a>
+        Retire: Announcement
+      </h4>
+                        <p>
+        We have to announce the retirement of the subproject at dev@ant, 
+        announce@apache and the Ant main page.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Build Jobs"></a>
+        Retire: Build Jobs
+      </h4>
+                        <p>
+        All build jobs on Jenkins@Apache, TeamCity and Gump have to be deleted.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Homepage"></a>
+        Retire: Homepage
+      </h4>
+                        <p>
+        Add the retirement to the archive-page.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Releases"></a>
+        Retire: Releases
+      </h4>
+                        <p>
+        The last released artifacts, if any, should be removed from the Apache 
+        distribution server. To do so, remove any artifact related to the retired 
+        subproject in <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a>
+        (it is managed with subversion). 
+        Note: as every Apache release, nothing is deleted but everything is archived, 
+        the artifacts will still be available at <a href="https://archive.apache.org/dist/ant/">https://archive.apache.org/dist/ant/</a>
+        (or <a href="http://archive.apache.org/dist/incubator/">http://archive.apache.org/dist/incubator/</a>
+        for Incubator releases).
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Retire: Free Further Resources"></a>
+        Retire: Free Further Resources
+      </h4>
+                        <p>
+        Maybe a subproject locks further resources (update-site, ...). 
+        So we have to unblock them.   
+      </p>
+                                            <h3 class="section">
+      <a name="Reactivate a subproject or component"></a>
+      Reactivate a subproject or component
+    </h3>
+                        <p>
+      The process starts by a format vote by the Ant PMC 
+      on the main development mailinglist.
+      Basically we have to announce it and make resources read-write again. 
+    </p>
+                                <ul>
+      <li><a href="#Reactivate: Version Control">Version Control</a></li>
+      <li><a href="#Reactivate: Issue Tracker">Issue Tracker</a></li>
+      <li><a href="#Reactivate: Mailing List">Mailing List</a></li>
+      <li><a href="#Reactivate: Announcement">Announcement</a></li>
+      <li><a href="#Reactivate: Build Jobs">Build Jobs</a></li>
+      <li><a href="#Reactivate: Homepage">Homepage</a></li>
+      <li><a href="#Reactivate: Releases">Releases</a></li>
+      <li><a href="#Reactivate: Free Further Resources">Free Further Resources</a></li>
+    </ul>
+                                      <h4 class="subsection">
+        <a name="Reactivate: Version Control"></a>
+        Reactivate: Version Control
+      </h4>
+                        <p>
+        Delete the marker file "RETIRED_PROJECT". <br /> 
+        Delete the note at the top of a README file as well so it is immediately 
+        visible to people browsing the github mirror. <br />  
+        Ask infra to make the repository read-write again.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Issue Tracker"></a>
+        Reactivate: Issue Tracker
+      </h4>
+                        <p>
+        If the subproject/component has its own issue tracker we have to reopen that.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Mailing List"></a>
+        Reactivate: Mailing List
+      </h4>
+                        <p>
+        Because reopeing implies a smaller community we should use the main mailinglist
+        dev@ant. So reactivating a special list is not required and could be postponed
+        to a later PMC decision.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Announcement"></a>
+        Reactivate: Announcement
+      </h4>
+                        <p>
+        Announce the reactivation of the subproject at dev@ant.
+        Decide about announcing the reactivation of the subproject at announce@apache.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Build Jobs"></a>
+        Reactivate: Build Jobs
+      </h4>
+                        <p>
+        New build jobs on Jenkins@Apache, TeamCity and Gump could be created as
+        required. 
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Homepage"></a>
+        Reactivate: Homepage
+      </h4>
+                        <p>
+        Remove the component from the archive-page.
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Releases"></a>
+        Reactivate: Releases
+      </h4>
+                        <p>
+        All earlier releases are available at <a href="https://archive.apache.org/dist/ant/">https://archive.apache.org/dist/ant/</a>.
+        We don't have to copy them back to <a href="https://dist.apache.org/repos/dist/release/ant/">https://dist.apache.org/repos/dist/release/ant/</a>.
+        But further releases are placed here. 
+      </p>
+                                                          <h4 class="subsection">
+        <a name="Reactivate: Free Further Resources"></a>
+        Reactivate: Free Further Resources
+      </h4>
+                        <p>
+        Make existing read-only resources read-write again.
+        Further resources could be gained as required. 
+      </p>
+                                    
+    </div>
+  </div>
+
+        <p class="copyright">
+      Apache Ant, Apache Ivy, Apache EasyAnt, Ant, Ivy, EasyAnt, Apache, the Apache feather logo, and the Apache Ant project logos are trademarks of The Apache Software Foundation.
+        <script type="text/javascript" language="JavaScript"><!--
+                document.write(" - "+"Last Published: " + document.lastModified);
+              //  -->
+        </script>
+      </p>
+    </body>
+  </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
