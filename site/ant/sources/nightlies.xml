@@ -100,11 +100,6 @@ installation of the <a href="http://jenkins-ci.org//">Jenkins</a> CI-system whic
             <description>Update your Eclipse installation with the latest Ivy/IvyDE</description>
         </job>
     </project>
-    <project name="Apache EasyAnt">
-        <job id="EasyAnt" title="EasyAnt Trunk" command="ant -Dbootstrap.fork=true -Dtarget=distribution clean run">
-            <description>current development</description>
-        </job>
-    </project>
 </hudson>
 
 <p>JetBrains is offering Ant the service of a Continuous Build on their TeamCity system.</p>
